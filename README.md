@@ -1,4 +1,4 @@
-# SMARTPARK ##INorOUT?
+# SMARTPARK
 ## Final SE Project
     * * * * * * * * * * * * * * * * *
     * * * * * * SMARTPARKT * * * * * *
