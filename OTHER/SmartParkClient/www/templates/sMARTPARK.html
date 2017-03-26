@@ -1,0 +1,22 @@
+<ion-view title="SMARTPARK" id="smartParkMain">
+  <ion-nav-buttons side="left" class="has-header" ng-click="openMenu">
+    <!-- <button class="button button-icon icon ion-android-menu"></button> -->
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right" class="has-header">
+    <button class="button button-calm icon ion-social-bitcoin-outline"> 23</button>
+  </ion-nav-buttons>
+  <ion-content padding="true" class="has-header">
+    <creator-map-component options="{&quot;mapTypeId&quot;:&quot;hybrid&quot;}" marker="true" location="Tel Aviv, israel" zoom="9" style="display:block;position:relative;margin-left:-10px;width:calc(100% + 20px);height:88%;">
+      <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" options="map.options">
+        <ui-gmap-marker coords="map.marker.coords" idkey="map.marker.id" options="map.marker.options"></ui-gmap-marker>
+      </ui-gmap-google-map>
+    </creator-map-component>
+    <div id="sMARTPARK-button-bar6" class="button-bar">
+      <a ui-sref="menu.sMARTPARKIN" id="sMARTPARK-button29" style="border-radius:54px 54px 54px 54px;" class="button button-calm  button-block icon ion-ios-redo">IN</a>
+      <a ui-sref="menu.sMARTPARKOUT" id="sMARTPARK-button30" style="border-radius:50px 50px 50px 50px;" class="button button-dark  button-block icon ion-ios-undo">OUT</a>
+    </div>
+  </ion-content>
+</ion-view>
