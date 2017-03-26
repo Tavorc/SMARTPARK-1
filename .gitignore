@@ -5,4 +5,6 @@ node_modules/
 platforms/
 plugins/
 smartParkClient/
-www3/
+smartParkCL/
+myApp/
+OTHER/
