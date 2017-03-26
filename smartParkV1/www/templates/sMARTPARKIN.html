@@ -1,0 +1,55 @@
+<ion-view title="SMARTPARK-IN" id="page2">
+  <ion-content padding="true" class="has-header">
+    <form id="sMARTPARKIN-form1" class="list">
+      <label class="item item-select" id="sMARTPARKIN-select2" name="radius">
+        <span class="input-label">Radius</span>
+        <select>
+          <option>0-0.2 km</option>
+          <option>0.2-0.4 km</option>
+          <option>0.4-0.6 km</option>
+          <option>0.6-0.8 km</option>
+          <option>0.8-1.00 km</option>
+          <option>1-1.5 km</option>
+          <option>2+ km</option>
+        </select>
+      </label>
+      <label class="item item-input calm" id="sMARTPARKIN-input3" name="date">
+        <span class="input-label">Date</span>
+        <input type="text" placeholder="dd / mm / yyyy">
+      </label>
+      <label class="item item-input" id="sMARTPARKIN-input2" name="time">
+        <span class="input-label">Time</span>
+        <input type="text" placeholder="hh : mm">
+      </label>
+      <label class="item item-input" id="sMARTPARKIN-input4" name="street">
+        <span class="input-label">Street</span>
+        <input type="text" placeholder="">
+      </label>
+      <label class="item item-input" id="sMARTPARKIN-input5" name="streetNum">
+        <span class="input-label">No.</span>
+        <input type="text" placeholder="">
+      </label>
+      <label class="item item-input" id="sMARTPARKIN-input6" name="city">
+        <span class="input-label">City</span>
+        <input type="text" placeholder="">
+      </label>
+      <label class="item item-select" id="sMARTPARKIN-select1" name="size">
+        <span class="input-label">Size</span>
+        <select>
+          <option>2-3 cubes</option>
+          <option>3-4 cubes</option>
+          <option>4-5 cubes</option>
+          <option>5-6 cubes</option>
+          <option>6+ cubes</option>
+        </select>
+      </label>
+      <label class="item item-input" id="sMARTPARKIN-textarea1" name="comments">
+        <span class="input-label">Comments</span><textarea placeholder=""></textarea></label>
+      <ion-checkbox id="sMARTPARKIN-checkbox2" name="handicap">Handicap</ion-checkbox>
+      <div id="sMARTPARKIN-button-bar2" class="button-bar">
+        <a ui-sref="menu.sMARTPARK" id="sMARTPARKIN-button12" style="font-weight:500;color:#3A3F51;border-radius:50px 50px 50px 50px;" class="button button-dark  button-block button-outline icon ion-android-cancel">Cancel</a>
+        <a ui-sref="chooseSMARTPARK" id="sMARTPARKIN-button13" style="font-weight:500;color:#2ABDEB;border-radius:50px 50px 50px 50px;" class="button button-calm  button-block button-outline icon ion-android-send">Send</a>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>
