@@ -32,14 +32,14 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('sMARTPARKLoginCtrl', ['$scope', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('sMARTPARKLoginCtrl', ['$scope', '$state','$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state) {
+function ($scope, $state, $ionicLoading) {
 $scope.googleSignIn = function() {
-    // $ionicLoading.show({
-    //   template: 'Logging in...'
-    // });
+    $ionicLoading.show({
+      template: 'Logging in...'
+    });
 
     window.plugins.googleplus.login(
       {},
@@ -54,10 +54,11 @@ $scope.googleSignIn = function() {
         //   accessToken: user_data.accessToken,
         //   idToken: user_data.idToken
         // });
+        $ionicLoading.hide();
          $state.go('menu.sMARTPARK');
       },
       function (msg) {
-
+      	 $ionicLoading.hide();
       }
     );
   };
