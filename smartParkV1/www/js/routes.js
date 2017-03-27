@@ -20,10 +20,14 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('sMARTPARKIN', {
+  .state('menu.sMARTPARKIN', {
     url: '/in',
-    templateUrl: 'templates/sMARTPARKIN.html',
-    controller: 'sMARTPARKINCtrl'
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/sMARTPARKIN.html',
+        controller: 'sMARTPARKINCtrl'
+      }
+    }
   })
 
   .state('menu.sMARTPARKOUT', {
@@ -54,10 +58,14 @@ angular.module('app.routes', [])
     controller: 'sMARTPARKSignupCtrl'
   })
 
-  .state('chooseSMARTPARK', {
+  .state('menu.chooseSMARTPARK', {
     url: '/in-choose',
-    templateUrl: 'templates/chooseSMARTPARK.html',
-    controller: 'chooseSMARTPARKCtrl'
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/chooseSMARTPARK.html',
+        controller: 'chooseSMARTPARKCtrl'
+      }
+    }
   })
 
 $urlRouterProvider.otherwise('/login')
