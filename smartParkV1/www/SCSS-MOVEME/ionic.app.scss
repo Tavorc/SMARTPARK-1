@@ -1,14 +1,6 @@
 $dark: #3A3F51;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "../www/lib/ionic/scss";
-.cyan {
-	color: #11C1F3;
-}
-
-.pad {
-	padding: 5px;
-}
-
 // This code is required for Angular Google Maps to funciton
 ui-gmap-google-map {
 	height: 100%;

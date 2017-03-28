@@ -9799,12 +9799,6 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
-.cyan {
-  color: #11C1F3; }
-
-.pad {
-  padding: 5px; }
-
 ui-gmap-google-map {
   height: 100%;
   width: 100%;

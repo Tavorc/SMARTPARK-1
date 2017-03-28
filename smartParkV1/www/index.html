@@ -5,12 +5,12 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-    <script src="cordova.js"></script>
+    
     
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
-    
+    <script src="cordova.js"></script>
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -65,29 +65,61 @@
     <script src="js/angular-google-maps.min.js"></script>
      
     <script src="js/googlemaps.init.js"></script>
-     
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-     
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="lib/bluebird.min.js"></script>
+    
 
-    <script src="lib/ionic.cloud.min.js"></script>
-
-    <!-- <script src="/plugins/cordova-plugin-googleplus/src/android/GooglePlus.java"></script> -->
-
-    <!-- Only required for Tab projects w/ pages in multiple tabs 
+    
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
-    -->
+    
 
   </head>
   <body ng-app="app" animation="slide-left-right-ios7">
   <div>
-  <div>
-    <ion-nav-bar class="bar-dark">
-      <ion-nav-back-button></ion-nav-back-button>
-    </ion-nav-bar>
-    <ion-nav-view></ion-nav-view>
-  </div>
+  <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
+    <ion-side-menu-content>
+      <ion-nav-bar class="bar-dark">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="left">
+          <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+        </ion-nav-buttons>
+      </ion-nav-bar>
+      <ion-nav-view></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left" id="side-menu21">
+      <ion-header-bar class="bar-dark">
+        <div class="title">SMART[Menu]</div>
+      </ion-header-bar>
+      <ion-content ng-controller="sMARTMenuCtrl" padding="false" class="side-menu-left has-header ">
+        <ion-list id="sMARTMenu-list4" data-componentid="list4">
+          <ion-item class="item-avatar item-icon-right" id="sMARTMenu-list-item11" data-componentid="list-item11">
+            <h2>Hello,</h2>
+            <p style="white-space:normal;">Jon Doe</p>
+            <i class="icon ion-android-exit"></i>
+          </ion-item>
+          <ion-item class="item-icon-left" id="sMARTMenu-list-item21" ui-sref="tabsController.mapsExample_tab1" menu-close="" data-componentid="list-item21">
+            <i class="icon ion-ios-plus-outline"></i>New SMART[Park]</ion-item>
+          <ion-item class="item-icon-left" id="sMARTMenu-list-item22" data-componentid="list-item22">
+            <i class="icon ion-arrow-swap"></i>History</ion-item>
+          <ion-item class="item-icon-left" id="sMARTMenu-list-item23" data-componentid="list-item23">
+            <i class="icon ion-android-notifications-none"></i>Notifications</ion-item>
+          <ion-toggle toggle-class="toggle-calm" ng-checked="true" id="sMARTMenu-toggle9" data-componentid="toggle9">Toggle</ion-toggle>
+          <ion-item class="item-icon-left" id="sMARTMenu-list-item24" data-componentid="list-item24">
+            <i class="icon ion-ios-settings-strong"></i>Settings</ion-item>
+          <ion-item class="item-icon-left" id="sMARTMenu-list-item25" data-componentid="list-item25">
+            <i class="icon ion-cash"></i>Buy SMARTIES</ion-item>
+          <ion-item class="item-icon-left" id="sMARTMenu-list-item26" data-componentid="list-item26">
+            <i class="icon ion-ios-email-outline"></i>Contact us</ion-item>
+          <ion-item class="item-icon-left" id="sMARTMenu-list-item27" data-componentid="list-item27">
+            <i class="icon ion-android-happy"></i>Feedback</ion-item>
+          <ion-item class="item-icon-left" id="sMARTMenu-list-item28" data-componentid="list-item28">
+            <i class="icon ion-help-buoy"></i>Help</ion-item>
+          <ion-item class="item-icon-left" id="sMARTMenu-list-item29" data-componentid="list-item29">
+            <i class="icon ion-android-share-alt"></i>Invite Friends</ion-item>
+          <ion-item class="item-icon-left" id="sMARTMenu-list-item30" data-componentid="list-item30">
+            <i class="icon ion-android-more-horizontal"></i>About SMART[PARK]</ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>
+  </ion-side-menus>
 </div>
   </body>
 </html>

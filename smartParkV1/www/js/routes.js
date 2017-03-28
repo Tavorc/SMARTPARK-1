@@ -1,4 +1,4 @@
-angular.module('app.routes', [])
+angular.module('app.routes', ['ionicUIRouter'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -10,40 +10,94 @@ angular.module('app.routes', [])
     
   
 
-      .state('menu.sMARTPARK', {
-    url: '/index',
+      .state('tabsController.sMARTIn', {
+    url: '/in',
     views: {
-      'side-menu21': {
+      'tab1': {
+        templateUrl: 'templates/sMARTIn.html',
+        controller: 'sMARTInCtrl'
+      }
+    }
+  })
+
+  .state('tabsController.sMARTOut', {
+    url: '/out',
+    views: {
+      'tab4': {
+        templateUrl: 'templates/sMARTOut.html',
+        controller: 'sMARTOutCtrl'
+      }
+    }
+  })
+
+  /* 
+    The IonicUIRouter.js UI-Router Modification is being used for this route.
+    To navigate to this route, do NOT use a URL. Instead use one of the following:
+      1) Using the ui-sref HTML attribute:
+        ui-sref='tabsController.sMARTPARK'
+      2) Using $state.go programatically:
+        $state.go('tabsController.sMARTPARK');
+    This allows your app to figure out which Tab to open this page in on the fly.
+    If you're setting a Tabs default page or modifying the .otherwise for your app and
+    must use a URL, use one of the following:
+      /page1/tab1/home
+      /page1/tab2/home
+  */
+  .state('tabsController.sMARTPARK', {
+    url: '/home',
+    views: {
+      'tab1': {
+        templateUrl: 'templates/sMARTPARK.html',
+        controller: 'sMARTPARKCtrl'
+      },
+      'tab2': {
         templateUrl: 'templates/sMARTPARK.html',
         controller: 'sMARTPARKCtrl'
       }
     }
   })
 
-  .state('menu.sMARTPARKIN', {
-    url: '/in',
+  .state('tabsController', {
+    url: '/page1',
+    templateUrl: 'templates/tabsController.html',
+    abstract:true
+  })
+
+  .state('tabsController.availableSMARTParks', {
+    url: '/avbl_sp',
     views: {
-      'side-menu21': {
-        templateUrl: 'templates/sMARTPARKIN.html',
-        controller: 'sMARTPARKINCtrl'
+      'tab1': {
+        templateUrl: 'templates/availableSMARTParks.html',
+        controller: 'availableSMARTParksCtrl'
       }
     }
   })
 
-  .state('menu.sMARTPARKOUT', {
-    url: '/out',
+  /* 
+    The IonicUIRouter.js UI-Router Modification is being used for this route.
+    To navigate to this route, do NOT use a URL. Instead use one of the following:
+      1) Using the ui-sref HTML attribute:
+        ui-sref='tabsController.mapsExample'
+      2) Using $state.go programatically:
+        $state.go('tabsController.mapsExample');
+    This allows your app to figure out which Tab to open this page in on the fly.
+    If you're setting a Tabs default page or modifying the .otherwise for your app and
+    must use a URL, use one of the following:
+      /page1/tab1/page6
+      /page1/tab4/page6
+  */
+  .state('tabsController.mapsExample', {
+    url: '/page6',
     views: {
-      'side-menu21': {
-        templateUrl: 'templates/sMARTPARKOUT.html',
-        controller: 'sMARTPARKOUTCtrl'
+      'tab1': {
+        templateUrl: 'templates/mapsExample.html',
+        controller: 'mapsExampleCtrl'
+      },
+      'tab4': {
+        templateUrl: 'templates/mapsExample.html',
+        controller: 'mapsExampleCtrl'
       }
     }
-  })
-
-  .state('menu', {
-    url: '/side-menu',
-    templateUrl: 'templates/menu.html',
-    controller: 'menuCtrl'
   })
 
   .state('sMARTPARKLogin', {
@@ -58,15 +112,18 @@ angular.module('app.routes', [])
     controller: 'sMARTPARKSignupCtrl'
   })
 
-  .state('menu.chooseSMARTPARK', {
-    url: '/in-choose',
+  .state('tabsController.sMARTPARKOut', {
+    url: '/status_sp',
     views: {
-      'side-menu21': {
-        templateUrl: 'templates/chooseSMARTPARK.html',
-        controller: 'chooseSMARTPARKCtrl'
+      'tab4': {
+        templateUrl: 'templates/sMARTPARKOut.html',
+        controller: 'sMARTPARKOutCtrl'
       }
     }
   })
 
 $urlRouterProvider.otherwise('/login')
+
+  
+
 });
