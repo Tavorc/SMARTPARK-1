@@ -5,20 +5,20 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-    
-    
+     
+    <script src="lib/bluebird.min.js"></script>
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+<script src="lib/ionic.cloud.min.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+   
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
-
-    
     <link href="css/ionic.app.css" rel="stylesheet">
-    
+    <script src="js/ng-cordova.min.js"></script> 
+    <script src="cordova.js"></script>
 
     <style type="text/css">
       .platform-ios .manual-ios-statusbar-padding{
@@ -69,7 +69,7 @@
 
     
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
-    
+   
 
   </head>
   <body ng-app="app" animation="slide-left-right-ios7">
@@ -93,7 +93,7 @@
           <ion-item class="item-avatar item-icon-right" id="sMARTMenu-list-item11" data-componentid="list-item11">
             <h2>Hello,</h2>
             <p style="white-space:normal;">Jon Doe</p>
-            <i class="icon ion-android-exit"></i>
+            <i class="icon ion-android-exit" ng-click="googleLogOut()" ></i>
           </ion-item>
           <ion-item class="item-icon-left" id="sMARTMenu-list-item21" ui-sref="tabsController.mapsExample_tab1" menu-close="" data-componentid="list-item21">
             <i class="icon ion-ios-plus-outline"></i>New SMART[Park]</ion-item>
