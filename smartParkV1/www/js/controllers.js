@@ -91,7 +91,7 @@ function ($scope, $stateParams) {
             showTraficLayer:true
         };
     });
-   
+
 }])
 
 // .controller('sMARTPARKLoginCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -108,7 +108,7 @@ function ($scope, $stateParams) {
 function ($scope, $state, $ionicLoading, $ionicPush) {
 $scope.googleSignIn = function() {
     $ionicLoading.show({
-      template: 'Logging in...'
+      template: 'Logging in..:)'
     });
     window.plugins.googleplus.login(
       {},
