@@ -24,7 +24,7 @@ angular.module('googlemaps.init', ['uiGmapgoogle-maps'])
                         id: 0
                     }
                     $scope.map.marker.options = {
-                        icon:'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                        icon:'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
                     }
                 }
                 $attr.$observe('location', function(val){
@@ -66,7 +66,7 @@ angular.module('googlemaps.init', ['uiGmapgoogle-maps'])
                                 longitude: Longitude
                                 }
                             }  
-                            console.log($scope.map.marker.coords.latitude);
+                          //  console.log($scope.map.marker.coords.latitude);
                         }
                          var  onSuccess = function(position)
                             {
@@ -78,7 +78,6 @@ angular.module('googlemaps.init', ['uiGmapgoogle-maps'])
                                 Longitude = long;
                                 setupMap(lati, long);
                              }
-                             console.log(lati + ":" + long);
                             }
                             function onError(error)
                              {
@@ -93,7 +92,6 @@ angular.module('googlemaps.init', ['uiGmapgoogle-maps'])
                             var geocoder = new maps.Geocoder();
                             geocoder.geocode({'address' : val}, function(results, status){
                                 $scope.$apply(function(){
-                                    setupMap(results[0].geometry.location.lat(), results[0].geometry.location.lng());
                                 });
             
                             });

@@ -20,6 +20,30 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicPush, $ionicPopup) {
+   $scope.getLocation = function() {
+                        navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError);
+                        }
+                         function geolocationSuccess(position)
+                             {
+                              var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                              var geocoder = new google.maps.Geocoder();  
+                              Latitude=position.coords.latitude;
+                              Longitude=position.coords.longitude;
+                              var location={
+                                lat:Latitude,
+                                lng:Longitude
+                              }
+                              console.log(location);
+                              return location;
+                              }
+                        function geolocationError(error)
+                         {
+                           $ionicPopup.alert({
+                           title: "Error Location",
+                           subTitle: "Error",
+                           template: JSON.stringify(error)
+                            });
+                        }
 $scope.$on('cloud:push:notification', function(event, data) {
   var msg = data.message;
   	alert(msg.title + ': ' + msg.text);
