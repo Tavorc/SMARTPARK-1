@@ -1,3 +1,32 @@
+myLocation = {
+   name:"TEL AVIV, ISRAEL",
+   latitude: 32.0852999,
+   longitude: 34.78176759999999
+ },
+ imgs = {
+     imHereBlue: './img/myLocPinBlue.png',
+     markerBlack: './img/markerBlack.png',
+     markerBlue: './img/markerBlue.png',
+     markerBlue2: './img/markerBlue2.png',
+     markerGreen: './img/markerGreen.png',
+     markerPink: './img/markerPink.png',
+     markerRed: './img/markerRed.png',
+     markerYellow: './img/markerYellow.png',
+     myLocGreen: './img/myLocGreen.png',
+     myLocPinBlue: './img/myLocPinBlue.png',
+     myLocPinPink: './img/myLocPinPink.png',
+     pointBlue: './img/pointBlue.png',
+     pointGreen: './img/pointGreen.png',
+     pointPink: './img/pointPink.png',
+     reserved: './img/reserved.png'
+     // size: new google.maps.Size(100, 100),
+     // origin: new google.maps.Point(0, 0),
+     // anchor: new google.maps.Point(0, 32)
+ },
+ getMyLocation = function(){ //NOTE: ***TAVOR***
+     return('tel aviv, israel');
+   };
+ 
 angular.module('googlemaps.init', ['uiGmapgoogle-maps'])
 
 .config(['uiGmapGoogleMapApiProvider', function(uiGmapGoogleMapApiProvider) {
