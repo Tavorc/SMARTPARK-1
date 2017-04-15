@@ -15,6 +15,10 @@
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
+    <script src="lib/bluebird.min.js"></script>
+
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic.cloud.min.js"></script>
 
 
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -93,7 +97,7 @@
           <ion-item class="item-avatar item-icon-right" id="sMARTMenu-list-item11" data-componentid="list-item11">
             <h2>Hello,</h2>
             <p style="white-space:normal;">Jon Doe</p>
-            <i class="icon ion-android-exit"></i>
+            <i class="icon ion-android-exit" ng-click="googleLogOut()"></i>
           </ion-item>
           <ion-item class="item-icon-left" id="sMARTMenu-list-item21" ui-sref="tabsController.mapsExample" menu-close="" data-componentid="list-item21">
             <i class="icon ion-ios-plus-outline"></i>New SMART[Park]</ion-item>

@@ -116,13 +116,38 @@ function ($scope, $stateParams, $state) {
     }
 }])
 
-.controller('sMARTPARKCtrl', ['$scope', '$http', '$stateParams', 'uiGmapGoogleMapApi','uiGmapIsReady',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('sMARTPARKCtrl', ['$scope', '$http', '$stateParams', 'uiGmapGoogleMapApi','uiGmapIsReady', '$ionicLoading', '$ionicActionSheet', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
   // You can include any angular dependencies as parameters for this function
   // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $http, $stateParams, uiGmapGoogleMapApi, uiGmapIsReady) {
-    $scope.getMyLocation = function(){
-        return(myLocation.name);
-    }
+function ($scope, $http, $stateParams, uiGmapGoogleMapApi, uiGmapIsReady, UserService, $ionicActionSheet, $state) {
+    $scope.getLocation = function() {
+                        navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError);
+                        }
+                         function geolocationSuccess(position)
+                             {
+                              var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                              var geocoder = new google.maps.Geocoder();
+                              Latitude=position.coords.latitude;
+                              Longitude=position.coords.longitude;
+                              var location={
+                                lat:Latitude,
+                                lng:Longitude
+                              }
+                              console.log(location);
+                              return location;
+                              }
+                        function geolocationError(error)
+                         {
+                           $ionicPopup.alert({
+                           title: "Error Location",
+                           subTitle: "Error",
+                           template: JSON.stringify(error)
+                            });
+                        }
+$scope.$on('cloud:push:notification', function(event, data) {
+  var msg = data.message;
+    alert(msg.title + ': ' + msg.text);
+  });
 
     uiGmapGoogleMapApi.then(function(maps){
         // Configuration needed to display the road-map with traffic
@@ -155,57 +180,28 @@ function ($scope, $http, $stateParams, uiGmapGoogleMapApi, uiGmapIsReady) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, UserService, $ionicActionSheet, $state) {
-   $scope.getLocation = function() {
-                        navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError);
-                        }
-                         function geolocationSuccess(position)
-                             {
-                              var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                              var geocoder = new google.maps.Geocoder();
-                              Latitude=position.coords.latitude;
-                              Longitude=position.coords.longitude;
-                              var location={
-                                lat:Latitude,
-                                lng:Longitude
-                              }
-                              console.log(location);
-                              return location;
-                              }
-                        function geolocationError(error)
-                         {
-                           $ionicPopup.alert({
-                           title: "Error Location",
-                           subTitle: "Error",
-                           template: JSON.stringify(error)
-                            });
-                        }
-$scope.$on('cloud:push:notification', function(event, data) {
-  var msg = data.message;
-  	alert(msg.title + ': ' + msg.text);
-	});
-	$scope.googleLogOut = function() {
-		var hideSheet = $ionicActionSheet.show({
-			destructiveText: 'Logout',
-			titleText: 'Are you sure you want to logout?',
-			cancelText: 'Cancel',
-			cancel: function() {},
-			buttonClicked: function(index) {
-				return true;
-			},
-			destructiveButtonClicked: function(){
-				window.plugins.googleplus.logout(
-					function (msg) {
-						console.log(msg);
-						$state.go('sMARTPARKLogin');
-					},
-					function(fail){
-						console.log(fail);
-					}
-				);
-			}
-		});
-	};
-
+ $scope.googleLogOut = function() {
+    var hideSheet = $ionicActionSheet.show({
+      destructiveText: 'Logout',
+      titleText: 'Are you sure you want to logout?',
+      cancelText: 'Cancel',
+      cancel: function() {},
+      buttonClicked: function(index) {
+        return true;
+      },
+      destructiveButtonClicked: function(){
+        window.plugins.googleplus.logout(
+          function (msg) {
+            console.log(msg);
+            $state.go('sMARTPARKLogin');
+          },
+          function(fail){
+            console.log(fail);
+          }
+        );
+      }
+    });
+  };
 }])
 
 .controller('availableSMARTParksCtrl', ['$scope', '$stateParams', '$state', '$http', 'uiGmapIsReady', 'uiGmapGoogleMapApi',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -340,17 +336,17 @@ function ($scope, $http, $log, $timeout, $stateParams, uiGmapGoogleMapApi, uiGma
 }])
 
 
-.controller('sMARTPARKLoginCtrl', ['$scope', '$stateParams','$ionicLoading', '$ionicSideMenuDelegate', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('sMARTPARKLoginCtrl', ['$scope', '$stateParams','$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate) {
+function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush) {
     $ionicSideMenuDelegate.canDragContent(false);
     $scope.$on('$ionicView.leave', function () { $ionicSideMenuDelegate.canDragContent(true) });
     $scope.googleSignIn = function() {
         $ionicLoading.show({
           template: 'Logging in..:)'
         });
-
+ 
         window.plugins.googleplus.login(
           {},
           function (user_data) {
@@ -365,13 +361,19 @@ function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate) {
             //   idToken: user_data.idToken
             // });
             $ionicLoading.hide();
-             $state.go('menu.sMARTPARK');
+             $state.go('tabsController.sMARTPARK');
           },
           function (msg) {
              $ionicLoading.hide();
           }
         );
+         $ionicPush.register().then(function(t) {
+      return $ionicPush.saveToken(t);
+      }).then(function(t) {
+         console.log('Token saved:', t.token);
+      });
     };
+
 }])
 
 .controller('sMARTPARKSignupCtrl', ['$scope', '$stateParams', '$ionicSideMenuDelegate',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
