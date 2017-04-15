@@ -5,38 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'ionic.cloud', 'app.controllers', 'app.routes', 'app.directives','app.services','uiGmapgoogle-maps','googlemaps.init', 'ngCordova'])
+angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services','uiGmapgoogle-maps','googlemaps.init',])
 
-.config(function($ionicConfigProvider, $sceDelegateProvider, $ionicCloudProvider){
+.config(function($ionicConfigProvider, $sceDelegateProvider){
   
-   $ionicCloudProvider.init({
-    "core": {
-      "app_id": "535bc8c5"
-    },
-     "auth": {
-    "google": {
-      "webClientId": "179352626651-3680v7qjrqh5flhvop3t37h974nqoton.apps.googleusercontent.com",
-      "scope": ["permission1", "permission2"]
-    }
-  }
-  });
-   $ionicCloudProvider.init({
-    "core": {
-      "app_id": "535bc8c5"
-    },
-    "push": {
-      "sender_id": "1094228718719",
-      "pluginConfig": {
-        "ios": {
-          "badge": true,
-          "sound": true
-        },
-        "android": {
-          "iconColor": "#343434"
-        }
-      }
-    }
-  });
 
   $sceDelegateProvider.resourceUrlWhitelist([ 'self','*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
 
@@ -46,7 +18,6 @@ angular.module('app', ['ionic', 'ionic.cloud', 'app.controllers', 'app.routes', 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -55,8 +26,6 @@ angular.module('app', ['ionic', 'ionic.cloud', 'app.controllers', 'app.routes', 
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-
   });
 })
 

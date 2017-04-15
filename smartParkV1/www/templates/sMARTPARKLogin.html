@@ -1,25 +1,1 @@
-<ion-view title="SMARTPARK[Login]" id="page7">
-  <ion-content padding="true" class="has-header">
-    <form id="sMARTPARKLogin-form1" class="list">
-      <ion-list id="sMARTPARKLogin-list6">
-        <label class="item item-input" id="sMARTPARKLogin-input1">
-          <span class="input-label">Username</span>
-          <input type="text" placeholder="">
-        </label>
-        <label class="item item-input" id="sMARTPARKLogin-input2">
-          <span class="input-label">Password</span>
-          <input type="password" placeholder="">
-        </label>
-        <ion-checkbox id="sMARTPARKLogin-checkbox1" name="rememberMe">Remember me</ion-checkbox>
-      </ion-list>
-      <a href="#">I've lost my password</a>
-      <a ui-sref="tabsController.sMARTPARK_tab2" id="sMARTPARKLogin-button1" class="button button-calm  button-block">Log in</a>
-      <div class="spacer" style="height: 40px;"></div>
-      <div id="sMARTPARKLogin-button-bar1" class="button-bar">
-        <a  id="sMARTPARKLogin-button7" ng-click="googleSignIn()" style="border-radius:50px 50px 50px 50px;" class="button button-assertive  button-block icon ion-social-googleplus"></a>
-        <a ui-sref="tabsController.sMARTPARK_tab2" id="sMARTPARKLogin-button8" style="border-radius:50px 50px 50px 50px;" class="button button-positive  button-block icon ion-social-facebook"></a>
-      </div>
-      <a ui-sref="sMARTPARKSignup" id="sMARTPARKLogin-button2" class="button button-positive  button-block button-clear icon ion-android-person-add"> Or create an account</a>
-    </form>
-  </ion-content>
-</ion-view>
+<ion-view title="SMARTPARK[Login]" id="page7" hide-nav-bar="true">  <ion-content padding="true" class="has-header">    <form id="sMARTPARKLogin-form1" class="list">      <ion-list id="sMARTPARKLogin-list6">        <label class="item item-input" id="sMARTPARKLogin-input1">          <span class="input-label">Username</span>          <input type="text" placeholder="">        </label>        <label class="item item-input" id="sMARTPARKLogin-input2">          <span class="input-label">Password</span>          <input type="password" placeholder="">        </label>        <ion-checkbox id="sMARTPARKLogin-checkbox1" name="rememberMe">Remember me</ion-checkbox>      </ion-list>      <a href="#">I've lost my password</a>      <a ui-sref="tabsController.sMARTPARK_tab2" id="sMARTPARKLogin-button1" class="button button-calm  button-block">Log in</a>      <div class="spacer" style="height: 40px;"></div>      <div id="sMARTPARKLogin-button-bar1" class="button-bar">        <a ui-sref="tabsController.sMARTPARK_tab2" id="sMARTPARKLogin-button7" ng-click="googleSignIn()" style="border-radius:50px 50px 50px 50px;" class="button button-assertive  button-block icon ion-social-googleplus"></a>        <a ui-sref="tabsController.sMARTPARK_tab2" id="sMARTPARKLogin-button8" style="border-radius:50px 50px 50px 50px;" class="button button-positive  button-block icon ion-social-facebook"></a>      </div>      <a ui-sref="sMARTPARKSignup" id="sMARTPARKLogin-button2" class="button button-positive  button-block button-clear icon ion-android-person-add"> Or create an account</a>    </form>  </ion-content></ion-view>

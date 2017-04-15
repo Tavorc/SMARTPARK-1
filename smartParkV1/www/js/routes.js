@@ -7,18 +7,44 @@ angular.module('app.routes', ['ionicUIRouter'])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-    
-  
 
-      .state('tabsController.sMARTIn', {
+
+
+  .state('tabsController.sMARTIn', {
     url: '/in',
     views: {
       'tab1': {
         templateUrl: 'templates/sMARTIn.html',
+        // params: {
+        //     formParams: {
+        //         distance: null,
+        //         date: null,
+        //         time: null,
+        //         street: null,
+        //         number: null,
+        //         city: null,
+        //         country: null,
+        //         size: null,
+        //         handicap: null,
+        //         comments: null
+        //     }
+        // },
+        params : { veryLongParamParent: null, },
         controller: 'sMARTInCtrl'
       }
     }
   })
+
+
+.state('tabsController.mapsExampleOUT', {
+  url: '/mapsExampleOut',
+  views: {
+    'tab4': {
+      templateUrl: 'templates/mapsExampleOUT.html',
+      controller: 'mapsExampleOutCtrl'
+  }
+  }
+})
 
   .state('tabsController.sMARTOut', {
     url: '/out',
@@ -30,7 +56,7 @@ angular.module('app.routes', ['ionicUIRouter'])
     }
   })
 
-  /* 
+  /*
     The IonicUIRouter.js UI-Router Modification is being used for this route.
     To navigate to this route, do NOT use a URL. Instead use one of the following:
       1) Using the ui-sref HTML attribute:
@@ -53,6 +79,10 @@ angular.module('app.routes', ['ionicUIRouter'])
       'tab2': {
         templateUrl: 'templates/sMARTPARK.html',
         controller: 'sMARTPARKCtrl'
+      },
+      'tab4': {
+        templateUrl: 'templates/sMARTPARK.html',
+        controller: 'sMARTPARKCtrl'
       }
     }
   })
@@ -68,32 +98,28 @@ angular.module('app.routes', ['ionicUIRouter'])
     views: {
       'tab1': {
         templateUrl: 'templates/availableSMARTParks.html',
+        // params: {
+        //     distance: null,
+        //     date: null,
+        //     time: null,
+        //     street: null,
+        //     number: null,
+        //     city: null,
+        //     country: null,
+        //     size: null,
+        //     handicap: null,
+        //     comments: null
+        // },
+        params : { veryLongParamParent: 'null', },
         controller: 'availableSMARTParksCtrl'
       }
     }
   })
 
-  /* 
-    The IonicUIRouter.js UI-Router Modification is being used for this route.
-    To navigate to this route, do NOT use a URL. Instead use one of the following:
-      1) Using the ui-sref HTML attribute:
-        ui-sref='tabsController.mapsExample'
-      2) Using $state.go programatically:
-        $state.go('tabsController.mapsExample');
-    This allows your app to figure out which Tab to open this page in on the fly.
-    If you're setting a Tabs default page or modifying the .otherwise for your app and
-    must use a URL, use one of the following:
-      /page1/tab1/page6
-      /page1/tab4/page6
-  */
   .state('tabsController.mapsExample', {
     url: '/page6',
     views: {
       'tab1': {
-        templateUrl: 'templates/mapsExample.html',
-        controller: 'mapsExampleCtrl'
-      },
-      'tab4': {
         templateUrl: 'templates/mapsExample.html',
         controller: 'mapsExampleCtrl'
       }
@@ -112,18 +138,18 @@ angular.module('app.routes', ['ionicUIRouter'])
     controller: 'sMARTPARKSignupCtrl'
   })
 
-  .state('tabsController.sMARTPARKOut', {
-    url: '/status_sp',
-    views: {
-      'tab4': {
-        templateUrl: 'templates/sMARTPARKOut.html',
-        controller: 'sMARTPARKOutCtrl'
-      }
-    }
-  })
+  // .state('tabsController.sMARTPARKOut', {
+  //   url: '/status_sp',
+  //   views: {
+  //     'tab4': {
+  //       templateUrl: 'templates/sMARTPARKOut.html',
+  //       controller: 'sMARTPARKOutCtrl'
+  //     }
+  //   }
+  // })
 
 $urlRouterProvider.otherwise('/login')
 
-  
+
 
 });

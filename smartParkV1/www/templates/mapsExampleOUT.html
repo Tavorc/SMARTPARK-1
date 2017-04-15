@@ -1,13 +1,13 @@
-<ion-view title="Choose SMART[Location]" id="page6" hide-back-button="true">
+<ion-view title="Choose SMART[OUT-Location]" id="page6" hide-back-button="true">
     <ion-content  padding="false" scroll="false" class="has-header">
-        <ui-gmap-google-map ng-if="inMap.center" center="inMap.center" zoom="inMap.zoom" draggable="true" options="inMap.options">
+        <ui-gmap-google-map ng-if="outMap.center" center="outMap.center" zoom="outMap.zoom" draggable="true" options="outMap.options">
             <ui-gmap-marker coords="mainMarker.coords" options="mainMarker.options" events="mainMarker.events" idkey="mainMarker.id">
             </ui-gmap-marker>
         </ui-gmap-google-map>
         <div id="selectionBox" class="input-group">
             <input type="text" class="form-control text-center warning" placeholder="Select your location..." value= "{{chosenLocation}}">
             <span class="input-group-btn">
-                <button class="btn btn-warning" type="button" ui-sref='tabsController.sMARTIn'>Choose!</button>
+                <button class="btn btn-warning" type="button" ui-sref='tabsController.sMARTOut'>Choose!</button>
             </span>
         </div>
     </ion-content>
