@@ -99,7 +99,6 @@ angular.module('googlemaps.init', ['uiGmapgoogle-maps'])
                                 setupMap(lati, long);
                              }
                             }
-                        }
 
                         if (val.indexOf('"latitude"') > -1){
                             val = JSON.parse(val);
