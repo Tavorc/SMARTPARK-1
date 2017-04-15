@@ -150,6 +150,4 @@ angular.module('app.routes', ['ionicUIRouter'])
 
 $urlRouterProvider.otherwise('/login')
 
-
-
 });
