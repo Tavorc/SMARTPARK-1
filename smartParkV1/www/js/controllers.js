@@ -340,13 +340,14 @@ function ($scope, $http, $log, $timeout, $stateParams, uiGmapGoogleMapApi, uiGma
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush) {
+
     $ionicSideMenuDelegate.canDragContent(false);
     $scope.$on('$ionicView.leave', function () { $ionicSideMenuDelegate.canDragContent(true) });
     $scope.googleSignIn = function() {
         $ionicLoading.show({
           template: 'Logging in..:)'
         });
- 
+
         window.plugins.googleplus.login(
           {},
           function (user_data) {
