@@ -71,18 +71,25 @@ angular.module('app.controllers', ['ionic'])//'ionic.cloud'
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $state) {
-    $scope.smartInForm = {
-        distance: 'hello',
-        date: '',
-        time: '',
-        street: tempChosenLocation.street,
-        number: tempChosenLocation.number,
-        city: tempChosenLocation.city,
-        country: tempChosenLocation.country,
-        size: '',
-        handicap: '',
-        comments: ''
-    };
+    // console.log($stateParams);
+    $scope.print = function(){
+        console.log($stateParams);
+    }
+    $scope.smartInForm = $stateParams;
+    // console.log($scope.smartInForm);
+
+    // {
+    //     distance: 'hello',
+    //     date: '',
+    //     time: '',
+    //     street: tempChosenLocation.street,
+    //     number: tempChosenLocation.number,
+    //     city: tempChosenLocation.city,
+    //     country: tempChosenLocation.country,
+    //     size: '',
+    //     handicap: '',
+    //     comments: ''
+    // };
     // console.log($scope.smartInForm);
     $scope.transfer = function(){
         // console.log('hello_again');
@@ -91,11 +98,9 @@ function ($scope, $stateParams, $state) {
     }
 }])
 
-.controller('sMARTOutCtrl', ['$scope', '$stateParams', '$state',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $state) {
-    console.log(tempChosenLocation);
+.controller('sMARTOutCtrl', ['$scope', '$http', '$log', '$timeout','$stateParams','uiGmapGoogleMapApi', 'uiGmapIsReady', //NOTE: '$cordovaGeolocation',
+function ($scope, $http, $log, $timeout, $stateParams, uiGmapGoogleMapApi, uiGmapIsReady) {
+    // console.log(tempChosenLocation);
     $scope.smartOutForm = {
         date: '',
         time: '',
@@ -109,12 +114,79 @@ function ($scope, $stateParams, $state) {
         handicap: '',
         comments: ''
     };
-    $scope.transfer = function(){
-        // console.log('hello_again');
-        $state.go('tabsController.sMARTPARK', $scope.smartOutForm)
-        // $state.go('tabsController.availableSMARTParks',$scope.smartInForm);
-    }
-}])
+    // $scope.transfer = function(){
+    //     // console.log('hello_again');
+    //     $state.go('tabsController.sMARTPARK', $scope.smartOutForm)
+    //     // $state.go('tabsController.availableSMARTParks',$scope.smartInForm);
+    // }
+
+    uiGmapGoogleMapApi.then(function(maps){
+        $scope.outMap = {
+                center: {
+                    latitude: 32.0852999,
+                    longitude: 34.78176759999999
+                    // latitude: 40.1451, longitude: -20.6680
+                },
+                zoom: 14,
+                options: {
+                    mapTypeId: maps.MapTypeId.ROADMAP,
+                    disableDefaultUI: true,
+                    showTraficLayer:true,
+                }
+        }
+        $scope.mainMarker = {
+            id: 0,
+            coords: {
+                latitude: myLocation.latitude,
+                longitude: myLocation.longitude
+                // latitude: 40.1451, longitude: -20.6680
+            },
+            options: {
+                animation: maps.Animation.BOUNCE,
+                draggable: true
+            },
+            events: {
+                dragend: function (marker, eventName, args) {
+                    $log.log('marker dragend');
+                    var lat = marker.getPosition().lat();
+                    var lon = marker.getPosition().lng();
+                    $log.log(lat);
+                    $log.log(lon);
+                    $scope.mainMarker.options = {
+                        animation: maps.Animation.BOUNCE,
+                        draggable: true
+                    };
+                    $http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+marker.getPosition().lat()+','+marker.getPosition().lng() +'&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA').success(function(jsn){
+                        $scope.chosenLocation = jsn.results[0].formatted_address;//+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
+                        tempChosenLocation.number = jsn.results[0].address_components[0].short_name;
+                        tempChosenLocation.street = jsn.results[0].address_components[1].short_name;
+                        tempChosenLocation.city = jsn.results[0].address_components[2].short_name;
+                        tempChosenLocation.country = jsn.results[0].address_components[4].short_name;
+                        console.log('returnd info: '+jsn.results[0].formatted_address);
+                    });
+                },
+                click: function (marker, eventName, args) {
+                    $log.log('marker clicked');
+                    var lat = marker.getPosition().lat();
+                    var lon = marker.getPosition().lng();
+                    console.log(args);
+                    $log.log(lat);
+                    $log.log(lon);
+                    $scope.mainMarker.options = {
+                        animation: maps.Animation.BOUNCE,
+                        draggable: true
+                    };
+                    var infowindow = new google.maps.InfoWindow({
+                        content: 'Latitude: ' + marker.getPosition().lat() + '<br>Longitude: ' + marker.getPosition().lng()
+                    })
+                    infowindow.open($scope.inMap,marker);
+                    console.log('mouseEvent!');
+                }
+            }
+        }
+
+    })
+    }])
 
 .controller('sMARTPARKCtrl', ['$scope', '$http', '$stateParams', 'uiGmapGoogleMapApi','uiGmapIsReady', '$ionicLoading', '$ionicActionSheet', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
   // You can include any angular dependencies as parameters for this function
@@ -255,8 +327,8 @@ function ($scope, $stateParams, $state, $http, uiGmapIsReady, uiGmapGoogleMapApi
 
 
 
-.controller('mapsExampleCtrl', ['$scope', '$http', '$log', '$timeout','$stateParams','uiGmapGoogleMapApi', 'uiGmapIsReady', //NOTE: '$cordovaGeolocation',
-function ($scope, $http, $log, $timeout, $stateParams, uiGmapGoogleMapApi, uiGmapIsReady, $cordovaGeolocation) {
+.controller('mapsExampleCtrl', ['$scope', '$http', '$log', '$timeout','$stateParams','uiGmapGoogleMapApi', 'uiGmapIsReady', '$state', //NOTE: '$cordovaGeolocation',
+function ($scope, $http, $log, $timeout, $stateParams, uiGmapGoogleMapApi, uiGmapIsReady, $cordovaGeolocation, $state) {
 
     // NOTE: ***TAVOR*** https://forum.ionicframework.com/t/google-maps-not-displaying-angular-google-maps/30904
     // $cordovaGeolocation
@@ -305,10 +377,10 @@ function ($scope, $http, $log, $timeout, $stateParams, uiGmapGoogleMapApi, uiGma
                     };
                     $http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+marker.getPosition().lat()+','+marker.getPosition().lng() +'&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA').success(function(jsn){
                         $scope.chosenLocation = jsn.results[0].formatted_address;//+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
-                        tempChosenLocation.number = jsn.results[0].address_components[0].short_name;
-                        tempChosenLocation.street = jsn.results[0].address_components[1].short_name;
-                        tempChosenLocation.city = jsn.results[0].address_components[2].short_name;
-                        tempChosenLocation.country = jsn.results[0].address_components[4].short_name;
+                        // tempChosenLocation.number = jsn.results[0].address_components[0].short_name;
+                        // tempChosenLocation.street = jsn.results[0].address_components[1].short_name;
+                        // tempChosenLocation.city = jsn.results[0].address_components[2].short_name;
+                        // tempChosenLocation.country = jsn.results[0].address_components[4].short_name;
                         console.log('returnd info: '+jsn.results[0].formatted_address);
                     });
                 },

@@ -1,0 +1,35 @@
+<ion-side-menus enable-menu-with-back-views="true">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button></ion-nav-back-button>
+      <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="side-menu21"></ion-nav-view>
+  </ion-side-menu-content>
+  <ion-side-menu side="right" id="side-menu21">
+    <ion-header-bar class="bar-stable">
+      <div class="title">Menu</div>
+    </ion-header-bar>
+    <ion-content padding="false" class="side-menu-right has-header ">
+      <ion-list id="menu-list4">
+        <ion-item class="item-avatar item-icon-right" id="menu-list-item7" ui-sref="menu.myProfile" menu-close="">
+          <h2>Hello,</h2>
+          <p>Jon Doe</p>
+          <i class="icon ion-android-exit icon-accessory"></i>
+        </ion-item>
+        <ion-item class="item-icon-left" id="menu-list-item8" ui-sref="menu.home" menu-close="">
+          <i class="icon ion-ionic"></i>Home</ion-item>
+        <ion-item class="item-icon-left" id="menu-list-item9" ui-sref="menu.in" menu-close="">
+          <i class="icon ion-ionic"></i>In</ion-item>
+        <ion-item class="item-icon-left" id="menu-list-item10" ui-sref="menu.out" menu-close="">
+          <i class="icon ion-ionic"></i>Out</ion-item>
+        <ion-item class="item-icon-left" id="menu-list-item11" ui-sref="menu.mySmarties" menu-close="">
+          <i class="icon ion-ionic"></i>My SMARTIES</ion-item>
+        <ion-item class="item-icon-left" id="menu-list-item12" ui-sref="menu.myHistory({formParams : hello})" menu-close="">
+          <i class="icon ion-ionic"></i>My History</ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

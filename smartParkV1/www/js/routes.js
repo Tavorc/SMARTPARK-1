@@ -6,6 +6,7 @@ angular.module('app.routes', ['ionicUIRouter'])
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
+
   $stateProvider
 
 
@@ -17,22 +18,27 @@ angular.module('app.routes', ['ionicUIRouter'])
         templateUrl: 'templates/sMARTIn.html',
         // params: {
         //     formParams: {
-        //         distance: null,
-        //         date: null,
-        //         time: null,
+        //         // distance: null,
+        //         // date: null,
+        //         // time: null,
         //         street: null,
         //         number: null,
         //         city: null,
-        //         country: null,
-        //         size: null,
-        //         handicap: null,
-        //         comments: null
+        //         country: null
+        //         // size: null,
+        //         // handicap: null,
+        //         // comments: null
         //     }
         // },
-        params : { veryLongParamParent: null, },
+        params: {
+            param1: null
+        },
         controller: 'sMARTInCtrl'
       }
     }
+    // templateUrl: 'templates/sMARTIn.html',
+    // params: { hiddenOne: null, },
+    // controller: 'sMARTInCtrl'
   })
 
 
@@ -123,7 +129,14 @@ angular.module('app.routes', ['ionicUIRouter'])
         templateUrl: 'templates/mapsExample.html',
         controller: 'mapsExampleCtrl'
       }
+  },
+  url: '/page1',
+  views: {
+    'tab1': {
+      templateUrl: 'templates/mapsExample.html',
+      controller: 'mapsExampleCtrl'
     }
+  }
   })
 
   .state('sMARTPARKLogin', {
@@ -147,7 +160,7 @@ angular.module('app.routes', ['ionicUIRouter'])
   //     }
   //   }
   // })
-
+$urlRouterProvider.when('page1/in', '/in');
 $urlRouterProvider.otherwise('/login')
 
 });

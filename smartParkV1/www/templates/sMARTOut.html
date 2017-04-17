@@ -15,7 +15,20 @@
           <option>17:00</option>
         </select>
       </label>
-      <a ui-sref="tabsController.mapsExampleOUT" id="sMARTOut-button26" class="button button-positive button-small button-block icon ion-android-locate"> Locate</a>
+      <a ng-click="selected = !selected" id="sMARTOut-button26" class="button button-positive button-small button-block icon ion-android-locate"> Locate</a>
+      <!-- <label ng-show="selected" >
+          <ui-gmap-google-map ng-if="outMap.center" center="outMap.center" zoom="outMap.zoom" draggable="true" options="outMap.options">
+              <ui-gmap-marker coords="mainMarker.coords" options="mainMarker.options" events="mainMarker.events" idkey="mainMarker.id">
+              </ui-gmap-marker>
+          </ui-gmap-google-map>
+          <div id="selectionBox" class="input-group">
+              <input type="text" class="form-control text-center warning" placeholder="Select your location..." value= "{{chosenLocation}}">
+              <span class="input-group-btn">
+                  <button ng-click="selected==0" class="btn btn-warning" type="button">Choose!</button>
+              </span>
+          </div>
+      </label> -->
+
       <label class="item item-input" id="sMARTOut-input29" name="street" >
         <span class="input-label">Street</span>
         <input type="text" placeholder="auto" disabled="true" value="{{smartOutForm.street}}">

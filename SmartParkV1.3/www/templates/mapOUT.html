@@ -1,0 +1,18 @@
+<ion-view title="map OUT" id="page11">
+  <ion-content padding="false" class=" manual-remove-top-padding has-header" scroll="false">
+    <div id="mapOUT-container5">
+      <form id="mapOUT-form8" class="list">
+        <label class="item item-input" id="mapOUT-search1" name="selectedLocation">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="search" placeholder="Enter location..">
+        </label>
+        <button id="mapOUT-button7" class="button button-positive button-small button-block">Choose!</button>
+      </form>
+    </div>
+    <creator-map-component options="{&quot;disableDefaultUI&quot;:true,&quot;mapTypeId&quot;:&quot;roadmap&quot;}" marker="true" location="Tel Aviv, israel" zoom="7" style="display:block;position:relative;width:100%;height:100%;">
+      <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" options="map.options">
+        <ui-gmap-marker coords="map.marker.coords" idkey="map.marker.id" options="map.marker.options"></ui-gmap-marker>
+      </ui-gmap-google-map>
+    </creator-map-component>
+  </ion-content>
+</ion-view>

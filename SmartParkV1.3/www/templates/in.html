@@ -1,0 +1,59 @@
+<ion-view title="in" id="page1">
+  <ion-content padding="true" class="has-header">
+    <form id="in-form10" class="list">
+      <label class="item item-select" id="in-select4" name="distance">
+        <span class="input-label">Distance</span>
+        <select>
+          <option>0.1km</option>
+        </select>
+      </label>
+      <label class="item item-select" id="in-select2" name="date">
+        <span class="input-label">Date</span>
+        <select>
+          <option>today</option>
+          <option>16/04/2017</option>
+        </select>
+      </label>
+      <label class="item item-select" id="in-select3" name="time">
+        <span class="input-label">Time</span>
+        <select>
+          <option>now</option>
+          <option>17:00</option>
+        </select>
+      </label>
+      <a ui-sref="menu.mapIN" id="in-button8" class="button button-positive button-small button-block icon ion-android-locate"> Choose location...</a>
+      <label class="item item-input" id="in-input10" name="street">
+        <span class="input-label">Street</span>
+        <input type="text" placeholder="Auto">
+      </label>
+      <label class="item item-input" id="in-input11" name="number">
+        <span class="input-label">Number</span>
+        <input type="text" placeholder="Auto">
+      </label>
+      <label class="item item-input" id="in-input12" name="city">
+        <span class="input-label">City</span>
+        <input type="text" placeholder="Auto">
+      </label>
+      <label class="item item-input" id="in-input13" name="country">
+        <span class="input-label">Country</span>
+        <input type="text" placeholder="Auto">
+      </label>
+    </form>
+    <i>
+      Optional:
+    </i>
+    <form id="in-form11" class="list">
+      <ion-item class="range range-positive" id="in-range1">Size
+        <input type="range" value="3" min="2" max="6" step="1" name="size">
+      </ion-item>
+      <ion-checkbox id="in-checkbox1" name="handicap">Handicap</ion-checkbox>
+      <label class="item item-input" id="in-textarea1" name="comments">
+        <span class="input-label">Comments</span><textarea placeholder="Something importent?"></textarea></label>
+      <ion-toggle toggle-class="toggle-positive" id="in-toggle1" name="picture">Add picture</ion-toggle>
+      <div id="in-button-bar1" class="button-bar">
+        <a ui-sref="menu.home" id="in-button12" style="border-radius:25px 25px 25px 25px;" class="button button-dark  button-block icon ion-android-cancel"></a>
+        <a ui-sref="menu.availabeParking" id="in-button13" style="border-radius:25px 25px 25px 25px;" class="button button-calm  button-block icon ion-paper-airplane"></a>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

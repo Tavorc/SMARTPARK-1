@@ -3,7 +3,7 @@
     <form id="sMARTIn-form7" class="list">
       <label class="item item-select" id="sMARTIn-select2" name="distance">
         <span class="input-label">Distance</span>
-        <select value="{{smartInForm.distance}}">
+        <select  value="{{smartInForm.distance}}">
           <option>0.1 km</option>
           <option>0.2 km</option>
           <option>0.3 km</option>
@@ -63,12 +63,13 @@
       <ion-checkbox id="sMARTIn-checkbox3" name="handicap" ng-model="smartInForm.handicap" value="{{smartInForm.handicap}}">Handicap</ion-checkbox>
       <label class="item item-input item-stacked-label" id="sMARTIn-input32" name="comments">
         <span class="input-label">Comments</span>
-        <input type="text" placeholder="Something else?" ng-model="smartInForm.comments" value="{{smartInForm.comments}}">
+        <input type="text" placeholder="Something else? {{$stateParams}}hi" ng-model="smartInForm.comments" value="{{smartInForm.comments}}">
+
       </label>
 
         <div id="sMARTIn-button-bar2" class="button-bar">
           <a ui-sref="tabsController.sMARTPARK"  id="sMARTIn-button13" style="font-weight:500;border-radius:50px 50px 50px 50px;" class="button button-dark  button-block icon ion-android-cancel"> Cancel</a>
-          <a ng-click="transfer()" id="sMARTIn-button14" style="font-weight:500;border-radius:50px 50px 50px 50px;" class="button button-calm  button-block icon ion-paper-airplane"> Send</a> <!--ui-sref="tabsController.availableSMARTParks(smartInForm.size)" -->
+          <a ng-click="print()" id="sMARTIn-button14" style="font-weight:500;border-radius:50px 50px 50px 50px;" class="button button-calm  button-block icon ion-paper-airplane"> Send</a> <!--ui-sref="tabsController.availableSMARTParks(smartInForm.size)" -->
         </div>
     </form>
   </ion-content>
