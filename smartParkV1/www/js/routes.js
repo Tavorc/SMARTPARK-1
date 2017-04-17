@@ -13,32 +13,30 @@ angular.module('app.routes', ['ionicUIRouter'])
 
   .state('tabsController.sMARTIn', {
     url: '/in',
+    params: {
+        formParams: {
+            distance: null,
+            date: null,
+            time: null,
+            street: null,
+            number: null,
+            city: null,
+            country: null
+            size: null,
+            handicap: null,
+            comments: null
+        }
+    },
     views: {
       'tab1': {
         templateUrl: 'templates/sMARTIn.html',
-        // params: {
-        //     formParams: {
-        //         // distance: null,
-        //         // date: null,
-        //         // time: null,
-        //         street: null,
-        //         number: null,
-        //         city: null,
-        //         country: null
-        //         // size: null,
-        //         // handicap: null,
-        //         // comments: null
-        //     }
-        // },
+
         params: {
             param1: null
         },
         controller: 'sMARTInCtrl'
       }
     }
-    // templateUrl: 'templates/sMARTIn.html',
-    // params: { hiddenOne: null, },
-    // controller: 'sMARTInCtrl'
   })
 
 
@@ -101,22 +99,20 @@ angular.module('app.routes', ['ionicUIRouter'])
 
   .state('tabsController.availableSMARTParks', {
     url: '/avbl_sp',
-    views: {
+    params: {
+        distance: null,
+        date: null,
+        time: null,
+        street: null,
+        number: null,
+        city: null,
+        country: null,
+        size: null,
+        handicap: null,
+        comments: null
+    },
       'tab1': {
         templateUrl: 'templates/availableSMARTParks.html',
-        // params: {
-        //     distance: null,
-        //     date: null,
-        //     time: null,
-        //     street: null,
-        //     number: null,
-        //     city: null,
-        //     country: null,
-        //     size: null,
-        //     handicap: null,
-        //     comments: null
-        // },
-        params : { veryLongParamParent: 'null', },
         controller: 'availableSMARTParksCtrl'
       }
     }
@@ -160,7 +156,7 @@ angular.module('app.routes', ['ionicUIRouter'])
   //     }
   //   }
   // })
-$urlRouterProvider.when('page1/in', '/in');
+// $urlRouterProvider.when('page1/in', '/in');
 $urlRouterProvider.otherwise('/login')
 
 });
