@@ -8,10 +8,14 @@ angular.module('app.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-
-
       .state('menu.in', {
     url: '/in',
+    params: {
+            street: null,
+            number: null,
+            city: null,
+            country: null
+    },
     views: {
       'side-menu21': {
         templateUrl: 'templates/in.html',
@@ -22,6 +26,12 @@ angular.module('app.routes', [])
 
   .state('menu.out', {
     url: '/out',
+    params: {
+            street: null,
+            number: null,
+            city: null,
+            country: null
+    },
     views: {
       'side-menu21': {
         templateUrl: 'templates/out.html',
@@ -38,6 +48,13 @@ angular.module('app.routes', [])
 
   .state('login', {
     url: '/login',
+    params: {
+        userParams: {
+            userName: null,
+            password: null,
+            gToken: null
+        }
+    },
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
   })
@@ -54,6 +71,19 @@ angular.module('app.routes', [])
 
   .state('menu.availabeParking', {
     url: '/avl_prks',
+    params: {
+        distance: null,
+        date: null,
+        time: null,
+        street: null,
+        number: null,
+        city: null,
+        country: null,
+        size: null,
+        handicap: null,
+        comments: null,
+        picture: null
+    },
     views: {
       'side-menu21': {
         templateUrl: 'templates/availabeParking.html',
@@ -64,6 +94,15 @@ angular.module('app.routes', [])
 
   .state('menu.myProfile', {
     url: '/EditProfile',
+    params: {
+        userParams: {
+            userName: null,
+            userId: null,
+            carType: null,
+            inHistory: null,
+            outHistory: null
+        }
+    },
     views: {
       'side-menu21': {
         templateUrl: 'templates/myProfile.html',
@@ -75,17 +114,12 @@ angular.module('app.routes', [])
   .state('menu.myHistory', {
     url: '/history',
     params: {
-        formParams: {
-            // distance: null,
-            // date: null,
-            // time: null,
-            street: null,
-            number: null,
-            city: null,
-            country: null
-            // size: null,
-            // handicap: null,
-            // comments: null
+        userParams: {
+            userName: null,
+            userId: null,
+            carType: null,
+            inHistory: null,
+            outHistory: null
         }
     },
     views: {
@@ -100,18 +134,11 @@ angular.module('app.routes', [])
     url: '/signup',
     templateUrl: 'templates/signup.html',
     params: {
-        formParams: {
-            // distance: null,
-            // date: null,
-            // time: null,
-            street: null,
-            number: null,
-            city: null,
-            country: null
-            // size: null,
-            // handicap: null,
-            // comments: null
-        }
+        userName: null,
+        password: null,
+        userId: null,
+        carId: null,
+        gToken: null
     },
     controller: 'signupCtrl'
   })
@@ -128,6 +155,7 @@ angular.module('app.routes', [])
 
   .state('menu.mapIN', {
     url: '/mapIN',
+    params: {},
     views: {
       'side-menu21': {
         templateUrl: 'templates/mapIN.html',
@@ -138,6 +166,18 @@ angular.module('app.routes', [])
 
   .state('menu.mapOUT', {
     url: '/mapout',
+    params: {
+        date: null,
+        time: null,
+        street: null,
+        number: null,
+        city: null,
+        country: null,
+        repeat: null,
+        size: null,
+        handicap: null,
+        comments: null
+    },
     views: {
       'side-menu21': {
         templateUrl: 'templates/mapOUT.html',

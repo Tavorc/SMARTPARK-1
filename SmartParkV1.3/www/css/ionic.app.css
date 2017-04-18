@@ -10,6 +10,62 @@
   used under CC BY http://creativecommons.org/licenses/by/4.0/
   Modified icons to fit ionicon’s grid from original.
 */
+
+a:hover{
+  text-decoration: none !important;
+  /*color: black;*/
+}
+
+.scroll {
+    height: 100%;
+}
+
+.map {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.circle-button{
+    border-radius:25px 25px 25px 25px !important;
+}
+
+#selectionBox{
+  position: absolute;
+  top: 1px;
+  /*left: 10px; */
+  z-index: 9;
+  opacity: 0.7;
+  /*background: #FAF3CE;*/
+}
+
+.platform-ios .manual-ios-statusbar-padding{
+  padding-top:20px;
+}
+.manual-remove-top-padding{
+  padding-top:0px;
+}
+.manual-remove-top-padding .scroll{
+  padding-top:0px !important;
+}
+ion-list.manual-list-fullwidth div.list, .list.card.manual-card-fullwidth {
+  margin-left:-10px;
+  margin-right:-10px;
+}
+ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidth > .item {
+  border-radius:0px;
+  border-left:0px;
+  border-right: 0px;
+}
+.show-list-numbers-and-dots ul{
+  list-style-type: disc;
+  padding-left:40px;
+}
+.show-list-numbers-and-dots ol{
+  list-style-type: decimal;
+  padding-left:40px;
+}
 @font-face {
   font-family: "Ionicons";
   src: url("../lib/ionic/fonts/ionicons.eot?v=2.0.1");

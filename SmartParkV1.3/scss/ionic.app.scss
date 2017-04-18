@@ -21,3 +21,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+.calm{
+	color: $calm;
+}
+
+
+ui-gmap-google-map {
+	height: 100%;
+	width: 100%;
+	display: block;
+	.angular-google-map {
+		height: 100%;
+		.angular-google-map-container {
+			height: 100%;
+		}
+	}
+}

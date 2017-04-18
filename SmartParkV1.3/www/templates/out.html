@@ -1,36 +1,30 @@
-<ion-view title="out" id="page2">
+<ion-view title="OUT" id="page2">
   <ion-content padding="true" class="has-header">
     <form id="out-form12" class="list">
-      <label class="item item-select" id="out-select6" name="date">
+      <label class="item item-input" id="out-select6" name="date">
         <span class="input-label">Date</span>
-        <select>
-          <option>today</option>
-          <option>16/04/2017</option>
-        </select>
+        <input type="date" id="out-select6" name="date" ng-model="formOutParams.date" placeholder="yyyy-MM-dd" min="2017-01-01" max="2019-12-31" required />
       </label>
-      <label class="item item-select" id="out-select7" name="time">
+      <label class="item item-input" id="out-select7" name="time">
         <span class="input-label">Time</span>
-        <select>
-          <option>now</option>
-          <option>17:00</option>
-        </select>
+        <input type="time" id="out-select7" name="time" ng-model="formOutParams.time" required />
       </label>
       <a ui-sref="menu.mapOUT" id="out-button15" class="button button-positive button-small button-block icon ion-android-locate"> Choose location...</a>
       <label class="item item-input" id="out-input14" name="street">
         <span class="input-label">Street</span>
-        <input type="text" placeholder="Auto">
+        <input type="text" placeholder="Auto" disabled="true" ng-model="formOutParams.street">
       </label>
       <label class="item item-input" id="out-input15" name="number">
         <span class="input-label">Number</span>
-        <input type="text" placeholder="Auto">
+        <input type="text" placeholder="Auto" disabled="true" ng-model="formOutParams.number">
       </label>
       <label class="item item-input" id="out-input16" name="city">
         <span class="input-label">City</span>
-        <input type="text" placeholder="Auto">
+        <input type="text" placeholder="Auto" disabled="true" ng-model="formOutParams.city">
       </label>
       <label class="item item-input" id="out-input17" name="country">
         <span class="input-label">Country</span>
-        <input type="text" placeholder="Auto">
+        <input type="text" placeholder="Auto" disabled="true" ng-model="formOutParams.country">
       </label>
     </form>
     <i>
@@ -39,37 +33,41 @@
     <form id="out-form13" class="list">
       <label class="item item-select" id="out-select9" name="repeat">
         <span class="input-label">Repeat</span>
-        <select>
-          <option>Never</option>
-          <option>Every SUN</option>
-          <option>Every MON</option>
-          <option>Every TUE</option>
-          <option>Every Day</option>
-          <option>Every Week</option>
-          <option>Every ...</option>
+        <select ng-model="formOutParams.repeat">
+            <option>Never</option>
+            <option>Every day</option>
+            <option>Every week</option>
+            <option>Every Sun</option>
+            <option>Every Mon</option>
+            <option>Every Tue</option>
+            <option>Every Wed</option>
+            <option>Every Thu</option>
+            <option>Every Fri</option>
+            <option>Every Sat</option>
         </select>
       </label>
-      <label class="item item-select" id="out-select8" name="repeat">
+      <label class="item item-select" id="out-select8" name="maxWait">
         <span class="input-label">Max waiting</span>
-        <select>
+        <select ng-model="formOutParams.maxWait">
           <option>No Waiting</option>
           <option>1 min</option>
           <option>2 min</option>
           <option>5 min</option>
           <option>7 min</option>
           <option>10+ min</option>
-          <option>20+ min</option>
+          <option>12+ min</option>
         </select>
       </label>
       <ion-item class="range range-positive" id="out-range2">Size
-        <input type="range" value="3" min="2" max="6" step="1" name="size">
+        <input type="range" value="3" min="2" max="6" step="1" name="size" ng-model="formOutParams.size">
       </ion-item>
-      <ion-checkbox id="out-checkbox2" name="handicap">Handicap</ion-checkbox>
+      <ion-checkbox id="out-checkbox2" name="handicap" ng-model="formOutParams.handicap">Handicap</ion-checkbox>
       <label class="item item-input" id="out-textarea2" name="comments">
-        <span class="input-label">Comments</span><textarea placeholder="Something importent?"></textarea></label>
+        <span class="input-label">Comments</span><textarea placeholder="Something importent?" ng-model="formOutParams.comments"></textarea>
+    </label>
       <div id="out-button-bar2" class="button-bar">
-        <a ui-sref="menu.home" id="out-button16" style="border-radius:25px 25px 25px 25px;" class="button button-dark  button-block icon ion-android-cancel"></a>
-        <a ui-sref="menu.home" id="out-button17" style="border-radius:25px 25px 25px 25px;" class="button button-calm  button-block icon ion-paper-airplane"></a>
+        <a ng-click="print()" id="out-button16" class="button button-dark  button-block icon ion-android-cancel circle-button"></a>
+        <a ng-click="getInfoFromServer()" id="out-button17" class="button button-calm  button-block icon ion-paper-airplane circle-button"></a>
       </div>
     </form>
   </ion-content>

@@ -1,9 +1,11 @@
 <ion-view title="Availabe parking" id="page13">
-  <ion-content padding="false" class=" manual-remove-top-padding has-header" scroll="false">
-    <creator-map-component options="{&quot;mapTypeId&quot;:&quot;roadmap&quot;}" marker="true" location="Tel Aviv, Israel" zoom="12" style="display:block;position:relative;width:100%;height:100%;">
-      <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" options="map.options">
-        <ui-gmap-marker coords="map.marker.coords" idkey="map.marker.id" options="map.marker.options"></ui-gmap-marker>
-      </ui-gmap-google-map>
-    </creator-map-component>
+  <ion-content padding="false" class=" manual-remove-top-padding has-header" scroll="false" ng-init="init()">
+    <!-- <div id="selectionBox" class="input-group">
+        <input type="search" class="form-control text-center warning" placeholder="Select your location..." value= "{{chosenLocation.formatted_address}}">
+        <span class="input-group-btn">
+            <button class="btn btn-warning" type="button" ng-click="continue()">Choose!</button>
+        </span>
+    </div> -->
+    <div id="mapAvblParking" class="map" data-tap-disabled="false"></div>
   </ion-content>
 </ion-view>
