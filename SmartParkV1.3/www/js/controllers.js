@@ -102,13 +102,13 @@ function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $
         $ionicLoading.show({
           template: 'Logging in..:)'
         });
-
         window.plugins.googleplus.login(
-          {},
+          {
+          },
           function (user_data) {
             // For the purpose of this example I will store user data on local storage
             console.log(user_data);
-            // UserService.setUser({
+         // UserService.setUser({
             //   userID: user_data.userId,
             //   name: user_data.displayName,
             //   email: user_data.email,
@@ -116,18 +116,23 @@ function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $
             //   accessToken: user_data.accessToken,
             //   idToken: user_data.idToken
             // });
-            $ionicLoading.hide();
-             $state.go('tabsController.sMARTPARK');
+            
+             $ionicLoading.hide();
+             $state.go('menu.home');
+
           },
           function (msg) {
              $ionicLoading.hide();
+             console.log("tavor hii");
           }
         );
-         $ionicPush.register().then(function(t) {
-      return $ionicPush.saveToken(t);
-      }).then(function(t) {
-         console.log('Token saved:', t.token);
-      });
+
+      //    $ionicPush.register().then(function(t) {
+      // return $ionicPush.saveToken(t);
+      // }).then(function(t) {
+      //    console.log('Token saved:', t.token);
+      // });
+      
     };
 
 }])
