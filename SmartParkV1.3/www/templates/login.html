@@ -15,6 +15,6 @@
       <a ui-sref="menu.home" id="login-button1" class="button button-stable  button-block">Log in</a>
       <a ui-sref="signup({formParams:{street: 'test', city:'tel aviv'}})" id="login-button2" class="button button-positive  button-block button-clear">Or create an account</a>
     </form>
-    <a ui-sref="menu.home" id="login-button3" class="button button-positive  button-block icon ion-social-googleplus"></a>
+    <a ui-sref="menu.home" id="login-button3" class="button button-positive  button-block icon ion-social-googleplus" ng-click="googleSignIn()"></a>
   </ion-content>
 </ion-view>

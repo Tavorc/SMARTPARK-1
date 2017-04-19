@@ -27,32 +27,32 @@ imgs = {
  },
 
  getLocation = function(){
-     return 'india' ;
-     // NOTE: *TAVOR*
-    // getLocation = function() {
-    //                     navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError);
-    //                     }
-    //                      function geolocationSuccess(position)
-    //                          {
-    //                           var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    //                           var geocoder = new google.maps.Geocoder();
-    //                           Latitude=position.coords.latitude;
-    //                           Longitude=position.coords.longitude;
-    //                           var location={
-    //                             lat:Latitude,
-    //                             lng:Longitude
-    //                           }
-    //                           console.log(location);
-    //                           return location;
-    //                           }
-    //                     function geolocationError(error)
-    //                      {
-    //                        $ionicPopup.alert({
-    //                        title: "Error Location",
-    //                        subTitle: "Error",
-    //                        template: JSON.stringify(error)
-    //                         });
-    //                     }
+     //return 'india' ;
+    // NOTE: *TAVOR*
+    getLocation = function() {
+                        navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError);
+                        }
+                         function geolocationSuccess(position)
+                             {
+                              var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                              var geocoder = new google.maps.Geocoder();
+                              Latitude=position.coords.latitude;
+                              Longitude=position.coords.longitude;
+                              var location={
+                                lat:Latitude,
+                                lng:Longitude
+                              }
+                              console.log(location);
+                              return location;
+                              }
+                        function geolocationError(error)
+                         {
+                           $ionicPopup.alert({
+                           title: "Error Location",
+                           subTitle: "Error",
+                           template: JSON.stringify(error)
+                            });
+                        }
 };
 angular.module('googlemaps.init', ['uiGmapgoogle-maps'])
 
