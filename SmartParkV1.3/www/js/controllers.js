@@ -1,5 +1,5 @@
 
-angular.module('app.controllers', [])
+angular.module('app.controllers', ['ionic.cloud'])
 
 .run(function($http){
     //***INBAR***
@@ -97,7 +97,7 @@ function ($scope, $stateParams, UserService, $ionicActionSheet, $state) {
 .controller('loginCtrl', ['$scope', '$stateParams','$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state) {
+function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush) {
  $scope.googleSignIn = function() {
         $ionicLoading.show({
           template: 'Logging in..:)'
@@ -123,11 +123,11 @@ function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state) {
              $ionicLoading.hide();
           }
         );
-      //    $ionicPush.register().then(function(t) {
-      // return $ionicPush.saveToken(t);
-      // }).then(function(t) {
-      //    console.log('Token saved:', t.token);
-      // });
+         $ionicPush.register().then(function(t) {
+      return $ionicPush.saveToken(t);
+      }).then(function(t) {
+         console.log('Token saved:', t.token);
+      });
     };
 
 }])
@@ -136,6 +136,10 @@ function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $state, $http, $stateParams, $ionicLoading) {
+       $scope.$on('cloud:push:notification', function(event, data) {
+  var msg = data.message;
+    alert(msg.title + ': ' + msg.text);
+  });
         $scope.init = function(){
         $scope.chosenLocation;
         var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
@@ -193,6 +197,9 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
             // $state.go('menu.mapOUT', $scope.formOutParams);
         }
     };
+
+
+
 }])
 
 
