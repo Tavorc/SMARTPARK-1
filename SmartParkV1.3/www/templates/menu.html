@@ -14,9 +14,11 @@
     </ion-header-bar>
     <ion-content padding="false" class="side-menu-right has-header ">
       <ion-list id="menu-list4">
-        <ion-item class="item-avatar item-icon-right" id="menu-list-item7" ui-sref="menu.myProfile" menu-close="">
+        <ion-item class="item-avatar item-icon-right" id="menu-list-item7" menu-close="">
+        <div ui-sref="menu.myProfile" >
           <h2>Hello,</h2>
           <p class="calm">Jon Doe</p>
+        </div>
           <i class="icon ion-android-exit" ng-click="googleLogOut()"></i>
         </ion-item>
         <ion-item class="item-icon-left" id="menu-list-item8" ui-sref="menu.home" menu-close="">
