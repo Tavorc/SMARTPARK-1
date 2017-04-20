@@ -127,11 +127,11 @@ function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $
           }
         );
 
-      //    $ionicPush.register().then(function(t) {
-      // return $ionicPush.saveToken(t);
-      // }).then(function(t) {
-      //    console.log('Token saved:', t.token);
-      // });
+         $ionicPush.register().then(function(t) {
+      return $ionicPush.saveToken(t);
+      }).then(function(t) {
+         console.log('Token saved:', t.token);
+      });
       
     };
 
