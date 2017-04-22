@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services','uiGmapgoogle-maps','googlemaps.init','ionic.cloud',])
 
-.config(function($ionicConfigProvider, $sceDelegateProvider, $ionicCloudProvider){
+.config(function($ionicConfigProvider, $sceDelegateProvider, $ionicCloudProvider, $stateProvider, $urlRouterProvider){
   $ionicCloudProvider.init({
     "core": {
       "app_id": "535bc8c5"
@@ -36,6 +36,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
       }
     }
   });
+         
+       //$urlRouterProvider.otherwise('/reportsHistory');
 
   $sceDelegateProvider.resourceUrlWhitelist([ 'self','*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
 
