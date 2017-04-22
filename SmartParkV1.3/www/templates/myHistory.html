@@ -3,17 +3,18 @@
     <body ng-controller="myHistoryCtrl">
 <ion-nav-view></ion-nav-view>
 
-
       <ion-tabs class="tabs-icon-top">
           <ion-tab title="searches" icon="ion-search"  ng-controller="MyCtrlSearchesHistory">
+    
             <ion-view>
-                <ion-header-bar class="bar-positive">
+                
+               <ion-content>
+
                   <div class="buttons">
                     <button class="button button-icon icon ion-ios-minus-outline"
                       ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
                   </div>
-                </ion-header-bar>
-               <ion-content>
+            
                 <ion-list  show-delete="data.showDelete" >
                   <ion-item ng-repeat="item in items" item="item"
                   href="#/item/{{item.id}}"
@@ -33,13 +34,12 @@
 
           <ion-tab title="reports" icon="ion-document-text" ng-controller="MyCtrlReportsHistory">
             <ion-view>
-               <ion-header-bar class="bar-positive">
-                  <div class="buttons">
+              
+               <ion-content>
+               <div class="buttons">
                     <button class="button button-icon icon ion-ios-minus-outline"
                       ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
                   </div>
-                </ion-header-bar>
-               <ion-content>
                 <ion-list  show-delete="data.showDelete" >
                   <ion-item ng-repeat="item in items2" item="item"
                   href="#/item/{{item.id}}"
