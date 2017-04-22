@@ -1,5 +1,5 @@
 
-angular.module('app.controllers', ['ionic.cloud'])
+angular.module('app.controllers', ['ionic.cloud', 'ionic'])
 
 .run(function($http){
     //***INBAR***
@@ -26,6 +26,7 @@ function ($scope, $http, $state, $stateParams) {
         comments: null,
         picture: null
     }
+
     $scope.print = function(){
         console.log($scope.formInParams);
         // $state.go('^');
@@ -54,6 +55,7 @@ function ($scope, $http, $state, $stateParams) {
         handicap: null,
         comments: null
     }
+    
     $scope.print = function(){
         console.log($scope.formOutParams);
         // $state.go('^');
@@ -97,7 +99,7 @@ function ($scope, $stateParams, UserService, $ionicActionSheet, $state) {
 .controller('loginCtrl', ['$scope', '$stateParams','$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush) {
+function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService) {
  $scope.googleSignIn = function() {
         $ionicLoading.show({
           template: 'Logging in..:)'
@@ -107,7 +109,7 @@ function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $
           },
           function (user_data) {
             // For the purpose of this example I will store user data on local storage
-            console.log(user_data);
+          console.log(user_data);
          // UserService.setUser({
             //   userID: user_data.userId,
             //   name: user_data.displayName,
@@ -123,7 +125,6 @@ function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $
           },
           function (msg) {
              $ionicLoading.hide();
-             console.log("tavor hii");
           }
         );
 
@@ -208,10 +209,10 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
 }])
 
 
-.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $http, $stateParams, $ionicLoading) {
+function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet, $timeout, $ionicPopup) {
     // console.log($stateParams);
     // ionic.Platform.ready(initialize);
     console.log(tempMyLocation.name);
@@ -295,6 +296,42 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
                 })
                 google.maps.event.addListener(tempMarker, 'click', function(event) {
                     infowindow.open(map,tempMarker);
+                    var hideSheet = $ionicActionSheet.show({
+                     buttons: [
+                       { text: 'Details' },
+                       { text: 'Choose'  },
+                       { text: 'Choose And Drive' }
+                     ],
+                     titleText: '<b>Options</b>',
+                     cancelText: 'Back',
+                     cancel: function() {
+                         return true; // add cancel code..
+                        },
+                     buttonClicked: function(index) {
+                        console.log(index);
+                        if(index == 0)
+                        {
+                           var alertPopup = $ionicPopup.alert({
+                             title: 'Details',
+                             template: 'number: 24<br>street: Ibn Gavirol <br> city: Tel Aviv<br>country: Israel <br>Time: 15:00<br>Date: 15/03/2017<br>Comments: hello'
+                           });
+                        }
+                        if(index == 1)
+                        {
+
+                        }
+                        if(index == 2)
+                        {
+
+                        }
+                       return true;
+                     },
+                   });
+
+                   // For example's sake, hide the sheet after two seconds
+                   $timeout(function() {
+                     hideSheet();
+                   }, 20000);
                     console.log('mouseEvent!');
                 });
                 $scope.markers.push(tempMarker)
@@ -336,6 +373,7 @@ function ($scope, $stateParams) {
 
 
 }])
+
 
 .controller('myHistoryCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
