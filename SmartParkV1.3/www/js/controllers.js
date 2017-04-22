@@ -380,9 +380,45 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
     console.log($stateParams);
-    $scope.his="heiii";
+     $scope.items = [
+    {id:1, location:'even gvirol 12 tel aviv' , time:'2017-03-08 14:20'},
+    {id:2, location:'even gvirol 15 tel aviv' , time:'2017-03-24 20:20'},
+    {id:3, location:'alenbi 2 tel aviv' , time:'2017-04-02 08:00'},
+    {id:4, location:'oshiskin 12 tel aviv' , time:'2017-05-01 21:00'},
+    {id:5, location:'queen 380 hadera' , time:'2017-01-18 10:15'}
+    ];
+    $scope.items2 = [
+    {id:1, location:'even gvirol 12 eilat' , time:'2017-03-10 14:20'},
+    {id:2, location:'even gvirol 15 eilat' , time:'2017-03-30 20:20'},
+    {id:3, location:'alenbi 2 eilat' , time:'2017-04-29 08:00'},
+    {id:4, location:'oshiskin 12 eilat' , time:'2017-05-02 21:00'},
+    {id:5, location:'queen 380 eilat' , time:'2017-10-18 10:15'}
+    ];
 
 }])
+.controller('MyCtrlSearchesHistory', function($scope) {
+  
+   $scope.data = {
+    showDelete: false
+  };
+  $scope.onItemDelete = function(item) {
+
+    $scope.items.splice($scope.items.indexOf(item), 1);
+
+}
+})
+
+.controller('MyCtrlReportsHistory', function($scope) {
+  
+   $scope.data = {
+    showDelete: false
+  };
+  $scope.onItemDelete = function(item) {
+
+    $scope.items2.splice($scope.items2.indexOf(item), 1);
+
+}
+})
 
 .controller('signupCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function

@@ -1,23 +1,58 @@
  <ion-view title="MyHistory" id="page7">
   <ion-content padding="true" class="has-header">
-    <body>
+    <body ng-controller="myHistoryCtrl">
 <ion-nav-view></ion-nav-view>
 
-      <ion-tabs class="tabs-icon-top">
-      
 
-          <ion-tab title="searches" icon="ion-search" href="#/side-menu/history/searchHistory">
+      <ion-tabs class="tabs-icon-top">
+          <ion-tab title="searches" icon="ion-search" href="#/side-menu/history/searchHistory" ng-controller="MyCtrlSearchesHistory">
             <ion-view>
-              <ion-content>
-                tab1
+                <ion-header-bar class="bar-positive">
+                  <div class="buttons">
+                    <button class="button button-icon icon ion-ios-minus-outline"
+                      ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+                  </div>
+                </ion-header-bar>
+               <ion-content>
+                <ion-list  show-delete="data.showDelete" >
+                  <ion-item ng-repeat="item in items" item="item"
+                  href="#/item/{{item.id}}"
+                            class="item-remove-animate">
+
+                    <h2>{{item.time}}</h2>
+                    <p>{{item.location}}</p>
+                              
+                  <ion-delete-button class="ion-minus-circled" 
+                                       ng-click="onItemDelete(item)">
+                    </ion-delete-button>
+                  </ion-item>
+                </ion-list>
               </ion-content>
             </ion-view>
           </ion-tab>
 
-          <ion-tab title="reports" icon="ion-document-text" href="#/side-menu/history/reportsHistory">
+          <ion-tab title="reports" icon="ion-document-text" href="#/side-menu/history/reportsHistory" ng-controller="MyCtrlReportsHistory">
             <ion-view>
-              <ion-content>
-                tab2
+               <ion-header-bar class="bar-positive">
+                  <div class="buttons">
+                    <button class="button button-icon icon ion-ios-minus-outline"
+                      ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+                  </div>
+                </ion-header-bar>
+               <ion-content>
+                <ion-list  show-delete="data.showDelete" >
+                  <ion-item ng-repeat="item in items2" item="item"
+                  href="#/item/{{item.id}}"
+                            class="item-remove-animate">
+
+                    <h2>{{item.time}}</h2>
+                    <p>{{item.location}}</p>
+                              
+                  <ion-delete-button class="ion-minus-circled" 
+                                       ng-click="onItemDelete(item)">
+                    </ion-delete-button>
+                  </ion-item>
+                </ion-list>
               </ion-content>
            </ion-view>
           </ion-tab>
