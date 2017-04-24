@@ -1,5 +1,5 @@
 
-angular.module('app.controllers', ['ionic.cloud', 'ionic'])
+angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova'])
 
 .run(function($http){
     //***INBAR***
@@ -138,16 +138,54 @@ function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $
 
 }])
 
-.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+
+
+
+.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $http, $stateParams, $ionicLoading) {
+function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform) {
        $scope.$on('cloud:push:notification', function(event, data) {
   var msg = data.message;
     alert(msg.title + ': ' + msg.text);
   });
         $scope.init = function(){
         $scope.chosenLocation;
+         var  location={
+                       lat:0,
+                       lng:0
+                       }
+         function getLocation(callback)
+                 {
+                        var options = {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                          maximumAge: 0
+                         };
+                      navigator.geolocation.getCurrentPosition(function(position)
+                         {
+                            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            var geocoder = new google.maps.Geocoder();
+                            var  latitude=position.coords.latitude;
+                            var longitude=position.coords.longitude;
+                            var  location={
+                                lat:latitude,
+                                lng:longitude
+                              }
+                              callback(location);
+                         }, geolocationError, options);
+                        function geolocationError(error)
+                         {
+                            console.log('error');
+                           $ionicPopup.alert({
+                           title: "Error Location",
+                           subTitle: error.message,
+                           template: JSON.stringify(error)
+                            });
+                        }
+                     }
+        $scope.chosenLocation;
+        getLocation (function(locationResult){
         var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
 
         var mapOptions = {
@@ -158,7 +196,6 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
             zoom: 16,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-
         var map = new google.maps.Map(document.getElementById("mapHOME"), mapOptions);
         var geocoder = new google.maps.Geocoder();
             geocoder.geocode({'address' : 'telAviv , ISRAEL'}, function(results, status){
@@ -166,7 +203,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
                 })
         // navigator.geolocation.getCurrentPosition(function(pos) {
         $scope.myLocation;
-            map.setCenter(new google.maps.LatLng(32.0852999 , 34.78176759999997)); // NOTE: pos.coords.latitude, pos.coords.longitude
+            map.setCenter(new google.maps.LatLng(locationResult.lat , locationResult.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
             var myLocation = new google.maps.Marker({
                 id: 0,
                 options: {
@@ -174,7 +211,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
                     draggable: false,
                     animation : google.maps.Animation.BOUNCE
                 },
-                position: new google.maps.LatLng(32.0852999 , 34.78176759999997),// NOTE: pos.coords.latitude, pos.coords.longitude
+                position: new google.maps.LatLng(locationResult.lat , locationResult.lng),// NOTE: pos.coords.latitude, pos.coords.longitude
                 map: map,
 
                 title: "My Location"
@@ -202,12 +239,10 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
             $state.go('menu.out', $scope.chosenLocation)
             // $state.go('menu.mapOUT', $scope.formOutParams);
         }
+        });
     };
 
-
-
 }])
-
 
 .controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
