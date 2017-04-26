@@ -4,6 +4,8 @@
         <input type="search" class="form-control text-center warning" placeholder="Select your location..." value= "{{chosenLocation.formatted_address}}">
         <span class="input-group-btn">
             <button class="btn btn-warning" type="button" ng-click="continue()">Choose!</button>
+            <button class="btn btn-success" ui-sref="$state.go('^')">goUP!</button>
+
         </span>
     </div>
     <div id="mapIN" class="map" data-tap-disabled="false"></div>

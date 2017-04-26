@@ -31,10 +31,24 @@ function ($scope, $http, $state, $stateParams) {
         console.log($scope.formInParams);
         // $state.go('^');
     }
+    // var test = {
+    //     time: '2017-02-13 12:50:10',
+    //     reporter_id: 1,
+    //     street: 2,
+    //     number: 3,
+    //     city: 'tempChosenLocation',
+    //     img: 'string',
+    //     lat: 12,
+    //     lng: 30,
+    //     description: 'test'
+    // }
     $scope.getInfoFromServer = function(){
-        // TODO: $http.get('fromServer'+formInParams).success(function(answer){console.log(answer); $state.go('menu.mapOUT', {answer})});
-        console.log($scope.formInParams);
-        $state.go('menu.availabeParking', $scope.formInParams);
+        $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
+        // $http.post('https://smartserver1.herokuapp.com/addnewparking/',test).success(function(answer){
+            console.log(answer);
+            $state.go('menu.availabeParking', answer);
+        });
+        // $state.go('menu.availabeParking', $scope.formInParams);
     };
 }])
 
@@ -217,6 +231,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
                 title: "My Location"
             });
             $scope.myLocation = myLocation;
+            //NOTE: this function center the map around the main marker
             $scope.myLocation.addListener('dragend', function(marker, eventName, args) {
                 map.setZoom(map.zoom);
                 map.setCenter(this.getPosition());
@@ -231,7 +246,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
                     console.log('returnd info: '+jsn.results[0].formatted_address);
                 });
             });
-        // });
+        // }); NOTE: end of navigator
         // console.log(map);
         // $scope.map = map;
         // $scope.myLocation.
@@ -253,6 +268,8 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
     console.log(tempMyLocation.name);
         $scope.init = function(){
             console.log($stateParams); // NOTE: =>send to server  $http.get('fromServer').success(function(parkingJson){locations = parkingJson;});
+
+            // var locations = $stateParams;
             var locations = [
                 {lat: 32.085999, lng: 34.781555},
                 {lat: 32.085234, lng: 34.781181},
@@ -370,7 +387,6 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                     console.log('mouseEvent!');
                 });
                 $scope.markers.push(tempMarker)
-
             });
 
             $scope.myLocation = myLocation;
@@ -389,7 +405,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
             //         console.log('returnd info: '+jsn.results[0].formatted_address);
             //     });
             // });
-        // });
+        // }); NOTE: end of navigator
         // console.log(map);
         // $scope.map = map;
         // $scope.myLocation.
@@ -509,7 +525,6 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
                 },
                 position: new google.maps.LatLng(32.0852999 , 34.78176759999997),// NOTE: pos.coords.latitude, pos.coords.longitude
                 map: map,
-
                 title: "My Location"
             });
             $scope.myLocation = myLocation;
