@@ -17,11 +17,11 @@
         <ion-item class="item-avatar item-icon-right" id="menu-list-item7" menu-close="">
         <div ui-sref="menu.myProfile" >
           <h2>Hello,</h2>
-          <p class="calm">Jon Doe</p>
+          <p class="calm" ng-model="userName.name">{{userName}}</p>
         </div>
           <i class="icon ion-android-exit" ng-click="googleLogOut()"></i>
         </ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item8" ui-sref="menu.home" menu-close="">
+        <ion-item class="item-icon-left" id="menu-list-item8" ng-click="goHome()" menu-close="">
           <i class="icon ion-ios-location"></i>Home</ion-item>
         <ion-item class="item-icon-left" id="menu-list-item9" ui-sref="menu.in" menu-close="">
           <i class="icon ion-log-in"></i>In</ion-item>

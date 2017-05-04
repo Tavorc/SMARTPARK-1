@@ -3,18 +3,18 @@
     <form id="login-form1" class="list">
       <ion-list id="login-list2">
         <label class="item item-input" id="login-input1">
-          <span class="input-label">Username</span>
-          <input type="text" placeholder="">
+          <span class="input-label">Email</span>
+          <input type="text" placeholder="" ng-model="formSignInParams.email.text">
         </label>
         <label class="item item-input" id="login-input2">
           <span class="input-label">Password</span>
-          <input type="password" placeholder="">
+          <input type="password" placeholder="" ng-model="formSignInParams.password">
         </label>
       </ion-list>
       <div class="spacer" style="height: 40px;"></div>
-      <a ui-sref="menu.home" id="login-button1" class="button button-stable  button-block">Log in</a>
+      <a  id="login-button1" class="button button-stable  button-block" ng-click="signIn()">Log in</a>
       <a ui-sref="signup({formParams:{street: 'test', city:'tel aviv'}})" id="login-button2" class="button button-positive  button-block button-clear">Or create an account</a>
     </form>
-    <a ui-sref="menu.home" id="login-button3" class="button button-positive  button-block icon ion-social-googleplus" ng-click="googleSignIn()"></a>
+    <a  id="login-button3" class="button button-positive  button-block icon ion-social-googleplus" ng-click="googleSignIn()"></a>
   </ion-content>
 </ion-view>

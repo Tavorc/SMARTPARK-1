@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services','uiGmapgoogle-maps','googlemaps.init','ionic.cloud',])
+angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services','uiGmapgoogle-maps','googlemaps.init','ionic.cloud', 'ngStorage',])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider, $ionicCloudProvider, $stateProvider, $urlRouterProvider){
   $ionicCloudProvider.init({
@@ -43,11 +43,53 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $ionicPopup, StorageService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    
+    cordova.plugins.notification.local.on("click", function (notification) {
+    cordova.plugins.notification.local.cancel(notification.id, function () {
+          // Notification was cancelled
+          
+            var confirmPopup = $ionicPopup.confirm({
+             title: 'Time to parking',
+             template: 'Is parking available?'
+           });
+
+           confirmPopup.then(function(res) {
+             
+             if(res) {
+              var locSelect={lat: -86, lng:  -86};
+              StorageService.add(locSelect);
+             } else {
+                var myPopup = $ionicPopup.show({
+                template: '<input type="text">',
+                title: 'Enter Number of car',
+                subTitle: 'Car that parking',
+                buttons: [
+                  { text: 'Cancel' },
+                  {
+                    text: '<b>Save</b>',
+                    type: 'button-positive',
+                    onTap: function(e) {
+                      // if () {
+                      //   //don't allow the user to close unless he enters wifi password
+                      //   e.preventDefault();
+                      // } else {
+                      //   return;
+                      // }
+                    }
+                  }
+                ]
+                 });
+               console.log('You are not sure');
+               var locSelect={lat: -86, lng:  -86};
+              StorageService.add(locSelect);
+             }
+           });
+          console.log('notification is cancelled : '+ notification.id);
+                    }, '');
+                });
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);

@@ -50,7 +50,7 @@ angular.module('app.routes', [])
     url: '/login',
     params: {
         userParams: {
-            userName: null,
+            email: null,
             password: null,
             gToken: null
         }
@@ -134,11 +134,10 @@ angular.module('app.routes', [])
     url: '/signup',
     templateUrl: 'templates/signup.html',
     params: {
-        userName: null,
+        name: null,
+        email: null,
         password: null,
-        userId: null,
         carId: null,
-        gToken: null
     },
     controller: 'signupCtrl'
   })
@@ -201,7 +200,6 @@ angular.module('app.routes', [])
 
 
 $urlRouterProvider.otherwise('/login')
-
 
 
 });
