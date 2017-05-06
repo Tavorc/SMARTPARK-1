@@ -31,20 +31,21 @@ function ($scope, $http, $state, $stateParams) {
         console.log($scope.formInParams);
         // $state.go('^');
     }
-    // var test = {
-    //     time: '2017-02-13 12:50:10',
-    //     reporter_id: 1,
-    //     street: 2,
-    //     number: 3,
-    //     city: 'tempChosenLocation',
-    //     img: 'string',
-    //     lat: 12,
-    //     lng: 30,
-    //     description: 'test'
-    // }
+    var test = {
+        time: '2017-02-13 12:50:10',
+        // reporter_id: 1,
+        diff: 84,
+        // street: 2,
+        // number: 3,
+        // city: 'tempChosenLocation',
+        // img: 'string',
+        lat: 12,
+        lng: 30
+        // description: 'test'
+    }
     $scope.getInfoFromServer = function(){
-        $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
-        // $http.post('https://smartserver1.herokuapp.com/addnewparking/',test).success(function(answer){
+        // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
+        $http.post('https://smartserver1.herokuapp.com/searchparking/',test).success(function(answer){
             console.log(answer);
             $state.go('menu.availabeParking', answer);
         });
@@ -69,7 +70,7 @@ function ($scope, $http, $state, $stateParams) {
         handicap: null,
         comments: null
     }
-    
+
     $scope.print = function(){
         console.log($scope.formOutParams);
         // $state.go('^');
@@ -149,7 +150,7 @@ function deviceReady() {
          {
           console.log("not success");
         }
-      ); 
+      );
   }
  $scope.googleSignIn = function() {
         $ionicLoading.show({
@@ -173,7 +174,7 @@ function deviceReady() {
                     function (user_data) {
                       //DAVID check if the user appear in DB(mongo)
                       var emailToCheck=user_data.email;
-                      var register=true; 
+                      var register=true;
                    // console.log(user_data);
                     UserService.setUser(user_data);
                     if(!register)
@@ -213,9 +214,9 @@ function deviceReady() {
                   function (msg) {
                      $ionicLoading.hide();
                   }
-                );           
+                );
         }
-      ); 
+      );
     };
       $scope.signIn = function()
       {
@@ -227,6 +228,7 @@ function deviceReady() {
           } ;
           UserService.setUser(userData);
           $ionicAuth.login('basic', details).then(function() {
+
              $state.go('menu.home');
             }, function(err) {
               console.log(err);
@@ -325,7 +327,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
                         street : jsn.results[0].address_components[1].short_name,
                         city : jsn.results[0].address_components[2].short_name,
                         country : jsn.results[0].address_components[4].short_name
-                    }  
+                    }
                     console.log('returnd info: '+jsn.results[0].formatted_address);
                 });
             });
@@ -556,7 +558,7 @@ function ($scope, $stateParams) {
 
 }])
 .controller('MyCtrlSearchesHistory', function($scope) {
-  
+
    $scope.data = {
     showDelete: false
   };
@@ -568,7 +570,7 @@ function ($scope, $stateParams) {
 })
 
 .controller('MyCtrlReportsHistory', function($scope) {
-  
+
    $scope.data = {
     showDelete: false
   };
@@ -735,14 +737,14 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
         google.maps.event.addListener(map, 'dragend', function(){
         var locationSelected=StorageService.getAll();
         if(locationSelected.lat != -86)
-        {  
-          // map.setCenter(new google.maps.LatLng(locationSelected.lat , locationSelected.lng)); 
+        {
+          // map.setCenter(new google.maps.LatLng(locationSelected.lat , locationSelected.lng));
         $scope.markerChosen;
                     var markerChosen = new google.maps.Marker({
                     map: map,
                     icon: imgs.markerBlack,
                     position: new google.maps.LatLng(locationSelected.lat, locationSelected.lng)
-                });  
+                });
                 $scope.markerChosen = markerChosen;
         }
         });
