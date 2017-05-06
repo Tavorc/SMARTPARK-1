@@ -284,7 +284,6 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
                             });
                         }
                      }
-        $scope.chosenLocation;
         getLocation (function(locationResult){
         var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
         var mapOptions = {
@@ -317,23 +316,22 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
             });
             $scope.myLocation = myLocation;
 
-
-
 var locChosen=StorageService.getAll();
-console.log( locChosen);
-$scope.choseLocation;
-if(locChosen.lat != -86)
-{
-  $scope.choseLocation;
-   google.maps.event.addListener(map, 'dragend', function(){
-         var choseLocation = new google.maps.Marker({
-              position: new google.maps.LatLng(locChosen.lat , locChosen.lng),
-              map: map,
-              icon:imgs.markerBlack
-            });
-        });
-   $scope.choseLocation = choseLocation;
-}
+ console.log( locChosen);
+ $scope.choseLocation;
+ if(locChosen.lat != -86)
+ {
+    google.maps.event.addListener(map, 'dragend', function(){
+          var choseLocation = new google.maps.Marker({
+               position: new google.maps.LatLng(locChosen.lat , locChosen.lng),
+               map: map,
+               icon:imgs.markerBlack
+             });
+          $scope.choseLocation = choseLocation;
+          choseLocation.setMap(map);
+     });    
+ }
+
             //NOTE: this function center the map around the main marker
             $scope.myLocation.addListener('dragend', function(marker, eventName, args) {
                 map.setZoom(map.zoom);
@@ -359,7 +357,7 @@ if(locChosen.lat != -86)
         }
         });
     };
-
+google.maps.event.addDomListener(window, 'load', $scope.init );
 
 }])
 
