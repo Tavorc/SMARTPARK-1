@@ -175,7 +175,6 @@ function deviceReady() {
                       //DAVID check if the user appear in DB(mongo)
                       var emailToCheck=user_data.email;
                       var register=true;
-                   // console.log(user_data);
                     UserService.setUser(user_data);
                     if(!register)
                     {
@@ -192,10 +191,10 @@ function deviceReady() {
                             type: 'button-positive',
                             onTap: function(e) {
                               if (!$scope.data.numCar) {
-                                //don't allow the user to close unless he enters wifi password
                                 e.preventDefault();
                               } else {
                                 console.log($scope.data.numCar);
+                                //DAVID send number of car to server
                                 $state.go('menu.home');
                                 return $scope.data.numCar;
                               }
@@ -255,12 +254,13 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
                        lat:0,
                        lng:0
                        }
+            ionic.Platform.ready(function(){
          function getLocation(callback)
                  {
                         var options = {
                         enableHighAccuracy: true,
-                        timeout: 5000,
-                          maximumAge: 0
+                        timeout: 10000,
+                          maximumAge: 30000
                          };
                       navigator.geolocation.getCurrentPosition(function(position)
                          {
@@ -318,20 +318,19 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
 
 var locChosen=StorageService.getAll();
  console.log( locChosen);
- $scope.choseLocation;
+   $scope.choseLocation;
  if(locChosen.lat != -86)
  {
-    google.maps.event.addListener(map, 'dragend', function(){
+  google.maps.event.addListener(map, 'dragend', function(){
           var choseLocation = new google.maps.Marker({
                position: new google.maps.LatLng(locChosen.lat , locChosen.lng),
                map: map,
                icon:imgs.markerBlack
              });
           $scope.choseLocation = choseLocation;
-          choseLocation.setMap(map);
-     });    
+      }); 
  }
-
+  
             //NOTE: this function center the map around the main marker
             $scope.myLocation.addListener('dragend', function(marker, eventName, args) {
                 map.setZoom(map.zoom);
@@ -346,6 +345,7 @@ var locChosen=StorageService.getAll();
                     }
                     console.log('returnd info: '+jsn.results[0].formatted_address);
                 });
+
             });
         // }); NOTE: end of navigator
         // console.log(map);
@@ -356,8 +356,10 @@ var locChosen=StorageService.getAll();
             // $state.go('menu.mapOUT', $scope.formOutParams);
         }
         });
+      });
     };
-google.maps.event.addDomListener(window, 'load', $scope.init );
+//google.maps.event.addDomListener(window, 'load', $scope.init() );
+
 
 }])
 
@@ -496,7 +498,8 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                 var locSelect={lat: location.lat, lng:  location.lng};
                                 StorageService.add(locSelect);
                                 var chec=StorageService.getAll();
-                                $state.go('menu.home');
+                                window.location.reload(true);
+                                $state.go('menu.home', {}, { reload: true});
                         }
                         if(index == 2)
                         {
@@ -609,7 +612,7 @@ function ($scope, $state, $stateParams, $ionicAuth, $ionicUser) {
     carId : $stateParams.carId
   }
     $scope.signUp = function() {
-        //send data to mongo DAVID
+        //DAVID send data to mongo 
   var details={'email': $scope.formSignupParams.email.text, 'password':  $scope.formSignupParams.password}
    var emailU=$scope.formSignupParams.email.text;
           var userData ={
