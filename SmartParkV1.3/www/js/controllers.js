@@ -278,7 +278,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
                          {
                             console.log('error');
                            $ionicPopup.alert({
-                           title: "Error Location",
+                           title: "You need to Enable Location Services!!",
                            subTitle: error.message,
                            template: JSON.stringify(error)
                             });
@@ -330,7 +330,6 @@ var locChosen=StorageService.getAll();
           $scope.choseLocation = choseLocation;
       }); 
  }
-  
             //NOTE: this function center the map around the main marker
             $scope.myLocation.addListener('dragend', function(marker, eventName, args) {
                 map.setZoom(map.zoom);
@@ -498,8 +497,8 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                 var locSelect={lat: location.lat, lng:  location.lng};
                                 StorageService.add(locSelect);
                                 var chec=StorageService.getAll();
-                                window.location.reload(true);
                                 $state.go('menu.home', {}, { reload: true});
+                                 window.location.reload(true);
                         }
                         if(index == 2)
                         {
