@@ -174,7 +174,7 @@ function deviceReady() {
                     function (user_data) {
                       //DAVID check if the user appear in DB(mongo)
                       var emailToCheck=user_data.email;
-                      var register=true;
+                      var register=false;
                     UserService.setUser(user_data);
                     if(!register)
                     {
@@ -194,7 +194,8 @@ function deviceReady() {
                                 e.preventDefault();
                               } else {
                                 console.log($scope.data.numCar);
-                                //DAVID send number of car to server
+                                console.log(user_data.givenName +": " + user_data.email +": " + user_data.userId );
+                                //DAVID send all this data  to server
                                 $state.go('menu.home');
                                 return $scope.data.numCar;
                               }
@@ -240,10 +241,10 @@ function deviceReady() {
       });
 }])
 
-.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', 'StorageService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', 'StorageService', '$ionicActionSheet', '$timeout', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, StorageService) {
+function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, StorageService, $ionicActionSheet, $timeout) {
        $scope.$on('cloud:push:notification', function(event, data) {
   var msg = data.message;
     alert(msg.title + ': ' + msg.text);
@@ -316,18 +317,50 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
             });
             $scope.myLocation = myLocation;
 
-var locChosen=StorageService.getAll();
- console.log( locChosen);
-   $scope.choseLocation;
- if(locChosen.lat != -86)
+var parkChosen=StorageService.getAll();
+$scope.choseLocation;
+$ionicLoading.hide();
+ if(parkChosen.lat != -86)
  {
   google.maps.event.addListener(map, 'dragend', function(){
           var choseLocation = new google.maps.Marker({
-               position: new google.maps.LatLng(locChosen.lat , locChosen.lng),
+               id: 1,
+               position: new google.maps.LatLng(parkChosen.lat , parkChosen.lng),
                map: map,
                icon:imgs.markerBlack
              });
           $scope.choseLocation = choseLocation;
+  google.maps.event.addListener(choseLocation, 'click', function(event) {
+                    var hideSheet = $ionicActionSheet.show({
+                     buttons: [
+                       { text: 'Details' },
+                       { text: 'Drive' }
+                     ],
+                     titleText: '<b>Options</b>',
+                     cancelText: 'Back',
+                     cancel: function() {
+                         return true; // add cancel code..
+                        },
+                     buttonClicked: function(index) {
+                        if(index == 0)
+                        {
+                           var alertPopup = $ionicPopup.alert({
+                             title: 'Details',
+                             template: 'number: 24<br>street: Ibn Gavirol <br> city: Tel Aviv<br>country: Israel <br>Time: 15:00<br>Date: 15/03/2017<br>Comments: hello'
+                           });
+                        }
+                        if(index == 1)
+                        {
+                           
+                        }
+                     
+                       return true;
+                     },
+                   });
+                   $timeout(function() {
+                     hideSheet();
+                   }, 20000);
+                });
       }); 
  }
             //NOTE: this function center the map around the main marker
@@ -473,7 +506,10 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                         }
                         if(index == 1)
                         {
-                                var now = new Date().getTime(),_5_sec_from_now = new Date(now + 20 * 1000);
+                          $ionicLoading.show({
+                            template: 'Logging in..:)'
+                          });
+                           var now = new Date().getTime(),_5_sec_from_now = new Date(now + 20 * 1000);
                                 cordova.plugins.notification.local.schedule(
                                 {
                                 id: 10,
@@ -499,6 +535,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                 var chec=StorageService.getAll();
                                 $state.go('menu.home', {}, { reload: true});
                                  window.location.reload(true);
+
                         }
                         if(index == 2)
                         {
