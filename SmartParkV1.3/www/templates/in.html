@@ -3,7 +3,7 @@
     <form id="in-form10" class="list">
       <label class="item item-select" id="in-select4" name="distance">
         <span class="input-label">Distance</span>
-        <select ng-model="formInParams.distance">
+        <select ng-model="booking.distance">
             <option>0.1 km</option>
             <option>0.2 km</option>
             <option>0.3 km</option>
@@ -19,44 +19,39 @@
       </label>
       <label class="item item-input" id="out-select6" name="date">
         <span class="input-label">Date</span>
-        <input type="date" id="out-select6" name="time" ng-model="formInParams.date" placeholder="yyyy-MM-dd" min="2017-01-01" max="2019-12-31" required />
+        <input type="date" id="out-select6" name="date" ng-model="time.d" placeholder="yyyy-MM-dd" min="2017-01-01" max="2019-12-31" required />
       </label>
       <label class="item item-input" id="out-select7" name="time">
         <span class="input-label">Time</span>
-        <input type="time" id="out-select7" name="time" ng-model="formInParams.time" required />
+        <input type="time" id="out-select7" name="time" ng-model="time.t" required />
       </label>
       <a ui-sref="menu.mapIN" id="in-button8" class="button button-positive button-small button-block icon ion-android-locate"> Choose location...</a>
       <label class="item item-input" id="in-input10" name="street">
         <span class="input-label">Street</span>
-        <input type="text" placeholder="Auto" ng-model="formInParams.street">
+        <input type="text" placeholder="Auto" ng-model="booking.location.street">
       </label>
       <label class="item item-input" id="in-input11" name="number">
         <span class="input-label">Number</span>
-        <input type="text" placeholder="Auto" ng-model="formInParams.number">
+        <input type="text" placeholder="Auto" ng-model="booking.location.number">
       </label>
       <label class="item item-input" id="in-input12" name="city">
         <span class="input-label">City</span>
-        <input type="text" placeholder="Auto" ng-model="formInParams.city">
+        <input type="text" placeholder="Auto" ng-model="booking.location.city">
       </label>
       <label class="item item-input" id="in-input13" name="country">
         <span class="input-label">Country</span>
-        <input type="text" placeholder="Auto" ng-model="formInParams.country">
+        <input type="text" placeholder="Auto" ng-model="booking.location.country">
       </label>
     </form>
     <i>
       Optional:
     </i>
     <form id="in-form11" class="list">
-      <ion-item class="range range-positive" id="in-range1">Size
-        <input type="range" value="3" min="2" max="6" step="1" name="size" ng-model="formInParams.size">
-      </ion-item>
-      <ion-checkbox id="in-checkbox1" name="handicap">Handicap</ion-checkbox>
-      <label class="item item-input" id="in-textarea1" name="comments">
-        <span class="input-label">Comments</span><textarea placeholder="Something importent?" ng-model="formInParams.comments"></textarea></label>
-      <ion-toggle toggle-class="toggle-positive" id="in-toggle1" name="picture" ng-model="formInParams.picture">Add picture</ion-toggle>
+      <!-- <ion-checkbox id="in-checkbox1" name="handicap">Handicap</ion-checkbox> -->
+      <!-- <ion-toggle toggle-class="toggle-positive" id="in-toggle1" name="picture" ng-model="booking.picture">Add picture</ion-toggle> -->
       <div id="in-button-bar1" class="button-bar">
         <a ui-sref="menu.home" id="in-button12" class="button button-dark  button-block icon ion-android-cancel circle-button"></a>
-        <a ng-click="getInfoFromServer()" id="in-button13" class="button button-calm  button-block icon ion-paper-airplane circle-button"></a>
+        <a ng-click="getInfoFromServer()" id="in-button13" class="button button-calm  button-block icon ion-paper-airplane circle-button" ng-disabled="!(time.d && time.t)"></a>
       </div>
     </form>
   </ion-content>

@@ -13,23 +13,26 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $http, $state, $stateParams, $location, $localStorage) {
     console.log($stateParams);
+    var formatDate = function(date){
+            return date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.getHours() + ":" + date.t.getMinutes() + ":" + date.t.getSeconds() ;
+    };
     $scope.location = {
         country: $stateParams.country,
         city: $stateParams.city,
         street: $stateParams.street,
         number: $stateParams.number,
-        coords: {lat: $stateParams.lat , lng: $stateParams.lng }
+        coords: { lat: $stateParams.lat, lng: $stateParams.lng }
     }
     $scope.time = {
-        date: null,
-        time: null
+        d: null,
+        t: null
     }
     $scope.booking = {
     time: $scope.time,
     distance: null,
     location: $scope.location,
     searcherID: null,
-    parkingID: null
+    bookingId: null
     }
 
     // NOTE: original->
@@ -47,15 +50,29 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage) {
         description: 'test'
     }*/
     // console.log($location.url() );// NOTE: needed to go back to previus state
+
     $scope.getInfoFromServer = function(){
-        // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
-        $http.post('https://smartserver1.herokuapp.com/searchparking/',$scope.booking).success(function(answer){
+        $scope.booking.time = formatDate($scope.time); // NOTE: async call doing problems!!!
+        $http
+        .post('https://smartserver1.herokuapp.com/searchparking/',
+                // formatDate($scope.booking.time.d, $scope.booking.time.t),
+                // $scope.booking.distance,
+                // {location: $scope.location},
+                // $scope.booking.searcherID
+                // $scope.booking.bookingId: null
+                $scope.booking
+            )
+        .success(function(answer){
             // console.log(answer);
             $localStorage.answer  = answer
             console.log($localStorage.answer);
             $state.go('menu.availabeParking', {reload: true});
+        })
+        .error(function(answer){
+            console.log('can not post');
+            console.log($scope.booking);
+            console.log(formatDate($scope.booking.time.d, $scope.booking.time.t));
         });
-        // $state.go('menu.availabeParking', $scope.formInParams);
     };
 }])
 
@@ -367,7 +384,7 @@ $ionicLoading.hide();
                      hideSheet();
                    }, 20000);
                 });
-      }); 
+      });
  }
             //NOTE: this function center the map around the main marker
             $scope.myLocation.addListener('dragend', function(marker, eventName, args) {
@@ -689,9 +706,6 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $state, $http, $stateParams, $ionicLoading, $location) {
-    // console.log($stateParams);
-    // ionic.Platform.ready(initialize);
-    // console.log(myLocation.name);
         $scope.init = function(){
         $scope.chosenLocation;
         var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
@@ -735,7 +749,9 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $location) {
                         number : jsn.results[0].address_components[0].short_name,
                         street : jsn.results[0].address_components[1].short_name,
                         city : jsn.results[0].address_components[2].short_name,
-                        country : jsn.results[0].address_components[4].short_name
+                        country : jsn.results[0].address_components[4].short_name,
+                        lat: jsn.results[0].geometry.location.lat,
+                        lng: jsn.results[0].geometry.location.lng
                     }
                     console.log('returnd info: '+jsn.results[0].formatted_address);
                 });
@@ -749,7 +765,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $location) {
             // $state.go('menu.mapOUT', $scope.formOutParams);
         }
         $scope.goup = function() {
-            $state.go('^', $scope.chosenLocation, {reload: true})
+            $state.go('^', $scope.chosenLocation, {reload: true, notify:true})
             // $state.go('menu.mapOUT', $scope.formOutParams);
         }
     };

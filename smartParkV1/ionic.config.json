@@ -1,5 +1,0 @@
-{
-  "name": "smartParkV1",
-  "app_id": "535bc8c5",
-  "gulpStartupTasks": ["sass", "watch"]
-}

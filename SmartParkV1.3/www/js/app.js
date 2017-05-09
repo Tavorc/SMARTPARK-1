@@ -19,7 +19,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
     }
   }
   });
-   $ionicCloudProvider.init({
+  // $ionicConfigProvider.views.maxCache(0); NOTE: use it to Enable $state.go('^')
+  $ionicCloudProvider.init({
     "core": {
       "app_id": "535bc8c5"
     },
@@ -36,7 +37,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
       }
     }
   });
-         
+
        //$urlRouterProvider.otherwise('/reportsHistory');
 
   $sceDelegateProvider.resourceUrlWhitelist([ 'self','*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
@@ -50,14 +51,14 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
     cordova.plugins.notification.local.on("click", function (notification) {
     cordova.plugins.notification.local.cancel(notification.id, function () {
           // Notification was cancelled
-          
+
             var confirmPopup = $ionicPopup.confirm({
              title: 'Time to parking',
              template: 'Is parking available?'
            });
 
            confirmPopup.then(function(res) {
-             
+
              if(res) {
               var locSelect={lat: -86, lng:  -86};
               StorageService.add(locSelect);
@@ -107,7 +108,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 */
 .directive('disableSideMenuDrag', ['$ionicSideMenuDelegate', '$rootScope', function($ionicSideMenuDelegate, $rootScope) {
     return {
-        restrict: "A",  
+        restrict: "A",
         controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
 
             function stopDrag(){
@@ -142,7 +143,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
       attrs.$observe('hrefInappbrowser', function(val){
         href = val;
       });
-      
+
       element.bind('click', function (event) {
 
         window.open(href, '_system', 'location=yes');
