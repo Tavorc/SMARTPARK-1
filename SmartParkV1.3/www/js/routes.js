@@ -14,7 +14,9 @@ angular.module('app.routes', [])
             street: null,
             number: null,
             city: null,
-            country: null
+            country: null,
+            lat: null,
+            lng: null
     },
     views: {
       'side-menu21': {
@@ -30,7 +32,9 @@ angular.module('app.routes', [])
             street: null,
             number: null,
             city: null,
-            country: null
+            country: null,
+            lat: null,
+            lng: null
     },
     views: {
       'side-menu21': {
@@ -71,19 +75,24 @@ angular.module('app.routes', [])
 
   .state('menu.availabeParking', {
     url: '/avl_prks',
-    params: {
-        distance: null,
-        date: null,
-        time: null,
-        street: null,
-        number: null,
-        city: null,
-        country: null,
-        size: null,
-        handicap: null,
-        comments: null,
-        picture: null
-    },
+    // params: {
+    //     available: null,
+    //     description:null,
+    //     handicapped: null,
+    //     id: null,
+    //     img: null,
+    //     location: {
+    //         city: null,
+    //         coord: [],
+    //         number: null,
+    //         street: null
+    //     },
+    //     reporter_id: null,
+    //     searcher_id: null,
+    //     time: '2017-02-13, 12:50:10',
+    //     _id: null
+    // },
+    // params: [],
     views: {
       'side-menu21': {
         templateUrl: 'templates/availabeParking.html',

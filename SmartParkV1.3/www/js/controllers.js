@@ -8,46 +8,52 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 
 })
 
-.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $http, $state, $stateParams) {
+function ($scope, $http, $state, $stateParams, $location, $localStorage) {
     console.log($stateParams);
-    $scope.formInParams = {
-        distance: null,
-        date: null,
-        time: null,
+    $scope.location = {
+        country: $stateParams.country,
+        city: $stateParams.city,
         street: $stateParams.street,
         number: $stateParams.number,
-        city: $stateParams.city,
-        country: $stateParams.country,
-        size: null,
-        handicap: null,
-        comments: null,
-        picture: null
+        coords: {lat: $stateParams.lat , lng: $stateParams.lng }
+    }
+    $scope.time = {
+        date: null,
+        time: null
+    }
+    $scope.booking = {
+    time: $scope.time,
+    distance: null,
+    location: $scope.location,
+    searcherID: null,
+    parkingID: null
     }
 
-    $scope.print = function(){
-        console.log($scope.formInParams);
-        // $state.go('^');
-    }
+    // NOTE: original->
+    /*
     var test = {
         time: '2017-02-13 12:50:10',
-        // reporter_id: 1,
+        reporter_id: 1,
         diff: 84,
-        // street: 2,
-        // number: 3,
-        // city: 'tempChosenLocation',
-        // img: 'string',
+        street: 2,
+        number: 3,
+        city: 'tempChosenLocation',
+        img: 'string',
         lat: 12,
         lng: 30
-        // description: 'test'
-    }
+        description: 'test'
+    }*/
+    // console.log($location.url() );// NOTE: needed to go back to previus state
     $scope.getInfoFromServer = function(){
         // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
-        $http.post('https://smartserver1.herokuapp.com/searchparking/',test).success(function(answer){
-            console.log(answer);
-            $state.go('menu.availabeParking', answer);
+        $http.post('https://smartserver1.herokuapp.com/searchparking/',$scope.booking).success(function(answer){
+            // console.log(answer);
+            $localStorage.answer  = answer
+            console.log($localStorage.answer);
+            $state.go('menu.availabeParking', {reload: true});
         });
         // $state.go('menu.availabeParking', $scope.formInParams);
     };
@@ -351,9 +357,9 @@ $ionicLoading.hide();
                         }
                         if(index == 1)
                         {
-                           
+
                         }
-                     
+
                        return true;
                      },
                    });
@@ -373,7 +379,9 @@ $ionicLoading.hide();
                         number : jsn.results[0].address_components[0].short_name,
                         street : jsn.results[0].address_components[1].short_name,
                         city : jsn.results[0].address_components[2].short_name,
-                        country : jsn.results[0].address_components[4].short_name
+                        country : jsn.results[0].address_components[4].short_name,
+                        lat: jsn.results[0].geometry.location.lat,
+                        lng: jsn.results[0].geometry.location.lng
                     }
                     console.log('returnd info: '+jsn.results[0].formatted_address);
                 });
@@ -395,42 +403,39 @@ $ionicLoading.hide();
 
 }])
 
-.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', 'UserService', 'StorageService',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', 'UserService', 'StorageService', '$localStorage',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet, $timeout, $ionicPopup, UserService, StorageService) {
-    // console.log($stateParams);
-    // ionic.Platform.ready(initialize);
-    console.log(tempMyLocation.name);
+function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet, $timeout, $ionicPopup, UserService, StorageService, $localStorage) {
+    console.log($localStorage);
         $scope.init = function(){
-            console.log($stateParams); // NOTE: =>send to server  $http.get('fromServer').success(function(parkingJson){locations = parkingJson;});
-
-            // var locations = $stateParams;
-            var locations = [
-                {lat: 32.085999, lng: 34.781555},
-                {lat: 32.085234, lng: 34.781181},
-                {lat: 32.085111, lng: 34.781124},
-                {lat: 32.085588, lng: 34.781834},
-                {lat: 32.085702, lng: 34.781968},
-                {lat: 32.085264, lng: 34.781657},
-                {lat: 32.085724, lng: 34.781905},
-                {lat: 32.085685, lng: 34.781196},
-                {lat: 32.085611, lng: 34.781222},
-                // {lat: 32.085000, lng: 34.781667},
-                // {lat: 32.085859, lng: 34.781708},
-                // {lat: 32.085015, lng: 34.781858},
-                // {lat: 32.085104, lng: 34.781299},
-                // {lat: 32.085700, lng: 34.781187},
-                // {lat: 32.085785, lng: 34.781978},
-                // {lat: 32.085616, lng: 34.781119},
-                // {lat: 32.085766, lng: 34.781692},
-                // {lat: 32.085193, lng: 34.781218},
-                // {lat: 32.085162, lng: 34.781694},
-                // {lat: 32.085358, lng: 34.781506},
-                // {lat: 32.085358, lng: 34.781315},
-                // {lat: 32.085258, lng: 34.781000},
-                {lat: 32.085792, lng: 34.781352}
-            ];
+            console.log($localStorage.answer); // NOTE: =>send to server  $http.get('fromServer').success(function(parkingJson){locations = parkingJson;});
+            var locations = $localStorage.answer;
+            // var locations = [
+            //     {lat: 32.085999, lng: 34.781555},
+            //     {lat: 32.085234, lng: 34.781181},
+            //     {lat: 32.085111, lng: 34.781124},
+            //     {lat: 32.085588, lng: 34.781834},
+            //     {lat: 32.085702, lng: 34.781968},
+            //     {lat: 32.085264, lng: 34.781657},
+            //     {lat: 32.085724, lng: 34.781905},
+            //     {lat: 32.085685, lng: 34.781196},
+            //     {lat: 32.085611, lng: 34.781222},
+            //     // {lat: 32.085000, lng: 34.781667},
+            //     // {lat: 32.085859, lng: 34.781708},
+            //     // {lat: 32.085015, lng: 34.781858},
+            //     // {lat: 32.085104, lng: 34.781299},
+            //     // {lat: 32.085700, lng: 34.781187},
+            //     // {lat: 32.085785, lng: 34.781978},
+            //     // {lat: 32.085616, lng: 34.781119},
+            //     // {lat: 32.085766, lng: 34.781692},
+            //     // {lat: 32.085193, lng: 34.781218},
+            //     // {lat: 32.085162, lng: 34.781694},
+            //     // {lat: 32.085358, lng: 34.781506},
+            //     // {lat: 32.085358, lng: 34.781315},
+            //     // {lat: 32.085258, lng: 34.781000},
+            //     {lat: 32.085792, lng: 34.781352}
+            // ];
 
             var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
 
@@ -465,9 +470,9 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
 
                 title: "My Location"
             });
-            locations.forEach(function(location) {
-               // console.log(location);
-                var tempLatLng = new google.maps.LatLng(location.lat, location.lng);
+            locations.forEach(function(loc) {
+            //    console.log(loc);
+                var tempLatLng = new google.maps.LatLng(loc.location.coord[0], loc.location.coord[1]);
                 var tempMarker = new google.maps.Marker({
                     id: $scope.markers.length+1,
                     options: {
@@ -475,12 +480,12 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                         draggable: false,
                         animation : google.maps.Animation.DROP
                     },
-                    position: new google.maps.LatLng(location.lat, location.lng),// NOTE: pos.coords.latitude, pos.coords.longitude
+                    position: new google.maps.LatLng(loc.location.coord[0], loc.location.coord[1]),// NOTE: pos.coords.latitude, pos.coords.longitude
                     map: map,
-                    title: "My Location"
+                    title: loc.description
                 });
                 var infowindow = new google.maps.InfoWindow({
-                    content: 'Latitude: ' + location.lat + '<br>Longitude: ' + location.lng
+                    content: 'Latitude: ' + loc.location.coord[0] + '<br>Longitude: ' + loc.location.coord[1]
                 })
                 google.maps.event.addListener(tempMarker, 'click', function(event) {
                     infowindow.open(map,tempMarker);
@@ -530,7 +535,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                     return;
                                });
 
-                                var locSelect={lat: location.lat, lng:  location.lng};
+                                var locSelect={lat: loc.location.coord[0], lng:  loc.location.coord[1]};
                                 StorageService.add(locSelect);
                                 var chec=StorageService.getAll();
                                 $state.go('menu.home', {}, { reload: true});
@@ -545,7 +550,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                      },
                    });
 
-                   // For example's sake, hide the sheet after two seconds
+                   //NOTE????=>// For example's sake, hide the sheet after two seconds
                    $timeout(function() {
                      hideSheet();
                    }, 20000);
@@ -648,7 +653,7 @@ function ($scope, $state, $stateParams, $ionicAuth, $ionicUser) {
     carId : $stateParams.carId
   }
     $scope.signUp = function() {
-        //DAVID send data to mongo 
+        //DAVID send data to mongo
   var details={'email': $scope.formSignupParams.email.text, 'password':  $scope.formSignupParams.password}
    var emailU=$scope.formSignupParams.email.text;
           var userData ={
@@ -680,10 +685,10 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('mapINCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('mapINCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$location',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $http, $stateParams, $ionicLoading) {
+function ($scope, $state, $http, $stateParams, $ionicLoading, $location) {
     // console.log($stateParams);
     // ionic.Platform.ready(initialize);
     // console.log(myLocation.name);
@@ -741,6 +746,10 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
         // $scope.myLocation.
         $scope.continue = function() {
             $state.go('menu.in', $scope.chosenLocation)
+            // $state.go('menu.mapOUT', $scope.formOutParams);
+        }
+        $scope.goup = function() {
+            $state.go('^', $scope.chosenLocation, {reload: true})
             // $state.go('menu.mapOUT', $scope.formOutParams);
         }
     };
