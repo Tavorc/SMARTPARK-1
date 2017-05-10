@@ -44,7 +44,7 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage, UserSer
             // $scope.booking.time = answer;
             // $scope.booking.time = formatDate($scope.time); // NOTE: async call doing problems!!!
             $http
-            .post('http://localhost:8080/searchparking/', $scope.booking)
+            .post('http://smartserver1.herokuapp.com/searchparking/', $scope.booking)
             .success(function(answer){
                 // console.log(answer);
                 $localStorage.answer  = answer
@@ -109,7 +109,7 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, StorageServiceRep
         });
     }
     $scope.getInfoFromServer = function(){
-        // // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
+        // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
         var reportParking={lat: $stateParams.lat, lng: $stateParams.lng};
         console.log(reportParking);  
         StorageServiceReport.add(reportParking);
