@@ -29,18 +29,18 @@
     <i>
       Optional:
     </i>
-      <label class="item item-select" id="out-select8" name="maxWait">
-        <span class="input-label">Max waiting</span>
+      <label class="item item-select" id="out-select8" name="size">
+        <span class="input-label">Size</span>
         <select ng-model="parking.size">
-          <option ng-repeat="s in size">s</option>
+          <option ng-repeat="s in size">{{s}}</option>
         </select>
       </label>
       <ion-checkbox id="out-checkbox2" name="handicap" ng-model="parking.handicap">Handicap</ion-checkbox>
       <label class="item item-input" id="out-textarea2" name="comments">
-        <span class="input-label">Comments</span><textarea placeholder="Something importent?" ng-model="parking.comments"></textarea>
+        <span class="input-label">Comments</span><textarea placeholder="Something importent?" ng-model="parking.description"></textarea>
     </label>
       <div id="out-button-bar2" class="button-bar">
-        <a ng-click="print()" id="out-button16" class="button button-dark  button-block icon ion-android-cancel circle-button"></a>
+        <a ui-sref="menu.home" id="out-button16" class="button button-dark  button-block icon ion-android-cancel circle-button"></a>
         <a ng-click="getInfoFromServer()" id="out-button17" class="button button-calm  button-block icon ion-paper-airplane circle-button"></a>
       </div>
     </form>
