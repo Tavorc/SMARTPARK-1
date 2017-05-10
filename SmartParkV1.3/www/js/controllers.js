@@ -110,14 +110,11 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, StorageServiceRep
     }
     $scope.getInfoFromServer = function(){
         // // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
-<<<<<<< HEAD
         var reportParking={lat: $stateParams.lat, lng: $stateParams.lng};
         console.log(reportParking);  
         StorageServiceReport.add(reportParking);
-        $state.go('menu.home', $scope.formOutParams);
-=======
         $state.go('menu.home', $scope.parking);
->>>>>>> origin/master
+
     };
 }])
 
@@ -518,7 +515,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                     title: loc.description
                 });
                 var infowindow = new google.maps.InfoWindow({
-                    content: 'Latitude: ' + loc.location.coord[0] + '<br>Longitude: ' + loc.location.coord[1]
+                    content: 'Latitude: ' + loc.location.coords[0] + '<br>Longitude: ' + loc.location.coords[1]
                 })
                 google.maps.event.addListener(tempMarker, 'click', function(event) {
                     infowindow.open(map,tempMarker);
@@ -568,7 +565,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                     return;
                                });
 
-                                var locSelect={lat: loc.location.coord[0], lng:  loc.location.coord[1]};
+                                var locSelect={lat: loc.location.coords[0], lng:  loc.location.coords[1]};
                                 StorageService.add(locSelect);
                                 var chec=StorageService.getAll();
                                 $state.go('menu.home', {}, { reload: true});
