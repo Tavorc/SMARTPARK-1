@@ -8,20 +8,23 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 
 })
 
-.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $http, $state, $stateParams, $location, $localStorage) {
+function ($scope, $http, $state, $stateParams, $location, $localStorage, UserService) {
     console.log($stateParams);
-    var formatDate = function(date){
-            return date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.getHours() + ":" + date.t.getMinutes() + ":" + date.t.getSeconds() ;
+    var formatDate = function(date, callback){
+        // return callback (date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.getHours() + ":" + date.t.getMinutes() + ":" + date.t.getSeconds());
+        $scope.booking.time = date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.toLocaleTimeString();
+        return callback ($scope.booking.time);
     };
     $scope.location = {
         country: $stateParams.country,
         city: $stateParams.city,
         street: $stateParams.street,
         number: $stateParams.number,
-        coords: [ $stateParams.lat, $stateParams.lng ]
+        lat:  $stateParams.lat,
+        lng: $stateParams.lng
     }
     $scope.time = {
         d: null,
@@ -31,27 +34,28 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage) {
     time: $scope.time, //'2017-02-13 12:50:00',
     distance: null,
     location: $scope.location,
-    searcherID: null
+    searcherId: 'hjhsdjhs' //// NOTE  console.log(UserService.getUser())
     // bookingId: null
     }
     // console.log($location.url() );// NOTE: needed to go back to previus state
-
     $scope.getInfoFromServer = function(){
-        // var promise = formatDate($scope.time);
-        console.log($scope.time.d);
-        $scope.booking.time = formatDate($scope.time); // NOTE: async call doing problems!!!
-        $http
-        .post('https://smartserver1.herokuapp.com/searchparking/', $scope.booking)
-        .success(function(answer){
-            // console.log(answer);
-            $localStorage.answer  = answer
-            console.log($localStorage.answer);
-            $state.go('menu.availabeParking', {reload: true});
-        })
-        .error(function(answer){
-            console.log('can not post');
-            console.log($scope.booking);
-            // console.log(formatDate($scope.booking.time.d, $scope.booking.time.t));
+        formatDate($scope.time, function(answer){
+            console.log(answer);
+            // $scope.booking.time = answer;
+            // $scope.booking.time = formatDate($scope.time); // NOTE: async call doing problems!!!
+            $http
+            .post('http://localhost:8080/searchparking/', $scope.booking)
+            .success(function(answer){
+                // console.log(answer);
+                $localStorage.answer  = answer
+                console.log($localStorage.answer);
+                $state.go('menu.availabeParking', {reload: true});
+            })
+            .error(function(answer){
+                console.log('can not post');
+                console.log($scope.booking);
+                // console.log(formatDate($scope.booking.time.d, $scope.booking.time.t));
+            });
         });
     };
 }])
@@ -73,7 +77,8 @@ function ($scope, $http, $state, $stateParams) {
         city: $stateParams.city,
         street: $stateParams.street,
         number: $stateParams.number,
-        coords: [ $stateParams.lat, $stateParams.lng ]
+        lat:  $stateParams.lat,
+        lng: $stateParams.lng
     }
     $scope.time = {
         d: null,
@@ -92,7 +97,7 @@ function ($scope, $http, $state, $stateParams) {
 
     $scope.getInfoFromServer = function(){
         // // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
-        $state.go('menu.home', $scope.formOutParams);
+        $state.go('menu.home', $scope.parking);
     };
 }])
 
@@ -418,7 +423,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
     console.log($localStorage);
         $scope.init = function(){
             console.log($localStorage.answer); // NOTE: =>send to server  $http.get('fromServer').success(function(parkingJson){locations = parkingJson;});
-            var locations = $localStorage.answer;
+            var locations = $localStorage.answer.results;
             // var locations = [
             //     {lat: 32.085999, lng: 34.781555},
             //     {lat: 32.085234, lng: 34.781181},
@@ -480,7 +485,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
             });
             locations.forEach(function(loc) {
             //    console.log(loc);
-                var tempLatLng = new google.maps.LatLng(loc.location.coord[0], loc.location.coord[1]);
+                var tempLatLng = new google.maps.LatLng(loc.location.coords[0], loc.location.coords[1]);
                 var tempMarker = new google.maps.Marker({
                     id: $scope.markers.length+1,
                     options: {
@@ -488,7 +493,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                         draggable: false,
                         animation : google.maps.Animation.DROP
                     },
-                    position: new google.maps.LatLng(loc.location.coord[0], loc.location.coord[1]),// NOTE: pos.coords.latitude, pos.coords.longitude
+                    position: new google.maps.LatLng(loc.location.coords[0], loc.location.coords[1]),// NOTE: pos.coords.latitude, pos.coords.longitude
                     map: map,
                     title: loc.description
                 });
@@ -550,9 +555,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                  window.location.reload(true);
 
                         }
-                        if(index == 2)
-                        {
-
+                        if(index == 2){
                         }
                        return true;
                      },
@@ -649,10 +652,10 @@ function ($scope, $stateParams) {
 }
 })
 
-.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $stateParams, $ionicAuth, $ionicUser) {
+function ($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService) {
     console.log($stateParams);
     $scope.formSignupParams = {
     name : $stateParams.name,
@@ -829,7 +832,9 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
                         number : jsn.results[0].address_components[0].short_name,
                         street : jsn.results[0].address_components[1].short_name,
                         city : jsn.results[0].address_components[2].short_name,
-                        country : jsn.results[0].address_components[4].short_name
+                        country : jsn.results[0].address_components[4].short_name,
+                        lat: jsn.results[0].geometry.location.lat,
+                        lng: jsn.results[0].geometry.location.lng
                     }
                     console.log('returnd info: '+jsn.results[0].formatted_address);
                 });
