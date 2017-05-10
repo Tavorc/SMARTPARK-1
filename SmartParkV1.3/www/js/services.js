@@ -21,6 +21,23 @@ return {
   };
 })
 
+.factory ('StorageServiceReport', function ($localStorage) {
+	$localStorage = $localStorage.$default({
+  locationReport: {}
+});
+var _getAll = function () {
+  return $localStorage.locationSelect;
+};
+var _add = function (locationReport) {
+  $localStorage.locationReport=locationReport;
+}
+
+return {
+    getAll: _getAll,
+    add: _add
+  };
+})
+
 .service('UserService', function() {
 
 	  var setUser = function(user_data) {

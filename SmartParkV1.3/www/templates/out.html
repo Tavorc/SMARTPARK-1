@@ -10,6 +10,10 @@
         <input type="time" id="out-select7" name="time" ng-model="time.t" required />
       </label>
       <a ui-sref="menu.mapOUT" id="out-button15" class="button button-positive button-small button-block icon ion-android-locate"> Choose location...</a>
+
+  <a  id="out-button15" class="button button-positive button-small button-block icon ion-android-locate" ng-click="openCamera()"> Take Photo </a>
+  <img src="" id="myImage" height="0" width="0">
+
       <label class="item item-input" id="out-input14" name="street">
         <span class="input-label">Street</span>
         <input type="text" placeholder="Auto" disabled="true" ng-model="location.street">

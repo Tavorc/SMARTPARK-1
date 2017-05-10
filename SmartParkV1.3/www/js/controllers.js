@@ -56,10 +56,10 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage) {
     };
 }])
 
-.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', 'StorageServiceReport', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $http, $state, $stateParams) {
+function ($scope, $http, $state, $stateParams, $cordovaCamera, StorageServiceReport) {
     console.log($stateParams);
     $scope.size = {
         lengthParking: 0,
@@ -89,9 +89,25 @@ function ($scope, $http, $state, $stateParams) {
         size: null,
         pubilsherId: null
     }
+    $scope.openCamera = function(){
+         var options = {
+          destinationType: Camera.DestinationType.FILE_URI,
+          sourceType: Camera.PictureSourceType.CAMERA,
+        };
 
+        $cordovaCamera.getPicture(options).then(function(imageURI) {
+          var image = document.getElementById('myImage');
+          image.src = imageURI;
+          console.log(image.src);
+        }, function(err) {
+          // error
+        });
+    }
     $scope.getInfoFromServer = function(){
         // // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
+        var reportParking={lat: $stateParams.lat, lng: $stateParams.lng};
+        console.log(reportParking);  
+        StorageServiceReport.add(reportParking);
         $state.go('menu.home', $scope.formOutParams);
     };
 }])
@@ -829,7 +845,9 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
                         number : jsn.results[0].address_components[0].short_name,
                         street : jsn.results[0].address_components[1].short_name,
                         city : jsn.results[0].address_components[2].short_name,
-                        country : jsn.results[0].address_components[4].short_name
+                        country : jsn.results[0].address_components[4].short_name,
+                        lat: jsn.results[0].geometry.location.lat,
+                        lng: jsn.results[0].geometry.location.lng
                     }
                     console.log('returnd info: '+jsn.results[0].formatted_address);
                 });
