@@ -1,0 +1,52 @@
+<ion-view title="OUT" id="page2">
+  <ion-content padding="true" class="has-header">
+    <form id="out-form12" class="list">
+      <label class="item item-input" id="out-select6" name="date">
+        <span class="input-label">Date</span>
+        <input type="date" id="out-select6" name="date" ng-model="time.d" placeholder="yyyy-MM-dd" min="2017-01-01" max="2019-12-31" required />
+      </label>
+      <label class="item item-input" id="out-select7" name="time">
+        <span class="input-label">Time</span>
+        <input type="time" id="out-select7" name="time" ng-model="time.t" required />
+      </label>
+      <a ui-sref="menu.mapOUT" id="out-button15" class="button button-positive button-small button-block icon ion-android-locate"> Choose location...</a>
+
+  <a  id="out-button15" class="button button-positive button-small button-block icon ion-android-locate" ng-click="openCamera()"> Take Photo </a>
+  <img ng-src="parking.img" id="myImage" height="0" width="0">
+
+      <label class="item item-input" id="out-input14" name="street">
+        <span class="input-label">Street</span>
+        <input type="text" placeholder="Auto" disabled="true" ng-model="location.street">
+      </label>
+      <label class="item item-input" id="out-input15" name="number">
+        <span class="input-label">Number</span>
+        <input type="text" placeholder="Auto" disabled="true" ng-model="location.number">
+      </label>
+      <label class="item item-input" id="out-input16" name="city">
+        <span class="input-label">City</span>
+        <input type="text" placeholder="Auto" disabled="true" ng-model="location.city">
+      </label>
+      <label class="item item-input" id="out-input17" name="country">
+        <span class="input-label">Country</span>
+        <input type="text" placeholder="Auto" disabled="true" ng-model="location.country">
+      </label>
+    <i>
+      Optional:
+    </i>
+      <label class="item item-select" id="out-select8" name="size">
+        <span class="input-label">Size</span>
+        <select ng-model="parking.size">
+          <option ng-repeat="s in size">{{s}}</option>
+        </select>
+      </label>
+      <ion-checkbox id="out-checkbox2" name="handicap" ng-model="parking.handicap">Handicap</ion-checkbox>
+      <label class="item item-input" id="out-textarea2" name="comments">
+        <span class="input-label">Comments</span><textarea placeholder="Something importent?" ng-model="parking.description"></textarea>
+    </label>
+      <div id="out-button-bar2" class="button-bar">
+        <a ui-sref="menu.home" id="out-button16" class="button button-dark  button-block icon ion-android-cancel circle-button"></a>
+        <a ng-click="getInfoFromServer()" id="out-button17" class="button button-calm  button-block icon ion-paper-airplane circle-button"></a>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

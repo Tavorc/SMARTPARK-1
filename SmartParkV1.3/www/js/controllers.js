@@ -14,7 +14,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 function ($scope, $http, $state, $stateParams, $location, $localStorage, UserService) {
     console.log($stateParams);
     var formatDate = function(date, callback){
-        // return callback (date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.getHours() + ":" + date.t.getMinutes() + ":" + date.t.getSeconds());
         $scope.booking.time = date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.toLocaleTimeString();
         return callback ($scope.booking.time);
     };
@@ -34,7 +33,7 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage, UserSer
     time: $scope.time, //'2017-02-13 12:50:00',
     distance: null,
     location: $scope.location,
-    searcherId: 'hjhsdjhs' 
+    searcherId: 'hjhsdjhs'
     // bookingId: null
     }
     // console.log($location.url() );// NOTE: needed to go back to previus state
@@ -60,18 +59,28 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage, UserSer
     };
 }])
 
-.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', 'StorageServiceReport', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', 'StorageServiceReport', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $http, $state, $stateParams, $cordovaCamera, StorageServiceReport) {
+function ($scope, $http, $state, $stateParams, $cordovaCamera, StorageServiceReport, $localStorage) {
+    var formatDate = function(date, callback){
+        console.log(date);
+        $scope.parking.time = date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.toLocaleTimeString();
+        return callback ($scope.parking.time);
+    };
+
+    var reportParking = {lat: $stateParams.lat, lng: $stateParams.lng};
+    console.log(reportParking);
+    StorageServiceReport.add(reportParking);
+
     console.log($stateParams);
     $scope.size = {
-        lengthParking: 0,
-        small: 1,
-        medium: 2,
-        large: 3
+        small: 0,
+        medium: 1,
+        large: 2,
+        lengthParking: 3
     }
-    console.log($scope.size);
+    // console.log($scope.size);
     $scope.location = {
         country: $stateParams.country,
         city: $stateParams.city,
@@ -86,7 +95,6 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, StorageServiceRep
     }
     $scope.parking = {
         time: $scope.time, //'2017-02-13 12:50:00',
-        distance: null,
         location: $scope.location,
         handicap: null,
         description: null,
@@ -102,19 +110,29 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, StorageServiceRep
 
         $cordovaCamera.getPicture(options).then(function(imageURI) {
           var image = document.getElementById('myImage');
-          image.src = imageURI;
-          console.log(image.src);
+          $scope.img = imageURI;
+          console.log($scope.img);
         }, function(err) {
           // error
         });
     }
     $scope.getInfoFromServer = function(){
-        // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
-        var reportParking={lat: $stateParams.lat, lng: $stateParams.lng};
-        console.log(reportParking);  
-        StorageServiceReport.add(reportParking);
-        $state.go('menu.home', $scope.parking);
-
+        // // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
+        formatDate($scope.time, function(answer){
+            console.log(answer);
+            $http
+            .post('https://smartserver1.herokuapp.com/addnewparking/', $scope.parking)
+            .success(function(answer){
+                // console.log(answer);
+                $localStorage.answer  = answer
+                console.log($localStorage.answer);
+                $state.go('menu.home', {reload: true});
+            })
+            .error(function(answer){
+                console.log('can not post');
+                console.log($scope.parking);
+            });
+        });
     };
 }])
 
