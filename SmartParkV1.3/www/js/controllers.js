@@ -21,47 +21,27 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage) {
         city: $stateParams.city,
         street: $stateParams.street,
         number: $stateParams.number,
-        coords: { lat: $stateParams.lat, lng: $stateParams.lng }
+        coords: [ $stateParams.lat, $stateParams.lng ]
     }
     $scope.time = {
         d: null,
         t: null
     }
     $scope.booking = {
-    time: $scope.time,
+    time: $scope.time, //'2017-02-13 12:50:00',
     distance: null,
     location: $scope.location,
-    searcherID: null,
-    bookingId: null
+    searcherID: null
+    // bookingId: null
     }
-
-    // NOTE: original->
-    /*
-    var test = {
-        time: '2017-02-13 12:50:10',
-        reporter_id: 1,
-        diff: 84,
-        street: 2,
-        number: 3,
-        city: 'tempChosenLocation',
-        img: 'string',
-        lat: 12,
-        lng: 30
-        description: 'test'
-    }*/
     // console.log($location.url() );// NOTE: needed to go back to previus state
 
     $scope.getInfoFromServer = function(){
+        // var promise = formatDate($scope.time);
+        console.log($scope.time.d);
         $scope.booking.time = formatDate($scope.time); // NOTE: async call doing problems!!!
         $http
-        .post('https://smartserver1.herokuapp.com/searchparking/',
-                // formatDate($scope.booking.time.d, $scope.booking.time.t),
-                // $scope.booking.distance,
-                // {location: $scope.location},
-                // $scope.booking.searcherID
-                // $scope.booking.bookingId: null
-                $scope.booking
-            )
+        .post('https://smartserver1.herokuapp.com/searchparking/', $scope.booking)
         .success(function(answer){
             // console.log(answer);
             $localStorage.answer  = answer
@@ -71,7 +51,7 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage) {
         .error(function(answer){
             console.log('can not post');
             console.log($scope.booking);
-            console.log(formatDate($scope.booking.time.d, $scope.booking.time.t));
+            // console.log(formatDate($scope.booking.time.d, $scope.booking.time.t));
         });
     };
 }])
@@ -81,26 +61,37 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $http, $state, $stateParams) {
     console.log($stateParams);
-    $scope.formOutParams = {
-        date: null,
-        time: null,
+    $scope.size = {
+        lengthParking: 0,
+        small: 1,
+        medium: 2,
+        large: 3
+    }
+    console.log($scope.size);
+    $scope.location = {
+        country: $stateParams.country,
+        city: $stateParams.city,
         street: $stateParams.street,
         number: $stateParams.number,
-        city: $stateParams.city,
-        country: $stateParams.country,
-        repeat: null,
-        size: null,
+        coords: [ $stateParams.lat, $stateParams.lng ]
+    }
+    $scope.time = {
+        d: null,
+        t: null
+    }
+    $scope.parking = {
+        time: $scope.time, //'2017-02-13 12:50:00',
+        distance: null,
+        location: $scope.location,
         handicap: null,
-        comments: null
+        description: null,
+        img: null,
+        size: null,
+        pubilsherId: null
     }
 
-    $scope.print = function(){
-        console.log($scope.formOutParams);
-        // $state.go('^');
-    }
     $scope.getInfoFromServer = function(){
-        // TODO: $http.get('fromServer'+formOutParams).success(function(answer){console.log(answer); $state.go('menu.mapOUT', {answer})});
-        console.log($scope.formOutParams);
+        // // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
         $state.go('menu.home', $scope.formOutParams);
     };
 }])
