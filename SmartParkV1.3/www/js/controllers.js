@@ -302,6 +302,7 @@ function deviceReady() {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, StorageService, $ionicActionSheet, $timeout, $localStorage) {
         $scope.init = function(){
+          $ionicLoading.hide();
           var parkReportValue=$localStorage.reportPark;
           if(parkReportValue == null || $localStorage.flagChose == false)
           {
@@ -622,8 +623,11 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                 var locSelect={lat: loc.location.coords[0], lng:  loc.location.coords[1]};
                                 $localStorage.myChose=locSelect;
                                 if($localStorage.myChose.lat != -86){
-                                  $state.go('menu.home', {}, { reload: true});
+                                   $timeout(function() {
+                                    $state.go('menu.home', {}, { reload: true});
                                   window.location.reload(true);
+                                   }, 4000);
+                                  
                                 }
                                 
                         }
