@@ -8,10 +8,10 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 
 })
 
-.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $http, $state, $stateParams, $location, $localStorage, UserService) {
+function ($scope, $http, $state, $stateParams, $location, $localStorage, UserService, $ionicLoading) {
     console.log($stateParams);
     var formatDate = function(date, callback){
         $scope.booking.time = date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.toLocaleTimeString();
@@ -38,6 +38,9 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage, UserSer
     }
     // console.log($location.url() );// NOTE: needed to go back to previus state
     $scope.getInfoFromServer = function(){
+           $ionicLoading.show({
+          template: 'Loading..:)'
+        });
         formatDate($scope.time, function(answer){
             console.log(answer);
             // $scope.booking.time = answer;
@@ -49,8 +52,11 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage, UserSer
                 $localStorage.answer  = answer
                 console.log($localStorage.answer);
                 $state.go('menu.availabeParking', {reload: true});
+                $ionicLoading.hide();
+               // window.location.reload(true);
             })
             .error(function(answer){
+              $ionicLoading.hide();
                 console.log('can not post');
                 console.log($scope.booking);
                 // console.log(formatDate($scope.booking.time.d, $scope.booking.time.t));
@@ -59,19 +65,19 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage, UserSer
     };
 }])
 
-.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', 'StorageServiceReport', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $http, $state, $stateParams, $cordovaCamera, StorageServiceReport, $localStorage) {
+function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage) {
     var formatDate = function(date, callback){
         console.log(date);
         $scope.parking.time = date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.toLocaleTimeString();
         return callback ($scope.parking.time);
     };
 
-    var reportParking = {lat: $stateParams.lat, lng: $stateParams.lng};
-    console.log(reportParking);
-    StorageServiceReport.add(reportParking);
+    var reportPark = {lat: $stateParams.lat, lng: $stateParams.lng};
+    console.log(reportPark);
+    $localStorage.reportPark=reportPark;
 
     console.log($stateParams);
     $scope.size = {
@@ -127,6 +133,7 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, StorageServiceRep
                 $localStorage.answer  = answer
                 console.log($localStorage.answer);
                 $state.go('menu.home', {reload: true});
+                window.location.reload(true);
             })
             .error(function(answer){
                 console.log('can not post');
@@ -139,7 +146,7 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, StorageServiceRep
 .controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, UserService, $ionicActionSheet, $state, UserService, $ionicAuth) {
+function ($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth) {
 var userN=UserService.getUser().givenName;
 console.log("user: " + userN);
   $scope.userName=userN;
@@ -288,30 +295,25 @@ function deviceReady() {
               console.log(err);
             });
       }
-     $ionicPush.register().then(function(t) {
-      return $ionicPush.saveToken(t);
-      }).then(function(t) {
-         console.log('Token saved:', t.token);
-      });
 }])
 
-.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', 'StorageService', '$ionicActionSheet', '$timeout', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', 'StorageService', '$ionicActionSheet', '$timeout', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, StorageService, $ionicActionSheet, $timeout) {
-       $scope.$on('cloud:push:notification', function(event, data) {
-  var msg = data.message;
-    alert(msg.title + ': ' + msg.text);
-  });
-
+function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, StorageService, $ionicActionSheet, $timeout, $localStorage) {
         $scope.init = function(){
+          var parkReportValue=$localStorage.reportPark;
+          if(parkReportValue == null)
+          {
+            $localStorage.reportPark={lat:-86,lng:-86};
+            console.log($localStorage.reportPark);
+          }
          var  location={
                        lat:0,
                        lng:0
                        }
             ionic.Platform.ready(function(){
-         function getLocation(callback)
-                 {
+         function getLocation(callback){
                         var options = {
                         enableHighAccuracy: true,
                         timeout: 10000,
@@ -370,8 +372,10 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
                 title: "My Location"
             });
             $scope.myLocation = myLocation;
-
+if($localStorage.flagChose == true)
+{
 var parkChosen=StorageService.getAll();
+console.log(parkChosen);
 $scope.choseLocation;
 $ionicLoading.hide();
  if(parkChosen.lat != -86)
@@ -387,8 +391,8 @@ $ionicLoading.hide();
   google.maps.event.addListener(choseLocation, 'click', function(event) {
                     var hideSheet = $ionicActionSheet.show({
                      buttons: [
-                       { text: 'Details' },
-                       { text: 'Drive' }
+                       { text: 'Drive' },
+                       { text: 'Delete' }
                      ],
                      titleText: '<b>Options</b>',
                      cancelText: 'Back',
@@ -398,16 +402,22 @@ $ionicLoading.hide();
                      buttonClicked: function(index) {
                         if(index == 0)
                         {
-                           var alertPopup = $ionicPopup.alert({
-                             title: 'Details',
-                             template: 'number: 24<br>street: Ibn Gavirol <br> city: Tel Aviv<br>country: Israel <br>Time: 15:00<br>Date: 15/03/2017<br>Comments: hello'
-                           });
+
                         }
                         if(index == 1)
                         {
-
+                          $localStorage.flagChose=false;
+                          var locSelect={lat: -86, lng:  -86};
+                         StorageService.add(locSelect);
+                          $scope.choseLocation.setMap(null);
+                          choseLocation.setMap(null);
+                          $ionicLoading.show({
+                            template: 'Loading in..:)'
+                          });
+                         
+                         $state.go('menu.home', {}, { reload: true});
+                         window.location.reload(true);
                         }
-
                        return true;
                      },
                    });
@@ -417,6 +427,24 @@ $ionicLoading.hide();
                 });
       });
  }
+}
+
+var parkReport=$localStorage.reportPark;
+$scope.parkReported;
+console.log(parkReport);
+ if( parkReport.lat != -86){
+  google.maps.event.addListener(map, 'dragend', function(){
+          var  parkReportedMarker = new google.maps.Marker({
+               id: 2,
+               position: new google.maps.LatLng(parkReport.lat , parkReport.lng),
+               map: map,
+               icon:imgs.markerBlue
+             });
+          $scope. parkReported =  parkReportedMarker;
+    });
+  
+}
+
             //NOTE: this function center the map around the main marker
             $scope.myLocation.addListener('dragend', function(marker, eventName, args) {
                 map.setZoom(map.zoom);
@@ -446,9 +474,6 @@ $ionicLoading.hide();
         });
       });
     };
-//google.maps.event.addDomListener(window, 'load', $scope.init() );
-
-
 }])
 
 .controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', 'UserService', 'StorageService', '$localStorage',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -459,6 +484,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
         $scope.init = function(){
             console.log($localStorage.answer); // NOTE: =>send to server  $http.get('fromServer').success(function(parkingJson){locations = parkingJson;});
             var locations = $localStorage.answer.results;
+
             // var locations = [
             //     {lat: 32.085999, lng: 34.781555},
             //     {lat: 32.085234, lng: 34.781181},
@@ -511,7 +537,6 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                     icon: imgs.imHereBlue,
                     draggable: false,
                     animation : google.maps.Animation.BOUNCE
-
                 },
                 position: new google.maps.LatLng(32.0852999 , 34.78176759999997),// NOTE: pos.coords.latitude, pos.coords.longitude
                 map: map,
@@ -520,6 +545,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
             });
             locations.forEach(function(loc) {
             //    console.log(loc);
+             console.log(loc); 
                 var tempLatLng = new google.maps.LatLng(loc.location.coords[0], loc.location.coords[1]);
                 var tempMarker = new google.maps.Marker({
                     id: $scope.markers.length+1,
@@ -554,21 +580,25 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                         {
                            var alertPopup = $ionicPopup.alert({
                              title: 'Details',
-                             template: 'number: 24<br>street: Ibn Gavirol <br> city: Tel Aviv<br>country: Israel <br>Time: 15:00<br>Date: 15/03/2017<br>Comments: hello'
+                             template: 'Description: '+ loc.description + '<br>address: '+ loc.location.city+","+loc.location.street +','+ loc.location.number + '<br> time: ' + loc.time+ '<br>occupied:'+ loc.occupied
                            });
                         }
                         if(index == 1)
                         {
+                          //INBAR You need to update the db that the parking is occupied
+                          $localStorage.flagChose=true;
                           $ionicLoading.show({
-                            template: 'Logging in..:)'
+                            template: 'Loading...:)'
                           });
-                           var now = new Date().getTime(),_5_sec_from_now = new Date(now + 20 * 1000);
+                           var now = new Date(),timeOfParking = new Date(loc.time);
+                           console.log(timeOfParking);
+                           console.log(now);
                                 cordova.plugins.notification.local.schedule(
                                 {
                                 id: 10,
                                 title: "Time to Parking",
                                 text: "Is occupied",
-                                at: _5_sec_from_now,
+                                at: timeOfParking,
                                 color: 'FF0000',
                                 data: { meetingId:"11" }
                                });
@@ -582,20 +612,18 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                 if (notification.id != 10)
                                     return;
                                });
-
                                 var locSelect={lat: loc.location.coords[0], lng:  loc.location.coords[1]};
                                 StorageService.add(locSelect);
                                 var chec=StorageService.getAll();
+                                console.log(chec);
                                 $state.go('menu.home', {}, { reload: true});
-                                 window.location.reload(true);
-
+                                window.location.reload(true);
                         }
                         if(index == 2){
                         }
                        return true;
                      },
                    });
-
                    //NOTE????=>// For example's sake, hide the sheet after two seconds
                    $timeout(function() {
                      hideSheet();
