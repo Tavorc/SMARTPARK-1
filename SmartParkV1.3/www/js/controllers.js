@@ -373,6 +373,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
             });
             $scope.myLocation = myLocation;
 
+document.addEventListener('deviceready', function () {
 if($localStorage.flagChose == true)
 {
 var parkChosen=$localStorage.myChose;
@@ -416,7 +417,10 @@ $ionicLoading.hide();
                             template: 'Loading in..:)'
                           });
                          if($localStorage.myChose.lat == -86){
-                          window.location.reload(true);
+                          setTimeout(function(){ 
+                           window.location.reload(true);
+                          }, 4000);
+                          
                          }
                          
                         }
@@ -430,6 +434,7 @@ $ionicLoading.hide();
       });
  }
 }
+}, false);
 
 var parkReport=$localStorage.reportPark;
 $scope.parkReported;
@@ -616,12 +621,9 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                });
                                 var locSelect={lat: loc.location.coords[0], lng:  loc.location.coords[1]};
                                 $localStorage.myChose=locSelect;
-                                //StorageService.add(locSelect);
-                               // var chec=StorageService.getAll();
-                                //console.log(chec);
                                 if($localStorage.myChose.lat != -86){
                                   $state.go('menu.home', {}, { reload: true});
-                                window.location.reload(true);
+                                  window.location.reload(true);
                                 }
                                 
                         }
