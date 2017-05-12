@@ -303,7 +303,7 @@ function deviceReady() {
 function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, StorageService, $ionicActionSheet, $timeout, $localStorage) {
         $scope.init = function(){
           var parkReportValue=$localStorage.reportPark;
-          if(parkReportValue == null)
+          if(parkReportValue == null || $localStorage.flagChose == false)
           {
             $localStorage.reportPark={lat:-86,lng:-86};
             console.log($localStorage.reportPark);
@@ -372,9 +372,10 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
                 title: "My Location"
             });
             $scope.myLocation = myLocation;
+
 if($localStorage.flagChose == true)
 {
-var parkChosen=StorageService.getAll();
+var parkChosen=$localStorage.myChose;
 console.log(parkChosen);
 $scope.choseLocation;
 $ionicLoading.hide();
@@ -408,14 +409,14 @@ $ionicLoading.hide();
                         {
                           $localStorage.flagChose=false;
                           var locSelect={lat: -86, lng:  -86};
-                         StorageService.add(locSelect);
+                         $localStorage.myChose=locSelect;
                           $scope.choseLocation.setMap(null);
                           choseLocation.setMap(null);
                           $ionicLoading.show({
                             template: 'Loading in..:)'
                           });
                          
-                         $state.go('menu.home', {}, { reload: true});
+                         //$state.go('menu.home', {}, { reload: true});
                          window.location.reload(true);
                         }
                        return true;
@@ -613,9 +614,10 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                     return;
                                });
                                 var locSelect={lat: loc.location.coords[0], lng:  loc.location.coords[1]};
-                                StorageService.add(locSelect);
-                                var chec=StorageService.getAll();
-                                console.log(chec);
+                                $localStorage.myChose=locSelect;
+                                //StorageService.add(locSelect);
+                               // var chec=StorageService.getAll();
+                                //console.log(chec);
                                 $state.go('menu.home', {}, { reload: true});
                                 window.location.reload(true);
                         }
