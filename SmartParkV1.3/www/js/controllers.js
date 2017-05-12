@@ -415,9 +415,10 @@ $ionicLoading.hide();
                           $ionicLoading.show({
                             template: 'Loading in..:)'
                           });
+                         if($localStorage.myChose.lat == -86){
+                          window.location.reload(true);
+                         }
                          
-                         //$state.go('menu.home', {}, { reload: true});
-                         window.location.reload(true);
                         }
                        return true;
                      },
@@ -618,8 +619,11 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                 //StorageService.add(locSelect);
                                // var chec=StorageService.getAll();
                                 //console.log(chec);
-                                $state.go('menu.home', {}, { reload: true});
+                                if($localStorage.myChose.lat != -86){
+                                  $state.go('menu.home', {}, { reload: true});
                                 window.location.reload(true);
+                                }
+                                
                         }
                         if(index == 2){
                         }
