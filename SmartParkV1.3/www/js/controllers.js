@@ -420,7 +420,7 @@ $ionicLoading.hide();
                          if($localStorage.myChose.lat == -86){
                           setTimeout(function(){ 
                            window.location.reload(true);
-                          }, 4000);
+                          }, 2000);
                           
                          }
                          
@@ -626,10 +626,8 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                    $timeout(function() {
                                     $state.go('menu.home', {}, { reload: true});
                                   window.location.reload(true);
-                                   }, 4000);
-                                  
+                                   }, 2000);
                                 }
-                                
                         }
                         if(index == 2){
                         }
