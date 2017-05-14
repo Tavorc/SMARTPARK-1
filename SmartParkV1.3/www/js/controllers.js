@@ -53,7 +53,6 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage, UserSer
                 console.log($localStorage.answer);
                 $state.go('menu.availabeParking', {reload: true});
                 $ionicLoading.hide();
-               // window.location.reload(true);
             })
             .error(function(answer){
               $ionicLoading.hide();
@@ -65,10 +64,10 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage, UserSer
     };
 }])
 
-.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage) {
+function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading) {
     var formatDate = function(date, callback){
         console.log(date);
         $scope.parking.time = date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.toLocaleTimeString();
@@ -123,6 +122,10 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage) {
         });
     }
     $scope.getInfoFromServer = function(){
+       $ionicLoading.show({
+            template: 'Loading in..:)'
+            });
+       setTimeout(function(){ 
         // // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
         formatDate($scope.time, function(answer){
             console.log(answer);
@@ -132,14 +135,15 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage) {
                 // console.log(answer);
                 $localStorage.answer  = answer
                 console.log($localStorage.answer);
-                $state.go('menu.home', {reload: true});
-                window.location.reload(true);
+                  $state.go('menu.home', {reload: true});
+                   window.location.reload(true);
             })
             .error(function(answer){
                 console.log('can not post');
                 console.log($scope.parking);
             });
         });
+ }, 2000);
     };
 }])
 
@@ -304,10 +308,15 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ioni
         $scope.init = function(){
           $ionicLoading.hide();
           var parkReportValue=$localStorage.reportPark;
-          if(parkReportValue == null || $localStorage.flagChose == false)
+          if(parkReportValue == null )
           {
             $localStorage.reportPark={lat:-86,lng:-86};
             console.log($localStorage.reportPark);
+          }
+          if($localStorage.flagChose == false)
+          {
+            var locSelect={lat: -86, lng:  -86};
+            $localStorage.myChose=locSelect;
           }
          var  location={
                        lat:0,
@@ -437,6 +446,7 @@ $ionicLoading.hide();
 }
 }, false);
 
+
 var parkReport=$localStorage.reportPark;
 $scope.parkReported;
 console.log(parkReport);
@@ -448,9 +458,48 @@ console.log(parkReport);
                map: map,
                icon:imgs.markerBlue
              });
-          $scope. parkReported =  parkReportedMarker;
-    });
-  
+          $scope.parkReported =  parkReportedMarker;
+  google.maps.event.addListener(parkReportedMarker, 'click', function(event) {
+                    var hideSheet = $ionicActionSheet.show({
+                     buttons: [
+                       { text: 'show details' },
+                       { text: 'Delete' }
+                     ],
+                     titleText: '<b>Options</b>',
+                     cancelText: 'Back',
+                     cancel: function() {
+                         return true; // add cancel code..
+                        },
+                     buttonClicked: function(index) {
+                        if(index == 0)
+                        {
+
+                        }
+                        if(index == 1)
+                        {
+                          var reportCoords={lat: -86, lng:  -86};
+                         $localStorage.reportPark=reportCoords;
+                          $scope.parkReported.setMap(null);
+                          parkReportedMarker.setMap(null);
+                          $ionicLoading.show({
+                            template: 'Loading in..:)'
+                          });
+                         if($localStorage.reportPark.lat == -86){
+                          setTimeout(function(){ 
+                           window.location.reload(true);
+                          }, 2000);
+                         }
+                        }
+                       return true;
+                     },
+                   });
+                   $timeout(function() {
+                     hideSheet();
+                   }, 20000);
+                });
+ });
+
+
 }
 
             //NOTE: this function center the map around the main marker
@@ -879,21 +928,6 @@ function ($scope, $state, $http, $stateParams, $ionicLoading) {
                 title: "My Location"
             });
         $scope.myLocation = myLocation;
-
-        google.maps.event.addListener(map, 'dragend', function(){
-        var locationSelected=StorageService.getAll();
-        if(locationSelected.lat != -86)
-        {
-          // map.setCenter(new google.maps.LatLng(locationSelected.lat , locationSelected.lng));
-        $scope.markerChosen;
-                    var markerChosen = new google.maps.Marker({
-                    map: map,
-                    icon: imgs.markerBlack,
-                    position: new google.maps.LatLng(locationSelected.lat, locationSelected.lng)
-                });
-                $scope.markerChosen = markerChosen;
-        }
-        });
 
             $scope.myLocation.addListener('dragend', function(marker, eventName, args) {
                 map.setZoom(map.zoom);
