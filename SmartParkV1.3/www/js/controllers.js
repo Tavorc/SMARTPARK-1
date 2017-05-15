@@ -418,6 +418,10 @@ $ionicLoading.hide();
                         }
                         if(index == 1)
                         {
+                       cordova.plugins.notification.local.cancel(10, function () {
+                                // Notification was cancelled
+                                console.log('notification is cancelled : '+ 10);
+                                }, '');
                           $localStorage.flagChose=false;
                           var locSelect={lat: -86, lng:  -86};
                          $localStorage.myChose=locSelect;
@@ -473,7 +477,22 @@ console.log(parkReport);
                      buttonClicked: function(index) {
                         if(index == 0)
                         {
-
+                          var answerReport=$localStorage.answer;
+                          var status;
+                          console.log(answerReport.results[0].time);
+                          var occupiedReport=answerReport.results[0].occupied;
+                          if( occupiedReport == false)
+                          {
+                              status="Availabe";
+                          }
+                           if(occupiedReport == true)
+                          {
+                            status="Occupied";
+                          }
+                              var alertPopup = $ionicPopup.alert({
+                             title: 'My Parking - Details',
+                             template: 'Time: '+ answerReport.results[0].time + '<br>Status: '+ status
+                           });
                         }
                         if(index == 1)
                         {
@@ -635,9 +654,19 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                         console.log(index);
                         if(index == 0)
                         {
+                          var choseOccupied=loc.occupied;
+                          var statusChose;
+                             if( choseOccupied == false)
+                          {
+                              statusChose="Availabe";
+                          }
+                           if(choseOccupied == true)
+                          {
+                            statusChose="Occupied";
+                          }
                            var alertPopup = $ionicPopup.alert({
                              title: 'Details',
-                             template: 'Description: '+ loc.description + '<br>address: '+ loc.location.city+","+loc.location.street +','+ loc.location.number + '<br> time: ' + loc.time+ '<br>occupied:'+ loc.occupied
+                             template: 'Description: '+ loc.description + '<br>address: '+ loc.location.city+","+loc.location.street +','+ loc.location.number + '<br> time: ' + loc.time+ '<br>occupied:'+ statusChose
                            });
                         }
                         if(index == 1)
