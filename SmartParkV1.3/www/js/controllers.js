@@ -143,7 +143,7 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $i
                 console.log($scope.parking);
             });
         });
- }, 2000);
+ }, 500);
     };
 }])
 
@@ -414,7 +414,9 @@ $ionicLoading.hide();
                      buttonClicked: function(index) {
                         if(index == 0)
                         {
-
+                          var latToNavigate=$localStorage.myChose.lat,lngToNavigate=$localStorage.myChose.lng;
+                          console.log(latToNavigate + " : " + lngToNavigate);
+                            WazeLink.open( 'waze://?ll=' + latToNavigate +','+ lngToNavigate);
                         }
                         if(index == 1)
                         {
@@ -433,7 +435,7 @@ $ionicLoading.hide();
                          if($localStorage.myChose.lat == -86){
                           setTimeout(function(){ 
                            window.location.reload(true);
-                          }, 2000);
+                          }, 500);
                           
                          }
                          
@@ -506,7 +508,7 @@ console.log(parkReport);
                          if($localStorage.reportPark.lat == -86){
                           setTimeout(function(){ 
                            window.location.reload(true);
-                          }, 2000);
+                          }, 500);
                          }
                         }
                        return true;
@@ -704,7 +706,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                                    $timeout(function() {
                                     $state.go('menu.home', {}, { reload: true});
                                   window.location.reload(true);
-                                   }, 2000);
+                                   }, 500);
                                 }
                         }
                         if(index == 2){
@@ -715,7 +717,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                    //NOTE????=>// For example's sake, hide the sheet after two seconds
                    $timeout(function() {
                      hideSheet();
-                   }, 20000);
+                   }, 2000);
                     console.log('mouseEvent!');
                 });
                 $scope.markers.push(tempMarker)
