@@ -562,7 +562,34 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
         $scope.init = function(){
             console.log($localStorage.answer); // NOTE: =>send to server  $http.get('fromServer').success(function(parkingJson){locations = parkingJson;});
             var locations = $localStorage.answer.results;
-
+  function getLocation(callback){
+                        var options = {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                          maximumAge: 30000
+                         };
+                      navigator.geolocation.getCurrentPosition(function(position)
+                         {
+                            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            var geocoder = new google.maps.Geocoder();
+                            var  latitude=position.coords.latitude;
+                            var longitude=position.coords.longitude;
+                            var  location={
+                                lat:latitude,
+                                lng:longitude
+                              }
+                              callback(location);
+                         }, geolocationError, options);
+                        function geolocationError(error)
+                         {
+                            console.log('error');
+                           $ionicPopup.alert({
+                           title: "You need to Enable Location Services!!",
+                           subTitle: error.message,
+                           template: JSON.stringify(error)
+                            });
+                        }
+                     }
             // var locations = [
             //     {lat: 32.085999, lng: 34.781555},
             //     {lat: 32.085234, lng: 34.781181},
@@ -588,7 +615,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
             //     // {lat: 32.085258, lng: 34.781000},
             //     {lat: 32.085792, lng: 34.781352}
             // ];
-
+getLocation (function(locationResult){
             var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
 
             var mapOptions = {
@@ -608,7 +635,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
             // navigator.geolocation.getCurrentPosition(function(pos) {
             $scope.myLocation;
             $scope.markers=[];
-            map.setCenter(new google.maps.LatLng(32.0852999 , 34.78176759999997)); // NOTE: pos.coords.latitude, pos.coords.longitude
+            map.setCenter(new google.maps.LatLng(locationResult.lat , locationResult.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
             var myLocation = new google.maps.Marker({
                 id: 0,
                 options: {
@@ -616,7 +643,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
                     draggable: false,
                     animation : google.maps.Animation.BOUNCE
                 },
-                position: new google.maps.LatLng(32.0852999 , 34.78176759999997),// NOTE: pos.coords.latitude, pos.coords.longitude
+                position: new google.maps.LatLng(locationResult.lat , locationResult.lng),// NOTE: pos.coords.latitude, pos.coords.longitude
                 map: map,
 
                 title: "My Location"
@@ -747,6 +774,7 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet,
             $state.go('menu.out', $scope.chosenLocation)
             // $state.go('menu.mapOUT', $scope.formOutParams);
         }
+        });
     };
 }])
 
