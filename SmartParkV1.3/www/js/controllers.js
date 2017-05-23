@@ -5,6 +5,7 @@ var userDetails={
             carId: null,
             smarties: 5
          };
+
 angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage'])
 
 .run(function($http){
@@ -181,9 +182,11 @@ console.log("user: " + userN);
             console.log(msg);
             var user = UserService.getUser();
             $ionicAuth.logout();
+            $localStorage.flagMap=true;
             $state.go('login');
           },
           function(fail){
+            $localStorage.flagMap=true;
         $ionicAuth.logout();
         $state.go('login');
         console.log(fail);
@@ -203,10 +206,16 @@ function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $
     password : $stateParams.password,
     gToken: null
   }
+      if ($ionicAuth.isAuthenticated()) {
+          $localStorage.flagMap =false;
+          console.log("conecttt");
+          $state.go('menu.home');
+          }
+          if(!$ionicAuth.isAuthenticated())
+          {
+            console.log("hello Tavi");
+          }
 
-  if ($ionicAuth.isAuthenticated()) {
-    $state.go('menu.home');
-    }
 document.addEventListener('deviceready', deviceReady, false);
 function deviceReady() {
     console.log('Device is ready!');
@@ -215,11 +224,13 @@ function deviceReady() {
          },
         function (obj) {
           UserService.setUser(obj);
+          $localStorage.flagMap =false;
             $state.go('menu.home');
             //console.log(JSON.stringify(obj));
         },
         function (msg)
          {
+     
           console.log("not success");
         }
       );
@@ -246,7 +257,7 @@ function deviceReady() {
                     function (user_data) {
                       //DAVID check if the user exist in DB(mongo)
                       var emailToCheck=user_data.email;
-                      var register=false;
+                      var register=true;
                     UserService.setUser(user_data);
                     if(!register)
                     {
@@ -288,7 +299,8 @@ function deviceReady() {
                     }
                     if(register)
                     {
-                      $state.go('menu.home');
+                       $state.go('menu.home');
+
                       console.log(UserService.getUser().email);
                     }
                     $ionicLoading.hide();
@@ -310,8 +322,7 @@ function deviceReady() {
           } ;
           UserService.setUser(userData);
           $ionicAuth.login('basic', details).then(function() {
-
-             $state.go('menu.home');
+            $state.go('menu.home');
             }, function(err) {
               console.log(err);
             });
@@ -322,6 +333,12 @@ function deviceReady() {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage) {
+        if($localStorage.flagMap == true){
+          setTimeout(function() {
+                  window.location.reload(true);
+                              }, 200);
+          $localStorage.flagMap =false;
+        }
         $scope.init = function(){
           $ionicLoading.hide();
           var parkReportValue=$localStorage.reportPark;
@@ -468,8 +485,6 @@ $ionicLoading.hide();
  }
 }
 }, false);
-
-
 var parkReport=$localStorage.reportPark;
 $scope.parkReported;
 console.log(parkReport);
@@ -494,27 +509,10 @@ console.log(parkReport);
                          return true; // add cancel code..
                         },
                      buttonClicked: function(index) {
-                        if(index == 0)
-                        {
-                          // var answerReport=$localStorage.answer;
-                          // var status;
-                          // console.log(answerReport);
-                          // var occupiedReport=answerReport.results[0].occupied;
-                          // if( occupiedReport == false)
-                          // {
-                          //     status="Availabe";
-                          // }
-                          //  if(occupiedReport == true)
-                          // {
-                          //   status="Occupied";
-                          // }
-                          //     var alertPopup = $ionicPopup.alert({
-                          //    title: 'My Parking - Details',
-                          //    template: 'Time: '+ answerReport.results[0].time + '<br>Status: '+ status
-                          //  });
+                        if(index == 0) {
+   
                         }
-                        if(index == 1)
-                        {
+                        if(index == 1){
                           var reportCoords={lat: -86, lng:  -86};
                          $localStorage.reportPark=reportCoords;
                           $scope.parkReported.setMap(null);
@@ -536,10 +534,7 @@ console.log(parkReport);
                    }, 20000);
                 });
  });
-
-
 }
-
             //NOTE: this function center the map around the main marker
             $scope.myLocation.addListener('dragend', function(marker, eventName, args) {
                 map.setZoom(map.zoom);
@@ -878,8 +873,6 @@ console.log(userName + " : " + emailForm + " : " + password + " : " + carId);
             email:emailForm,
           } ;
           UserService.setUser(userData);
-          // $localStorage.userName= userName;
-          // $localStorage.emailUser=emailForm;
           $localStorage.password=password;
           $localStorage.carId = carId;
   $ionicAuth.signup(details).then(function() {
@@ -892,6 +885,7 @@ console.log(userName + " : " + emailForm + " : " + password + " : " + carId);
                   carId: carId,
                   smarties: 5
                 };
+                $localStorage.flagMap =false;
       $state.go('menu.home');
       return $ionicAuth.login('basic', details);
         }, function(err) {
