@@ -7,13 +7,6 @@ var userDetails={
          };
 angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage'])
 
-.run(function($http){
-    //***INBAR***
-
-
-
-})
-
 .controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
@@ -47,7 +40,7 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage, UserSer
            $ionicLoading.show({
           template: 'Loading..:)'
         });
-setTimeout(function(){ 
+setTimeout(function(){
         formatDate($scope.time, function(answer){
             console.log(answer);
             // $scope.booking.time = answer;
@@ -133,7 +126,7 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $i
        $ionicLoading.show({
             template: 'Loading in..:)'
             });
-       setTimeout(function(){ 
+       setTimeout(function(){
         // // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
         formatDate($scope.time, function(answer){
             console.log(answer);
@@ -453,12 +446,12 @@ $ionicLoading.hide();
                             template: 'Loading in..:)'
                           });
                          if($localStorage.myChose.lat == -86){
-                          setTimeout(function(){ 
+                          setTimeout(function(){
                            window.location.reload(true);
                           }, 300);
-                          
+
                          }
-                         
+
                         }
                        return true;
                      },
@@ -526,7 +519,7 @@ console.log(parkReport);
                             template: 'Loading in..:)'
                           });
                          if($localStorage.reportPark.lat == -86){
-                          setTimeout(function(){ 
+                          setTimeout(function(){
                            window.location.reload(true);
                           }, 300);
                          }
@@ -670,7 +663,7 @@ getLocation (function(locationResult){
             });
             locations.forEach(function(loc) {
             //    console.log(loc);
-             console.log(loc); 
+             console.log(loc);
                 var tempLatLng = new google.maps.LatLng(loc.location.coords[0], loc.location.coords[1]);
                 var tempMarker = new google.maps.Marker({
                     id: $scope.markers.length+1,
@@ -855,9 +848,9 @@ function ($scope, $stateParams) {
 }
 })
 
-.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser','UserService', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser','UserService', '$localStorage', '$http',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage) {
+function ($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http) {
     console.log($stateParams);
     $scope.formSignupParams = {
     name : $stateParams.name,
@@ -866,7 +859,7 @@ function ($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $lo
     carId : $stateParams.carId
   }
     $scope.signUp = function() {
- var userName=$scope.formSignupParams.name;     
+ var userName=$scope.formSignupParams.name;
 var emailForm=$scope.formSignupParams.email.text;
 var password=$scope.formSignupParams.password;
 var carId= $scope.formSignupParams.carId;
@@ -889,9 +882,19 @@ console.log(userName + " : " + emailForm + " : " + password + " : " + carId);
                   carId: carId,
                   smarties: 5
                 };
-      $state.go('menu.home');
-      return $ionicAuth.login('basic', details);
-        }, function(err) {
+				$http
+				.post('https://localhost:8080/createuser', userDetails)
+				.success(function(answer){
+					console.log(answer);
+					$state.go('menu.home');
+					return $ionicAuth.login('basic', details);
+				})
+				.error(function(answer){
+					console.log('can not post');
+					console.log(answer);
+				});
+        },
+		function(err) {
           for (var e of err.details) {
             if (e === 'conflict_email') {
               alert('Email already exists.');
