@@ -162,9 +162,6 @@ function ($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserSe
 var userN=UserService.getUser().givenName;
 console.log("user: " + userN);
   $scope.userName=userN;
-  $scope.email=UserService.getUser().email;
-  $scope.password=$localStorage.password;
-  $scope.carId=$localStorage.carId;
   $scope.goHome = function()
   {
     $state.go('menu.home');
@@ -197,10 +194,10 @@ console.log("user: " + userN);
   };
 }])
 
-.controller('loginCtrl', ['$scope', '$stateParams','$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', '$stateParams','$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage) {
+function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
     $scope.formSignInParams = {
     email : $stateParams.email,
     password : $stateParams.password,
@@ -799,12 +796,16 @@ getLocation (function(locationResult){
 }])
 
 
-.controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, UserService) {
+function ($scope, $stateParams, UserService, $localStorage) {
 var userN=UserService.getUser().givenName;
+//get user details from server
 console.log("user: " + userN);
+  $scope.email=UserService.getUser().email;
+  $scope.password=$localStorage.password;
+  $scope.carId=$localStorage.carId;
   $scope.userName=userN;
 
 }])
@@ -873,10 +874,12 @@ var carId= $scope.formSignupParams.carId;
 console.log(userName + " : " + emailForm + " : " + password + " : " + carId);
   var details={'email': emailForm, 'password':  password}
           var userData ={
-            givenName:  emailU.substring(0, emailU.lastIndexOf("@")),
+            givenName:  emailForm.substring(0, emailForm.lastIndexOf("@")),
             email:emailForm,
           } ;
           UserService.setUser(userData);
+          // $localStorage.userName= userName;
+          // $localStorage.emailUser=emailForm;
           $localStorage.password=password;
           $localStorage.carId = carId;
   $ionicAuth.signup(details).then(function() {
