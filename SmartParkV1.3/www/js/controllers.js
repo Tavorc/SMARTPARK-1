@@ -1,4 +1,10 @@
-
+var userDetails={
+            name: null,
+            email: null,
+            password: null,
+            carId: null,
+            smarties: 5
+         };
 angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage'])
 
 .run(function($http){
@@ -41,6 +47,7 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage, UserSer
            $ionicLoading.show({
           template: 'Loading..:)'
         });
+setTimeout(function(){ 
         formatDate($scope.time, function(answer){
             console.log(answer);
             // $scope.booking.time = answer;
@@ -61,6 +68,7 @@ function ($scope, $http, $state, $stateParams, $location, $localStorage, UserSer
                 // console.log(formatDate($scope.booking.time.d, $scope.booking.time.t));
             });
         });
+         }, 500);
     };
 }])
 
@@ -133,7 +141,7 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $i
             .post('https://smartserver1.herokuapp.com/addnewparking/', $scope.parking)
             .success(function(answer){
                 // console.log(answer);
-                $localStorage.answer  = answer
+                $localStorage.answer  = answer;
                 console.log($localStorage.answer);
                   $state.go('menu.home', {reload: true});
                    window.location.reload(true);
@@ -147,13 +155,16 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $i
     };
 }])
 
-.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth) {
+function ($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage) {
 var userN=UserService.getUser().givenName;
 console.log("user: " + userN);
   $scope.userName=userN;
+  $scope.email=UserService.getUser().email;
+  $scope.password=$localStorage.password;
+  $scope.carId=$localStorage.carId;
   $scope.goHome = function()
   {
     $state.go('menu.home');
@@ -186,10 +197,10 @@ console.log("user: " + userN);
   };
 }])
 
-.controller('loginCtrl', ['$scope', '$stateParams','$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', '$stateParams','$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup) {
+function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage) {
     $scope.formSignInParams = {
     email : $stateParams.email,
     password : $stateParams.password,
@@ -209,7 +220,6 @@ function deviceReady() {
           UserService.setUser(obj);
             $state.go('menu.home');
             //console.log(JSON.stringify(obj));
-            var dataU=UserService.getUser();
         },
         function (msg)
          {
@@ -237,7 +247,7 @@ function deviceReady() {
                   {
                   },
                     function (user_data) {
-                      //DAVID check if the user appear in DB(mongo)
+                      //DAVID check if the user exist in DB(mongo)
                       var emailToCheck=user_data.email;
                       var register=false;
                     UserService.setUser(user_data);
@@ -258,8 +268,18 @@ function deviceReady() {
                               if (!$scope.data.numCar) {
                                 e.preventDefault();
                               } else {
+                                $localStorage.password="No need a password";
+                                $localStorage.carId = $scope.data.numCar;
                                 console.log($scope.data.numCar);
                                 console.log(user_data.givenName +": " + user_data.email +": " + user_data.userId );
+                                userDetails={
+                                              name: user_data.givenName,
+                                              email: user_data.email,
+                                              password: null,
+                                              carId: $scope.data.numCar,
+                                              smarties: 5
+                                           };
+                                           console.log(userDetails);
                                 //DAVID send all this data  to server
                                 $state.go('menu.home');
                                 return $scope.data.numCar;
@@ -301,10 +321,10 @@ function deviceReady() {
       }
 }])
 
-.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', 'StorageService', '$ionicActionSheet', '$timeout', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, StorageService, $ionicActionSheet, $timeout, $localStorage) {
+function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage) {
         $scope.init = function(){
           $ionicLoading.hide();
           var parkReportValue=$localStorage.reportPark;
@@ -435,7 +455,7 @@ $ionicLoading.hide();
                          if($localStorage.myChose.lat == -86){
                           setTimeout(function(){ 
                            window.location.reload(true);
-                          }, 500);
+                          }, 300);
                           
                          }
                          
@@ -479,22 +499,22 @@ console.log(parkReport);
                      buttonClicked: function(index) {
                         if(index == 0)
                         {
-                          var answerReport=$localStorage.answer;
-                          var status;
-                          console.log(answerReport.results[0].time);
-                          var occupiedReport=answerReport.results[0].occupied;
-                          if( occupiedReport == false)
-                          {
-                              status="Availabe";
-                          }
-                           if(occupiedReport == true)
-                          {
-                            status="Occupied";
-                          }
-                              var alertPopup = $ionicPopup.alert({
-                             title: 'My Parking - Details',
-                             template: 'Time: '+ answerReport.results[0].time + '<br>Status: '+ status
-                           });
+                          // var answerReport=$localStorage.answer;
+                          // var status;
+                          // console.log(answerReport);
+                          // var occupiedReport=answerReport.results[0].occupied;
+                          // if( occupiedReport == false)
+                          // {
+                          //     status="Availabe";
+                          // }
+                          //  if(occupiedReport == true)
+                          // {
+                          //   status="Occupied";
+                          // }
+                          //     var alertPopup = $ionicPopup.alert({
+                          //    title: 'My Parking - Details',
+                          //    template: 'Time: '+ answerReport.results[0].time + '<br>Status: '+ status
+                          //  });
                         }
                         if(index == 1)
                         {
@@ -508,7 +528,7 @@ console.log(parkReport);
                          if($localStorage.reportPark.lat == -86){
                           setTimeout(function(){ 
                            window.location.reload(true);
-                          }, 500);
+                          }, 300);
                          }
                         }
                        return true;
@@ -554,10 +574,10 @@ console.log(parkReport);
     };
 }])
 
-.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', 'UserService', 'StorageService', '$localStorage',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', 'UserService', '$localStorage',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet, $timeout, $ionicPopup, UserService, StorageService, $localStorage) {
+function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet, $timeout, $ionicPopup, UserService, $localStorage) {
     console.log($localStorage);
         $scope.init = function(){
             console.log($localStorage.answer); // NOTE: =>send to server  $http.get('fromServer').success(function(parkingJson){locations = parkingJson;});
@@ -733,7 +753,7 @@ getLocation (function(locationResult){
                                    $timeout(function() {
                                     $state.go('menu.home', {}, { reload: true});
                                   window.location.reload(true);
-                                   }, 500);
+                                   }, 300);
                                 }
                         }
                         if(index == 2){
@@ -744,7 +764,7 @@ getLocation (function(locationResult){
                    //NOTE????=>// For example's sake, hide the sheet after two seconds
                    $timeout(function() {
                      hideSheet();
-                   }, 2000);
+                   }, 20000);
                     console.log('mouseEvent!');
                 });
                 $scope.markers.push(tempMarker)
@@ -835,9 +855,9 @@ function ($scope, $stateParams) {
 }
 })
 
-.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser','UserService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser','UserService', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService) {
+function ($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage) {
     console.log($stateParams);
     $scope.formSignupParams = {
     name : $stateParams.name,
@@ -846,27 +866,40 @@ function ($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService) {
     carId : $stateParams.carId
   }
     $scope.signUp = function() {
-        //DAVID send data to mongo
-  var details={'email': $scope.formSignupParams.email.text, 'password':  $scope.formSignupParams.password}
-   var emailU=$scope.formSignupParams.email.text;
+ var userName=$scope.formSignupParams.name;     
+var emailForm=$scope.formSignupParams.email.text;
+var password=$scope.formSignupParams.password;
+var carId= $scope.formSignupParams.carId;
+console.log(userName + " : " + emailForm + " : " + password + " : " + carId);
+  var details={'email': emailForm, 'password':  password}
           var userData ={
             givenName:  emailU.substring(0, emailU.lastIndexOf("@")),
-            email:emailU
+            email:emailForm,
           } ;
           UserService.setUser(userData);
+          $localStorage.password=password;
+          $localStorage.carId = carId;
   $ionicAuth.signup(details).then(function() {
   // `$ionicUser` is now registered
-  $state.go('menu.home');
-  return $ionicAuth.login('basic', details);
-    }, function(err) {
-      for (var e of err.details) {
-        if (e === 'conflict_email') {
-          alert('Email already exists.');
-        } else {
-          console.log(err.details);// handle other errors
-        }
-      }
-    });
+        //DAVID send data to mongo
+     userDetails={
+                  name: userName,
+                  email: emailForm,
+                  password: password,
+                  carId: carId,
+                  smarties: 5
+                };
+      $state.go('menu.home');
+      return $ionicAuth.login('basic', details);
+        }, function(err) {
+          for (var e of err.details) {
+            if (e === 'conflict_email') {
+              alert('Email already exists.');
+            } else {
+              console.log(err.details);// handle other errors
+            }
+          }
+        });
     };
 }])
 
@@ -885,7 +918,6 @@ function ($scope, $state, $http, $stateParams, $ionicLoading, $location) {
         $scope.init = function(){
         $scope.chosenLocation;
         var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
-
         var mapOptions = {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
