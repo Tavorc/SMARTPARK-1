@@ -208,13 +208,9 @@ function ($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $
   }
       if ($ionicAuth.isAuthenticated()) {
           $localStorage.flagMap =false;
-          console.log("conecttt");
           $state.go('menu.home');
           }
-          if(!$ionicAuth.isAuthenticated())
-          {
-            console.log("hello Tavi");
-          }
+
 
 document.addEventListener('deviceready', deviceReady, false);
 function deviceReady() {
