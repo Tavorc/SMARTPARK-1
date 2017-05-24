@@ -257,7 +257,7 @@ function deviceReady() {
                     function (user_data) {
                       //DAVID check if the user exist in DB(mongo)
                       var emailToCheck=user_data.email;
-                      var register=true;
+                      var register=false;
                     UserService.setUser(user_data);
                     if(!register)
                     {
@@ -300,8 +300,6 @@ function deviceReady() {
                     if(register)
                     {
                        $state.go('menu.home');
-
-                      console.log(UserService.getUser().email);
                     }
                     $ionicLoading.hide();
                   },
@@ -866,7 +864,6 @@ function ($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $lo
 var emailForm=$scope.formSignupParams.email.text;
 var password=$scope.formSignupParams.password;
 var carId= $scope.formSignupParams.carId;
-console.log(userName + " : " + emailForm + " : " + password + " : " + carId);
   var details={'email': emailForm, 'password':  password}
           var userData ={
             givenName:  emailForm.substring(0, emailForm.lastIndexOf("@")),
@@ -885,8 +882,10 @@ console.log(userName + " : " + emailForm + " : " + password + " : " + carId);
                   carId: carId,
                   smarties: 5
                 };
-                $localStorage.flagMap =false;
-      $state.go('menu.home');
+     setTimeout(function(){ 
+        $state.go('menu.home');
+      }, 300);
+      
       return $ionicAuth.login('basic', details);
         }, function(err) {
           for (var e of err.details) {
