@@ -240,6 +240,20 @@ function deviceReady() {
                   {
                   },
                     function (user_data) {
+						// NOTE: to be continue...
+						// $http
+						// .get('http://localhost:8080/readuser'+user_data.email)
+						// .success(function(answer){
+						// 	console.log(answer);
+						// 	$state.go('menu.home');
+						// 	return $ionicAuth.login('basic', details);
+						// })
+						// .error(function(answer){
+						// 	console.log('can not post');
+						// 	console.log(answer);
+						// });
+
+
                       //DAVID check if the user exist in DB(mongo)
                       var emailToCheck=user_data.email;
                       var register=false;
@@ -273,6 +287,20 @@ function deviceReady() {
                                               smarties: 5
                                            };
                                            console.log(userDetails);
+										   // NOTE: to be continue...
+				   						// $http
+				   						// .get('http://localhost:8080/createuser', user_data)
+				   						// .success(function(answer){
+				   						// 	console.log(answer);
+				   						// 	$state.go('menu.home');
+				   						// 	return $ionicAuth.login('basic', details);
+				   						// })
+				   						// .error(function(answer){
+				   						// 	console.log('can not post');
+				   						// 	console.log(answer);
+				   						// });
+
+
                                 //DAVID send all this data  to server
                                 $state.go('menu.home');
                                 return $scope.data.numCar;
@@ -866,7 +894,7 @@ var carId= $scope.formSignupParams.carId;
 console.log(userName + " : " + emailForm + " : " + password + " : " + carId);
   var details={'email': emailForm, 'password':  password}
           var userData ={
-            givenName:  emailU.substring(0, emailU.lastIndexOf("@")),
+            givenName:  emailForm.substring(0, emailForm.lastIndexOf("@")),
             email:emailForm,
           } ;
           UserService.setUser(userData);
@@ -883,7 +911,7 @@ console.log(userName + " : " + emailForm + " : " + password + " : " + carId);
                   smarties: 5
                 };
 				$http
-				.post('https://localhost:8080/createuser', userDetails)
+				.post('http://localhost:8080/createuser', userDetails)
 				.success(function(answer){
 					console.log(answer);
 					$state.go('menu.home');
