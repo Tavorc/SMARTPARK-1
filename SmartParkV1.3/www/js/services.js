@@ -20,20 +20,6 @@ return {
     add: _add
   };
 })
-.service('OutService', function() {
-
-	  var setOut = function(out) {
-	    window.localStorage.outId = JSON.stringify(out);
-	  };
-
-	  var getOut = function(){
-	    return JSON.parse(window.localStorage.out || '{}');
-	  };
-	  return {
-	    getOut: getOut,
-	    setOut: setOut
-	  };
-  })
 .service('UserService', function() {
 
 	  var setUser = function(user_data) {
