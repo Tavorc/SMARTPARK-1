@@ -73,10 +73,10 @@ setTimeout(function(){
     };
 }])
 
-.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'StorageService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading) {
+function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, StorageService) {
     var formatDate = function(date, callback){
         console.log(date);
         $scope.parking.time = date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.toLocaleTimeString();
@@ -141,9 +141,8 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $i
             $http
             .post('https://smartserver1.herokuapp.com/addnewparking/', $scope.parking)
             .success(function(answer){
-                 console.log(answer);
-                $localStorage.answerReport  = answer.id;
-                console.log("afterrrrrrrrrrrrrrrrrrrr"+ $localStorage.answerReport);
+               window.localStorage.setItem("repo", answer.id);
+                  console.log(window.localStorage.getItem("repo"));
                   $state.go('menu.home', {reload: true});
                    window.location.reload(true);
             })
@@ -323,10 +322,10 @@ function deviceReady() {
       }
 }])
 
-.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', 'StorageService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage) {
+function ($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage, StorageService) {
         if($localStorage.flagMap == true){
           setTimeout(function() {
                   window.location.reload(true);
@@ -518,7 +517,16 @@ console.log(parkReport);
    
                         }
                         if(index == 1){
-                              var reportCoords={lat: -86, lng:  -86};
+                        var temp=window.localStorage.getItem("repo");
+                        console.log("temp is : " + temp);
+                         var tempo=temp.toString();
+                        console.log("string: " + tempo);
+                        var reports= {parkingId: tempo};
+                        console.log("this repor : "+reports+ " : " + reports.parkingId);
+                          $http
+                          .post('http://smartserver1.herokuapp.com/deleteParking/', reports)
+                          .success(function(answer){
+                                 var reportCoords={lat: -86, lng:  -86};
                              $localStorage.reportPark=reportCoords;
                               $scope.parkReported.setMap(null);
                               parkReportedMarker.setMap(null);
@@ -530,15 +538,11 @@ console.log(parkReport);
                                window.location.reload(true);
                               }, 300);
                              }
-                        var reportId= {bookingId: $localStorage.answerReport};
-                        console.log("report id : " + reportId);
-                          $http
-                          .post('http://smartserver1.herokuapp.com/deleteParking/',  reportId )
-                          .success(function(answer){
                                console.log("After cancel : "+answer);
                           })
                           .error(function(answer){
                             $ionicLoading.hide();
+                            console.log(answer);
                               console.log('can not post');
                           });
 
