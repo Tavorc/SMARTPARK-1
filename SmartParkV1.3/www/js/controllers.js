@@ -887,9 +887,9 @@ function ($scope, $stateParams) {
 }
 })
 
-.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser','UserService', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser','UserService', '$localStorage', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage) {
+function ($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http) {
     console.log($stateParams);
     $scope.formSignupParams = {
     name : $stateParams.name,
@@ -920,11 +920,17 @@ var carId= $scope.formSignupParams.carId;
                   carId: carId,
                   smarties: 5
                 };
-     setTimeout(function(){ 
-        $state.go('menu.home');
-      }, 300);
-      
-      return $ionicAuth.login('basic', details);
+       $http
+       .post('http://smartserver1.herokuapp.com/createuser/', userDetails)
+       .success(function(answer){
+          console.log(answer);
+          $state.go('menu.home');
+         return $ionicAuth.login('basic', details);
+       })
+       .error(function(answer){
+         console.log('can not post');
+          console.log(answer);
+        });
         }, function(err) {
           for (var e of err.details) {
             if (e === 'conflict_email') {
