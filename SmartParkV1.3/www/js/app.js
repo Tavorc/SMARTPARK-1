@@ -58,13 +58,13 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
            });
 
            confirmPopup.then(function(res) {
-
              if(res) {
+              //DAVID here the user say that the parking is availible and you need to send this to server
               var locSelect={lat: -86, lng:  -86};
               StorageService.add(locSelect);
              } else {
                 var myPopup = $ionicPopup.show({
-                template: '<input type="text">',
+                template: '<input type="text"  ng-model="data.carNum">',
                 title: 'Enter Number of car',
                 subTitle: 'Car that parking',
                 buttons: [
@@ -73,12 +73,12 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
                     text: '<b>Save</b>',
                     type: 'button-positive',
                     onTap: function(e) {
-                      // if () {
-                      //   //don't allow the user to close unless he enters wifi password
-                      //   e.preventDefault();
-                      // } else {
-                      //   return;
-                      // }
+                       if (!$scope.data.carNum) {
+                        e.preventDefault();
+                      } else {
+                        //DAVID we need to send number car to server
+                        return $scope.data.carNum;
+                      }
                     }
                   }
                 ]
