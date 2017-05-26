@@ -470,30 +470,38 @@ angular
 														console.log(latToNavigate + " : " + lngToNavigate);
 														WazeLink.open('waze://?ll=' + latToNavigate + ',' + lngToNavigate);
 													}
-													if (index == 1) {
-														cordova.plugins.notification.local.cancel(10, function() {
-															// Notification was cancelled
-															console.log('notification is cancelled : ' + 10);
-														}, '');
-														$localStorage.flagChose = false;
-														var locSelect = {
-															lat: -86,
-															lng: -86
-														};
-														$localStorage.myChose = locSelect;
-														$scope.choseLocation.setMap(null);
-														choseLocation.setMap(null);
-														$ionicLoading.show({
-															template: 'Loading in..:)'
-														});
-														if ($localStorage.myChose.lat == -86) {
-															setTimeout(function() {
-																window.location.reload(true);
-															}, 300);
+											  if(index == 1)
+                        {
+                            var bookingId=$localStorage.answer.bookingId;
+                            var parkingId = $localStorage.choosenIdParking;
+                            var cancelDetails= {parkingId: parkingId,bookingId: bookingId};
+                               $http
+                              .post('http://smartserver1.herokuapp.com/cancelParking/', cancelDetails)
+                              .success(function(answer){
+                                    cordova.plugins.notification.local.cancel(10, function () {
+                                    // Notification was cancelled
+                                        console.log('notification is cancelled : '+ 10);
+                                        }, '');
+                                  $localStorage.flagChose=false;
+                                  var locSelect={lat: -86, lng:  -86};
+                                 $localStorage.myChose=locSelect;
+                                  $scope.choseLocation.setMap(null);
+                                  choseLocation.setMap(null);
+                                  $ionicLoading.show({
+                                    template: 'Loading in..:)'
+                                  });
+                                 if($localStorage.myChose.lat == -86){
+                                  setTimeout(function(){ 
+                                   window.location.reload(true);
+                                  }, 300);
+                                  
+                                 }
+                                 
+                              })
+                              .error(function(answer){
 
-														}
-
-													}
+                              });
+                        }
 													return true;
 												},
 											});
