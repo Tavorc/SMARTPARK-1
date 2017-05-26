@@ -8,14 +8,40 @@ var userDetails = {
 
 angular
 	.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage'])
-	.run(function($http) {})
+
+	.run(function($http) {
+		let locations = [
+	    {lat: 32.085999, lng: 34.781555},
+	    {lat: 32.085234, lng: 34.781181},
+	    {lat: 32.085111, lng: 34.781124},
+	    {lat: 32.085588, lng: 34.781834},
+	    {lat: 32.085702, lng: 34.781968},
+	    {lat: 32.085264, lng: 34.781657},
+	    {lat: 32.085724, lng: 34.781905},
+	    {lat: 32.085685, lng: 34.781196},
+	    {lat: 32.085611, lng: 34.781222},
+	    // {lat: 32.085000, lng: 34.781667},
+	    // {lat: 32.085859, lng: 34.781708},
+	    // {lat: 32.085015, lng: 34.781858},
+	    // {lat: 32.085104, lng: 34.781299},
+	    // {lat: 32.085700, lng: 34.781187},
+	    // {lat: 32.085785, lng: 34.781978},
+	    // {lat: 32.085616, lng: 34.781119},
+	    // {lat: 32.085766, lng: 34.781692},
+	    // {lat: 32.085193, lng: 34.781218},
+	    // {lat: 32.085162, lng: 34.781694},
+	    // {lat: 32.085358, lng: 34.781506},
+	    // {lat: 32.085358, lng: 34.781315},
+	    // {lat: 32.085258, lng: 34.781000},
+	    {lat: 32.085792, lng: 34.781352}
+	];})
+
 	.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		// You can include any angular dependencies as parameters for this function
 		// TIP: Access Route Parameters for your page via $stateParams.parameterName
 		function($scope, $http, $state, $stateParams, $location, $localStorage, UserService, $ionicLoading) {
-			console.log($stateParams);
 			var formatDate = function(date, callback) {
-				$scope.booking.time = date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.toLocaleTimeString();
+				$scope.booking.time = `${date.d.getFullYear()}-${date.d.getMonth() + 1}-${date.d.getDate()} ${date.t.toLocaleTimeString()}`;
 				return callback($scope.booking.time);
 			};
 			$scope.location = {
@@ -31,7 +57,7 @@ angular
 				t: null
 			}
 			$scope.booking = {
-				time: $scope.time, //'2017-02-13 12:50:00',
+				time: $scope.time,
 				distance: null,
 				location: $scope.location,
 				searcherId: 'hjhsdjhs'
@@ -45,12 +71,9 @@ angular
 				setTimeout(function() {
 					formatDate($scope.time, function(answer) {
 						console.log(answer);
-						// $scope.booking.time = answer;
-						// $scope.booking.time = formatDate($scope.time); // NOTE: async call doing problems!!!
 						$http
 							.post('http://smartserver1.herokuapp.com/searchparking/', $scope.booking)
 							.success(function(answer) {
-								// console.log(answer);
 								$localStorage.answer = answer;
 								console.log($localStorage.answer);
 								$state.go('menu.availabeParking', {
@@ -62,7 +85,6 @@ angular
 								$ionicLoading.hide();
 								console.log('can not post');
 								console.log($scope.booking);
-								// console.log(formatDate($scope.booking.time.d, $scope.booking.time.t));
 							});
 					});
 				}, 500);
@@ -76,7 +98,7 @@ angular
 		function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading) {
 			var formatDate = function(date, callback) {
 				console.log(date);
-				$scope.parking.time = date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.toLocaleTimeString();
+				$scope.parking.time = `${date.d.getFullYear()}-${date.d.getMonth() + 1}-${date.d.getDate()} ${date.t.toLocaleTimeString()}`;
 				return callback($scope.parking.time);
 			};
 
@@ -94,7 +116,6 @@ angular
 				large: 2,
 				lengthParking: 3
 			}
-			// console.log($scope.size);
 			$scope.location = {
 				country: $stateParams.country,
 				city: $stateParams.city,
@@ -108,7 +129,7 @@ angular
 				t: null
 			}
 			$scope.parking = {
-				time: $scope.time, //'2017-02-13 12:50:00',
+				time: $scope.time,
 				location: $scope.location,
 				handicap: null,
 				description: null,
@@ -135,7 +156,6 @@ angular
 					template: 'Loading in..:)'
 				});
 				setTimeout(function() {
-					// // $http.post('https://smartserver1.herokuapp.com/addnewparking/',$scope.formInParams).success(function(answer){
 					formatDate($scope.time, function(answer) {
 						console.log(answer);
 						$http
@@ -158,7 +178,6 @@ angular
 			};
 		}
 	])
-
 
 	.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		// You can include any angular dependencies as parameters for this function
@@ -580,7 +599,7 @@ angular
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet, $timeout, $ionicPopup, UserService, $localStorage) {
 			console.log($localStorage);
 			$scope.init = function() {
-				console.log($localStorage.answer); // NOTE: =>send to server  $http.get('fromServer').success(function(parkingJson){locations = parkingJson;});
+				console.log($localStorage.answer);
 				var locations = $localStorage.answer.results;
 
 				function getLocation(callback) {
@@ -610,31 +629,7 @@ angular
 						});
 					}
 				}
-				// var locations = [
-				//     {lat: 32.085999, lng: 34.781555},
-				//     {lat: 32.085234, lng: 34.781181},
-				//     {lat: 32.085111, lng: 34.781124},
-				//     {lat: 32.085588, lng: 34.781834},
-				//     {lat: 32.085702, lng: 34.781968},
-				//     {lat: 32.085264, lng: 34.781657},
-				//     {lat: 32.085724, lng: 34.781905},
-				//     {lat: 32.085685, lng: 34.781196},
-				//     {lat: 32.085611, lng: 34.781222},
-				//     // {lat: 32.085000, lng: 34.781667},
-				//     // {lat: 32.085859, lng: 34.781708},
-				//     // {lat: 32.085015, lng: 34.781858},
-				//     // {lat: 32.085104, lng: 34.781299},
-				//     // {lat: 32.085700, lng: 34.781187},
-				//     // {lat: 32.085785, lng: 34.781978},
-				//     // {lat: 32.085616, lng: 34.781119},
-				//     // {lat: 32.085766, lng: 34.781692},
-				//     // {lat: 32.085193, lng: 34.781218},
-				//     // {lat: 32.085162, lng: 34.781694},
-				//     // {lat: 32.085358, lng: 34.781506},
-				//     // {lat: 32.085358, lng: 34.781315},
-				//     // {lat: 32.085258, lng: 34.781000},
-				//     {lat: 32.085792, lng: 34.781352}
-				// ];
+
 				getLocation(function(locationResult) {
 					var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
 
@@ -839,7 +834,6 @@ angular
 		}
 	])
 
-
 	.controller('myHistoryCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		// You can include any angular dependencies as parameters for this function
 		// TIP: Access Route Parameters for your page via $stateParams.parameterName
@@ -900,8 +894,11 @@ angular
 
 		}
 	])
-	.controller('MyCtrlSearchesHistory', function($scope) {
 
+	.controller('MyCtrlSearchesHistory', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		// You can include any angular dependencies as parameters for this function
+		// TIP: Access Route Parameters for your page via $stateParams.parameterName
+		function($scope, $stateParams) {
 		$scope.data = {
 			showDelete: false
 		};
@@ -912,8 +909,10 @@ angular
 		}
 	})
 
-	.controller('MyCtrlReportsHistory', function($scope) {
-
+	.controller('MyCtrlReportsHistory', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		// You can include any angular dependencies as parameters for this function
+		// TIP: Access Route Parameters for your page via $stateParams.parameterName
+		function($scope, $stateParams) {
 		$scope.data = {
 			showDelete: false
 		};
@@ -1069,7 +1068,6 @@ angular
 			};
 		}
 	])
-
 
 	.controller('mapOUTCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		// You can include any angular dependencies as parameters for this function
