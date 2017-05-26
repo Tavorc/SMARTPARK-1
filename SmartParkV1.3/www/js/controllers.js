@@ -57,7 +57,7 @@ setTimeout(function(){
             .post('http://smartserver1.herokuapp.com/searchparking/', $scope.booking)
             .success(function(answer){
                 // console.log(answer);
-                $localStorage.answer  = answer
+                $localStorage.answer  = answer;
                 console.log($localStorage.answer);
                 $state.go('menu.availabeParking', {reload: true});
                 $ionicLoading.hide();
@@ -141,9 +141,9 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $i
             $http
             .post('https://smartserver1.herokuapp.com/addnewparking/', $scope.parking)
             .success(function(answer){
-                // console.log(answer);
-                $localStorage.answer  = answer;
-                console.log($localStorage.answer);
+                 console.log(answer);
+                $localStorage.answerReport  = answer.id;
+                console.log("afterrrrrrrrrrrrrrrrrrrr"+ $localStorage.answerReport);
                   $state.go('menu.home', {reload: true});
                    window.location.reload(true);
             })
@@ -448,25 +448,36 @@ $ionicLoading.hide();
                         }
                         if(index == 1)
                         {
-                       cordova.plugins.notification.local.cancel(10, function () {
-                                // Notification was cancelled
-                                console.log('notification is cancelled : '+ 10);
-                                }, '');
-                          $localStorage.flagChose=false;
-                          var locSelect={lat: -86, lng:  -86};
-                         $localStorage.myChose=locSelect;
-                          $scope.choseLocation.setMap(null);
-                          choseLocation.setMap(null);
-                          $ionicLoading.show({
-                            template: 'Loading in..:)'
-                          });
-                         if($localStorage.myChose.lat == -86){
-                          setTimeout(function(){ 
-                           window.location.reload(true);
-                          }, 300);
                           
-                         }
-                         
+                            var bookingId=$localStorage.answer.bookingId;
+                            var parkingId = $localStorage.choosenIdParking;
+                            var cancelDetails= {parkingId: parkingId,bookingId: bookingId};
+                               $http
+                              .post('http://smartserver1.herokuapp.com/cancelParking/', cancelDetails)
+                              .success(function(answer){
+                                    cordova.plugins.notification.local.cancel(10, function () {
+                                    // Notification was cancelled
+                                        console.log('notification is cancelled : '+ 10);
+                                        }, '');
+                                  $localStorage.flagChose=false;
+                                  var locSelect={lat: -86, lng:  -86};
+                                 $localStorage.myChose=locSelect;
+                                  $scope.choseLocation.setMap(null);
+                                  choseLocation.setMap(null);
+                                  $ionicLoading.show({
+                                    template: 'Loading in..:)'
+                                  });
+                                 if($localStorage.myChose.lat == -86){
+                                  setTimeout(function(){ 
+                                   window.location.reload(true);
+                                  }, 300);
+                                  
+                                 }
+                                 
+                              })
+                              .error(function(answer){
+
+                              });
                         }
                        return true;
                      },
@@ -507,18 +518,30 @@ console.log(parkReport);
    
                         }
                         if(index == 1){
-                          var reportCoords={lat: -86, lng:  -86};
-                         $localStorage.reportPark=reportCoords;
-                          $scope.parkReported.setMap(null);
-                          parkReportedMarker.setMap(null);
-                          $ionicLoading.show({
-                            template: 'Loading in..:)'
+                              var reportCoords={lat: -86, lng:  -86};
+                             $localStorage.reportPark=reportCoords;
+                              $scope.parkReported.setMap(null);
+                              parkReportedMarker.setMap(null);
+                              $ionicLoading.show({
+                                template: 'Loading in..:)'
+                              });
+                             if($localStorage.reportPark.lat == -86){
+                              setTimeout(function(){ 
+                               window.location.reload(true);
+                              }, 300);
+                             }
+                        var reportId= {bookingId: $localStorage.answerReport};
+                        console.log("report id : " + reportId);
+                          $http
+                          .post('http://smartserver1.herokuapp.com/deleteParking/',  reportId )
+                          .success(function(answer){
+                               console.log("After cancel : "+answer);
+                          })
+                          .error(function(answer){
+                            $ionicLoading.hide();
+                              console.log('can not post');
                           });
-                         if($localStorage.reportPark.lat == -86){
-                          setTimeout(function(){ 
-                           window.location.reload(true);
-                          }, 300);
-                         }
+
                         }
                        return true;
                      },
@@ -706,41 +729,56 @@ getLocation (function(locationResult){
                         }
                         if(index == 1)
                         {
-                          //INBAR You need to update the db that the parking is occupied
-                          $localStorage.flagChose=true;
-                          $ionicLoading.show({
-                            template: 'Loading...:)'
-                          });
-                           var now = new Date(),timeOfParking = new Date(loc.time);
-                           console.log(timeOfParking);
-                           console.log(now);
-                                cordova.plugins.notification.local.schedule(
-                                {
-                                id: 10,
-                                title: "Time to Parking",
-                                text: "Is occupied",
-                                at: timeOfParking,
-                                color: 'FF0000',
-                                data: { meetingId:"11" }
-                               });
-                                cordova.plugins.notification.local.on("click", function (notification)
-                                 {
-                                if (notification.id == 10) {
-                                }
-                                });
-                                cordova.plugins.notification.local.on("trigger", function (notification)
-                                {
-                                if (notification.id != 10)
-                                    return;
-                               });
-                                var locSelect={lat: loc.location.coords[0], lng:  loc.location.coords[1]};
-                                $localStorage.myChose=locSelect;
-                                if($localStorage.myChose.lat != -86){
-                                   $timeout(function() {
-                                    $state.go('menu.home', {}, { reload: true});
-                                  window.location.reload(true);
-                                   }, 300);
-                                }
+                          
+                        
+                        //INBAR You need to update the db that the parking is occupied
+                        var bookingId=$localStorage.answer.bookingId;
+                        var searchId= UserService.getUser().email;
+                        $localStorage.choosenIdParking=loc['id'];
+                        var chooseDetails={searcherId: searchId,bookingId: bookingId,parkingId: $localStorage.choosenIdParking};
+
+                                   $http
+                              .post('http://smartserver1.herokuapp.com/chooseParking/', chooseDetails)
+                              .success(function(answer){
+                                      $localStorage.flagChose=true;
+                                      $ionicLoading.show({
+                                        template: 'Loading...:)'
+                                      });
+                                       var now = new Date(),timeOfParking = new Date(loc.time);
+                                       console.log(timeOfParking);
+                                       console.log(now);
+                                            cordova.plugins.notification.local.schedule(
+                                            {
+                                            id: 10,
+                                            title: "Time to Parking",
+                                            text: "Is occupied",
+                                            at: timeOfParking,
+                                            color: 'FF0000',
+                                            data: { meetingId:"11" }
+                                           });
+                                            cordova.plugins.notification.local.on("click", function (notification)
+                                             {
+                                            if (notification.id == 10) {
+                                            }
+                                            });
+                                            cordova.plugins.notification.local.on("trigger", function (notification)
+                                            {
+                                            if (notification.id != 10)
+                                                return;
+                                           });
+                                            var locSelect={lat: loc.location.coords[0], lng:  loc.location.coords[1]};
+                                            $localStorage.myChose=locSelect;
+                                            if($localStorage.myChose.lat != -86){
+                                               $timeout(function() {
+                                                $state.go('menu.home', {}, { reload: true});
+                                              window.location.reload(true);
+                                               }, 300);
+                                            }
+                              })
+                              .error(function(answer){
+                                  console.log('can not post choose');
+                              });
+
                         }
                         if(index == 2){
                         }
