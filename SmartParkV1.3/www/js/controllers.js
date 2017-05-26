@@ -142,8 +142,8 @@ function ($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $i
             .post('https://smartserver1.herokuapp.com/addnewparking/', $scope.parking)
             .success(function(answer){
                  console.log(answer);
-                $localStorage.answerReport  = answer.id;
-                console.log("afterrrrrrrrrrrrrrrrrrrr"+ $localStorage.answerReport);
+                 window.localStorage.setItem("repo", answer.id);
+                  console.log(window.localStorage.getItem("repo"));
                   $state.go('menu.home', {reload: true});
                    window.location.reload(true);
             })
@@ -518,6 +518,16 @@ console.log(parkReport);
    
                         }
                         if(index == 1){
+                            var temp=window.localStorage.getItem("repo");
+                        console.log("temp is : " + temp);
+                         var tempo=temp.toString();
+                        console.log("string: " + tempo);
+                        var reports= {parkingId: tempo};
+                        console.log("this repor : "+reports+ " : " + reports.parkingId);
+                          $http
+                          .post('http://smartserver1.herokuapp.com/deleteParking/',  reports)
+                          .success(function(answer){
+                               console.log("After cancel : "+answer);
                               var reportCoords={lat: -86, lng:  -86};
                              $localStorage.reportPark=reportCoords;
                               $scope.parkReported.setMap(null);
@@ -530,12 +540,6 @@ console.log(parkReport);
                                window.location.reload(true);
                               }, 300);
                              }
-                        var reportId= {bookingId: $localStorage.answerReport};
-                        console.log("report id : " + reportId);
-                          $http
-                          .post('http://smartserver1.herokuapp.com/deleteParking/',  reportId )
-                          .success(function(answer){
-                               console.log("After cancel : "+answer);
                           })
                           .error(function(answer){
                             $ionicLoading.hide();
