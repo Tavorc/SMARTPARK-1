@@ -151,6 +151,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 							window.location.reload(true);
 						})
 						.error(function(answer) {
+              $ionicLoading.hide();
 							console.log('can not post');
 							console.log($scope.parking);
 						});
@@ -538,11 +539,10 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 											var reports = {
 												parkingId: tempo
 											};
-											console.log("this repor : " + reports + " : " + reports.parkingId);
 											$http
 												.post('http://smartserver1.herokuapp.com/deleteParking/', reports)
 												.success(function(answer) {
-													console.log("After cancel : " + answer);
+													//console.log("After cancel : " + answer);
 													var reportCoords = {
 														lat: -86,
 														lng: -86
