@@ -32,7 +32,8 @@
         <ion-item class="item-icon-left" id="menu-list-item12" ui-sref="menu.myHistory({formParams : hello})" menu-close="">
           <i class="icon ion-arrow-swap"></i>My History</ion-item>
         <ion-item class="item-icon-left" id="menu-list-item13" data-componentid="list-item13">
-          <ion-toggle toggle-class="toggle-calm" ng-checked="true" id="menu-list-item-toggle13" data-componentid="toggle9"><i class="icon ion-android-notifications-none"></i>Notifications</ion-toggle>
+        <i class="icon ion-android-notifications-none"></i>
+          <ion-toggle toggle-class="toggle-calm" ng-checked="true" id="menu-list-item-toggle13" data-componentid="toggle9" ng-model="pushNotification.checked" ng-change="pushNotificationChange()">Notifications</ion-toggle>
       </ion-item>
         <ion-item class="item-icon-left" id="menu-list-item14" data-componentid="list-item14">
           <i class="icon ion-ios-settings-strong"></i>Settings</ion-item>

@@ -171,6 +171,19 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		$scope.goHome = function() {
 			$state.go('menu.home');
 		}
+      $scope.pushNotification = { checked: true };
+      $scope.pushNotificationChange = function() {
+        if($scope.pushNotification.checked == true){
+          
+
+        }
+        if($scope.pushNotification.checked == false){
+            cordova.plugins.notification.local.cancel(10, function () {
+            }, '');
+        }
+    console.log('Push Notification Change', $scope.pushNotification.checked);
+    };
+
 		$scope.googleLogOut = function() {
 			var hideSheet = $ionicActionSheet.show({
 				destructiveText: 'Logout',
@@ -215,8 +228,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 			$localStorage.flagMap = false;
 			$state.go('menu.home');
 		}
-
-
 		document.addEventListener('deviceready', deviceReady, false);
 
 		function deviceReady() {
@@ -274,7 +285,12 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 													$localStorage.carId = $scope.data.numCar;
 													console.log($scope.data.numCar);
 													console.log(user_data.givenName + ": " + user_data.email + ": " + user_data.userId);
-													userDetails = {
+													  $ionicPush.register().then(function(t) {
+                           return $ionicPush.saveToken(t);
+                          }).then(function(t) {
+                           console.log('Token saved:', t.token);
+                          var tokenUser=t.token;
+                          userDetails = {
 														name: user_data.givenName,
 														email: user_data.email,
 														password: null,
@@ -285,6 +301,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 													//DAVID send all this data  to server
 													$state.go('menu.home');
 													return $scope.data.numCar;
+                           });
 												}
 											}
 										}
@@ -323,11 +340,16 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	}
 ])
 
-.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 	// You can include any angular dependencies as parameters for this function
 	// TIP: Access Route Parameters for your page via $stateParams.parameterName
-	function($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage) {
-		if ($localStorage.flagMap == true) {
+	function($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage, $ionicPush) {
+	
+  	$scope.$on('cloud:push:notification', function(event, data) {
+    var msg = data.message;
+    alert(msg.title + ': ' + msg.text);
+    });
+    if ($localStorage.flagMap == true) {
 			setTimeout(function() {
 				window.location.reload(true);
 			}, 200);
@@ -539,6 +561,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 											var reports = {
 												parkingId: tempo
 											};
+                      console.log(reports + " : " + reports.parkingId);
 											$http
 												.post('http://smartserver1.herokuapp.com/deleteParking/', reports)
 												.success(function(answer) {
@@ -862,6 +885,17 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	function($scope, $stateParams, UserService, $localStorage) {
 		var userN = UserService.getUser().givenName;
 		//get user details from server
+    var userIdByEmail={email: UserService.getUser().email };
+    console.log(userIdByEmail);
+      // $http
+      // .post('http://smartserver1.herokuapp.com/readUser/', userIdByEmail.email)
+      // .success(function(answer) {
+      // console.log(answer);
+      //   })
+      // .error(function(answer) {
+      //       console.log('can not post');
+      //       console.log(answer);
+      //     });
 		console.log("user: " + userN);
 		$scope.email = UserService.getUser().email;
 		$scope.password = $localStorage.password;
@@ -955,9 +989,9 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	}
 }])
 
-.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 	// TIP: Access Route Parameters for your page via $stateParams.parameterName
-	function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http) {
+	function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush) {
 		console.log($stateParams);
 		$scope.formSignupParams = {
 			name: $stateParams.name,
@@ -965,6 +999,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 			password: $stateParams.password,
 			carId: $stateParams.carId
 		}
+  
 		$scope.signUp = function() {
 			var userName = $scope.formSignupParams.name;
 			var emailForm = $scope.formSignupParams.email.text;
@@ -984,6 +1019,11 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 			$ionicAuth.signup(details).then(function() {
 				// `$ionicUser` is now registered
 				//DAVID send data to mongo
+      $ionicPush.register().then(function(t) {
+       return $ionicPush.saveToken(t);
+      }).then(function(t) {
+         console.log('Token saved:', t.token);
+      var tokenUser=t.token;
 				userDetails = {
 					name: userName,
 					email: emailForm,
@@ -1002,6 +1042,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 						console.log('can not post');
 						console.log(answer);
 					});
+      });
 			}, function(err) {
 				for (var e of err.details) {
 					if (e === 'conflict_email') {
