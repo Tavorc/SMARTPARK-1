@@ -161,10 +161,10 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	}
 ])
 
-.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 	// You can include any angular dependencies as parameters for this function
 	// TIP: Access Route Parameters for your page via $stateParams.parameterName
-	function($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage) {
+	function($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush) {
 		var userN = UserService.getUser().givenName;
 		console.log("user: " + userN);
 		$scope.userName = userN;
@@ -174,10 +174,17 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
       $scope.pushNotification = { checked: true };
       $scope.pushNotificationChange = function() {
         if($scope.pushNotification.checked == true){
-          
-
+            $ionicPush.register().then(function(t) {
+             return $ionicPush.saveToken(t);
+             }).then(function(t) {
+            });
         }
         if($scope.pushNotification.checked == false){
+          $ionicPush.unregister(function() {
+              console.log('success');
+            }, function() {
+              console.log('error');
+            });
             cordova.plugins.notification.local.cancel(10, function () {
             }, '');
         }
@@ -228,6 +235,11 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 			$localStorage.flagMap = false;
 			$state.go('menu.home');
 		}
+        $ionicPush.register().then(function(t) {
+             return $ionicPush.saveToken(t);
+             }).then(function(t) {
+              console.log('Token saved:', t.token);
+            });
 		document.addEventListener('deviceready', deviceReady, false);
 
 		function deviceReady() {
