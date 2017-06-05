@@ -58,7 +58,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
            });
 
            confirmPopup.then(function(res) {
-             if(res) {
+             if(res) {// if yes: incPoints(publisherId);
+
               //DAVID here the user say that the parking is availible and you need to send this to server
               var locSelect={lat: -86, lng:  -86};
               StorageService.add(locSelect);
