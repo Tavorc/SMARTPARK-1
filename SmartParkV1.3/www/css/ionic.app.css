@@ -15,7 +15,23 @@ a:hover{
   text-decoration: none !important;
   /*color: black;*/
 }
+#logoLogin{
+  width:190px ;
+  height:150px;
+}
+#cardLogin{
+  border-style: solid;
+  border-width: 3px;
+  border-color:#80d4ff;
+  padding: 10px;
+  margin-top: 40px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  background-color: #f2f2f2;
 
+}
+#login-button1{
+  background-color: #cccccc;
+}
 .scroll {
     height: 100%;
 }
@@ -6686,9 +6702,11 @@ button.item.item-button-right {
   margin-bottom: 20px; }
 
 .list:last-child {
-  margin-bottom: 0px; }
+  margin-bottom: 0px; 
+}
   .list:last-child.card {
-    margin-bottom: 40px; }
+    margin-bottom: 40px; 
+}
 
 /**
  * List Header
@@ -6714,12 +6732,14 @@ button.item.item-button-right {
 .list-inset {
   overflow: hidden;
   margin: 20px 10px;
-  border-radius: 2px;
-  background-color: #fff; }
+  border-radius: 8px;
+  background-color: #fff;
+   }
 
 .card {
   padding-top: 1px;
   padding-bottom: 1px;
+  border-color: #ff0000;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
   .card .item {
     border-left: 0;

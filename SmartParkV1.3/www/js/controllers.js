@@ -71,22 +71,22 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	}
 ])
 
-.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 	// You can include any angular dependencies as parameters for this function
 	// TIP: Access Route Parameters for your page via $stateParams.parameterName
-	function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading) {
+	function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, UserService) {
+		var emailPublisher=UserService.getUser().email;
 		var formatDate = function(date, callback) {
 			console.log(date);
 			$scope.parking.time = date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.toLocaleTimeString();
 			return callback($scope.parking.time);
 		};
-
-		var reportPark = {
+		var reportParkCoords = {
 			lat: $stateParams.lat,
 			lng: $stateParams.lng
 		};
-		console.log(reportPark);
-		$localStorage.reportPark = reportPark;
+		console.log(reportParkCoords);
+		$localStorage.reportParkCoords = reportParkCoords;
 
 		console.log($stateParams);
 		$scope.size = {
@@ -265,7 +265,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				function(obj) {
 					UserService.setUser(obj);
 					$state.go('menu.home');
-					//console.log(JSON.stringify(obj));
 					console.log(UserService.getUser().email);
 					$ionicLoading.hide();
 				},
@@ -293,16 +292,16 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 												if (!$scope.data.numCar) {
 													e.preventDefault();
 												} else {
-													$localStorage.password = "No need a password";
-													$localStorage.carId = $scope.data.numCar;
+													// $localStorage.password = "No need a password";
+													// $localStorage.carId = $scope.data.numCar;
 													console.log($scope.data.numCar);
 													console.log(user_data.givenName + ": " + user_data.email + ": " + user_data.userId);
 													  $ionicPush.register().then(function(t) {
-                           return $ionicPush.saveToken(t);
-                          }).then(function(t) {
-                           console.log('Token saved:', t.token);
-                          var tokenUser=t.token;
-                          userDetails = {
+							                           return $ionicPush.saveToken(t);
+							                          }).then(function(t) {
+							                           console.log('Token saved:', t.token);
+							                          var tokenUser=t.token;
+							                          userDetails = {
 														name: user_data.givenName,
 														email: user_data.email,
 														password: null,
@@ -313,7 +312,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 													//DAVID send all this data  to server
 													$state.go('menu.home');
 													return $scope.data.numCar;
-                           });
+                         						  });
 												}
 											}
 										}
@@ -333,11 +332,11 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 			);
 		};
 		$scope.signIn = function() {
+			var emailU = $scope.formSignInParams.email.text;
 			var details = {
-				'email': $scope.formSignInParams.email.text,
+				'email': emailU,
 				'password': $scope.formSignInParams.password
 			};
-			var emailU = $scope.formSignInParams.email.text;
 			var userData = {
 				givenName: emailU.substring(0, emailU.lastIndexOf("@")),
 				email: emailU
@@ -359,7 +358,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	
   	$scope.$on('cloud:push:notification', function(event, data) {
     var msg = data.message;
-    alert(msg.title + ': ' + msg.text);
+    alert(msg.title + ': ' + msg.text);//NOTE: We need to Change this. 
     });
     if ($localStorage.flagMap == true) {
 			setTimeout(function() {
@@ -369,13 +368,13 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 		$scope.init = function() {
 			$ionicLoading.hide();
-			var parkReportValue = $localStorage.reportPark;
+			var parkReportValue = $localStorage.reportParkCoords;
 			if (parkReportValue == null) {
 				$localStorage.reportPark = {
 					lat: -86,
 					lng: -86
 				};
-				console.log($localStorage.reportPark);
+				console.log($localStorage.reportParkCoords);
 			}
 			if ($localStorage.flagChose == false) {
 				var locSelect = {
@@ -507,8 +506,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 																lng: -86
 															};
 															$localStorage.myChose = locSelect;
-															$scope.choseLocation.setMap(null);
-															choseLocation.setMap(null);
 															$ionicLoading.show({
 																template: 'Loading in..:)'
 															});
@@ -516,12 +513,9 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 																setTimeout(function() {
 																	window.location.reload(true);
 																}, 300);
-
 															}
-
 														})
 														.error(function(answer) {
-
 														});
 												}
 												return true;
@@ -535,9 +529,8 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 							}
 						}
 					}, false);
-					var parkReport = $localStorage.reportPark;
+					var parkReport = $localStorage.reportParkCoords;
 					$scope.parkReported;
-					console.log(parkReport);
 					if (parkReport.lat != -86) {
 						google.maps.event.addListener(map, 'dragend', function() {
 							var parkReportedMarker = new google.maps.Marker({
@@ -567,28 +560,22 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 										}
 										if (index == 1) {
 											var temp = window.localStorage.getItem("repo");
-											console.log("temp is : " + temp);
 											var tempo = temp.toString();
-											console.log("string: " + tempo);
 											var reports = {
 												parkingId: tempo
 											};
-                      console.log(reports + " : " + reports.parkingId);
 											$http
 												.post('http://smartserver1.herokuapp.com/deleteParking/', reports)
 												.success(function(answer) {
-													//console.log("After cancel : " + answer);
 													var reportCoords = {
 														lat: -86,
 														lng: -86
 													};
-													$localStorage.reportPark = reportCoords;
-													$scope.parkReported.setMap(null);
-													parkReportedMarker.setMap(null);
+													$localStorage.reportParkCoords = reportCoords;
 													$ionicLoading.show({
 														template: 'Loading in..:)'
 													});
-													if ($localStorage.reportPark.lat == -86) {
+													if ($localStorage.reportParkCoords.lat == -86) {
 														setTimeout(function() {
 															window.location.reload(true);
 														}, 300);
@@ -598,7 +585,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 													$ionicLoading.hide();
 													console.log('can not post');
 												});
-
 										}
 										return true;
 									},
@@ -790,9 +776,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 									});
 								}
 								if (index == 1) {
-
-
-									//INBAR You need to update the db that the parking is occupied
 									var bookingId = $localStorage.answer.bookingId;
 									var searchId = UserService.getUser().email;
 									$localStorage.choosenIdParking = loc['id'];
@@ -801,7 +784,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 										bookingId: bookingId,
 										parkingId: $localStorage.choosenIdParking
 									};
-
 									$http
 										.post('http://smartserver1.herokuapp.com/chooseParking/', chooseDetails)
 										.success(function(answer) {
@@ -811,8 +793,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 											});
 											var now = new Date(),
 												timeOfParking = new Date(loc.time);
-											console.log(timeOfParking);
-											console.log(now);
 											cordova.plugins.notification.local.schedule({
 												id: 10,
 												title: "Time to Parking",
@@ -847,7 +827,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 										.error(function(answer) {
 											console.log('can not post choose');
 										});
-
 								}
 								if (index == 2) {}
 								return true;
@@ -891,14 +870,13 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	}
 ])
 
-.controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 	// You can include any angular dependencies as parameters for this function
 	// TIP: Access Route Parameters for your page via $stateParams.parameterName
-	function($scope, $stateParams, UserService, $localStorage) {
+	function($scope, $stateParams, UserService, $localStorage, $http) {
 		var userN = UserService.getUser().givenName;
 		//get user details from server
     var userIdByEmail={email: UserService.getUser().email };
-    console.log(userIdByEmail);
       // $http
       // .post('http://smartserver1.herokuapp.com/readUser/', userIdByEmail.email)
       // .success(function(answer) {
@@ -908,10 +886,9 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
       //       console.log('can not post');
       //       console.log(answer);
       //     });
-		console.log("user: " + userN);
 		$scope.email = UserService.getUser().email;
-		$scope.password = $localStorage.password;
-		$scope.carId = $localStorage.carId;
+		$scope.password ="bla bla"
+		$scope.carId = "bla bla";
 		$scope.userName = userN;
 
 	}
@@ -1026,8 +1003,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				email: emailForm,
 			};
 			UserService.setUser(userData);
-			$localStorage.password = password;
-			$localStorage.carId = carId;
 			$ionicAuth.signup(details).then(function() {
 				// `$ionicUser` is now registered
 				//DAVID send data to mongo
