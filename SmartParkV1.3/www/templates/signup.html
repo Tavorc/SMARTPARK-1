@@ -1,28 +1,29 @@
 <ion-view title="SIGNUP" id="page8">
-  <ion-content padding="true" class="has-header">
-    <form id="signup-form2" class="list">
-      <ion-list id="signup-list5">
-        <label class="item item-input" id="signup-input3">
+	<ion-content padding="true" class="has-header">
+		<form id="signup-form2" class="list">
+			<ion-list id="signup-list5">
+				<label class="item item-input" id="signup-input3">
           <span class="input-label">Name</span>
           <input type="text" placeholder="" ng-model="formSignupParams.name">
         </label>
-        <label class="item item-input">
+				<label class="item item-input">
           <span class="input-label">Email</span>
           <input type="text" placeholder="" ng-model="formSignupParams.email.text">
         </label>
 
-        <label class="item item-input" id="signup-input5">
+				<label class="item item-input" id="signup-input5">
           <span class="input-label">Password</span>
           <input type="password" placeholder="" ng-model="formSignupParams.password">
         </label>
 
-          <label class="item item-input">
+				<label class="item item-input">
           <span class="input-label">Car Number</span>
           <input type="text" placeholder="" ng-model="formSignupParams.carId">
         </label>
 
-      </ion-list>
-      <a  id="signup-button4" class="button button-stable  button-block" ng-click="signUp()">Sign up</a>
-    </form>
-  </ion-content>
+			</ion-list>
+			<a id="signup-button4" class="button button-stable  button-block" ng-click="signUp()">Sign up</a>
+			<a id="signup-button4" class="button button-stable  button-block" ng-click="push()">push</a>
+		</form>
+	</ion-content>
 </ion-view>
