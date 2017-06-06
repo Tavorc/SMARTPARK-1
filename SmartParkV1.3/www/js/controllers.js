@@ -1,3 +1,4 @@
+//****NOTE: new backup: 06JUN17>>
 var userDetails = {
 	name: null,
 	email: null,
@@ -11,14 +12,8 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	.run(function($http) {})
 
 	.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
 		function($scope, $http, $state, $stateParams, $location, $localStorage, UserService, $ionicLoading) {
-			console.log($stateParams);
-			// var formatDate = function(date, callback) {
-			// 	$scope.booking.time = date.d.getFullYear() + "-" + (date.d.getMonth() + 1) + "-" + date.d.getDate() + " " + date.t.toLocaleTimeString();
-			// 	return callback($scope.booking.time);
-			// };
+			// console.log($stateParams);
 			$scope.location = {
 				country: $stateParams.country,
 				city: $stateParams.city,
@@ -44,40 +39,37 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 					template: 'Loading..:)'
 				});
 				setTimeout(function() {
-						console.log($scope.booking.time);
-						$http
-							.post('http://localhost:8080/searchparking/', $scope.booking)
-							.success(function(answer) {
-								console.log(answer);
-								$localStorage.answer = answer;
-								console.log($localStorage.answer);
-								$state.go('menu.availabeParking', {
-									reload: true
-								});
-								$ionicLoading.hide();
-							})
-							.error(function(answer) {
-								$ionicLoading.hide();
-								console.log('can not post');
-								console.log($scope.booking);
-								// console.log(formatDate($scope.booking.time.d, $scope.booking.time.t));
+					console.log($scope.booking.time);
+					$http
+						.post('http://localhost:8080/searchparking/', $scope.booking)
+						.success(function(answer) {
+							console.log(answer);
+							$localStorage.answer = answer;
+							console.log($localStorage.answer);
+							$state.go('menu.availabeParking', {
+								reload: true
 							});
+							$ionicLoading.hide();
+						})
+						.error(function(answer) {
+							$ionicLoading.hide();
+							console.log('can not post');
+							console.log($scope.booking);
+						});
 				}, 500);
 			};
 		}
 	])
 
-	.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
-		function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading) {
-			var reportPark = {
+	.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, UserService) {
+			var emailPublisher = UserService.getUser().email;
+			var reportParkCoords = {
 				lat: $stateParams.lat,
 				lng: $stateParams.lng
 			};
-			console.log(reportPark);
-			$localStorage.reportPark = reportPark;
-
+			console.log(reportParkCoords);
+			$localStorage.reportParkCoords = reportParkCoords;
 			console.log($stateParams);
 			$scope.size = {
 				small: 0,
@@ -85,7 +77,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				large: 2,
 				lengthParking: 3
 			}
-			// console.log($scope.size);
 			$scope.location = {
 				country: $stateParams.country,
 				city: $stateParams.city,
@@ -126,30 +117,28 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 					template: 'Loading in..:)'
 				});
 				setTimeout(function() {
-						$http
-							.post('http://localhost:8080/addnewparking/', $scope.parking)
-							.success(function(answer) {
-								console.log(answer);
-								window.localStorage.setItem("repo", answer.id);
-								console.log(window.localStorage.getItem("repo"));
-								$state.go('menu.home', {
-									reload: true
-								});
-								window.location.reload(true);
-							})
-							.error(function(answer) {
-								$ionicLoading.hide();
-								console.log('can not post');
-								console.log($scope.parking);
+					$http
+						.post('http://localhost:8080/addnewparking/', $scope.parking)
+						.success(function(answer) {
+							console.log(answer);
+							window.localStorage.setItem("repo", answer.id);
+							console.log(window.localStorage.getItem("repo"));
+							$state.go('menu.home', {
+								reload: true
 							});
+							window.location.reload(true);
+						})
+						.error(function(answer) {
+							$ionicLoading.hide();
+							console.log('can not post');
+							console.log($scope.parking);
+						});
 				}, 500);
 			};
 		}
 	])
 
 	.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
 		function($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush) {
 			var userN = UserService.getUser().givenName;
 			console.log("user: " + userN);
@@ -176,7 +165,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				}
 				console.log('Push Notification Change', $scope.pushNotification.checked);
 			};
-
 			$scope.googleLogOut = function() {
 				var hideSheet = $ionicActionSheet.show({
 					destructiveText: 'Logout',
@@ -209,8 +197,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	])
 
 	.controller('loginCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
 		function($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
 			$scope.formSignInParams = {
 				email: $stateParams.email,
@@ -221,11 +207,14 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				$localStorage.flagMap = false;
 				$state.go('menu.home');
 			}
-			$ionicPush.register().then(function(t) {
-				return $ionicPush.saveToken(t);
-			}).then(function(t) {
-				console.log('Token saved:', t.token);
-			});
+			$ionicPush
+				.register()
+				.then(function(t) {
+					return $ionicPush.saveToken(t);
+				})
+				.then(function(t) {
+					console.log('Token saved:', t.token);
+				});
 			document.addEventListener('deviceready', deviceReady, false);
 
 			function deviceReady() {
@@ -235,10 +224,8 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 						UserService.setUser(obj);
 						$localStorage.flagMap = false;
 						$state.go('menu.home');
-						//console.log(JSON.stringify(obj));
 					},
 					function(msg) {
-
 						console.log("not success");
 					}
 				);
@@ -251,7 +238,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 					function(obj) {
 						UserService.setUser(obj);
 						$state.go('menu.home');
-						//console.log(JSON.stringify(obj));
 						console.log(UserService.getUser().email);
 						$ionicLoading.hide();
 					},
@@ -279,8 +265,8 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 													if (!$scope.data.numCar) {
 														e.preventDefault();
 													} else {
-														$localStorage.password = "No need a password";
-														$localStorage.carId = $scope.data.numCar;
+														// $localStorage.password = "No need a password";
+														// $localStorage.carId = $scope.data.numCar;
 														console.log($scope.data.numCar);
 														console.log(user_data.givenName + ": " + user_data.email + ": " + user_data.userId);
 														$ionicPush.register().then(function(t) {
@@ -319,11 +305,11 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				);
 			};
 			$scope.signIn = function() {
+				var emailU = $scope.formSignInParams.email.text;
 				var details = {
 					'email': $scope.formSignInParams.email.text,
 					'password': $scope.formSignInParams.password
 				};
-				var emailU = $scope.formSignInParams.email.text;
 				var userData = {
 					givenName: emailU.substring(0, emailU.lastIndexOf("@")),
 					email: emailU
@@ -339,10 +325,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	])
 
 	.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage, $ionicPush) {
-
 			$scope.$on('cloud:push:notification', function(event, data) {
 				var msg = data.message;
 				alert(msg.title + ': ' + msg.text);
@@ -355,13 +338,13 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 			}
 			$scope.init = function() {
 				$ionicLoading.hide();
-				var parkReportValue = $localStorage.reportPark;
+				var parkReportValue = $localStorage.reportParkCoords;
 				if (parkReportValue == null) {
 					$localStorage.reportPark = {
 						lat: -86,
 						lng: -86
 					};
-					console.log($localStorage.reportPark);
+					console.log($localStorage.reportParkCoords);
 				}
 				if ($localStorage.flagChose == false) {
 					var locSelect = {
@@ -419,7 +402,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 						}, function(results, status) {
 							console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 						})
-						// navigator.geolocation.getCurrentPosition(function(pos) {
 						$scope.myLocation;
 						map.setCenter(new google.maps.LatLng(locationResult.lat, locationResult.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
 						var myLocation = new google.maps.Marker({
@@ -481,7 +463,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 															bookingId: bookingId
 														};
 														$http
-															.post('http://localhost:8080/cancelParking/', cancelDetails)//NOTE: Heroku server: smartserver1.herokuapp.com
+															.post('http://smartserver1.herokuapp.com/cancelParking/', cancelDetails)
 															.success(function(answer) {
 																cordova.plugins.notification.local.cancel(10, function() {
 																	// Notification was cancelled
@@ -493,8 +475,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 																	lng: -86
 																};
 																$localStorage.myChose = locSelect;
-																$scope.choseLocation.setMap(null);
-																choseLocation.setMap(null);
 																$ionicLoading.show({
 																	template: 'Loading in..:)'
 																});
@@ -502,13 +482,9 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 																	setTimeout(function() {
 																		window.location.reload(true);
 																	}, 300);
-
 																}
-
 															})
-															.error(function(answer) {
-
-															});
+															.error(function(answer) {});
 													}
 													return true;
 												},
@@ -521,9 +497,8 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 								}
 							}
 						}, false);
-						var parkReport = $localStorage.reportPark;
-						$scope.parkReported = {};
-						console.log(parkReport);
+						var parkReport = $localStorage.reportParkCoords;
+						$scope.parkReported;
 						if (parkReport.lat != -86) {
 							google.maps.event.addListener(map, 'dragend', function() {
 								var parkReportedMarker = new google.maps.Marker({
@@ -553,28 +528,22 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 											}
 											if (index == 1) {
 												var temp = window.localStorage.getItem("repo");
-												console.log("temp is : " + temp);
 												var tempo = temp.toString();
-												console.log("string: " + tempo);
 												var reports = {
 													parkingId: tempo
 												};
-												console.log(reports + " : " + reports.parkingId);
 												$http
-													.post('http://localhost:8080/deleteParking/', reports)
+													.post('http://smartserver1.herokuapp.com/deleteParking/', reports)
 													.success(function(answer) {
-														//console.log("After cancel : " + answer);
 														var reportCoords = {
 															lat: -86,
 															lng: -86
 														};
-														$localStorage.reportPark = reportCoords;
-														$scope.parkReported.setMap(null);
-														parkReportedMarker.setMap(null);
+														$localStorage.reportParkCoords = reportCoords;
 														$ionicLoading.show({
 															template: 'Loading in..:)'
 														});
-														if ($localStorage.reportPark.lat == -86) {
+														if ($localStorage.reportParkCoords.lat == -86) {
 															setTimeout(function() {
 																window.location.reload(true);
 															}, 300);
@@ -584,7 +553,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 														$ionicLoading.hide();
 														console.log('can not post');
 													});
-
 											}
 											return true;
 										},
@@ -613,7 +581,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 							});
 
 						});
-						// }); NOTE: end of navigator
 						// console.log(map);
 						// $scope.map = map;
 						// $scope.myLocation.
@@ -628,12 +595,10 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	])
 
 	.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', 'UserService', '$localStorage', 'sendPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet, $timeout, $ionicPopup, UserService, $localStorage, sendPush) {
 			console.log($localStorage);
 			$scope.init = function() {
-				console.log($localStorage.answer); // NOTE: =>send to server  $http.get('fromServer').success(function(parkingJson){locations = parkingJson;});
+				console.log($localStorage.answer);
 				var locations = $localStorage.answer.results;
 
 				function getLocation(callback) {
@@ -663,31 +628,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 						});
 					}
 				}
-				// var locations = [
-				//     {lat: 32.085999, lng: 34.781555},
-				//     {lat: 32.085234, lng: 34.781181},
-				//     {lat: 32.085111, lng: 34.781124},
-				//     {lat: 32.085588, lng: 34.781834},
-				//     {lat: 32.085702, lng: 34.781968},
-				//     {lat: 32.085264, lng: 34.781657},
-				//     {lat: 32.085724, lng: 34.781905},
-				//     {lat: 32.085685, lng: 34.781196},
-				//     {lat: 32.085611, lng: 34.781222},
-				//     // {lat: 32.085000, lng: 34.781667},
-				//     // {lat: 32.085859, lng: 34.781708},
-				//     // {lat: 32.085015, lng: 34.781858},
-				//     // {lat: 32.085104, lng: 34.781299},
-				//     // {lat: 32.085700, lng: 34.781187},
-				//     // {lat: 32.085785, lng: 34.781978},
-				//     // {lat: 32.085616, lng: 34.781119},
-				//     // {lat: 32.085766, lng: 34.781692},
-				//     // {lat: 32.085193, lng: 34.781218},
-				//     // {lat: 32.085162, lng: 34.781694},
-				//     // {lat: 32.085358, lng: 34.781506},
-				//     // {lat: 32.085358, lng: 34.781315},
-				//     // {lat: 32.085258, lng: 34.781000},
-				//     {lat: 32.085792, lng: 34.781352}
-				// ];
 				getLocation(function(locationResult) {
 					var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
 
@@ -707,7 +647,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 					}, function(results, status) {
 						console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 					})
-					// navigator.geolocation.getCurrentPosition(function(pos) {
 					$scope.myLocation;
 					$scope.markers = [];
 					map.setCenter(new google.maps.LatLng(locationResult.lat, locationResult.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
@@ -720,7 +659,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 						},
 						position: new google.maps.LatLng(locationResult.lat, locationResult.lng), // NOTE: pos.coords.latitude, pos.coords.longitude
 						map: map,
-
 						title: "My Location"
 					});
 					locations.forEach(function(loc) {
@@ -775,10 +713,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 											template: 'Description: ' + loc.description + '<br>address: ' + loc.location.city + "," + loc.location.street + ',' + loc.location.number + '<br> time: ' + loc.time + '<br>occupied:' + statusChose
 										});
 									}
-									if (index == 1) {//NOTE: user clicked 'choose'
-
-
-										//INBAR You need to update the db that the parking is occupied
+									if (index == 1) {
 										var bookingId = $localStorage.answer.bookingId;
 										var searchId = UserService.getUser().email;
 										$localStorage.choosenIdParking = loc['id'];
@@ -787,19 +722,15 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 											bookingId: bookingId,
 											parkingId: $localStorage.choosenIdParking
 										};
-
 										$http
-											.post('http://localhost:8080/chooseParking/', chooseDetails)
+											.post('http://smartserver1.herokuapp.com/chooseParking/', chooseDetails)
 											.success(function(answer) {
-												sendPush.pushToPublisher(loc.publisherId); //NOTE: push notification to publisher
 												$localStorage.flagChose = true;
 												$ionicLoading.show({
 													template: 'Loading...:)'
 												});
 												var now = new Date(),
 													timeOfParking = new Date(loc.time);
-												console.log(timeOfParking);
-												console.log(now);
 												cordova.plugins.notification.local.schedule({
 													id: 10,
 													title: "Time to Parking",
@@ -834,7 +765,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 											.error(function(answer) {
 												console.log('can not post choose');
 											});
-
 									}
 									if (index == 2) {}
 									return true;
@@ -847,30 +777,9 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 						});
 						$scope.markers.push(tempMarker)
 					});
-
-					$scope.myLocation = myLocation;
-
-					// $scope.myLocation.addListener('dragend', function(marker, eventName, args) {
-					//     map.setZoom(map.zoom);
-					//     map.setCenter(this.getPosition());
-					//     $http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+this.getPosition().lat()+','+this.getPosition().lng() +'&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA').success(function(jsn){
-					//         $scope.chosenLocation = {
-					//             formatted_address : jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
-					//             number : jsn.results[0].address_components[0].short_name,
-					//             street : jsn.results[0].address_components[1].short_name,
-					//             city : jsn.results[0].address_components[2].short_name,
-					//             country : jsn.results[0].address_components[4].short_name
-					//         }
-					//         console.log('returnd info: '+jsn.results[0].formatted_address);
-					//     });
-					// });
-					// }); NOTE: end of navigator
-					// console.log(map);
-					// $scope.map = map;
-					// $scope.myLocation.
+					// $scope.myLocation = myLocation;
 					$scope.continue = function() {
 						$state.go('menu.out', $scope.chosenLocation)
-						// $state.go('menu.mapOUT', $scope.formOutParams);
 					}
 				});
 			};
@@ -878,8 +787,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	])
 
 	.controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
 		function($scope, $stateParams, UserService, $localStorage) {
 			var userN = UserService.getUser().givenName;
 			//get user details from server
@@ -887,6 +794,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				email: UserService.getUser().email
 			};
 			console.log(userIdByEmail);
+			// NOTE: david need to handle this
 			// $http
 			// .post('http://localhost:8080/readUser/', userIdByEmail.email)
 			// .success(function(answer) {
@@ -906,8 +814,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 	])
 
 	.controller('myHistoryCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
 		function($scope, $stateParams) {
 			console.log($stateParams);
 			$scope.items = [{
@@ -985,31 +891,18 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				showDelete: false
 			};
 			$scope.onItemDelete = function(item) {
-
 				$scope.items2.splice($scope.items2.indexOf(item), 1);
 			}
 		}
 	])
 
 	.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
 		function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush) {
-			console.log($stateParams);
 			$scope.formSignupParams = {
 				name: $stateParams.name,
 				email: $stateParams.email,
 				password: $stateParams.password,
 				carId: $stateParams.carId
-			}
-			$scope.push = function() {
-				// Make the API call
-				$http.get('http://localhost:8080/sendPush').success(function(resp) {
-					// Handle success
-					console.log("Ionic Push: Push success", resp);
-				}).error(function(error) {
-					// Handle error
-					console.log("Ionic Push: Push error", error);
-				});
 			}
 			$scope.signUp = function() {
 				var userName = $scope.formSignupParams.name;
@@ -1027,59 +920,58 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				UserService.setUser(userData);
 				$localStorage.password = password;
 				$localStorage.carId = carId;
-				$ionicAuth.signup(details).then(function() {
-					// `$ionicUser` is now registered
-					//DAVID send data to mongo
-					$ionicPush.register().then(function(t) {
-						return $ionicPush.saveToken(t);
-					}).then(function(t) {
-						console.log('Token saved:', t.token);
-						var tokenUser = t.token;
-						userDetails = {
-							name: userName,
-							email: emailForm,
-							token: tokenUser,
-							password: password,
-							carId: carId,
-							smarties: 5
-						};
-						$http
-							.post('http://localhost:8080/createuser/', userDetails)
-							.success(function(answer) {
-								console.log(answer);
-
-								$state.go('menu.home');
-								return $ionicAuth.login('basic', details);
+				$ionicAuth
+					.signup(details)
+					.then(function() {
+						// `$ionicUser` is now registered
+						//NOTE: DAVID send data to mongo
+						$ionicPush
+							.register()
+							.then(function(t) {
+								return $ionicPush.saveToken(t);
 							})
-							.error(function(answer) {
-								console.log('can not post');
-								console.log(answer);
+							.then(function(t) {
+								console.log('Token saved:', t.token);
+								var tokenUser = t.token;
+								userDetails = {
+									name: userName,
+									email: emailForm,
+									token: tokenUser,
+									password: password,
+									carId: carId,
+									smarties: 5
+								};
+								$http
+									.post('http://localhost:8080/createuser/', userDetails)
+									.success(function(answer) {
+										console.log(answer);
+
+										$state.go('menu.home');
+										return $ionicAuth.login('basic', details);
+									})
+									.error(function(answer) {
+										console.log('can not post');
+										console.log(answer);
+									});
 							});
-					});
-				}, function(err) {
-					for (var e of err.details) {
-						if (e === 'conflict_email') {
-							alert('Email already exists.');
-						} else {
-							console.log(err.details); // handle other errors
+					}, function(err) {
+						for (var e of err.details) {
+							if (e === 'conflict_email') {
+								alert('Email already exists.');
+							} else {
+								console.log(err.details); // handle other errors
+							}
 						}
-					}
-				});
+					});
 			};
 		}
 	])
 
 	.controller('mySmartiesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
-		function($scope, $stateParams) {
-
-		}
+		function($scope, $stateParams) {}
 	])
 
 	.controller('mapINCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
 		function($scope, $state, $http, $stateParams, $ionicLoading, $location) {
 			$scope.init = function() {
 				$scope.chosenLocation;
@@ -1092,7 +984,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 					zoom: 16,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				};
-
 				var map = new google.maps.Map(document.getElementById("mapIN"), mapOptions);
 				var geocoder = new google.maps.Geocoder();
 				geocoder.geocode({
@@ -1100,7 +991,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				}, function(results, status) {
 					console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 				})
-				// navigator.geolocation.getCurrentPosition(function(pos) {
 				$scope.myLocation;
 				map.setCenter(new google.maps.LatLng(32.0852999, 34.78176759999997)); // NOTE: pos.coords.latitude, pos.coords.longitude
 				var myLocation = new google.maps.Marker({
@@ -1119,48 +1009,39 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				$scope.myLocation.addListener('dragend', function(marker, eventName, args) {
 					map.setZoom(map.zoom);
 					map.setCenter(this.getPosition());
-					$http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA').success(function(jsn) {
-						$scope.chosenLocation = {
-							formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
-							number: jsn.results[0].address_components[0].short_name,
-							street: jsn.results[0].address_components[1].short_name,
-							city: jsn.results[0].address_components[2].short_name,
-							country: jsn.results[0].address_components[4].short_name,
-							lat: jsn.results[0].geometry.location.lat,
-							lng: jsn.results[0].geometry.location.lng
-						}
-						console.log('returnd info: ' + jsn.results[0].formatted_address);
-					});
+					$http
+						.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA')
+						.success(function(jsn) {
+							$scope.chosenLocation = {
+								formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
+								number: jsn.results[0].address_components[0].short_name,
+								street: jsn.results[0].address_components[1].short_name,
+								city: jsn.results[0].address_components[2].short_name,
+								country: jsn.results[0].address_components[4].short_name,
+								lat: jsn.results[0].geometry.location.lat,
+								lng: jsn.results[0].geometry.location.lng
+							}
+							console.log('returnd info: ' + jsn.results[0].formatted_address);
+						});
 				});
-				// });
-				// console.log(map);
-				// $scope.map = map;
-				// $scope.myLocation.
 				$scope.continue = function() {
 					$state.go('menu.in', $scope.chosenLocation)
-					// $state.go('menu.mapOUT', $scope.formOutParams);
 				}
 				$scope.goup = function() {
 					$state.go('^', $scope.chosenLocation, {
 						reload: true,
 						notify: true
 					})
-					// $state.go('menu.mapOUT', $scope.formOutParams);
 				}
 			};
 		}
 	])
 
 	.controller('mapOUTCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
 		function($scope, $state, $http, $stateParams, $ionicLoading) {
-			// console.log($stateParams);
-			// ionic.Platform.ready(initialize);
 			$scope.init = function() {
 				$scope.chosenLocation;
 				var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
-
 				var mapOptions = {
 					mapTypeId: google.maps.MapTypeId.ROADMAP,
 					disableDefaultUI: true,
@@ -1169,7 +1050,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 					zoom: 16,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				};
-
 				var map = new google.maps.Map(document.getElementById("mapOUT"), mapOptions);
 				var geocoder = new google.maps.Geocoder();
 				geocoder.geocode({
@@ -1177,7 +1057,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				}, function(results, status) {
 					console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 				})
-				// navigator.geolocation.getCurrentPosition(function(pos) {
 				$scope.myLocation;
 				map.setCenter(new google.maps.LatLng(32.0852999, 34.78176759999997)); // NOTE: pos.coords.latitude, pos.coords.longitude
 				var myLocation = new google.maps.Marker({
@@ -1193,27 +1072,24 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 					title: "My Location"
 				});
 				$scope.myLocation = myLocation;
-
 				$scope.myLocation.addListener('dragend', function(marker, eventName, args) {
 					map.setZoom(map.zoom);
 					map.setCenter(this.getPosition());
-					$http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA').success(function(jsn) {
-						$scope.chosenLocation = {
-							formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
-							number: jsn.results[0].address_components[0].short_name,
-							street: jsn.results[0].address_components[1].short_name,
-							city: jsn.results[0].address_components[2].short_name,
-							country: jsn.results[0].address_components[4].short_name,
-							lat: jsn.results[0].geometry.location.lat,
-							lng: jsn.results[0].geometry.location.lng
-						}
-						console.log('returnd info: ' + jsn.results[0].formatted_address);
-					});
+					$http
+						.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA')
+						.success(function(jsn) {
+							$scope.chosenLocation = {
+								formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
+								number: jsn.results[0].address_components[0].short_name,
+								street: jsn.results[0].address_components[1].short_name,
+								city: jsn.results[0].address_components[2].short_name,
+								country: jsn.results[0].address_components[4].short_name,
+								lat: jsn.results[0].geometry.location.lat,
+								lng: jsn.results[0].geometry.location.lng
+							}
+							console.log('returnd info: ' + jsn.results[0].formatted_address);
+						});
 				});
-				// });
-				// console.log(map);
-				// $scope.map = map;
-				// $scope.myLocation.
 				$scope.continue = function() {
 					$state.go('menu.out', $scope.chosenLocation)
 					// $state.go('menu.mapOUT', $scope.formOutParams);
