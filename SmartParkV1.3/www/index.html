@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>SMART[PARK]</title>
 
-<script src="lib/bluebird.min.js"></script>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title>SMART[PARK]</title>
 
-  <script src="lib/ionic/js/ionic.bundle.js"></script>
-  <script src="lib/ionic.cloud.min.js"></script>
-    <!-- cordova script (this will be a 404 during development) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
-    <script src="cordova.js"></script>
-    <script src="js/ng-cordova.min.js"></script>
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+	<script src="lib/bluebird.min.js"></script>
+
+	<script src="lib/ionic/js/ionic.bundle.js"></script>
+	<script src="lib/ionic.cloud.min.js"></script>
+	<!-- cordova script (this will be a 404 during development) -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
+	<script src="cordova.js"></script>
+	<script src="js/ng-cordova.min.js"></script>
+	<!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
 
-    <link href="css/ionic.app.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+	<link href="css/ionic.app.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 
-    <!-- /*<style type="text/css">
+	<!-- /*<style type="text/css">
 
     </style>*/ -->
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+	<script src="js/app.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/routes.js"></script>
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA&sensor=true"></script>
+	<!-- <script src="//maps.googleapis.com/maps/api/js?sensor=true"></script> -->
 
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/routes.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA&sensor=true"></script>
-<!-- <script src="//maps.googleapis.com/maps/api/js?sensor=true"></script> -->
+	<script src="js/directives.js"></script>
 
-    <script src="js/directives.js"></script>
+	<script src="js/services.js"></script>
 
-    <script src="js/services.js"></script>
+	<script src="https://cdn.jsdelivr.net/lodash/4.15.0/lodash.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/lodash/4.15.0/lodash.min.js"></script>
+	<script src="js/angular-simple-logger.js"></script>
 
-    <script src="js/angular-simple-logger.js"></script>
+	<script src="js/angular-google-maps.min.js"></script>
 
-    <script src="js/angular-google-maps.min.js"></script>
-
-    <script src="js/googlemaps.init.js"></script>
+	<script src="js/googlemaps.init.js"></script>
 
 
-    <!-- Only required for Tab projects w/ pages in multiple tabs
+	<!-- Only required for Tab projects w/ pages in multiple tabs
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
     -->
 
-  </head>
-  <body ng-app="app" animation="slide-left-right-ios7">
-  <div>
-  <div>
-    <ion-nav-bar class="bar-stable">
-      <ion-nav-back-button></ion-nav-back-button>
-    </ion-nav-bar>
-    <ion-nav-view></ion-nav-view>
-  </div>
-</div>
-  </body>
+</head>
+
+<body ng-app="app" animation="slide-left-right-ios7">
+	<div>
+		<div>
+			<ion-nav-bar class="bar-stable">
+				<ion-nav-back-button></ion-nav-back-button>
+			</ion-nav-bar>
+			<ion-nav-view></ion-nav-view>
+		</div>
+	</div>
+</body>
+
 </html>
