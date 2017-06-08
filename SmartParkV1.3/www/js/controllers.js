@@ -286,7 +286,7 @@ angular
 															console.log(userDetails);
 															//DAVID send all this data  to server
 															$http
-															.post('http://localhost:8080/createUser/',userDetails)
+															.post('http://smartserver1.herokuapp.com/createUser/',userDetails)
 															.success(response => {
 																console.log(response);
 																	console.log(`user ${userDetails.email} not created`);
@@ -320,7 +320,7 @@ angular
 					'password': $scope.formSignInParams.password
 				};
 				$http
-				.get('http://localhost:8080/readUser/'+details.email+'/'+details.password)
+				.get('http://smartserver1.herokuapp.com/readUser/'+details.email+'/'+details.password)
 				.success(response => {
 					console.log(response);
 					if (!response) console.log(`user ${details.email} not found`);
@@ -943,7 +943,7 @@ angular
 				$localStorage.carId = userDetails.carId;
 
 				$http
-				.post('http://localhost:8080/createUser/', userDetails)
+				.post('http://smartserver1.herokuapp.com/createUser/', userDetails)
 				.success(function(answer) {
 					console.log(answer);
 					if(answer){
