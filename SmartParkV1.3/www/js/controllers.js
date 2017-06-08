@@ -48,7 +48,6 @@ angular
 							$state.go('menu.availabeParking', {
 								reload: true
 							});
-							window.location.reload(true);
 							$ionicLoading.hide();
 						})
 						.error(function(answer) {
