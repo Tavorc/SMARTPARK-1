@@ -193,8 +193,8 @@ angular
 		}
 	])
 
-.controller('loginCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
+.controller('loginCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', '$ionicUser', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser, $http) {
 			$scope.formSignInParams = {
 				email: $stateParams.email,
 				password: $stateParams.password,
@@ -276,25 +276,25 @@ angular
 														// $localStorage.carId = $scope.data.numCar;
 														console.log($scope.data.numCar);
 														console.log(user_data.givenName + ": " + user_data.email + ": " + user_data.userId);
-															userDetails = {
-																name: user_data.givenName,
-																email: user_data.email,
-																password: null,
-																carId: $scope.data.numCar,
-																smarties: 5
-															};
-															console.log(userDetails);
-															//DAVID send all this data  to server
-															$http
-															.post('http://smartserver1.herokuapp.com/createUser/',userDetails)
-															.success(response => {
-																console.log(response);
-																	console.log(`user ${userDetails.email} not created`);
-																	//if TRUE continue code needs to get here..
-															})
-															.error(console.log(`error while create user!`));
-															$state.go('menu.home');
-															return $scope.data.numCar;
+														userDetails = {
+															name: user_data.givenName,
+															email: user_data.email,
+															password: null,
+															carId: $scope.data.numCar,
+															smarties: 5
+														};
+														console.log(userDetails);
+														//DAVID send all this data  to server
+														$http
+														.post('http://smartserver1.herokuapp.com/createUser/',userDetails)//http://smartserver1.herokuapp.com/
+														.success(response => {
+															console.log(response);
+																console.log(`user ${userDetails.email} not created`);
+																//if TRUE continue code needs to get here..
+																$state.go('menu.home');
+																return $scope.data.numCar;
+														})
+														.error(console.log(`error while create user!`));
 													}
 												}
 											}
@@ -320,23 +320,23 @@ angular
 					'password': $scope.formSignInParams.password
 				};
 				$http
-				.get('http://smartserver1.herokuapp.com/readUser/'+details.email+'/'+details.password)
+				.get('http://smartserver1.herokuapp.com/readUser/'+details.email+'/'+details.password)//http://smartserver1.herokuapp.com/
 				.success(response => {
 					console.log(response);
-					if (!response) console.log(`user ${details.email} not found`);
+					if (!response) console.log(`user ${details.email} not found or password incorrect!`);
 					else {
-						console.log(`user found! do some code here...`);
-						var userData = {
-							givenName: emailU.substring(0, emailU.lastIndexOf("@")),
-							email: emailU
-						};
+							console.log(`user found! here his information: ${response}`);
+							var userData = {
+								givenName: emailU.substring(0, emailU.lastIndexOf("@")),
+								email: emailU
+							};
 
-						UserService.setUser(userData);
-						$ionicAuth.login('basic', details).then(function() {
-							$state.go('menu.home');
-						}, function(err) {
-							console.log(err);
-						});
+							UserService.setUser(userData);
+							$ionicAuth.login('basic', details).then(function() {
+								$state.go('menu.home');
+							}, function(err) {
+								console.log(err);
+							});
 					}
 				})
 				.error(console.log(`error while read user!`));
