@@ -1,4 +1,3 @@
-//****NOTE: new backup: 06JUN17>>
 var userDetails = {
 	name: null,
 	email: null,
@@ -7,11 +6,12 @@ var userDetails = {
 	smarties: 5
 };
 
-angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage'])
+angular
+.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage'])
 
-	.run(function($http) {})
+.run(function($http) {})
 
-	.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $http, $state, $stateParams, $location, $localStorage, UserService, $ionicLoading) {
 			// console.log($stateParams);
 			$scope.location = {
@@ -27,11 +27,10 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				t: null
 			}
 			$scope.booking = {
-				time: $scope.time, //'2017-02-13 12:50:00',
+				time: $scope.time,
 				distance: null,
 				location: $scope.location,
 				searcherId: 'hjhsdjhs'
-				// bookingId: null
 			}
 			// console.log($location.url() );// NOTE: needed to go back to previus state
 			$scope.getInfoFromServer = function() {
@@ -39,7 +38,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 					template: 'Loading..:)'
 				});
 				setTimeout(function() {
-					console.log($scope.booking.time);
+					console.log($scope.booking);
 					$http
 						.post('http://localhost:8080/searchparking/', $scope.booking)
 						.success(function(answer) {
@@ -49,6 +48,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 							$state.go('menu.availabeParking', {
 								reload: true
 							});
+							window.location.reload(true);
 							$ionicLoading.hide();
 						})
 						.error(function(answer) {
@@ -61,7 +61,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, UserService) {
 			var emailPublisher = UserService.getUser().email;
 			var reportParkCoords = {
@@ -123,10 +123,8 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 							console.log(answer);
 							window.localStorage.setItem("repo", answer.id);
 							console.log(window.localStorage.getItem("repo"));
-							$state.go('menu.home', {
-								reload: true
-							});
-							window.location.reload(true);
+							$state.go('menu.home');//,{reload: true}
+							window.location.reload(true); //NOTE this might be the solution for reduce map!
 						})
 						.error(function(answer) {
 							$ionicLoading.hide();
@@ -138,7 +136,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush) {
 			var userN = UserService.getUser().givenName;
 			console.log("user: " + userN);
@@ -196,7 +194,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('loginCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
 			$scope.formSignInParams = {
 				email: $stateParams.email,
@@ -324,7 +322,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage, $ionicPush) {
 			$scope.$on('cloud:push:notification', function(event, data) {
 				var msg = data.message;
@@ -594,7 +592,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', 'UserService', '$localStorage', 'sendPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', 'UserService', '$localStorage', 'sendPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet, $timeout, $ionicPopup, UserService, $localStorage, sendPush) {
 			console.log($localStorage);
 			$scope.init = function() {
@@ -786,7 +784,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams, UserService, $localStorage) {
 			var userN = UserService.getUser().givenName;
 			//get user details from server
@@ -813,7 +811,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('myHistoryCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('myHistoryCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams) {
 			console.log($stateParams);
 			$scope.items = [{
@@ -872,7 +870,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('MyCtrlSearchesHistory', ['$scope',
+.controller('MyCtrlSearchesHistory', ['$scope',
 		function($scope) {
 			$scope.data = {
 				showDelete: false
@@ -885,7 +883,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('MyCtrlReportsHistory', ['$scope',
+.controller('MyCtrlReportsHistory', ['$scope',
 		function($scope) {
 			$scope.data = {
 				showDelete: false
@@ -896,7 +894,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush) {
 			$scope.formSignupParams = {
 				name: $stateParams.name,
@@ -967,11 +965,11 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('mySmartiesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('mySmartiesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams) {}
 	])
 
-	.controller('mapINCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('mapINCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading, $location) {
 			$scope.init = function() {
 				$scope.chosenLocation;
@@ -1037,7 +1035,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 		}
 	])
 
-	.controller('mapOUTCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('mapOUTCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading) {
 			$scope.init = function() {
 				$scope.chosenLocation;
