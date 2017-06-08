@@ -755,7 +755,7 @@ angular
 														$state.go('menu.home', {}, {
 															reload: true
 														});
-														window.location.reload(true);
+														// window.location.reload(true);
 													}, 300);
 												}
 											})
