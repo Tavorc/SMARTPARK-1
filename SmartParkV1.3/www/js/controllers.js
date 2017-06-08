@@ -241,9 +241,19 @@ angular
 					function(msg) {
 						window.plugins.googleplus.login({},
 							function(user_data) {
-								//DAVID check if the user exist in DB(mongo)
-								var emailToCheck = user_data.email;
 								var register = false;
+								var emailToCheck = user_data.email;
+								$http
+								.get('http://localhost:8080/readUser/'+emailToCheck+'/0')
+								.success(response => {
+									console.log(response);
+									if (!response) console.log(`user ${emailToCheck} not found`);
+									else {
+										register = response;
+										console.log(`user found! do some code here...`);
+									}
+								})
+								.error(console.log(`error while read user!`));
 								UserService.setUser(user_data);
 								if (!register) {
 									$scope.data = {};
@@ -275,6 +285,14 @@ angular
 															};
 															console.log(userDetails);
 															//DAVID send all this data  to server
+															$http
+															.post('http://localhost:8080/createUser/',userDetails)
+															.success(response => {
+																console.log(response);
+																	console.log(`user ${userDetails.email} not created`);
+																	//if TRUE continue code needs to get here..
+															})
+															.error(console.log(`error while create user!`));
 															$state.go('menu.home');
 															return $scope.data.numCar;
 													}
@@ -301,16 +319,27 @@ angular
 					'email': $scope.formSignInParams.email.text,
 					'password': $scope.formSignInParams.password
 				};
-				var userData = {
-					givenName: emailU.substring(0, emailU.lastIndexOf("@")),
-					email: emailU
-				};
-				UserService.setUser(userData);
-				$ionicAuth.login('basic', details).then(function() {
-					$state.go('menu.home');
-				}, function(err) {
-					console.log(err);
-				});
+				$http
+				.get('http://localhost:8080/readUser/'+details.email+'/'+details.password)
+				.success(response => {
+					console.log(response);
+					if (!response) console.log(`user ${details.email} not found`);
+					else {
+						console.log(`user found! do some code here...`);
+						var userData = {
+							givenName: emailU.substring(0, emailU.lastIndexOf("@")),
+							email: emailU
+						};
+
+						UserService.setUser(userData);
+						$ionicAuth.login('basic', details).then(function() {
+							$state.go('menu.home');
+						}, function(err) {
+							console.log(err);
+						});
+					}
+				})
+				.error(console.log(`error while read user!`));
 			}
 		}
 	])
@@ -787,7 +816,7 @@ angular
 			console.log(userIdByEmail);
 			//NOTE: david need to handle this
 			// $http
-			// .post('http://localhost:8080/readUser/', userIdByEmail.email)
+			// .get('http://localhost:8080/readUser/', userIdByEmail.email)
 			// .success(function(answer) {
 			// console.log(answer);
 			//   })
@@ -893,56 +922,54 @@ angular
 				name: $stateParams.name,
 				email: $stateParams.email,
 				password: $stateParams.password,
-				carId: $stateParams.carId
+				carId: $stateParams.carId,
+				smarties: 5
 			}
 			$scope.signUp = function() {
-				var userName = $scope.formSignupParams.name;
-				var emailForm = $scope.formSignupParams.email.text;
-				var password = $scope.formSignupParams.password;
-				var carId = $scope.formSignupParams.carId;
+				userDetails = $scope.formSignupParams;
+				email = userDetails.email.text;
+				userDetails.email = email;
+				console.log(userDetails)
 				var details = {
-					'email': emailForm,
-					'password': password
+					'email': email,
+					'password': userDetails.password
 				}
 				var userData = {
-					givenName: emailForm.substring(0, emailForm.lastIndexOf("@")),
-					email: emailForm,
+					givenName: email.substring(0, email.lastIndexOf("@")),
+					email: email,
 				};
 				UserService.setUser(userData);
-				$localStorage.password = password;
-				$localStorage.carId = carId;
-				$ionicAuth
-					.signup(details)
-					.then(function() {
-						// `$ionicUser` is now registered
-						//NOTE: DAVID send data to mongo
-								userDetails = {
-									name: userName,
-									email: emailForm,
-									password: password,
-									carId: carId,
-									smarties: 5
-								};
-								$http
-									.post('http://smartserver1.herokuapp.com/createUser/', userDetails)
-									.success(function(answer) {
-										console.log(answer);
-										$state.go('menu.home');
-										return $ionicAuth.login('basic', details);
-									})
-									.error(function(answer) {
-										console.log('can not post');
-										console.log(answer);
-									});
-					}, function(err) {
-						for (var e of err.details) {
-							if (e === 'conflict_email') {
-								alert('Email already exists.');
-							} else {
-								console.log(err.details); // handle other errors
+				$localStorage.password = userDetails.password;
+				$localStorage.carId = userDetails.carId;
+
+				$http
+				.post('http://localhost:8080/createUser/', userDetails)
+				.success(function(answer) {
+					console.log(answer);
+					if(answer){
+						$ionicAuth
+						.signup(details)
+						.then(function() {
+							$state.go('menu.home');
+							return $ionicAuth.login('basic', details);
+						}, function(err) {
+							for (var e of err.details) {
+								if (e === 'conflict_email') {
+									alert('Email already exists.');
+								} else {
+									console.log(err.details);
+								}
 							}
-						}
-					});
+						});
+					}
+					else {
+						alert('Email already exists. please try again!');
+					}
+				})
+				.error(function(answer) {
+					console.log('can not post');
+					console.log(answer);
+				});
 			};
 		}
 	])
