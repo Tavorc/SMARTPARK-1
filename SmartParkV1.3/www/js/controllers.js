@@ -41,7 +41,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				setTimeout(function() {
 					console.log($scope.booking.time);
 					$http
-						.post('http://localhost:8080/searchparking/', $scope.booking)
+						.post('http://smartserver1.herokuapp.com/searchparking/', $scope.booking)
 						.success(function(answer) {
 							console.log(answer);
 							$localStorage.answer = answer;
@@ -118,7 +118,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStora
 				});
 				setTimeout(function() {
 					$http
-						.post('http://localhost:8080/addnewparking/', $scope.parking)
+						.post('http://smartserver1.herokuapp.com/addnewparking/', $scope.parking)
 						.success(function(answer) {
 							console.log(answer);
 							window.localStorage.setItem("repo", answer.id);
