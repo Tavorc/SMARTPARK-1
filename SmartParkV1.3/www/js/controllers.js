@@ -123,7 +123,7 @@ angular
 							console.log(answer);
 							window.localStorage.setItem("repo", answer.id);
 							console.log(window.localStorage.getItem("repo"));
-							$state.go('menu.home');//,{reload: true}
+							$state.go('menu.home',{reload: true});//
 							window.location.reload(true); //NOTE this might be the solution for reduce map!
 						})
 						.error(function(answer) {
