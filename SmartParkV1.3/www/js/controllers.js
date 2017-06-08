@@ -40,7 +40,7 @@ angular
 				setTimeout(function() {
 					console.log($scope.booking);
 					$http
-						.post('http://localhost:8080/searchparking/', $scope.booking)
+						.post('http://smartserver1.herokuapp.com/searchparking/', $scope.booking)
 						.success(function(answer) {
 							console.log(answer);
 							$localStorage.answer = answer;
@@ -118,7 +118,7 @@ angular
 				});
 				setTimeout(function() {
 					$http
-						.post('http://localhost:8080/addnewparking/', $scope.parking)
+						.post('http://smartserver1.herokuapp.com/addnewparking/', $scope.parking)//http://smartserver1.herokuapp.com/
 						.success(function(answer) {
 							console.log(answer);
 							window.localStorage.setItem("repo", answer.id);
@@ -940,7 +940,7 @@ angular
 									smarties: 5
 								};
 								$http
-									.post('http://localhost:8080/createuser/', userDetails)
+									.post('http://smartserver1.herokuapp.com/createuser/', userDetails)
 									.success(function(answer) {
 										console.log(answer);
 
