@@ -749,7 +749,7 @@ angular
 														$state.go('menu.home', {}, {
 															reload: true
 														});
-														// window.location.reload(true);
+														 window.location.reload(true);
 													}, 300);
 												}
 											})
@@ -777,15 +777,15 @@ angular
 		}
 	])
 
-.controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $stateParams, UserService, $localStorage) {
+.controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $stateParams, UserService, $localStorage, $http) {
 			var userN = UserService.getUser().givenName;
 			//get user details from server
 			var userIdByEmail = {
 				email: UserService.getUser().email
 			};
 			console.log(userIdByEmail);
-			// NOTE: david need to handle this
+			//NOTE: david need to handle this
 			// $http
 			// .post('http://localhost:8080/readUser/', userIdByEmail.email)
 			// .success(function(answer) {
@@ -924,10 +924,9 @@ angular
 									smarties: 5
 								};
 								$http
-									.post('http://smartserver1.herokuapp.com/createuser/', userDetails)
+									.post('http://smartserver1.herokuapp.com/createUser/', userDetails)
 									.success(function(answer) {
 										console.log(answer);
-
 										$state.go('menu.home');
 										return $ionicAuth.login('basic', details);
 									})
