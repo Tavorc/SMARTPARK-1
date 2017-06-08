@@ -266,11 +266,6 @@ angular
 														// $localStorage.carId = $scope.data.numCar;
 														console.log($scope.data.numCar);
 														console.log(user_data.givenName + ": " + user_data.email + ": " + user_data.userId);
-														$ionicPush.register().then(function(t) {
-															return $ionicPush.saveToken(t);
-														}).then(function(t) {
-															console.log('Token saved:', t.token);
-															var tokenUser = t.token;
 															userDetails = {
 																name: user_data.givenName,
 																email: user_data.email,
@@ -282,7 +277,6 @@ angular
 															//DAVID send all this data  to server
 															$state.go('menu.home');
 															return $scope.data.numCar;
-														});
 													}
 												}
 											}
@@ -922,18 +916,9 @@ angular
 					.then(function() {
 						// `$ionicUser` is now registered
 						//NOTE: DAVID send data to mongo
-						$ionicPush
-							.register()
-							.then(function(t) {
-								return $ionicPush.saveToken(t);
-							})
-							.then(function(t) {
-								console.log('Token saved:', t.token);
-								var tokenUser = t.token;
 								userDetails = {
 									name: userName,
 									email: emailForm,
-									token: tokenUser,
 									password: password,
 									carId: carId,
 									smarties: 5
@@ -950,7 +935,6 @@ angular
 										console.log('can not post');
 										console.log(answer);
 									});
-							});
 					}, function(err) {
 						for (var e of err.details) {
 							if (e === 'conflict_email') {
