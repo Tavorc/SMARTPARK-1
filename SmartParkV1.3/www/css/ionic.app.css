@@ -11,6 +11,25 @@
   Modified icons to fit ionicon’s grid from original.
 */
 
+#mapHOME{
+  position: absolute;
+}
+#imgIn{
+  height:100;
+  width:100;
+  z-index: 99;
+  position: absolute;
+  margin-left: 15%;
+  margin-top: 99%;
+}
+#imgOut{
+  height:100;
+  width:100;
+  z-index: 99;
+  position: absolute;
+  margin-left: 60%;
+  margin-top: 99%;
+}
 a:hover{
   text-decoration: none !important;
   /*color: black;*/
@@ -48,7 +67,20 @@ a:hover{
 .scroll {
     height: 100%;
 }
-
+#pIn{
+z-index: 100;
+position: absolute;
+margin-left: 20%;
+margin-top: 125%;
+font-size: 30px;
+}
+#pOut{
+ z-index: 100;
+ position: absolute;
+ margin-left: 61%;
+ margin-top: 125%;
+ font-size: 30px;
+}
 .map {
     height: 100%;
     width: 100%;

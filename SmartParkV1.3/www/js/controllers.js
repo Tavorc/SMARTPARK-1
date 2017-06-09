@@ -193,8 +193,8 @@ angular
 		}
 	])
 
-.controller('loginCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $stateParams, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
+.controller('loginCtrl', ['$scope', '$stateParams',  '$http', '$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', '$ionicUser',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $stateParams,  $http, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
 			$scope.formSignInParams = {
 				email: $stateParams.email,
 				password: $stateParams.password,
@@ -244,16 +244,18 @@ angular
 								var register = false;
 								var emailToCheck = user_data.email;
 								$http
-								.get('http://localhost:8080/readUser/'+emailToCheck+'/0')
-								.success(response => {
+								.get('http://smartserver1.herokuapp.com/readUser/'+emailToCheck+'/0')
+								.success(function(response) {
 									console.log(response);
-									if (!response) console.log(`user ${emailToCheck} not found`);
+									if (!response) console.log('user not found');
 									else {
 										register = response;
-										console.log(`user found! do some code here...`);
+										console.log('user found! do some code here...');
 									}
 								})
-								.error(console.log(`error while read user!`));
+								.error(function(answer) {
+									console.log('error while read user!');
+								});
 								UserService.setUser(user_data);
 								if (!register) {
 									$scope.data = {};
@@ -272,8 +274,6 @@ angular
 													if (!$scope.data.numCar) {
 														e.preventDefault();
 													} else {
-														// $localStorage.password = "No need a password";
-														// $localStorage.carId = $scope.data.numCar;
 														console.log($scope.data.numCar);
 														console.log(user_data.givenName + ": " + user_data.email + ": " + user_data.userId);
 															userDetails = {
@@ -283,18 +283,17 @@ angular
 																carId: $scope.data.numCar,
 																smarties: 5
 															};
-															console.log(userDetails);
-															//DAVID send all this data  to server
 															$http
-															.post('http://localhost:8080/createUser/',userDetails)
-															.success(response => {
+															.post('http://smartserver1.herokuapp.com/createUser/',userDetails)
+															.success(function(response) {
 																console.log(response);
-																	console.log(`user ${userDetails.email} not created`);
-																	//if TRUE continue code needs to get here..
+																	console.log('user  created');
+																	$state.go('menu.home');
+															return $scope.data.numCar;//if TRUE continue code needs to get here..
 															})
-															.error(console.log(`error while create user!`));
-															$state.go('menu.home');
-															return $scope.data.numCar;
+															.error(function(answer) {
+																console.log('error while create user!')
+															});
 													}
 												}
 											}
@@ -320,17 +319,16 @@ angular
 					'password': $scope.formSignInParams.password
 				};
 				$http
-				.get('http://localhost:8080/readUser/'+details.email+'/'+details.password)
-				.success(response => {
+				.get('http://smartserver1.herokuapp.com/readUser/'+details.email+'/'+details.password)
+				.success(function(response){
 					console.log(response);
-					if (!response) console.log(`user ${details.email} not found`);
+					if (!response) console.log('user ${details.email} not found');
 					else {
-						console.log(`user found! do some code here...`);
+						console.log('user found! do some code here...');
 						var userData = {
 							givenName: emailU.substring(0, emailU.lastIndexOf("@")),
 							email: emailU
 						};
-
 						UserService.setUser(userData);
 						$ionicAuth.login('basic', details).then(function() {
 							$state.go('menu.home');
@@ -339,7 +337,9 @@ angular
 						});
 					}
 				})
-				.error(console.log(`error while read user!`));
+				.error(function(answer) {
+				console.log('error while read user!');
+				});
 			}
 		}
 	])
@@ -943,7 +943,7 @@ angular
 				$localStorage.carId = userDetails.carId;
 
 				$http
-				.post('http://localhost:8080/createUser/', userDetails)
+				.post('http://smartserver1.herokuapp.com/createUser/', userDetails)
 				.success(function(answer) {
 					console.log(answer);
 					if(answer){

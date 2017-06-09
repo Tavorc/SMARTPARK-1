@@ -1,8 +1,12 @@
 <ion-view title="HOME-ALPHA" hide-back-button="true" id="page5">
   <ion-content padding="false" class=" manual-remove-top-padding has-header" scroll="false" ng-init="init()" >
 
-    <div id="mapHOME" class="map" data-tap-disabled="false" style="position: absolute;"></div>
-<a ui-sref="menu.in"><img src="./img/in.png" height="100" width="100" style="z-index: 99;position: absolute;margin-left: 15%;margin-top: 99%;"> <p style="z-index: 100;position: absolute;margin-left: 20%;margin-top: 125%;font-size: 30px"><span style="color: #2dace2">[</span> <span style="color: #000000">IN</span><span style="color: #2dace2"> ]</span></p></a> 
-<a ui-sref="menu.out" ><img src="./img/out.png" height="100" width="100" style="z-index: 99;position: absolute;margin-left: 60%;margin-top: 99%;"> <p style="z-index: 100;position: absolute;margin-left: 61%;margin-top: 125%;font-size: 30px"><span style="color: #2dace2">[</span> <span style="color: #000000">OUT</span> <span style="color: #2dace2">]</span></p></a>
+    <div id="mapHOME" class="map" data-tap-disabled="false"></div>
+<a ui-sref="menu.in"><img id="imgIn" src="./img/in.png" height="100"
+  width="100" > <p id="pIn">
+<span style="color: #2dace2">[</span> <span style="color: #000000">IN</span><span style="color: #2dace2"> ]</span></p></a> 
+<a ui-sref="menu.out" ><img src="./img/out.png" id="imgOut" height="100"
+  width="100" > <p id="pOut">
+<span style="color: #2dace2">[</span> <span style="color: #000000">OUT</span> <span style="color: #2dace2">]</span></p></a>
   </ion-content>
 </ion-view>
