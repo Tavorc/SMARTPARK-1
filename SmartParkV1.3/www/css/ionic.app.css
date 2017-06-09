@@ -15,16 +15,12 @@
   position: absolute;
 }
 #imgIn{
-  height:100;
-  width:100;
   z-index: 99;
   position: absolute;
   margin-left: 15%;
   margin-top: 99%;
 }
 #imgOut{
-  height:100;
-  width:100;
   z-index: 99;
   position: absolute;
   margin-left: 60%;
