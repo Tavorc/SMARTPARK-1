@@ -360,7 +360,7 @@ angular
 				$ionicLoading.hide();
 				var parkReportValue = $localStorage.reportParkCoords;
 				if (parkReportValue == null) {
-					$localStorage.reportPark = {
+					$localStorage.reportParkCoords = {
 						lat: -86,
 						lng: -86
 					};
