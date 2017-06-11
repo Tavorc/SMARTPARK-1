@@ -266,7 +266,8 @@ angular
 					function(msg) {
 						window.plugins.googleplus.login({},
 							function(user_data) {
-									var emailToCheck = user_data.email,
+								var register = false,
+									emailToCheck = user_data.email,
 									userPass = 'gtoken';
 								$http
 								.get('http://smartserver1.herokuapp.com/readUser/'+emailToCheck+'/'+userPass)
@@ -277,52 +278,56 @@ angular
 									console.log(response);
 									if (!response) {
 										console.log('user not found');
-												$scope.data = {};
-									var myPopup = $ionicPopup.show({
-										template: '<input type="password" ng-model="data.numCar">',
-										title: 'Enter Number of your car',
-										subTitle: 'Please use normal things',
-										scope: $scope,
-										buttons: [{
-												text: 'Cancel'
-											},
-											{
-												text: '<b>Save</b>',
-												type: 'button-positive',
-												onTap: function(e) {
-													if (!$scope.data.numCar) {
-														e.preventDefault();
-													} else {
-														console.log($scope.data.numCar);
-														console.log(user_data.givenName + ": " + user_data.email + ": " + user_data.userId);
-														userDetails = {
-															name: user_data.givenName,
-															email: user_data.email,
-															password: userPass,
-															carId: $scope.data.numCar,
-															smarties: 5
-														};
-														$http
-														.post('http://smartserver1.herokuapp.com/createUser/',userDetails)
-														//http://smartserver1.herokuapp.com/
-														//http://localhost:8000/
-														//https://smartparkil.herokuapp.com/
-														.success(function(response) {
-															console.log(response);
-																console.log('user  created');
-																$state.go('menu.home');
-														return $scope.data.numCar;//if TRUE continue code needs to get here..
-														})
-														.error(function(answer) {
-															console.log('error while create user!')
-														});
+										//then create new user:
+										$scope.data = {};
+										var myPopup = $ionicPopup.show({
+											template: '<input type="password" ng-model="data.numCar">',
+											title: 'Enter Number of your car',
+											subTitle: 'Please use normal things',
+											scope: $scope,
+											buttons: [{
+													text: 'Cancel'
+												},
+												{
+													text: '<b>Save</b>',
+													type: 'button-positive',
+													onTap: function(e) {
+														if (!$scope.data.numCar) {
+															e.preventDefault();
+														} else {
+															console.log($scope.data.numCar);
+															console.log(user_data.givenName + ": " + user_data.email + ": " + user_data.userId);
+															userDetails = {
+																name: user_data.givenName,
+																email: user_data.email,
+																password: userPass,
+																carId: $scope.data.numCar,
+																smarties: 5
+															};
+															$http
+															.post('http://smartserver1.herokuapp.com/createUser/',userDetails)
+															//http://smartserver1.herokuapp.com/
+															//http://localhost:8000/
+															//https://smartparkil.herokuapp.com/
+															.success(function(response) {
+																console.log(response);
+																	console.log('user created');
+																	$localStorage.userLoginData = userDetails;
+																	$state.go('menu.home');
+															return $scope.data.numCar;//if TRUE continue code needs to get here..
+															})
+															.error(function(answer) {
+																console.log('error while create user!')
+															});
+														}
 													}
 												}
-											}
-										]
-									});
+											]
+										});
 									}
 									else {
+										$localStorage.userLoginData = response;
+										console.log('user found! going home..');
 										$state.go('menu.home');
 									}
 								})
@@ -355,6 +360,7 @@ angular
 					if (!response) console.log(`user ${details.email} not found`);
 					else {
 						console.log('user found! do some code here...');
+						$localStorage.userLoginData = response;
 						var userData = {
 							givenName: emailU.substring(0, emailU.lastIndexOf("@")),
 							email: emailU
@@ -776,7 +782,7 @@ angular
 											parkingId: $localStorage.choosenIdParking
 										};
 										$http
-											.post('http://smartserver1.herokuapp.com/chooseParking/', chooseDetails)
+											.post('http://localhost:8000/chooseParking/', chooseDetails)
 											.success(function(answer) {
 												$localStorage.flagChose = true;
 												$ionicLoading.show({
@@ -841,28 +847,18 @@ angular
 
 .controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams, UserService, $localStorage, $http) {
+			var userData = $localStorage.userLoginData; //NOTE: here is all the user info from login!
 			var userN = UserService.getUser().givenName;
 			//get user details from server
-			var userIdByEmail = {
-				email: UserService.getUser().email
-			};
-			console.log(userIdByEmail);
-			//NOTE: david need to handle this
-			// $http
-			// .get('http://localhost:8000/readUser/', userIdByEmail.email)
-			// .success(function(answer) {
-			// console.log(answer);
-			//   })
-			// .error(function(answer) {
-			//       console.log('can not post');
-			//       console.log(answer);
-			//     });
-			console.log("user: " + userN);
-			$scope.email = UserService.getUser().email;
-			$scope.password = $localStorage.password;
-			$scope.carId = $localStorage.carId;
-			$scope.userName = userN;
-
+			// var userIdByEmail = {
+			// 	email: UserService.getUser().email
+			// };
+			// console.log(userIdByEmail);
+			// console.log("user: " + userN);
+			// $scope.email = UserService.getUser().email;
+			// $scope.password = $localStorage.password;
+			// $scope.carId = $localStorage.carId;
+			// $scope.userName = userN;
 		}
 	])
 
@@ -983,6 +979,7 @@ angular
 						$ionicAuth
 						.signup(details)
 						.then(function() {
+							$localStorage.userLoginData = answer;
 							$state.go('menu.home');
 							return $ionicAuth.login('basic', details);
 						}, function(err) {
