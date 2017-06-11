@@ -276,20 +276,9 @@ angular
 								//https://smartparkil.herokuapp.com/
 								.success(function(response) {
 									console.log(response);
-									if (!response) console.log('user not found');
-									else {
-										register = true;
-										console.log('user found! do some code here...');
-									}
-								})
-								.error(function(answer) {
-									console.log('error while read user!');
-								});
-								UserService.setUser(user_data);
-								if (register)
-									$state.go('menu.home');
-								else{
-									$scope.data = {};
+									if (!response) {
+										console.log('user not found');
+												$scope.data = {};
 									var myPopup = $ionicPopup.show({
 										template: '<input type="password" ng-model="data.numCar">',
 										title: 'Enter Number of your car',
@@ -333,7 +322,15 @@ angular
 											}
 										]
 									});
-								}
+									}
+									else {
+										$state.go('menu.home');
+									}
+								})
+								.error(function(answer) {
+									console.log('error while read user!');
+								});
+								UserService.setUser(user_data);
 								$ionicLoading.hide();
 							},
 							function(msg) {
