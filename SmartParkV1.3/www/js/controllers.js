@@ -847,7 +847,8 @@ angular
 
 .controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams, UserService, $localStorage, $http) {
-			var userData = $localStorage.userLoginData; //NOTE: here is all the user info from login!
+			$scope.userData = $localStorage.userLoginData; //NOTE: here is all the user info from login!
+			console.log($scope.userData);
 			var userN = UserService.getUser().givenName;
 			//get user details from server
 			// var userIdByEmail = {
@@ -979,7 +980,7 @@ angular
 						$ionicAuth
 						.signup(details)
 						.then(function() {
-							$localStorage.userLoginData = answer;
+							$localStorage.userLoginData = userDetails;
 							$state.go('menu.home');
 							return $ionicAuth.login('basic', details);
 						}, function(err) {
