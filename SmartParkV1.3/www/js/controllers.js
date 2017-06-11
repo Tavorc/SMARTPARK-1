@@ -13,8 +13,6 @@ angular
 
 .controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', 'd3TimeFormat', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $http, $state, $stateParams, $location, $localStorage, UserService, $ionicLoading, d3TimeFormat) {
-			// console.log($stateParams);
-
 			$scope.location = {
 				country: $stateParams.country,
 				city: $stateParams.city,
@@ -45,15 +43,13 @@ angular
 						$http
 							.post('https://smartserver1.herokuapp.com/searchparking/', $scope.booking)
 							//http://smartserver1.herokuapp.com/searchparking/
-							//http://localhost:8080/searchparking/
+							//http://localhost:8000/searchparking/
 							//https://smartparkil.herokuapp.com/
 							.success(function(answer) {
-								console.log(answer);
+								// console.log(answer);
 								$localStorage.answer = answer;
 								console.log($localStorage.answer);
-								$state.go('menu.availabeParking', {
-									reload: true
-								});
+								$state.go('menu.availabeParking', {reload: true});
 								$ionicLoading.hide();
 							})
 							.error(function(answer) {
@@ -67,21 +63,22 @@ angular
 		}
 	])
 
-.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', '$ionicPush', 'd3TimeFormat',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', '$ionicPush', 'd3TimeFormat',
 		function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, UserService, $ionicPush, d3TimeFormat) {
 			var publisherEmail = UserService.getUser().email;
-			var	publisherToken = function() {
-					$ionicPush
-					.register()
-					.then(function(t) {
-						console.log(t);
-						return $ionicPush.saveToken(t);
-					})
-					.then(function(t) {
-						console.log('Token saved:', t.token);
-						return t.token;
-					});
-				};
+
+			function publisherToken (){
+				$ionicPush
+				.register()
+				.then(function(t) {
+					console.log(t);
+					return $ionicPush.saveToken(t);
+				})
+				.then(function(t) {
+					console.log('Token saved:', t.token);
+					return t.token;
+				});
+			};
 
 			var reportParkCoords = {
 				lat: $stateParams.lat,
@@ -111,10 +108,10 @@ angular
 			$scope.parking = {
 				time: $scope.time,
 				location: $scope.location,
-				handicapped: null,
+				handicapped: false,
 				description: null,
 				img: null, //NOTE: it will change if $scope.openCamera will be called.
-				size: null,
+				size: 3,
 				publisherId: publisherEmail,
 				publisherToken: publisherToken()
 			}
@@ -143,7 +140,7 @@ angular
 						$http
 							.post('https://smartserver1.herokuapp.com/addnewparking/', $scope.parking)
 							//http://smartserver1.herokuapp.com/addnewparking/
-							//http://localhost:8080/addnewparking/
+							//http://localhost:8000/addnewparking/
 							//https://smartparkil.herokuapp.com/
 							.success(function(answer) {
 								console.log(answer);
@@ -269,15 +266,19 @@ angular
 					function(msg) {
 						window.plugins.googleplus.login({},
 							function(user_data) {
-								var register = false;
-								var emailToCheck = user_data.email;
+								var register = false,
+									emailToCheck = user_data.email,
+									userPass = 'gtoken';
 								$http
-								.get('http://smartserver1.herokuapp.com/readUser/'+emailToCheck+'/0')
+								.get('http://smartparkil.herokuapp.com/readUser/'+emailToCheck+'/'+userPass)
+								//http://smartserver1.herokuapp.com/
+								//http://localhost:8000/
+								//https://smartparkil.herokuapp.com/
 								.success(function(response) {
 									console.log(response);
 									if (!response) console.log('user not found');
 									else {
-										register = response;
+										register = true;
 										console.log('user found! do some code here...');
 									}
 								})
@@ -285,7 +286,9 @@ angular
 									console.log('error while read user!');
 								});
 								UserService.setUser(user_data);
-								if (!register) {
+								if (register)
+									$state.go('menu.home');
+								else{
 									$scope.data = {};
 									var myPopup = $ionicPopup.show({
 										template: '<input type="password" ng-model="data.numCar">',
@@ -304,32 +307,32 @@ angular
 													} else {
 														console.log($scope.data.numCar);
 														console.log(user_data.givenName + ": " + user_data.email + ": " + user_data.userId);
-															userDetails = {
-																name: user_data.givenName,
-																email: user_data.email,
-																password: null,
-																carId: $scope.data.numCar,
-																smarties: 5
-															};
-															$http
-															.post('http://smartserver1.herokuapp.com/createUser/',userDetails)
-															.success(function(response) {
-																console.log(response);
-																	console.log('user  created');
-																	$state.go('menu.home');
-															return $scope.data.numCar;//if TRUE continue code needs to get here..
-															})
-															.error(function(answer) {
-																console.log('error while create user!')
-															});
+														userDetails = {
+															name: user_data.givenName,
+															email: user_data.email,
+															password: userPass,
+															carId: $scope.data.numCar,
+															smarties: 5
+														};
+														$http
+														.post('http://smartparkil.herokuapp.com/createUser/',userDetails)
+														//http://smartserver1.herokuapp.com/
+														//http://localhost:8000/
+														//https://smartparkil.herokuapp.com/
+														.success(function(response) {
+															console.log(response);
+																console.log('user  created');
+																$state.go('menu.home');
+														return $scope.data.numCar;//if TRUE continue code needs to get here..
+														})
+														.error(function(answer) {
+															console.log('error while create user!')
+														});
 													}
 												}
 											}
 										]
 									});
-								}
-								if (register) {
-									$state.go('menu.home');
 								}
 								$ionicLoading.hide();
 							},
@@ -347,10 +350,13 @@ angular
 					'password': $scope.formSignInParams.password
 				};
 				$http
-				.get('http://smartserver1.herokuapp.com/readUser/'+details.email+'/'+details.password)
+				.get('http://smartparkil.herokuapp.com/readUser/'+details.email+'/'+details.password)
+				//http://smartserver1.herokuapp.com/
+				//http://localhost:8000/
+				//https://smartparkil.herokuapp.com/
 				.success(function(response){
 					console.log(response);
-					if (!response) console.log('user ${details.email} not found');
+					if (!response) console.log(`user ${details.email} not found`);
 					else {
 						console.log('user found! do some code here...');
 						var userData = {
@@ -649,7 +655,7 @@ angular
 				console.log($localStorage.answer);
 				var locations = $localStorage.answer.results;
 
-				function getLocation(callback) {
+				function getLocation(callback) { //NOTE: can be as a service component
 					var options = {
 						enableHighAccuracy: true,
 						timeout: 10000,
@@ -676,6 +682,7 @@ angular
 						});
 					}
 				}
+
 				getLocation(function(locationResult) {
 					var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
 
@@ -709,8 +716,8 @@ angular
 						map: map,
 						title: "My Location"
 					});
+					// NOTE: handle the returned data from server
 					locations.forEach(function(loc) {
-						//    console.log(loc);
 						console.log(loc);
 						var tempLatLng = new google.maps.LatLng(loc.location.coords[0], loc.location.coords[1]);
 						var tempMarker = new google.maps.Marker({
@@ -747,6 +754,7 @@ angular
 								},
 								buttonClicked: function(index) {
 									console.log(index);
+									console.log(loc);
 									if (index == 0) {
 										var choseOccupied = loc.occupied;
 										var statusChose;
@@ -762,6 +770,7 @@ angular
 										});
 									}
 									if (index == 1) {
+										sendPush.pushToPublisher(loc.publisherToken);
 										var bookingId = $localStorage.answer.bookingId;
 										var searchId = UserService.getUser().email;
 										$localStorage.choosenIdParking = loc['id'];
@@ -844,7 +853,7 @@ angular
 			console.log(userIdByEmail);
 			//NOTE: david need to handle this
 			// $http
-			// .get('http://localhost:8080/readUser/', userIdByEmail.email)
+			// .get('http://localhost:8000/readUser/', userIdByEmail.email)
 			// .success(function(answer) {
 			// console.log(answer);
 			//   })
