@@ -81,6 +81,23 @@ angular.module('app.services', ['ngStorage'])
 		}
 	})
 
+	.service('d3TimeFormat', function($http){
+		var formatDay 	= d3.timeFormat("%Y-%m-%d"),
+			formatTime 	= d3.timeFormat("%H:%M"),
+			formatDate 	= d3.timeFormat("%Y-%m-%d %H:%M:00");
+
+		this.toLocalDate = (date, callback) => {
+			var day 			= formatDay(new Date(date.d)),
+				time 			= formatTime(new Date(date.t)),
+			 	formatedDate 	= formatDate(new Date(`${day} ${time}`));
+
+			console.log(`day: ${day}`);
+			console.log(`time: ${time}`);
+			console.log(`formated: ${formatedDate}`);
+			console.log(`${formatedDate.toString()}`)
+			callback(formatedDate);
+		};
+	})
 	.service('BlankService', [function() {
 
 	}]);
