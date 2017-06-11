@@ -850,16 +850,14 @@ angular
 			$scope.userData = $localStorage.userLoginData; //NOTE: here is all the user info from login!
 			console.log($scope.userData);
 			var userN = UserService.getUser().givenName;
-			//get user details from server
-			// var userIdByEmail = {
-			// 	email: UserService.getUser().email
-			// };
-			// console.log(userIdByEmail);
-			// console.log("user: " + userN);
-			$scope.email = userData.email;
-			$scope.password = userData.password;
-			$scope.carId = userData.carId;
-			$scope.userName = userData.name;
+			if($scope.userData.password =="gtoken")
+			{
+					$scope.userData.password="No Password";
+			}
+			$scope.email = $scope.userData.email;
+			$scope.password = $scope.userData.password;
+			$scope.carId = $scope.userData.carId;
+			$scope.userName = $scope.userData.name;
 		}
 	])
 
