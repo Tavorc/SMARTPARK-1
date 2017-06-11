@@ -40,9 +40,10 @@ angular
 				setTimeout(function() {
 					console.log($scope.booking);
 					$http
-						.post('http://smartserver1.herokuapp.com/searchparking/', $scope.booking)
+						.post('https://smartparkil.herokuapp.com/searchparking/', $scope.booking)
 						//http://smartserver1.herokuapp.com/searchparking/
 						//http://localhost:8080/searchparking/
+						//https://smartparkil.herokuapp.com/
 						.success(function(answer) {
 							console.log(answer);
 							$localStorage.answer = answer;
@@ -134,9 +135,10 @@ angular
 				});
 				setTimeout(function() {
 					$http
-						.post('http://smartserver1.herokuapp.com/addnewparking/', $scope.parking)
+						.post('https://smartparkil.herokuapp.com/addnewparking/', $scope.parking)
 						//http://smartserver1.herokuapp.com/addnewparking/
 						//http://localhost:8080/addnewparking/
+						//https://smartparkil.herokuapp.com/
 						.success(function(answer) {
 							console.log(answer);
 							window.localStorage.setItem("repo", answer.id);
