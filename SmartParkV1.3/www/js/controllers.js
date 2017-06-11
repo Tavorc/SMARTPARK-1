@@ -144,6 +144,7 @@ angular
 							//https://smartparkil.herokuapp.com/
 							.success(function(answer) {
 								console.log(answer);
+								$localStorage.answerReporterDetails=answer;
 								window.localStorage.setItem("repo", answer.id);
 								console.log(window.localStorage.getItem("repo"));
 								$state.go('menu.home',{reload: true});//
@@ -495,6 +496,9 @@ angular
 														text: 'Drive'
 													},
 													{
+														text: 'Show Details'
+													},
+													{
 														text: 'Delete'
 													}
 												],
@@ -510,7 +514,15 @@ angular
 														console.log(latToNavigate + " : " + lngToNavigate);
 														WazeLink.open('waze://?ll=' + latToNavigate + ',' + lngToNavigate);
 													}
-													if (index == 1) {
+													if(index == 1)
+													{
+													var detailsChoose=$localStorage.myChoseDetails;
+													var alertPopup = $ionicPopup.alert({
+														title: 'Details',
+														template: 'Description: ' + detailsChoose.Description + '<br>address: ' + detailsChoose.address + '<br> time: ' + detailsChoose.time + '<br>occupied:' + detailsChoose.occupied
+													});
+													}
+													if (index == 2) {
 
 														var bookingId = $localStorage.answer.bookingId;
 														var parkingId = $localStorage.choosenIdParking;
@@ -566,7 +578,9 @@ angular
 								$scope.parkReported = parkReportedMarker;
 								google.maps.event.addListener(parkReportedMarker, 'click', function(event) {
 									var hideSheet = $ionicActionSheet.show({
-										buttons: [
+										buttons: [{
+												text: 'Show Details'
+											},
 											{
 												text: 'Delete'
 											}
@@ -578,7 +592,11 @@ angular
 										},
 										buttonClicked: function(index) {
 											if (index == 0) {
-
+											var detailsReporter=$localStorage.answerReporterDetails;
+											var alertPopup = $ionicPopup.alert({
+											title: 'Details',
+											template:'address: ' + detailsReporter.location.city + "," + detailsReporter.location.street + ',' + detailsReporter.location.number + '<br> time: ' + detailsReporter.time
+										});
 											}
 											if (index == 1) {
 												var temp = window.localStorage.getItem("repo");
@@ -751,16 +769,16 @@ angular
 								},
 								buttonClicked: function(index) {
 									console.log(index);
-									console.log(loc);
-									if (index == 0) {
-										var choseOccupied = loc.occupied;
-										var statusChose;
+									var choseOccupied = loc.occupied;
+									var statusChose;
 										if (choseOccupied == false) {
 											statusChose = "Availabe";
 										}
 										if (choseOccupied == true) {
 											statusChose = "Occupied";
 										}
+									if (index == 0) {
+									
 										var alertPopup = $ionicPopup.alert({
 											title: 'Details',
 											template: 'Description: ' + loc.description + '<br>address: ' + loc.location.city + "," + loc.location.street + ',' + loc.location.number + '<br> time: ' + loc.time + '<br>occupied:' + statusChose
@@ -806,6 +824,12 @@ angular
 													lat: loc.location.coords[0],
 													lng: loc.location.coords[1]
 												};
+												$localStorage.myChoseDetails={
+													Description: loc.description,
+													address: loc.location.city + "," + loc.location.street + ',' + loc.location.number,
+												  	time:loc.time,
+												    occupied:statusChose};
+												    console.log($localStorage.myChoseDetails);
 												$localStorage.myChose = locSelect;
 												if ($localStorage.myChose.lat != -86) {
 													$timeout(function() {
