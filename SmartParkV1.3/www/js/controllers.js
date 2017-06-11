@@ -270,7 +270,7 @@ angular
 									emailToCheck = user_data.email,
 									userPass = 'gtoken';
 								$http
-								.get('http://smartparkil.herokuapp.com/readUser/'+emailToCheck+'/'+userPass)
+								.get('http://smartserver1.herokuapp.com/readUser/'+emailToCheck+'/'+userPass)
 								//http://smartserver1.herokuapp.com/
 								//http://localhost:8000/
 								//https://smartparkil.herokuapp.com/
@@ -315,7 +315,7 @@ angular
 															smarties: 5
 														};
 														$http
-														.post('http://smartparkil.herokuapp.com/createUser/',userDetails)
+														.post('http://smartserver1.herokuapp.com/createUser/',userDetails)
 														//http://smartserver1.herokuapp.com/
 														//http://localhost:8000/
 														//https://smartparkil.herokuapp.com/
@@ -350,7 +350,7 @@ angular
 					'password': $scope.formSignInParams.password
 				};
 				$http
-				.get('http://smartparkil.herokuapp.com/readUser/'+details.email+'/'+details.password)
+				.get('http://smartserver1.herokuapp.com/readUser/'+details.email+'/'+details.password)
 				//http://smartserver1.herokuapp.com/
 				//http://localhost:8000/
 				//https://smartparkil.herokuapp.com/
