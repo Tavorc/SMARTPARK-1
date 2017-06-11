@@ -59,8 +59,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 
            confirmPopup.then(function(res) {
              if(res) {// if yes: incPoints(publisherId);
-
-              //DAVID here the user say that the parking is availible and you need to send this to server
+              //DAVID tell to server that the parking is avialible and the publisher need to get 1 smartiz
               var locSelect={lat: -86, lng:  -86};
               StorageService.add(locSelect);
              } else {
@@ -77,7 +76,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
                        if (!$scope.data.carNum) {
                         e.preventDefault();
                       } else {
-                        //DAVID we need to send number car to server
+                        //you don't need to tell to server that the parking is not availible it's Obvious
+                        //DAVID send number car to server and check if the number is compatible with the number of the publisher car
                         return $scope.data.carNum;
                       }
                     }
