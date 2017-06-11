@@ -1,5 +1,3 @@
-// 'use strict';
-// import * as d3 from "d3";
 var userDetails = {
 	name: null,
 	email: null,
@@ -7,22 +5,6 @@ var userDetails = {
 	carId: null,
 	smarties: 5
 };
-
-// var formatDay 	= d3.timeFormat("%Y-%m-%d"),
-// 	formatTime 	= d3.timeFormat("%H:%M"),
-// 	formatDate 	= d3.timeFormat("%Y-%m-%d %H:%M:00");
-//
-// var toLocalDate = (date, callback) => {
-// 	var day 			= formatDay(new Date(date.d)),
-// 		time 			= formatTime(new Date(date.t)),
-// 	 	formatedDate 	= formatDate(new Date(`${day} ${time}`));
-//
-// 	console.log(`day: ${day}`);
-// 	console.log(`time: ${time}`);
-// 	console.log(`formated: ${formatedDate}`);
-// 	console.log(`${formatedDate.toString()}`)
-// 	callback(formatedDate);
-// };
 
 angular
 .module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage'])
@@ -54,8 +36,6 @@ angular
 			// console.log($location.url() );// NOTE: needed to go back to previus state
 			$scope.getInfoFromServer = function() {
 				d3TimeFormat.toLocalDate($scope.time, (formatedTime) => {
-					// $scope.booking.time.d = $scope.booking.time.d.toString();
-					// $scope.booking.time.t = $scope.booking.time.t.toString();
 					$scope.booking.time = formatedTime;
 					$ionicLoading.show({
 						template: 'Loading..:)'
@@ -63,7 +43,7 @@ angular
 					setTimeout(function() {
 						console.log($scope.booking);
 						$http
-							.post('http://localhost:8000/searchparking/', $scope.booking)
+							.post('https://smartserver1.herokuapp.com/searchparking/', $scope.booking)
 							//http://smartserver1.herokuapp.com/searchparking/
 							//http://localhost:8080/searchparking/
 							//https://smartparkil.herokuapp.com/
@@ -129,7 +109,7 @@ angular
 				t: null
 			}
 			$scope.parking = {
-				time: $scope.time, //'2017-02-13 12:50:00',
+				time: $scope.time,
 				location: $scope.location,
 				handicapped: null,
 				description: null,
@@ -155,15 +135,13 @@ angular
 
 			$scope.getInfoFromServer = function() {
 				d3TimeFormat.toLocalDate($scope.time, (formatedTime) => {
-					// $scope.parking.time.d = $scope.parking.time.d.toString();
-					// $scope.parking.time.t = $scope.parking.time.t.toString();
 					$scope.parking.time = formatedTime;
 					$ionicLoading.show({
 						template: 'Loading in..:)'
 					});
 					setTimeout(function() {
 						$http
-							.post('http://localhost:8000/addnewparking/', $scope.parking)
+							.post('https://smartserver1.herokuapp.com/addnewparking/', $scope.parking)
 							//http://smartserver1.herokuapp.com/addnewparking/
 							//http://localhost:8080/addnewparking/
 							//https://smartparkil.herokuapp.com/
