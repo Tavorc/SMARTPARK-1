@@ -566,9 +566,7 @@ angular
 								$scope.parkReported = parkReportedMarker;
 								google.maps.event.addListener(parkReportedMarker, 'click', function(event) {
 									var hideSheet = $ionicActionSheet.show({
-										buttons: [{
-												text: 'show details'
-											},
+										buttons: [
 											{
 												text: 'Delete'
 											}
@@ -744,9 +742,6 @@ angular
 									},
 									{
 										text: 'Choose'
-									},
-									{
-										text: 'Choose And Drive'
 									}
 								],
 								titleText: '<b>Options</b>',
