@@ -266,8 +266,7 @@ angular
 					function(msg) {
 						window.plugins.googleplus.login({},
 							function(user_data) {
-								var register = false,
-									emailToCheck = user_data.email,
+									var emailToCheck = user_data.email,
 									userPass = 'gtoken';
 								$http
 								.get('http://smartserver1.herokuapp.com/readUser/'+emailToCheck+'/'+userPass)
