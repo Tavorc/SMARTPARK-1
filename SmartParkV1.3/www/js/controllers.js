@@ -469,7 +469,7 @@ angular
 											id: 1,
 											position: new google.maps.LatLng(parkChosen.lat, parkChosen.lng),
 											map: map,
-											icon: imgs.markerBlack
+											icon: "./img/parkChoose.png"
 										});
 										$scope.choseLocation = choseLocation;
 										google.maps.event.addListener(choseLocation, 'click', function(event) {
@@ -544,7 +544,7 @@ angular
 									id: 2,
 									position: new google.maps.LatLng(parkReport.lat, parkReport.lng),
 									map: map,
-									icon: imgs.markerBlue
+									icon: "./img/blueFlag.png"
 								});
 								$scope.parkReported = parkReportedMarker;
 								google.maps.event.addListener(parkReportedMarker, 'click', function(event) {
