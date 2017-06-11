@@ -30,7 +30,7 @@ angular
 				time: $scope.time,
 				distance: null,
 				location: $scope.location,
-				searcherId: 'hjhsdjhs'
+				searcherId: UserService.getUser().email
 			}
 			// console.log($location.url() );// NOTE: needed to go back to previus state
 			$scope.getInfoFromServer = function() {
@@ -41,6 +41,8 @@ angular
 					console.log($scope.booking);
 					$http
 						.post('http://smartserver1.herokuapp.com/searchparking/', $scope.booking)
+						//http://smartserver1.herokuapp.com/searchparking/
+						//http://localhost:8080/searchparking/
 						.success(function(answer) {
 							console.log(answer);
 							$localStorage.answer = answer;
@@ -60,9 +62,22 @@ angular
 		}
 	])
 
-.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, UserService) {
-			var emailPublisher = UserService.getUser().email;
+.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, UserService, $ionicPush) {
+			var publisherEmail = UserService.getUser().email;
+			var	publisherToken = function() {
+					$ionicPush
+					.register()
+					.then(function(t) {
+						console.log(t);
+						return $ionicPush.saveToken(t);
+					})
+					.then(function(t) {
+						console.log('Token saved:', t.token);
+						return t.token;
+					});
+				};
+
 			var reportParkCoords = {
 				lat: $stateParams.lat,
 				lng: $stateParams.lng
@@ -91,33 +106,37 @@ angular
 			$scope.parking = {
 				time: $scope.time, //'2017-02-13 12:50:00',
 				location: $scope.location,
-				handicap: null,
+				handicapped: null,
 				description: null,
-				img: null,
+				img: null, //NOTE: it will change if $scope.openCamera will be called.
 				size: null,
-				pubilsherId: null
+				publisherId: publisherEmail,
+				publisherToken: publisherToken()
 			}
+
 			$scope.openCamera = function() {
 				var options = {
 					destinationType: Camera.DestinationType.FILE_URI,
 					sourceType: Camera.PictureSourceType.CAMERA,
 				};
-
 				$cordovaCamera.getPicture(options).then(function(imageURI) {
 					var image = document.getElementById('myImage');
-					$scope.img = imageURI;
+					// $scope.parking.img = imageURI;
 					// console.log($scope.img);
 				}, function(err) {
 					// error
 				});
 			}
+
 			$scope.getInfoFromServer = function() {
 				$ionicLoading.show({
 					template: 'Loading in..:)'
 				});
 				setTimeout(function() {
 					$http
-						.post('http://smartserver1.herokuapp.com/addnewparking/', $scope.parking)//http://smartserver1.herokuapp.com/
+						.post('http://smartserver1.herokuapp.com/addnewparking/', $scope.parking)
+						//http://smartserver1.herokuapp.com/addnewparking/
+						//http://localhost:8080/addnewparking/
 						.success(function(answer) {
 							console.log(answer);
 							window.localStorage.setItem("repo", answer.id);
@@ -198,7 +217,7 @@ angular
 			$scope.formSignInParams = {
 				email: $stateParams.email,
 				password: $stateParams.password,
-				gToken: null
+				gToken: null //NOTE @tavor is this variable necc?
 			}
 			if ($ionicAuth.isAuthenticated()) {
 				$localStorage.flagMap = false;
@@ -743,7 +762,7 @@ angular
 											parkingId: $localStorage.choosenIdParking
 										};
 										$http
-											.post('http://smartserver1.herokuapp.com/chooseParking/', chooseDetails)
+											.post('http://localhost:8080/chooseParking/', chooseDetails)
 											.success(function(answer) {
 												$localStorage.flagChose = true;
 												$ionicLoading.show({
