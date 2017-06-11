@@ -593,9 +593,11 @@ angular
 										buttonClicked: function(index) {
 											if (index == 0) {
 											var detailsReporter=$localStorage.answerReporterDetails;
+											var dateTime=new Date(detailsReporter.time);
+											console.log(dateTime);
 											var alertPopup = $ionicPopup.alert({
 											title: 'Details',
-											template:'address: ' + detailsReporter.location.city + "," + detailsReporter.location.street + ',' + detailsReporter.location.number + '<br> time: ' + detailsReporter.time
+											template:'address: ' + detailsReporter.location.city + "," + detailsReporter.location.street + ',' + detailsReporter.location.number + '<br> time: ' + dateTime
 										});
 											}
 											if (index == 1) {
