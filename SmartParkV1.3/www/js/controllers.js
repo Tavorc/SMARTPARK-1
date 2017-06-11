@@ -782,7 +782,7 @@ angular
 											parkingId: $localStorage.choosenIdParking
 										};
 										$http
-											.post('http://localhost:8000/chooseParking/', chooseDetails)
+											.post('http://smartserver1.herokuapp.com/chooseParking/', chooseDetails)
 											.success(function(answer) {
 												$localStorage.flagChose = true;
 												$ionicLoading.show({
