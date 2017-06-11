@@ -856,10 +856,10 @@ angular
 			// };
 			// console.log(userIdByEmail);
 			// console.log("user: " + userN);
-			// $scope.email = UserService.getUser().email;
-			// $scope.password = $localStorage.password;
-			// $scope.carId = $localStorage.carId;
-			// $scope.userName = userN;
+			$scope.email = userData.email;
+			$scope.password = userData.password;
+			$scope.carId = userData.carId;
+			$scope.userName = userData.name;
 		}
 	])
 
@@ -969,9 +969,6 @@ angular
 					email: email,
 				};
 				UserService.setUser(userData);
-				$localStorage.password = userDetails.password;
-				$localStorage.carId = userDetails.carId;
-
 				$http
 				.post('http://smartserver1.herokuapp.com/createUser/', userDetails)
 				.success(function(answer) {
