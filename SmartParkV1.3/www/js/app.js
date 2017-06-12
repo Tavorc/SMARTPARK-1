@@ -106,12 +106,23 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 									}
 								]
 							});
-							console.log('You are not sure');
-							// var locSelect = {
-							// 	lat: -86,
-							// 	lng: -86
-							// };
-							// StorageService.add(locSelect);
+							myPopup.then(answer => {
+								var points = 1;
+								if (answer != selectedParking.carId)
+									points *= (-1);
+								$http
+								.get(`http:localhost:8000/incPoints/${selectedParking.publisherId}/${points}`)
+								//http://smartserver1.herokuapp.com/
+								//http://localhost:8000/
+								//https://smartparkil.herokuapp.com/
+								.success(function(response) {
+									console.log(`success: ${response}`);
+									$state.go('home')
+								})
+								.error(function(answer) {
+									console.log(`error while trying to update points!`);
+								});
+							})
 						}
 					});
 					console.log('notification is cancelled : ' + notification.id);

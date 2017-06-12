@@ -113,7 +113,8 @@ angular
 				img: null, //NOTE: it will change if $scope.openCamera will be called.
 				size: 3,
 				publisherId: publisherEmail,
-				publisherToken: publisherToken()
+				publisherToken: publisherToken(),
+				currentCar: $localStorage.userLoginData.carId
 			}
 
 			$scope.openCamera = function() {
