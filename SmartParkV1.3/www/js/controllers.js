@@ -780,17 +780,19 @@ angular
 											statusChose = "Occupied";
 										}
 									if (index == 0) {
-									
+
 										var alertPopup = $ionicPopup.alert({
 											title: 'Details',
 											template: 'Description: ' + loc.description + '<br>address: ' + loc.location.city + "," + loc.location.street + ',' + loc.location.number + '<br> time: ' + loc.time + '<br>occupied:' + statusChose
 										});
 									}
 									if (index == 1) {
-										sendPush.pushToPublisher(loc.publisherToken);
+										$localStorage.chosenParking = loc;
+										sendPush.pushToPublisher(loc.publisherToken);//NOTE here is the push service
+										console.log(loc);
 										var bookingId = $localStorage.answer.bookingId;
 										var searchId = UserService.getUser().email;
-										$localStorage.choosenIdParking = loc['id'];
+										$localStorage.choosenIdParking = loc.id;
 										var chooseDetails = {
 											searcherId: searchId,
 											bookingId: bookingId,
@@ -879,12 +881,14 @@ angular
 			$scope.password = $scope.userData.password;
 			$scope.carId = $scope.userData.carId;
 			$scope.userName = $scope.userData.name;
+			$scope.smarties = $scope.userData.smarties;
 		}
 	])
 
 .controller('myHistoryCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams) {
 			console.log($stateParams);
+			// NOTE: what is it here for?
 			$scope.items = [{
 					id: 1,
 					location: 'even gvirol 12 tel aviv',
