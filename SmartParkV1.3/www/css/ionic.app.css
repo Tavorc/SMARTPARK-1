@@ -26,6 +26,22 @@
   margin-left: 60%;
   margin-top: 99%;
 }
+#smartiesData{
+  z-index: 105;
+  position: absolute;
+  margin-left: 73%;
+  margin-top: 4%;
+  font-size: 18px;
+  text-align: center;
+}
+#smartiesDiv{
+   z-index: 105;
+  border-radius: 50%;
+  background-color: #F2F3F4;
+  position: absolute;
+  margin-left: 72%;
+  margin-top: 2%;
+}
 a:hover{
   text-decoration: none !important;
   /*color: black;*/

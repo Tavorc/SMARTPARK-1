@@ -7,7 +7,7 @@ var userDetails = {
 };
 
 angular
-.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage'])
+.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage',])
 
 .run(function($http) {})
 
@@ -394,6 +394,7 @@ angular
 				}, 200);
 				$localStorage.flagMap = false;
 			}
+			$scope.smarties = $localStorage.userLoginData.smarties;
 			$scope.init = function() {
 				$ionicLoading.hide();
 				var parkReportValue = $localStorage.reportParkCoords;
