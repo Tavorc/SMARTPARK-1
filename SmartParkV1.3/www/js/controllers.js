@@ -78,7 +78,7 @@ angular
 		function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, UserService, $ionicPush, d3TimeFormat) {
 			var publisherEmail = UserService.getUser().email;
 
-			function publisherToken() {
+			function getPublisherToken(callback) {
 				$ionicPush
 					.register()
 					.then(function(t) {
@@ -87,7 +87,7 @@ angular
 					})
 					.then(function(t) {
 						console.log('Token saved:', t.token);
-						return t.token;
+						return callback(t.token);
 					});
 			};
 
@@ -124,7 +124,7 @@ angular
 				img: null, //NOTE: it will change if $scope.openCamera will be called.
 				size: 3,
 				publisherId: publisherEmail,
-				publisherToken: publisherToken(),
+				publisherToken: publisherToken(t => {return t;}),
 				currentCar: $localStorage.userLoginData.carId
 			}
 
@@ -175,9 +175,9 @@ angular
 		}
 	])
 
-	.controller('helpCtrl', ['$scope', function($scope) {
-
-	}])
+	// .controller('helpCtrl', ['$scope', function($scope) {
+	//
+	// }])
 
 	.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush) {
@@ -423,8 +423,9 @@ angular
 				$localStorage.flagMap = false;
 			}
 			console.log($localStorage);
-			console.log($localStorage.userLoginData);
-			$scope.smarties = $localStorage.userLoginData.smarties;
+			console.log(`$localStorage.userLoginData: ${$localStorage.userLoginData}`);
+			// $scope.smarties = $localStorage.userLoginData.smarties;
+			$scope.smarties = 5;// FIXME: just for test: s/b $localStorage.userLoginData.smarties;
 			$scope.init = function() {
 				$ionicLoading.hide();
 				var parkReportValue = $localStorage.reportParkCoords;
@@ -489,7 +490,7 @@ angular
 						geocoder.geocode({
 							'address': 'telAviv , ISRAEL'
 						}, function(results, status) {
-							console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+							console.log(`My Location: ${results[0].geometry.location.lat()}, ${results[0].geometry.location.lng()}`);
 						})
 						$scope.myLocation;
 						map.setCenter(new google.maps.LatLng(locationResult.lat, locationResult.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
@@ -697,9 +698,9 @@ angular
 
 	.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', 'UserService', '$localStorage', 'sendPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet, $timeout, $ionicPopup, UserService, $localStorage, sendPush) {
-			console.log($localStorage);
 			$scope.init = function() {
 				console.log($localStorage.answer);
+				var massege = '';
 				var locations = $localStorage.answer.results;
 
 				function getLocation(callback) { //NOTE: can be as a service component
@@ -768,7 +769,7 @@ angular
 						console.log(loc);
 						var tempLatLng = new google.maps.LatLng(loc.location.coords[0], loc.location.coords[1]);
 						var tempMarker = new google.maps.Marker({
-							id: $scope.markers.length + 1,
+							id: $scope.markers.length + 1, //NOTE: loc[0] = main marker -> myLocation
 							options: {
 								icon: imgs.markerGreen,
 								draggable: false,
@@ -807,7 +808,8 @@ angular
 										statusChose = "Occupied";
 									}
 									if (index == 0) {
-
+										massege = 'Someone intrested in your parking!'
+										sendPush.pushToPublisher(loc.publisherToken, message); //NOTE here is the push service
 										var alertPopup = $ionicPopup.alert({
 											title: 'Details',
 											template: 'Description: ' + loc.description + '<br>address: ' + loc.location.city + "," + loc.location.street + ',' + loc.location.number + '<br> time: ' + loc.time + '<br>occupied:' + statusChose
@@ -815,7 +817,8 @@ angular
 									}
 									if (index == 1) {
 										$localStorage.chosenParking = loc;
-										sendPush.pushToPublisher(loc.publisherToken); //NOTE here is the push service
+										massege = 'Someone reserved your parking!'
+										sendPush.pushToPublisher(loc.publisherToken, message); //NOTE here is the push service
 										console.log(loc);
 										var bookingId = $localStorage.answer.bookingId;
 										var searchId = UserService.getUser().email;
@@ -911,8 +914,8 @@ angular
 		}
 	])
 
-	.controller('myHistoryCtrl', ['$scope', '$http', 'UserService', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $http, UserService, $stateParams) {
+	.controller('myHistoryCtrl', ['$scope', '$http', 'UserService', '$stateParams', 'd3TimeFormat',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $http, UserService, $stateParams, d3TimeFormat) {
 			console.log($stateParams);
 			$scope.items = [];
 			$scope.items2 = [];
@@ -921,21 +924,21 @@ angular
 				user_id: UserService.getUser().email
 			};
 			$http.post("http://smartserver1.herokuapp.com/historyBooking").then((res) => {
-				angular.forEach(res.data, (v, k) => {
+				res.data.forEach((v, k) => {
 					timeOfParking = new Date(v.time);
 					$scope.items.push({
 						location: `${v.location.city} ${v.location.street} ${v.location.number}`,
-						time: v.time.replace("T", " ").replace("Z", "")
+						time: d3TimeFormat.toClean(v.time)
 					})
 				});
 			});
 
 			$http.post("http://smartserver1.herokuapp.com/historyParking").then((res) => {
-				angular.forEach(res.data, (v, k) => {
+				res.data.forEach((v, k) => {
 					timeOfParking = new Date(v.time);
 					$scope.items2.push({
 						location: `${v.location.city} ${v.location.street} ${v.location.number}`,
-						time: v.time.replace("T", " ").replace("Z", "")
+						time: d3TimeFormat.toClean(v.time)
 					})
 				});
 			});

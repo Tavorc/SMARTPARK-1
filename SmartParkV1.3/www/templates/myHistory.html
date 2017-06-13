@@ -20,43 +20,39 @@
 </style>
 <ion-view title="MyHistory" id="page7">
 	<ion-content>
-		<!-- FIXME:  this line need to be removed due to dupe <body> tag-->
-
-		<body ng-controller="myHistoryCtrl">
-			<ion-nav-view></ion-nav-view>
-			<ion-tabs class="tabs-icon-top">
-				<ion-tab title="searches" icon="ion-search" ng-controller="MyCtrlSearchesHistory">
-					<ion-view>
-						<ion-content class="maps-bg">
-							<div class="history-list">
-								<ion-list show-delete="data.showDelete">
-									<ion-item class="history" ng-repeat="item in items" item="item" href="#/item/{{item.id}}" class="item-remove-animate">
-										<h2>{{item.time}}</h2>
-										<p>{{item.location}}</p>
-									</ion-item>
-								</ion-list>
-							</div>
-						</ion-content>
-					</ion-view>
-				</ion-tab>
-				<ion-tab title="reports" icon="ion-document-text" ng-controller="MyCtrlReportsHistory">
-					<ion-view>
-						<ion-content class="maps-bg">
-							<div class="history-list">
-								<ion-list show-delete="data.showDelete">
-									<ion-item ng-repeat="item in items2" item="item" href="#/item/{{item.id}}" class="item-remove-animate">
-										<h2>{{item.time}}</h2>
-										<p>{{item.location}}</p>
-										<ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">
-										</ion-delete-button>
-									</ion-item>
-								</ion-list>
-							</div>
-						</ion-content>
-					</ion-view>
-				</ion-tab>
-			</ion-tabs>
-		</body>
+		<ion-nav-view></ion-nav-view>
+		<ion-tabs class="tabs-icon-top">
+			<ion-tab title="searches" icon="ion-search" ng-controller="MyCtrlSearchesHistory">
+				<ion-view>
+					<ion-content class="maps-bg">
+						<div class="history-list">
+							<ion-list show-delete="data.showDelete">
+								<ion-item class="history" ng-repeat="item in items" item="item" href="#/item/{{item.id}}" class="item-remove-animate">
+									<h2>{{item.time}}</h2>
+									<p>{{item.location}}</p>
+								</ion-item>
+							</ion-list>
+						</div>
+					</ion-content>
+				</ion-view>
+			</ion-tab>
+			<ion-tab title="reports" icon="ion-document-text" ng-controller="MyCtrlReportsHistory">
+				<ion-view>
+					<ion-content class="maps-bg">
+						<div class="history-list">
+							<ion-list show-delete="data.showDelete">
+								<ion-item ng-repeat="item in items2" item="item" href="#/item/{{item.id}}" class="item-remove-animate">
+									<h2>{{item.time}}</h2>
+									<p>{{item.location}}</p>
+									<ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">
+									</ion-delete-button>
+								</ion-item>
+							</ion-list>
+						</div>
+					</ion-content>
+				</ion-view>
+			</ion-tab>
+		</ion-tabs>
 	</ion-content>
 </ion-view>
 <ion-nav-view></ion-nav-view>
