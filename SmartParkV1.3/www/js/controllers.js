@@ -422,6 +422,8 @@ angular
 				}, 200);
 				$localStorage.flagMap = false;
 			}
+			console.log($localStorage);
+			console.log($localStorage.userLoginData);
 			$scope.smarties = $localStorage.userLoginData.smarties;
 			$scope.init = function() {
 				$ionicLoading.hide();
