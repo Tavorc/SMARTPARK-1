@@ -149,22 +149,22 @@ angular
 				}
 			})
 
-			.state('menu.myHistory.searchHistory', {
-				url: '/searchHistory',
-				views: {
-					'searches-tab': {
-						templateUrl: 'templates/searchesHistory.html'
-					}
-				}
-			})
-			.state('menu.myHistory.reportsHistory', {
-				url: '/reportsHistory',
-				views: {
-					'reports-tab': {
-						templateUrl: 'templates/reportsHistory.html'
-					}
-				}
-			})
+			// .state('menu.myHistory.searchHistory', {
+			// 	url: '/searchHistory',
+			// 	views: {
+			// 		'searches-tab': {
+			// 			templateUrl: 'templates/searchesHistory.html'
+			// 		}
+			// 	}
+			// })
+			// .state('menu.myHistory.reportsHistory', {
+			// 	url: '/reportsHistory',
+			// 	views: {
+			// 		'reports-tab': {
+			// 			templateUrl: 'templates/reportsHistory.html'
+			// 		}
+			// 	}
+			// })
 
 
 		$urlRouterProvider.otherwise('/login')
