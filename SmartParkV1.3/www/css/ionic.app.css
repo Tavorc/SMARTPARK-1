@@ -29,10 +29,11 @@
 #smartiesData{
   z-index: 105;
   position: absolute;
-  margin-left: 73%;
-  margin-top: 4%;
-  font-size: 18px;
+  margin-left: 75%;
+  margin-top: 8%;
+  font-size: 15px;
   text-align: center;
+  color:#ffffff;
 }
 #smartiesDiv{
    z-index: 105;
