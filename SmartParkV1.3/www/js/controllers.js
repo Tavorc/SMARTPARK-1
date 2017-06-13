@@ -11,8 +11,8 @@ angular
 
 .run(function($http) {})
 
-.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', 'd3TimeFormat', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $http, $state, $stateParams, $location, $localStorage, UserService, $ionicLoading, d3TimeFormat) {
+.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', 'd3TimeFormat', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $http, $state, $stateParams, $location, $localStorage, UserService, $ionicLoading, d3TimeFormat, $ionicPopup) {
 			$scope.location = {
 				country: $stateParams.country,
 				city: $stateParams.city,
@@ -33,32 +33,43 @@ angular
 			}
 			// console.log($location.url() );// NOTE: needed to go back to previus state
 			$scope.getInfoFromServer = function() {
-				d3TimeFormat.toLocalDate($scope.time, (formatedTime) => {
-					$scope.booking.time = formatedTime;
-					$ionicLoading.show({
-						template: 'Loading..:)'
-					});
-					setTimeout(function() {
-						console.log($scope.booking);
-						$http
-							.post('https://smartserver1.herokuapp.com/searchparking/', $scope.booking)
-							//http://smartserver1.herokuapp.com/searchparking/
-							//http://localhost:8000/searchparking/
-							//https://smartparkil.herokuapp.com/
-							.success(function(answer) {
-								// console.log(answer);
-								$localStorage.answer = answer;
-								console.log($localStorage.answer);
-								$state.go('menu.availabeParking', {reload: true});
-								$ionicLoading.hide();
-							})
-							.error(function(answer) {
-								$ionicLoading.hide();
-								console.log('can not post');
-								console.log($scope.booking);
+					   var confirmPopup = $ionicPopup.confirm({
+					     title: 'You are going to lose 1 smarties',
+					     template: 'DO YOU AGREE?'
+					   });
+					   confirmPopup.then(function(res) {
+					     if(res) {
+					     	d3TimeFormat.toLocalDate($scope.time, (formatedTime) => {
+							$scope.booking.time = formatedTime;
+							$ionicLoading.show({
+								template: 'Loading..:)'
 							});
-					}, 500);
-				});
+							setTimeout(function() {
+								console.log($scope.booking);
+								$http
+									.post('https://smartserver1.herokuapp.com/searchparking/', $scope.booking)
+									//http://smartserver1.herokuapp.com/searchparking/
+									//http://localhost:8000/searchparking/
+									//https://smartparkil.herokuapp.com/
+									.success(function(answer) {
+										// console.log(answer);
+										$localStorage.answer = answer;
+										console.log($localStorage.answer);
+										$state.go('menu.availabeParking', {reload: true});
+										$ionicLoading.hide();
+									})
+									.error(function(answer) {
+										$ionicLoading.hide();
+										console.log('can not post');
+										console.log($scope.booking);
+									});
+							}, 500);
+						});
+					       console.log('You are sure');
+					     } else {
+					       console.log('You are not sure');
+					     }
+					   });
 			};
 		}
 	])
