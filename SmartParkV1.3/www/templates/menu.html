@@ -1,55 +1,83 @@
+<style>
+	#menu-list4 .item-icon-left {
+		background: #3b4051 !important;
+		color: #fff !important;
+		border-top: 1px solid #3b4051 !important;
+		border-bottom: 1px solid #3b4051 !important;
+	}
+
+	#menu-list4 a.item-content {
+		background: #3b4051 !important;
+		color: #fff !important;
+		border-top: 1px solid #3b4051 !important;
+		border-bottom: 1px solid #3b4051 !important;
+	}
+
+	#menu-list4 .item.item-toggle {
+		background: #3b4051 !important;
+		color: #fff !important;
+		border: 0;
+	}
+
+	#menu-list4 .welcome-user {
+		color: #fff !important;
+		font-size: 1.3em !important;
+	}
+</style>
 <ion-side-menus enable-menu-with-back-views="true">
-  <ion-side-menu-content drag-content="false">
-    <ion-nav-bar class="bar-calm">
-      <ion-nav-back-button></ion-nav-back-button>
-      <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
-      </ion-nav-buttons>
-    </ion-nav-bar>
-    <ion-nav-view name="side-menu21"></ion-nav-view>
-  </ion-side-menu-content>
-  <ion-side-menu side="right" id="side-menu21">
-    <ion-header-bar class="bar-calm">
-      <div class="title">MENU</div>
-    </ion-header-bar>
-    <ion-content padding="false" class="side-menu-right has-header ">
-      <ion-list id="menu-list4">
-        <ion-item class="item-avatar item-icon-right" id="menu-list-item7" menu-close="">
-        <div ui-sref="menu.myProfile" >
-          <h2>Hello,</h2>
-          <p class="calm" ng-model="userName.name">{{userName}}</p>
-        </div>
-          <i class="icon ion-android-exit" ng-click="googleLogOut()"></i>
-        </ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item8" ng-click="goHome()" menu-close="">
-          <i class="icon ion-ios-location"></i>Home</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item9" ui-sref="menu.in" menu-close="">
-          <i class="icon ion-log-in"></i>In</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item10" ui-sref="menu.out" menu-close="">
-          <i class="icon ion-log-out"></i>Out</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item11" ui-sref="menu.mySmarties" menu-close="">
-          <i class="icon ion-ionic"></i>My SMARTIES</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item12" ui-sref="menu.myHistory({formParams : hello})" menu-close="">
-          <i class="icon ion-arrow-swap"></i>My History</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item13" data-componentid="list-item13">
-        <i class="icon ion-android-notifications-none"></i>
-          <ion-toggle toggle-class="toggle-calm" ng-checked="true" id="menu-list-item-toggle13" data-componentid="toggle9" ng-model="pushNotification.checked" ng-change="pushNotificationChange()">Notifications</ion-toggle>
-      </ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item14" data-componentid="list-item14">
-          <i class="icon ion-ios-settings-strong"></i>Settings</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item15" data-componentid="list-item15">
-          <i class="icon ion-cash"></i>Buy SMARTIES</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item16" data-componentid="list-item16">
-          <i class="icon ion-ios-email-outline"></i>Contact us</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item17" data-componentid="list-item17">
-          <i class="icon ion-android-happy"></i>Feedback</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item18" data-componentid="list-item18">
-          <i class="icon ion-help-buoy"></i>Help</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item19" data-componentid="list-item19">
-          <i class="icon ion-android-share-alt"></i>Invite Friends</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item20" data-componentid="list-item20">
-          <i class="icon ion-android-more-horizontal"></i>About SMART<span class="calm">[</span>PARK<span class="calm">]</span></ion-item>
-      </ion-list>
-    </ion-content>
-  </ion-side-menu>
+	<ion-side-menu-content drag-content="false">
+		<ion-nav-bar class="bar-calm">
+			<ion-nav-back-button></ion-nav-back-button>
+			<ion-nav-buttons side="right">
+				<button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+			</ion-nav-buttons>
+		</ion-nav-bar>
+		<ion-nav-view name="side-menu21"></ion-nav-view>
+	</ion-side-menu-content>
+	<ion-side-menu side="right" id="side-menu21">
+		<ion-header-bar class="bar-calm">
+			<div class="title">MENU</div>
+		</ion-header-bar>
+		<ion-content padding="false" class="side-menu-right has-header ">
+			<ion-list id="menu-list4">
+				<ion-item class="item-avatar item-icon-right" id="menu-list-item7" menu-close="" style="background: #2abdeb; color: #fff; border-top: 1px solid #2abdeb; border-bottom: 1px solid #2abdeb;">
+					<img src="http://i.imgur.com/AgHKgH6.png" />
+					<div ui-sref="menu.myProfile">
+						<h2>Good {{timeOfDay}},</h2>
+						<p class="welcome-user" ng-model="userName.name">{{userName}}</p>
+					</div>
+					<i class="icon ion-android-exit" style="top: 18px;" ng-click="googleLogOut()"></i>
+					<i class="icon" ng-class="{'ion-ios-moon': timeOfDay=='Evening','ion-ios-sunny': timeOfDay=='Morning', 'ion-ios-partlysunny': timeOfDay=='Afternoon'}" style="top: -15px;" ng-click="googleLogOut()"></i>
+				</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item8" ng-click="goHome()" menu-close="">
+					<i class="icon ion-ios-location"></i>Home</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item9" ui-sref="menu.in" menu-close="">
+					<i class="icon ion-log-in"></i>In</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item10" ui-sref="menu.out" menu-close="">
+					<i class="icon ion-log-out"></i>Out</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item11" ui-sref="menu.mySmarties" menu-close="">
+					<i class="icon ion-ionic"></i>My SMARTIES</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item12" ui-sref="menu.myHistory({formParams : hello})" menu-close="">
+					<i class="icon ion-arrow-swap"></i>My History</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item13" data-componentid="list-item13">
+					<i class="icon ion-android-notifications-none"></i>
+					<ion-toggle toggle-class="toggle-calm" ng-checked="true" id="menu-list-item-toggle13" data-componentid="toggle9" ng-model="pushNotification.checked" ng-change="pushNotificationChange()">Notifications</ion-toggle>
+				</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item14" data-componentid="list-item14">
+					<i class="icon ion-ios-settings-strong"></i>Settings</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item15" data-componentid="list-item15">
+					<i class="icon ion-cash"></i>Buy SMARTIES</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item16" data-componentid="list-item16">
+					<i class="icon ion-ios-email-outline"></i>Contact us</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item17" data-componentid="list-item17">
+					<i class="icon ion-android-happy"></i>Feedback</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item18" data-componentid="list-item18" ui-sref="menu.help" menu-close="">
+					<i class="icon ion-help-buoy"></i>Help</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item19" data-componentid="list-item19">
+					<i class="icon ion-android-share-alt"></i>Invite Friends</ion-item>
+				<ion-item class="item-icon-left" id="menu-list-item20" data-componentid="list-item20">
+					<i class="icon ion-android-more-horizontal"></i>About SMART<span class="calm">[</span>PARK<span class="calm">]</span></ion-item>
+			</ion-list>
+		</ion-content>
+	</ion-side-menu>
 </ion-side-menus>

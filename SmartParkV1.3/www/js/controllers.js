@@ -7,11 +7,9 @@ var userDetails = {
 };
 
 angular
-.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage',])
+	.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage', ])
 
-.run(function($http) {})
-
-.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', 'd3TimeFormat', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+	.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', 'd3TimeFormat', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $http, $state, $stateParams, $location, $localStorage, UserService, $ionicLoading, d3TimeFormat, $ionicPopup) {
 			$scope.location = {
 				country: $stateParams.country,
@@ -33,13 +31,13 @@ angular
 			}
 			// console.log($location.url() );// NOTE: needed to go back to previus state
 			$scope.getInfoFromServer = function() {
-					   var confirmPopup = $ionicPopup.confirm({
-					     title: 'You are going to lose 1 smarties',
-					     template: 'DO YOU AGREE?'
-					   });
-					   confirmPopup.then(function(res) {
-					     if(res) {
-					     	d3TimeFormat.toLocalDate($scope.time, (formatedTime) => {
+				var confirmPopup = $ionicPopup.confirm({
+					title: 'You are going to lose 1 smarties',
+					template: 'DO YOU AGREE?'
+				});
+				confirmPopup.then(function(res) {
+					if (res) {
+						d3TimeFormat.toLocalDate($scope.time, (formatedTime) => {
 							$scope.booking.time = formatedTime;
 							$ionicLoading.show({
 								template: 'Loading..:)'
@@ -55,7 +53,9 @@ angular
 										// console.log(answer);
 										$localStorage.answer = answer;
 										console.log($localStorage.answer);
-										$state.go('menu.availabeParking', {reload: true});
+										$state.go('menu.availabeParking', {
+											reload: true
+										});
 										$ionicLoading.hide();
 									})
 									.error(function(answer) {
@@ -65,30 +65,30 @@ angular
 									});
 							}, 500);
 						});
-					       console.log('You are sure');
-					     } else {
-					       console.log('You are not sure');
-					     }
-					   });
+						console.log('You are sure');
+					} else {
+						console.log('You are not sure');
+					}
+				});
 			};
 		}
 	])
 
-.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', '$ionicPush', 'd3TimeFormat',
+	.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', '$ionicPush', 'd3TimeFormat',
 		function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, UserService, $ionicPush, d3TimeFormat) {
 			var publisherEmail = UserService.getUser().email;
 
-			function publisherToken (){
+			function publisherToken() {
 				$ionicPush
-				.register()
-				.then(function(t) {
-					console.log(t);
-					return $ionicPush.saveToken(t);
-				})
-				.then(function(t) {
-					console.log('Token saved:', t.token);
-					return t.token;
-				});
+					.register()
+					.then(function(t) {
+						console.log(t);
+						return $ionicPush.saveToken(t);
+					})
+					.then(function(t) {
+						console.log('Token saved:', t.token);
+						return t.token;
+					});
 			};
 
 			var reportParkCoords = {
@@ -156,10 +156,12 @@ angular
 							//https://smartparkil.herokuapp.com/
 							.success(function(answer) {
 								console.log(answer);
-								$localStorage.answerReporterDetails=answer;
+								$localStorage.answerReporterDetails = answer;
 								window.localStorage.setItem("repo", answer.id);
 								console.log(window.localStorage.getItem("repo"));
-								$state.go('menu.home',{reload: true});//
+								$state.go('menu.home', {
+									reload: true
+								}); //
 								window.location.reload(true); //NOTE this might be the solution for reduce map!
 							})
 							.error(function(answer) {
@@ -173,10 +175,26 @@ angular
 		}
 	])
 
-.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+	.controller('helpCtrl', ['$scope', function($scope) {
+
+	}])
+
+	.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush) {
 			var userN = UserService.getUser().givenName;
+
 			console.log("user: " + userN);
+			var today = new Date()
+			var curHr = today.getHours()
+
+			if (curHr < 12) {
+				$scope.timeOfDay = "Morning";
+			} else if (curHr < 18) {
+				$scope.timeOfDay = "Afternoon";
+			} else {
+				$scope.timeOfDay = "Evening";
+			}
+
 			$scope.userName = userN;
 			$scope.goHome = function() {
 				$state.go('menu.home');
@@ -231,8 +249,8 @@ angular
 		}
 	])
 
-.controller('loginCtrl', ['$scope', '$stateParams',  '$http', '$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', '$ionicUser',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $stateParams,  $http, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
+	.controller('loginCtrl', ['$scope', '$stateParams', '$http', '$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $stateParams, $http, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
 			$scope.formSignInParams = {
 				email: $stateParams.email,
 				password: $stateParams.password,
@@ -283,70 +301,69 @@ angular
 									emailToCheck = user_data.email,
 									userPass = 'gtoken';
 								$http
-								.get('http://smartserver1.herokuapp.com/readUser/'+emailToCheck+'/'+userPass)
-								//http://smartserver1.herokuapp.com/
-								//http://localhost:8000/
-								//https://smartparkil.herokuapp.com/
-								.success(function(response) {
-									console.log(response);
-									if (!response) {
-										console.log('user not found');
-										//then create new user:
-										$scope.data = {};
-										var myPopup = $ionicPopup.show({
-											template: '<input type="password" ng-model="data.numCar">',
-											title: 'Enter Number of your car',
-											subTitle: 'Please use normal things',
-											scope: $scope,
-											buttons: [{
-													text: 'Cancel'
-												},
-												{
-													text: '<b>Save</b>',
-													type: 'button-positive',
-													onTap: function(e) {
-														if (!$scope.data.numCar) {
-															e.preventDefault();
-														} else {
-															console.log($scope.data.numCar);
-															console.log(user_data.givenName + ": " + user_data.email + ": " + user_data.userId);
-															userDetails = {
-																name: user_data.givenName,
-																email: user_data.email,
-																password: userPass,
-																carId: $scope.data.numCar,
-																smarties: 5
-															};
-															$http
-															.post('http://smartserver1.herokuapp.com/createUser/',userDetails)
-															//http://smartserver1.herokuapp.com/
-															//http://localhost:8000/
-															//https://smartparkil.herokuapp.com/
-															.success(function(response) {
-																console.log(response);
-																	console.log('user created');
-																	$localStorage.userLoginData = userDetails;
-																	$state.go('menu.home');
-															return $scope.data.numCar;//if TRUE continue code needs to get here..
-															})
-															.error(function(answer) {
-																console.log('error while create user!')
-															});
+									.get('http://smartserver1.herokuapp.com/readUser/' + emailToCheck + '/' + userPass)
+									//http://smartserver1.herokuapp.com/
+									//http://localhost:8000/
+									//https://smartparkil.herokuapp.com/
+									.success(function(response) {
+										console.log(response);
+										if (!response) {
+											console.log('user not found');
+											//then create new user:
+											$scope.data = {};
+											var myPopup = $ionicPopup.show({
+												template: '<input type="password" ng-model="data.numCar">',
+												title: 'Enter Number of your car',
+												subTitle: 'Please use normal things',
+												scope: $scope,
+												buttons: [{
+														text: 'Cancel'
+													},
+													{
+														text: '<b>Save</b>',
+														type: 'button-positive',
+														onTap: function(e) {
+															if (!$scope.data.numCar) {
+																e.preventDefault();
+															} else {
+																console.log($scope.data.numCar);
+																console.log(user_data.givenName + ": " + user_data.email + ": " + user_data.userId);
+																userDetails = {
+																	name: user_data.givenName,
+																	email: user_data.email,
+																	password: userPass,
+																	carId: $scope.data.numCar,
+																	smarties: 5
+																};
+																$http
+																	.post('http://smartserver1.herokuapp.com/createUser/', userDetails)
+																	//http://smartserver1.herokuapp.com/
+																	//http://localhost:8000/
+																	//https://smartparkil.herokuapp.com/
+																	.success(function(response) {
+																		console.log(response);
+																		console.log('user created');
+																		$localStorage.userLoginData = userDetails;
+																		$state.go('menu.home');
+																		return $scope.data.numCar; //if TRUE continue code needs to get here..
+																	})
+																	.error(function(answer) {
+																		console.log('error while create user!')
+																	});
+															}
 														}
 													}
-												}
-											]
-										});
-									}
-									else {
-										$localStorage.userLoginData = response;
-										console.log('user found! going home..');
-										$state.go('menu.home');
-									}
-								})
-								.error(function(answer) {
-									console.log('error while read user!');
-								});
+												]
+											});
+										} else {
+											$localStorage.userLoginData = response;
+											console.log('user found! going home..');
+											$state.go('menu.home');
+										}
+									})
+									.error(function(answer) {
+										console.log('error while read user!');
+									});
 								UserService.setUser(user_data);
 								$ionicLoading.hide();
 							},
@@ -364,36 +381,36 @@ angular
 					'password': $scope.formSignInParams.password
 				};
 				$http
-				.get('http://smartserver1.herokuapp.com/readUser/'+details.email+'/'+details.password)
-				//http://smartserver1.herokuapp.com/
-				//http://localhost:8000/
-				//https://smartparkil.herokuapp.com/
-				.success(function(response){
-					console.log(response);
-					if (!response) console.log(`user ${details.email} not found`);
-					else {
-						console.log('user found! do some code here...');
-						$localStorage.userLoginData = response;
-						var userData = {
-							givenName: emailU.substring(0, emailU.lastIndexOf("@")),
-							email: emailU
-						};
-						UserService.setUser(userData);
-						$ionicAuth.login('basic', details).then(function() {
-							$state.go('menu.home');
-						}, function(err) {
-							console.log(err);
-						});
-					}
-				})
-				.error(function(answer) {
-				console.log('error while read user!');
-				});
+					.get('http://smartserver1.herokuapp.com/readUser/' + details.email + '/' + details.password)
+					//http://smartserver1.herokuapp.com/
+					//http://localhost:8000/
+					//https://smartparkil.herokuapp.com/
+					.success(function(response) {
+						console.log(response);
+						if (!response) console.log(`user ${details.email} not found`);
+						else {
+							console.log('user found! do some code here...');
+							$localStorage.userLoginData = response;
+							var userData = {
+								givenName: emailU.substring(0, emailU.lastIndexOf("@")),
+								email: emailU
+							};
+							UserService.setUser(userData);
+							$ionicAuth.login('basic', details).then(function() {
+								$state.go('menu.home');
+							}, function(err) {
+								console.log(err);
+							});
+						}
+					})
+					.error(function(answer) {
+						console.log('error while read user!');
+					});
 			}
 		}
 	])
 
-.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+	.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage, $ionicPush) {
 			$scope.$on('cloud:push:notification', function(event, data) {
 				var msg = data.message;
@@ -410,14 +427,14 @@ angular
 				$ionicLoading.hide();
 				var parkReportValue = $localStorage.reportParkCoords;
 				if (parkReportValue == null) {
-					$localStorage.reportParkCoords = {
+					$localStorage.reportParkCoords = { // FIXME: what is it for?
 						lat: -86,
 						lng: -86
 					};
 					console.log($localStorage.reportParkCoords);
 				}
 				if ($localStorage.flagChose == false) {
-					var locSelect = {
+					var locSelect = { // FIXME: what is it for?
 						lat: -86,
 						lng: -86
 					};
@@ -527,13 +544,12 @@ angular
 														console.log(latToNavigate + " : " + lngToNavigate);
 														WazeLink.open('waze://?ll=' + latToNavigate + ',' + lngToNavigate);
 													}
-													if(index == 1)
-													{
-													var detailsChoose=$localStorage.myChoseDetails;
-													var alertPopup = $ionicPopup.alert({
-														title: 'Details',
-														template: 'Description: ' + detailsChoose.Description + '<br>address: ' + detailsChoose.address + '<br> time: ' + detailsChoose.time + '<br>occupied:' + detailsChoose.occupied
-													});
+													if (index == 1) {
+														var detailsChoose = $localStorage.myChoseDetails;
+														var alertPopup = $ionicPopup.alert({
+															title: 'Details',
+															template: 'Description: ' + detailsChoose.Description + '<br>address: ' + detailsChoose.address + '<br> time: ' + detailsChoose.time + '<br>occupied:' + detailsChoose.occupied
+														});
 													}
 													if (index == 2) {
 
@@ -605,13 +621,13 @@ angular
 										},
 										buttonClicked: function(index) {
 											if (index == 0) {
-											var detailsReporter=$localStorage.answerReporterDetails;
-											var dateTime=new Date(detailsReporter.time);
-											console.log(dateTime);
-											var alertPopup = $ionicPopup.alert({
-											title: 'Details',
-											template:'address: ' + detailsReporter.location.city + "," + detailsReporter.location.street + ',' + detailsReporter.location.number + '<br> time: ' + dateTime
-										});
+												var detailsReporter = $localStorage.answerReporterDetails;
+												var dateTime = new Date(detailsReporter.time);
+												console.log(dateTime);
+												var alertPopup = $ionicPopup.alert({
+													title: 'Details',
+													template: 'address: ' + detailsReporter.location.city + "," + detailsReporter.location.street + ',' + detailsReporter.location.number + '<br> time: ' + dateTime
+												});
 											}
 											if (index == 1) {
 												var temp = window.localStorage.getItem("repo");
@@ -622,7 +638,7 @@ angular
 												$http
 													.post('http://smartserver1.herokuapp.com/deleteParking/', reports)
 													.success(function(answer) {
-														var reportCoords = {
+														var reportCoords = { // FIXME: what is it for?
 															lat: -86,
 															lng: -86
 														};
@@ -668,12 +684,8 @@ angular
 							});
 
 						});
-						// console.log(map);
-						// $scope.map = map;
-						// $scope.myLocation.
 						$scope.continue = function() {
 							$state.go('menu.out', $scope.chosenLocation)
-							// $state.go('menu.mapOUT', $scope.formOutParams);
 						}
 					});
 				});
@@ -681,7 +693,7 @@ angular
 		}
 	])
 
-.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', 'UserService', '$localStorage', 'sendPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+	.controller('availabeParkingCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$timeout', '$ionicPopup', 'UserService', '$localStorage', 'sendPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet, $timeout, $ionicPopup, UserService, $localStorage, sendPush) {
 			console.log($localStorage);
 			$scope.init = function() {
@@ -786,12 +798,12 @@ angular
 									console.log(index);
 									var choseOccupied = loc.occupied;
 									var statusChose;
-										if (choseOccupied == false) {
-											statusChose = "Availabe";
-										}
-										if (choseOccupied == true) {
-											statusChose = "Occupied";
-										}
+									if (choseOccupied == false) {
+										statusChose = "Availabe";
+									}
+									if (choseOccupied == true) {
+										statusChose = "Occupied";
+									}
 									if (index == 0) {
 
 										var alertPopup = $ionicPopup.alert({
@@ -801,7 +813,7 @@ angular
 									}
 									if (index == 1) {
 										$localStorage.chosenParking = loc;
-										sendPush.pushToPublisher(loc.publisherToken);//NOTE here is the push service
+										sendPush.pushToPublisher(loc.publisherToken); //NOTE here is the push service
 										console.log(loc);
 										var bookingId = $localStorage.answer.bookingId;
 										var searchId = UserService.getUser().email;
@@ -841,19 +853,20 @@ angular
 													lat: loc.location.coords[0],
 													lng: loc.location.coords[1]
 												};
-												$localStorage.myChoseDetails={
+												$localStorage.myChoseDetails = {
 													Description: loc.description,
 													address: loc.location.city + "," + loc.location.street + ',' + loc.location.number,
-												  	time:loc.time,
-												    occupied:statusChose};
-												    console.log($localStorage.myChoseDetails);
+													time: loc.time,
+													occupied: statusChose
+												};
+												console.log($localStorage.myChoseDetails);
 												$localStorage.myChose = locSelect;
 												if ($localStorage.myChose.lat != -86) {
 													$timeout(function() {
 														$state.go('menu.home', {}, {
 															reload: true
 														});
-														 window.location.reload(true);
+														window.location.reload(true);
 													}, 300);
 												}
 											})
@@ -872,7 +885,6 @@ angular
 						});
 						$scope.markers.push(tempMarker)
 					});
-					// $scope.myLocation = myLocation;
 					$scope.continue = function() {
 						$state.go('menu.out', $scope.chosenLocation)
 					}
@@ -881,14 +893,13 @@ angular
 		}
 	])
 
-.controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+	.controller('myProfileCtrl', ['$scope', '$stateParams', 'UserService', '$localStorage', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams, UserService, $localStorage, $http) {
 			$scope.userData = $localStorage.userLoginData; //NOTE: here is all the user info from login!
 			console.log($scope.userData);
 			var userN = UserService.getUser().givenName;
-			if($scope.userData.password =="gtoken")
-			{
-					$scope.userData.password="No Password";
+			if ($scope.userData.password == "gtoken") {
+				$scope.userData.password = "No Password";
 			}
 			$scope.email = $scope.userData.email;
 			$scope.password = $scope.userData.password;
@@ -898,80 +909,49 @@ angular
 		}
 	])
 
-.controller('myHistoryCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $stateParams) {
+	.controller('myHistoryCtrl', ['$scope', '$http', 'UserService', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $http, UserService, $stateParams) {
 			console.log($stateParams);
-			// NOTE: what is it here for?
-			$scope.items = [{
-					id: 1,
-					location: 'even gvirol 12 tel aviv',
-					time: '2017-03-08 14:20'
-				},
-				{
-					id: 2,
-					location: 'even gvirol 15 tel aviv',
-					time: '2017-03-24 20:20'
-				},
-				{
-					id: 3,
-					location: 'alenbi 2 tel aviv',
-					time: '2017-04-02 08:00'
-				},
-				{
-					id: 4,
-					location: 'oshiskin 12 tel aviv',
-					time: '2017-05-01 21:00'
-				},
-				{
-					id: 5,
-					location: 'queen 380 hadera',
-					time: '2017-01-18 10:15'
-				}
-			];
-			$scope.items2 = [{
-					id: 1,
-					location: 'even gvirol 12 eilat',
-					time: '2017-03-10 14:20'
-				},
-				{
-					id: 2,
-					location: 'even gvirol 15 eilat',
-					time: '2017-03-30 20:20'
-				},
-				{
-					id: 3,
-					location: 'alenbi 2 eilat',
-					time: '2017-04-29 08:00'
-				},
-				{
-					id: 4,
-					location: 'oshiskin 12 eilat',
-					time: '2017-05-02 21:00'
-				},
-				{
-					id: 5,
-					location: 'queen 380 eilat',
-					time: '2017-10-18 10:15'
-				}
-			];
+			$scope.items = [];
+			$scope.items2 = [];
+			// Should be searcher_id
+			userDetails = {
+				user_id: UserService.getUser().email
+			};
+			$http.post("http://smartserver1.herokuapp.com/historyBooking").then((res) => {
+				angular.forEach(res.data, (v, k) => {
+					timeOfParking = new Date(v.time);
+					$scope.items.push({
+						location: `${v.location.city} ${v.location.street} ${v.location.number}`,
+						time: v.time.replace("T", " ").replace("Z", "")
+					})
+				});
+			});
 
+			$http.post("http://smartserver1.herokuapp.com/historyParking").then((res) => {
+				angular.forEach(res.data, (v, k) => {
+					timeOfParking = new Date(v.time);
+					$scope.items2.push({
+						location: `${v.location.city} ${v.location.street} ${v.location.number}`,
+						time: v.time.replace("T", " ").replace("Z", "")
+					})
+				});
+			});
 		}
 	])
 
-.controller('MyCtrlSearchesHistory', ['$scope',
+	.controller('MyCtrlSearchesHistory', ['$scope',
 		function($scope) {
 			$scope.data = {
 				showDelete: false
 			};
 			$scope.onItemDelete = function(item) {
-
 				$scope.items.splice($scope.items.indexOf(item), 1);
-
 			}
 		}
 	])
 
-.controller('MyCtrlReportsHistory', ['$scope',
+	.controller('MyCtrlReportsHistory', ['$scope',
 		function($scope) {
 			$scope.data = {
 				showDelete: false
@@ -982,7 +962,7 @@ angular
 		}
 	])
 
-.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+	.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush) {
 			$scope.formSignupParams = {
 				name: $stateParams.name,
@@ -1009,24 +989,23 @@ angular
 				.post('http://smartserver1.herokuapp.com/createUser/', userDetails)
 				.success(function(answer) {
 					console.log(answer);
-					if(answer){
+					if (answer) {
 						$ionicAuth
-						.signup(details)
-						.then(function() {
-							$localStorage.userLoginData = userDetails;
-							$state.go('menu.home');
-							return $ionicAuth.login('basic', details);
-						}, function(err) {
-							for (var e of err.details) {
-								if (e === 'conflict_email') {
-									alert('Email already exists.');
-								} else {
-									console.log(err.details);
+							.signup(details)
+							.then(function() {
+								$localStorage.userLoginData = userDetails;
+								$state.go('menu.home');
+								return $ionicAuth.login('basic', details);
+							}, function(err) {
+								for (var e of err.details) {
+									if (e === 'conflict_email') {
+										alert('Email already exists.');
+									} else {
+										console.log(err.details);
+									}
 								}
-							}
-						});
-					}
-					else {
+							});
+					} else {
 						alert('Email already exists. please try again!');
 					}
 				})
@@ -1038,11 +1017,11 @@ angular
 		}
 	])
 
-.controller('mySmartiesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+	.controller('mySmartiesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams) {}
 	])
 
-.controller('mapINCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+	.controller('mapINCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading, $location) {
 			$scope.init = function() {
 				$scope.chosenLocation;
@@ -1081,19 +1060,19 @@ angular
 					map.setZoom(map.zoom);
 					map.setCenter(this.getPosition());
 					$http
-						.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA')
-						.success(function(jsn) {
-							$scope.chosenLocation = {
-								formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
-								number: jsn.results[0].address_components[0].short_name,
-								street: jsn.results[0].address_components[1].short_name,
-								city: jsn.results[0].address_components[2].short_name,
-								country: jsn.results[0].address_components[4].short_name,
-								lat: jsn.results[0].geometry.location.lat,
-								lng: jsn.results[0].geometry.location.lng
-							}
-							console.log('returnd info: ' + jsn.results[0].formatted_address);
-						});
+					.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA')
+					.success(function(jsn) {
+						$scope.chosenLocation = {
+							formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
+							number: jsn.results[0].address_components[0].short_name,
+							street: jsn.results[0].address_components[1].short_name,
+							city: jsn.results[0].address_components[2].short_name,
+							country: jsn.results[0].address_components[4].short_name,
+							lat: jsn.results[0].geometry.location.lat,
+							lng: jsn.results[0].geometry.location.lng
+						}
+						console.log('returnd info: ' + jsn.results[0].formatted_address);
+					});
 				});
 				$scope.continue = function() {
 					$state.go('menu.in', $scope.chosenLocation)
@@ -1108,7 +1087,7 @@ angular
 		}
 	])
 
-.controller('mapOUTCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+	.controller('mapOUTCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading) {
 			$scope.init = function() {
 				$scope.chosenLocation;
@@ -1147,23 +1126,22 @@ angular
 					map.setZoom(map.zoom);
 					map.setCenter(this.getPosition());
 					$http
-						.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA')
-						.success(function(jsn) {
-							$scope.chosenLocation = {
-								formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
-								number: jsn.results[0].address_components[0].short_name,
-								street: jsn.results[0].address_components[1].short_name,
-								city: jsn.results[0].address_components[2].short_name,
-								country: jsn.results[0].address_components[4].short_name,
-								lat: jsn.results[0].geometry.location.lat,
-								lng: jsn.results[0].geometry.location.lng
-							}
-							console.log('returnd info: ' + jsn.results[0].formatted_address);
-						});
+					.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA')
+					.success(function(jsn) {
+						$scope.chosenLocation = {
+							formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
+							number: jsn.results[0].address_components[0].short_name,
+							street: jsn.results[0].address_components[1].short_name,
+							city: jsn.results[0].address_components[2].short_name,
+							country: jsn.results[0].address_components[4].short_name,
+							lat: jsn.results[0].geometry.location.lat,
+							lng: jsn.results[0].geometry.location.lng
+						}
+						console.log('returnd info: ' + jsn.results[0].formatted_address);
+					});
 				});
 				$scope.continue = function() {
 					$state.go('menu.out', $scope.chosenLocation)
-					// $state.go('menu.mapOUT', $scope.formOutParams);
 				}
 			};
 		}
