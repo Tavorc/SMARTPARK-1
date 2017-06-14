@@ -1,7 +1,7 @@
 <ion-view title="IN" id="page1">
-  <ion-content padding="true" class="has-header">
-    <form id="in-form10" class="list">
-      <label class="item item-select" id="in-select4" name="distance">
+	<ion-content padding="true" class="has-header">
+		<form id="in-form10" class="list">
+			<label class="item item-select" id="in-select4" name="distance">
         <span class="input-label"><span style="color: #2dace2">[</span><b> Distance </b></span>
         <select ng-model="booking.distance">
             <option>0.1 km</option>
@@ -17,40 +17,40 @@
             <option>2 km</option>
         </select>
       </label>
-      <label class="item item-input" id="out-select6" name="date">
+			<label class="item item-input" id="out-select6" name="date">
         <span class="input-label"><span style="color: #2dace2">[</span> <b> Date</b></span>
         <input type="date" id="out-select6" name="date" ng-model="time.d" placeholder="yyyy-MM-dd" min="2017-01-01" max="2019-12-31" required />
       </label>
-      <label class="item item-input" id="out-select7" name="time">
+			<label class="item item-input" id="out-select7" name="time">
         <span class="input-label"><span style="color: #2dace2">[</span> <b> Time</b></span>
-        <input type="time" id="out-select7" name="time" ng-model="time.t" required />
+        <input type="time" id="out-select7" name="time" placeholder="HH:MM" ng-model="time.t" required />
       </label>
-      <a ui-sref="menu.mapIN" id="in-button8" class="button button-positive button-small button-block icon ion-android-locate"> Choose location...</a>
-      <label class="item item-input" id="in-input10" name="street">
+			<a ui-sref="menu.mapIN" id="in-button8" class="button button-positive button-small button-block icon ion-android-locate"> Choose location...</a>
+			<label class="item item-input" id="in-input10" name="street">
         <span class="input-label"><span style="color: #2dace2">[</span><b> Street</b></span>
         <input type="text" placeholder="Auto" ng-model="booking.location.street">
       </label>
-      <label class="item item-input" id="in-input11" name="number">
+			<label class="item item-input" id="in-input11" name="number">
         <span class="input-label"><span style="color: #2dace2">[</span><b> Number</b></span>
         <input type="text" placeholder="Auto" ng-model="booking.location.number">
       </label>
-      <label class="item item-input" id="in-input12" name="city">
+			<label class="item item-input" id="in-input12" name="city">
         <span class="input-label"><span style="color: #2dace2">[</span><b> City</b></span>
         <input type="text" placeholder="Auto" ng-model="booking.location.city">
       </label>
-      <label class="item item-input" id="in-input13" name="country">
+			<label class="item item-input" id="in-input13" name="country">
         <span class="input-label"><span style="color: #2dace2">[</span><b> Country</b></span>
         <input type="text" placeholder="Auto" ng-model="booking.location.country">
       </label>
-      <!-- <ion-checkbox id="in-checkbox1" name="handicap">Handicap</ion-checkbox> -->
-      <!-- <ion-toggle toggle-class="toggle-positive" id="in-toggle1" name="picture" ng-model="booking.picture">Add picture</ion-toggle> -->
-      <div id="in-button-bar1" class="button-bar">
-        <a ui-sref="menu.home" id="in-button12" class="button button-dark  button-block icon ion-android-cancel circle-button"></a>
-        <a ng-click="getInfoFromServer()" id="in-button13" class="button button-calm  button-block icon ion-paper-airplane circle-button" ></a>
-       <p id="cancelIn"> <span style="color: #2dace2">[</span> <span style="color: #000000"><b>CANCEL</b></span><span style="color: #2dace2"> ]</span></p>
-       <p id="cancelDone"> <span style="color: #2dace2">[</span> <span style="color: #000000"><b>DONE</b></span><span style="color: #2dace2"> ]</span></p>
-        <!--ng-disabled="!(time.d && time.t)"-->
-      </div>
-    </form>
-  </ion-content>
+			<!-- <ion-checkbox id="in-checkbox1" name="handicap">Handicap</ion-checkbox> -->
+			<!-- <ion-toggle toggle-class="toggle-positive" id="in-toggle1" name="picture" ng-model="booking.picture">Add picture</ion-toggle> -->
+			<div id="in-button-bar1" class="button-bar">
+				<a ui-sref="menu.home" id="in-button12" class="button button-dark  button-block icon ion-android-cancel circle-button"></a>
+				<a ng-click="getInfoFromServer()" id="in-button13" class="button button-calm  button-block icon ion-paper-airplane circle-button"></a>
+				<p id="cancelIn"> <span style="color: #2dace2">[</span> <span style="color: #000000"><b>CANCEL</b></span><span style="color: #2dace2"> ]</span></p>
+				<p id="cancelDone"> <span style="color: #2dace2">[</span> <span style="color: #000000"><b>DONE</b></span><span style="color: #2dace2"> ]</span></p>
+				<!--ng-disabled="!(time.d && time.t)"-->
+			</div>
+		</form>
+	</ion-content>
 </ion-view>

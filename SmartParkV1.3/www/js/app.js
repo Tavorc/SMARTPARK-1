@@ -61,7 +61,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 						if (res) {
 							// if yes: incPoints(publisherId);
 							$http
-							.get(`http://localhost:8000/incPoints/${selectedParking.publisherId}/1`)
+							.get(`https://smartparkil.herokuapp.com/incPoints/${selectedParking.publisherId}/1`)
 							//http://smartserver1.herokuapp.com/
 							//http://localhost:8000/
 							//https://smartparkil.herokuapp.com/
