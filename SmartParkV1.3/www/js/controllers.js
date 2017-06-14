@@ -178,8 +178,8 @@ angular
 	//
 	// }])
 
-	.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush) {
+	.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', '$cordovaSocialSharing',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush, $cordovaSocialSharing) {
 			var userN = UserService.getUser().givenName;
 
 			console.log("user: " + userN);
@@ -200,6 +200,16 @@ angular
 			}
 			$scope.pushNotification = {
 				checked: true
+			};
+			$scope.inviteFriend = function(){
+				var message='Hello, click into the link and download the app  ', subject='SmartPark Social Networking for Parking', link='www.smartpark.com',image='./img/logo.jpg',file=['', ''];
+				 $cordovaSocialSharing
+				    .share(message, subject, file, link) // Share via native share sheet
+				    .then(function(result) {
+				      // Success!
+				    }, function(err) {
+				      // An error occured. Show a message to the user
+				    });
 			};
 			$scope.pushNotificationChange = function() {
 				if ($scope.pushNotification.checked == true) {
