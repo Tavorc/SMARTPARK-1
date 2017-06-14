@@ -125,7 +125,7 @@ angular
 					})
 					.then(function(t) {
 						console.log('Token saved:', t.token);
-						$scope.parking.publisherId = t.token;
+						$scope.parking.publisherToken = t.token;
 						// callback(t.token);
 						return t.token;
 					});
