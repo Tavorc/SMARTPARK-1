@@ -5,6 +5,7 @@
     "dependencies": {
         "@ionic/cloud": "^0.16.0",
         "bluebird": "^3.5.0",
+        "cordova": "^7.0.1",
         "cordova-android": "^6.2.3",
         "cordova-plugin-app-event": "file:node_modules\\cordova-plugin-app-event",
         "cordova-plugin-compat": "^1.0.0",
@@ -59,8 +60,6 @@
             "de.appplant.cordova.plugin.local-notification": {},
             "uk.co.workingedge.phonegap.plugin.launchnavigator": {}
         },
-        "platforms": [
-            "android"
-        ]
+        "platforms": []
     }
 }

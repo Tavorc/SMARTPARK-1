@@ -45,7 +45,7 @@ angular
 							setTimeout(function() {
 								console.log($scope.booking);
 								$http
-									.post('http://localhost:8000/searchparking/searchparking/', $scope.booking)
+									.post('https://smartparkil.herokuapp.com/searchparking/', $scope.booking)
 									//http://smartserver1.herokuapp.com/searchparking/
 									//http://localhost:8000/searchparking/
 									//https://smartparkil.herokuapp.com/
@@ -77,9 +77,6 @@ angular
 	.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', '$ionicPush', 'd3TimeFormat',
 		function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, UserService, $ionicPush, d3TimeFormat) {
 			var publisherEmail = UserService.getUser().email;
-
-
-
 			var reportParkCoords = {
 				lat: $stateParams.lat,
 				lng: $stateParams.lng
@@ -114,7 +111,7 @@ angular
 				size: 3,
 				publisherId: publisherEmail,
 				publisherToken: null,//getPublisherToken(token => {console.log(token); return token;}),
-				currentCar: $localStorage.userLoginData.carId
+				// currentCar: $localStorage.userLoginData.carId
 			}
 			// function getPublisherToken(callback) {
 				$ionicPush
@@ -153,7 +150,7 @@ angular
 					});
 					setTimeout(function() {
 						$http
-							.post('http://localhost:8000/searchparking/addnewparking/', $scope.parking)
+							.post('https://smartparkil.herokuapp.com/addnewparking/', $scope.parking)
 							//http://smartserver1.herokuapp.com/addnewparking/
 							//http://localhost:8000/addnewparking/
 							//https://smartparkil.herokuapp.com/
@@ -303,7 +300,7 @@ angular
 									emailToCheck = user_data.email,
 									userPass = 'gtoken';
 								$http
-									.get('http://smartserver1.herokuapp.com/readUser/' + emailToCheck + '/' + userPass)
+									.get('https://smartparkil.herokuapp.com/readUser/' + emailToCheck + '/' + userPass)
 									//http://smartserver1.herokuapp.com/
 									//http://localhost:8000/
 									//https://smartparkil.herokuapp.com/
@@ -338,7 +335,7 @@ angular
 																	smarties: 5
 																};
 																$http
-																	.post('http://smartserver1.herokuapp.com/createUser/', userDetails)
+																	.post('https://smartparkil.herokuapp.com/createUser/', userDetails)
 																	//http://smartserver1.herokuapp.com/
 																	//http://localhost:8000/
 																	//https://smartparkil.herokuapp.com/
@@ -383,7 +380,7 @@ angular
 					'password': $scope.formSignInParams.password
 				};
 				$http
-					.get('http://smartserver1.herokuapp.com/readUser/' + details.email + '/' + details.password)
+					.get('https://smartparkil.herokuapp.com/readUser/' + details.email + '/' + details.password)
 					//http://smartserver1.herokuapp.com/
 					//http://localhost:8000/
 					//https://smartparkil.herokuapp.com/
@@ -572,7 +569,7 @@ angular
 															bookingId: bookingId
 														};
 														$http
-															.post('http://smartserver1.herokuapp.com/cancelParking/', cancelDetails)
+															.post('https://smartparkil.herokuapp.com/cancelParking/', cancelDetails)
 															.success(function(answer) {
 																cordova.plugins.notification.local.cancel(10, function() {
 																	// Notification was cancelled
@@ -649,7 +646,7 @@ angular
 													parkingId: tempo
 												};
 												$http
-													.post('http://smartserver1.herokuapp.com/deleteParking/', reports)
+													.post('https://smartparkil.herokuapp.com/deleteParking/', reports)
 													.success(function(answer) {
 														var reportCoords = { // FIXME: what is it for?
 															lat: -86,
@@ -839,7 +836,7 @@ angular
 											parkingId: $localStorage.choosenIdParking
 										};
 										$http
-											.post('http://smartserver1.herokuapp.com/chooseParking/', chooseDetails)
+											.post('https://smartparkil.herokuapp.com/chooseParking/', chooseDetails)
 											.success(function(answer) {
 												$localStorage.flagChose = true;
 												$ionicLoading.show({
@@ -933,7 +930,7 @@ angular
 			userDetails = {
 				user_id: UserService.getUser().email
 			};
-			$http.post("http://smartserver1.herokuapp.com/historyBooking").then((res) => {
+			$http.post('https://smartparkil.herokuapp.com/historyBooking').then((res) => {
 				res.data.forEach((v, k) => {
 					timeOfParking = new Date(v.time);
 					$scope.items.push({
@@ -943,7 +940,7 @@ angular
 				});
 			});
 
-			$http.post("http://smartserver1.herokuapp.com/historyParking").then((res) => {
+			$http.post('https://smartparkil.herokuapp.com/historyParking').then((res) => {
 				res.data.forEach((v, k) => {
 					timeOfParking = new Date(v.time);
 					$scope.items2.push({
@@ -1001,7 +998,7 @@ angular
 				};
 				UserService.setUser(userData);
 				$http
-				.post('http://smartserver1.herokuapp.com/createUser/', userDetails)
+				.post('https://smartparkil.herokuapp.com/createUser/', userDetails)
 				.success(function(answer) {
 					console.log(answer);
 					if (answer) {
