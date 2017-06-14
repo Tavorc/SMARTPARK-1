@@ -82,4 +82,5 @@
     <plugin name="phonegap-plugin-push" spec="^1.10.5">
         <variable name="SENDER_ID" value="1094228718719" />
     </plugin>
+    <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^3.2.2" />
 </widget>

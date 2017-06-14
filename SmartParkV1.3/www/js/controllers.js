@@ -143,7 +143,7 @@ angular
 					// error
 				});
 			}
-
+			$localStorage.answerReporterDetails = $scope.parking;
 			$scope.getInfoFromServer = function() {
 				d3TimeFormat.toLocalDate($scope.time, (formatedTime) => {
 					$scope.parking.time = formatedTime;
@@ -158,7 +158,6 @@ angular
 							//https://smartparkil.herokuapp.com/
 							.success(function(answer) {
 								console.log(answer);
-								$localStorage.answerReporterDetails = answer;
 								window.localStorage.setItem("repo", answer.id);
 								console.log(window.localStorage.getItem("repo"));
 								$state.go('menu.home', {
@@ -412,8 +411,8 @@ angular
 		}
 	])
 
-	.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage, $ionicPush) {
+	.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', '$ionicPush', '$cordovaLaunchNavigator', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage, $ionicPush, $cordovaLaunchNavigator) {
 			$scope.$on('cloud:push:notification', function(event, data) {
 				var msg = data.message;
 				alert(msg.title + ': ' + msg.text);
@@ -547,7 +546,14 @@ angular
 														var latToNavigate = $localStorage.myChose.lat,
 															lngToNavigate = $localStorage.myChose.lng;
 														console.log(latToNavigate + " : " + lngToNavigate);
-														WazeLink.open('waze://?ll=' + latToNavigate + ',' + lngToNavigate);
+														// WazeLink.open('waze://?ll=' + latToNavigate + ',' + lngToNavigate);
+														   var destination = [latToNavigate, lngToNavigate];
+															var start = [locationResult.lat,locationResult.lng];
+														    $cordovaLaunchNavigator.navigate(destination, start).then(function() {
+														      console.log("Navigator launched");
+														    }, function (err) {
+														      console.error(err);
+														    });
 													}
 													if (index == 1) {
 														var detailsChoose = $localStorage.myChoseDetails;
@@ -627,6 +633,7 @@ angular
 										buttonClicked: function(index) {
 											if (index == 0) {
 												var detailsReporter = $localStorage.answerReporterDetails;
+												console.log(detailsReporter);
 												var dateTime = new Date(detailsReporter.time);
 												console.log(dateTime);
 												var alertPopup = $ionicPopup.alert({
@@ -702,7 +709,7 @@ angular
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicActionSheet, $timeout, $ionicPopup, UserService, $localStorage, sendPush) {
 			$scope.init = function() {
 				console.log($localStorage.answer);
-				var massege = '';
+				var massege = " ";
 				var locations = $localStorage.answer.results;
 
 				function getLocation(callback) { //NOTE: can be as a service component
@@ -811,7 +818,7 @@ angular
 									}
 									if (index == 0) {
 										massege = 'Someone intrested in your parking!'
-										sendPush.pushToPublisher(loc.publisherToken, message); //NOTE here is the push service
+										sendPush.pushToPublisher(loc.publisherToken, massege); //NOTE here is the push service
 										var alertPopup = $ionicPopup.alert({
 											title: 'Details',
 											template: 'Description: ' + loc.description + '<br>address: ' + loc.location.city + "," + loc.location.street + ',' + loc.location.number + '<br> time: ' + loc.time + '<br>occupied:' + statusChose
@@ -820,7 +827,7 @@ angular
 									if (index == 1) {
 										$localStorage.chosenParking = loc;
 										massege = 'Someone reserved your parking!'
-										sendPush.pushToPublisher(loc.publisherToken, message); //NOTE here is the push service
+										sendPush.pushToPublisher(loc.publisherToken, massege); //NOTE here is the push service
 										console.log(loc);
 										var bookingId = $localStorage.answer.bookingId;
 										var searchId = UserService.getUser().email;

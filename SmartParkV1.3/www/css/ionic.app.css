@@ -1,20 +1,4 @@
 @charset "UTF-8";
-/*
-To customize the look and feel of Ionic, you can override the variables
-in ionic's _variables.scss file.
-
-For example, you might change some of the default colors:
-
-$light:                           #fff !default;
-$stable:                          #f8f8f8 !default;
-$positive:                        #387ef5 !default;
-$calm:                            #11c1f3 !default;
-$balanced:                        #33cd5f !default;
-$energized:                       #ffc900 !default;
-$assertive:                       #ef473a !default;
-$royal:                           #886aea !default;
-$dark:                            #444 !default;
-*/
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -26,6 +10,25 @@ $dark:                            #444 !default;
   used under CC BY http://creativecommons.org/licenses/by/4.0/
   Modified icons to fit ionicon’s grid from original.
 */
+#mapHOME{
+  position: absolute;
+}
+#in-button-bar1{
+margin-top: 6%;
+}
+#cancelIn{
+  position: absolute;
+  margin-top: 20%;
+  margin-left: 13%;
+  font-size: 20px;
+}
+#cancelDone{
+  position: absolute;
+  margin-top: 20%;
+  margin-left: 66%;
+  font-size: 20px;
+}
+
 #mapHOME {
 	position: absolute;
 }
@@ -59,6 +62,103 @@ $dark:                            #444 !default;
   position: absolute;
   margin-left: 72%;
   margin-top: 2%;
+}
+a:hover{
+  text-decoration: none !important;
+  /*color: black;*/
+}
+#page4{
+  background-color: #808080;
+    opacity: .5;
+}
+.logoLogin{
+  width:190px ;
+  height:150px;
+}
+.cardLogin{
+  border-style: solid;
+  border-width: 3px;
+  border-color:#80d4ff;
+  padding: 10px;
+  margin-top: 40px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  background-color: #f2f2f2;
+}
+#signup-button4{
+  background-color: #2dace2;
+  color:#ffffff;
+  margin-top: 40px;
+}
+#page8{
+  background-color: #808080;
+    opacity: .5;
+}
+#login-button1{
+  background-color: #2dace2;
+  color:#ffffff;
+}
+.scroll {
+    height: 100%;
+}
+#pIn{
+z-index: 100;
+position: absolute;
+margin-left: 20%;
+margin-top: 125%;
+font-size: 30px;
+}
+#pOut{
+ z-index: 100;
+ position: absolute;
+ margin-left: 61%;
+ margin-top: 125%;
+ font-size: 30px;
+}
+.map {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.circle-button{
+    border-radius:25px 25px 25px 25px !important;
+}
+
+#selectionBox{
+  position: absolute;
+  top: 1px;
+  /*left: 10px; */
+  z-index: 9;
+  opacity: 0.7;
+  /*background: #FAF3CE;*/
+}
+
+.platform-ios .manual-ios-statusbar-padding{
+  padding-top:20px;
+}
+.manual-remove-top-padding{
+  padding-top:0px;
+}
+.manual-remove-top-padding .scroll{
+  padding-top:0px !important;
+}
+ion-list.manual-list-fullwidth div.list, .list.card.manual-card-fullwidth {
+  margin-left:-10px;
+  margin-right:-10px;
+}
+ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidth > .item {
+  border-radius:0px;
+  border-left:0px;
+  border-right: 0px;
+}
+.show-list-numbers-and-dots ul{
+  list-style-type: disc;
+  padding-left:40px;
+}
+.show-list-numbers-and-dots ol{
+  list-style-type: decimal;
+  padding-left:40px;
 }
 a:hover {
 	text-decoration: none !important;
@@ -3962,7 +4062,7 @@ a.subdued {
   .action-sheet-open .action-sheet-backdrop {
     pointer-events: auto; }
 
-.platform-android .action-sheet-backdrop.active {
+/*.platform-android .action-sheet-backdrop.active {
   background-color: rgba(0, 0, 0, 0.2); }
 
 .platform-android .action-sheet {
@@ -3990,7 +4090,36 @@ a.subdued {
   display: none; }
 
 .platform-android .action-sheet-has-icons .button {
-  padding-left: 56px; }
+  padding-left: 56px; }*/
+ .platform-android .action-sheet-backdrop.active {
+background-color: rgba(0, 0, 0, 0.1); }
+    .platform-android .action-sheet {
+align-content: center;
+margin:auto;
+max-width: 96vw;
+border-radius: 5px;
+/*margin: 0;*/
+margin-bottom: 10px;}
+    .platform-android .action-sheet .action-sheet-title, .platform-android .action-sheet .button {
+text-align: left;
+/*border-color: #e2e2e2;*/
+font-size: 16px;
+color: inherit;}
+    .platform-android .action-sheet .action-sheet-title {
+font-size: 14px;
+padding: 16px;
+color: #666; }
+    .platform-android .action-sheet .button {
+border-color: #e2e2e2;
+padding-left: 16px;
+color: #104e89;
+    }
+    .platform-android .action-sheet .button.destructive {
+color: red;
+    }
+    .platform-android .action-sheet-cancel {
+    display: block !important;
+}
 
 .backdrop {
   position: fixed;
@@ -6767,9 +6896,11 @@ button.item.item-button-right {
   margin-bottom: 20px; }
 
 .list:last-child {
-  margin-bottom: 0px; }
+  margin-bottom: 0px; 
+}
   .list:last-child.card {
-    margin-bottom: 40px; }
+    margin-bottom: 40px; 
+}
 
 /**
  * List Header
@@ -6795,12 +6926,14 @@ button.item.item-button-right {
 .list-inset {
   overflow: hidden;
   margin: 20px 10px;
-  border-radius: 2px;
-  background-color: #fff; }
+  border-radius: 8px;
+  background-color: #fff;
+   }
 
 .card {
   padding-top: 1px;
   padding-bottom: 1px;
+  border-color: #ff0000;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
   .card .item {
     border-left: 0;
