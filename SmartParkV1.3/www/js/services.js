@@ -70,14 +70,23 @@ angular.module('app.services', ['ngStorage'])
 				}
 			};
 
-			// Make the API call
-			$http(req).success(resp => {
-				// Handle success
-				console.log(`Push to publisherID: ${publisherId}`);
+			// // Make the API call
+			// $http(req).success(resp => {
+			// 	// Handle success
+			// 	console.log(`Push to publisherID: ${publisherId}`);
+			// 	console.log("Ionic Push: Push success", resp);
+			// }).error(error => {
+			// 	// Handle error
+			// 	console.log("Ionic Push: Push error", error);
+			// });
+			
+			$http(req).success(function(resp){
+			  // Handle success
+			  console.log(`Push to publisherID: ${publisherId}`);
 				console.log("Ionic Push: Push success", resp);
-			}).error(error => {
-				// Handle error
-				console.log("Ionic Push: Push error", error);
+			}).error(function(error){
+			  // Handle error 
+			  console.log("Ionic Push: Push error", error);
 			});
 		}
 	})
