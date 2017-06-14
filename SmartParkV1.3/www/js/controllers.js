@@ -45,7 +45,7 @@ angular
 							setTimeout(function() {
 								console.log($scope.booking);
 								$http
-									.post('https://smartserver1.herokuapp.com/searchparking/', $scope.booking)
+									.post('https://smartparkil.herokuapp.com/searchparking/', $scope.booking)
 									//http://smartserver1.herokuapp.com/searchparking/
 									//http://localhost:8000/searchparking/
 									//https://smartparkil.herokuapp.com/
@@ -130,19 +130,20 @@ angular
 						return t.token;
 					});
 			// };
-			$scope.openCamera = function() {
-				var options = {
-					destinationType: Camera.DestinationType.FILE_URI,
-					sourceType: Camera.PictureSourceType.CAMERA,
-				};
-				$cordovaCamera.getPicture(options).then(function(imageURI) {
-					var image = document.getElementById('myImage');
-					// $scope.parking.img = imageURI;
-					// console.log($scope.img);
-				}, function(err) {
-					// error
-				});
-			}
+
+			// $scope.openCamera = function() {
+			// 	var options = {
+			// 		destinationType: Camera.DestinationType.FILE_URI,
+			// 		sourceType: Camera.PictureSourceType.CAMERA,
+			// 	};
+			// 	$cordovaCamera.getPicture(options).then(function(imageURI) {
+			// 		var image = document.getElementById('myImage');
+			// 		// $scope.parking.img = imageURI;
+			// 		// console.log($scope.img);
+			// 	}, function(err) {
+			// 		// error
+			// 	});
+			// }
 			$localStorage.answerReporterDetails = $scope.parking;
 			$scope.getInfoFromServer = function() {
 				d3TimeFormat.toLocalDate($scope.time, (formatedTime) => {
@@ -152,7 +153,7 @@ angular
 					});
 					setTimeout(function() {
 						$http
-							.post('https://smartserver1.herokuapp.com/addnewparking/', $scope.parking)
+							.post('https://smartparkil.herokuapp.com/addnewparking/', $scope.parking)
 							//http://smartserver1.herokuapp.com/addnewparking/
 							//http://localhost:8000/addnewparking/
 							//https://smartparkil.herokuapp.com/
