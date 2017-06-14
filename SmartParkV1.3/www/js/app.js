@@ -77,11 +77,6 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 								console.log(`error while trying to update points!`);
 							});
 
-							// var locSelect = {
-							// 	lat: -86,
-							// 	lng: -86
-							// };
-							// StorageService.add(locSelect);
 						} else {
 							var myPopup = $ionicPopup.show({
 								template: '<input type="text"  ng-model="data.carNum">',
