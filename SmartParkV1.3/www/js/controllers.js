@@ -511,6 +511,7 @@ angular
 							if ($localStorage.flagChose == true) {
 								var parkChosen = $localStorage.myChose;
 								console.log(parkChosen);
+								map.setCenter(new google.maps.LatLng(parkChosen.lat, parkChosen.lng));
 								$scope.choseLocation;
 								$ionicLoading.hide();
 								if (parkChosen.lat != -86) {
@@ -790,7 +791,6 @@ angular
 							content: 'Latitude: ' + loc.location.coords[0] + '<br>Longitude: ' + loc.location.coords[1]
 						})
 						google.maps.event.addListener(tempMarker, 'click', function(event) {
-							infowindow.open(map, tempMarker);
 							var hideSheet = $ionicActionSheet.show({
 								buttons: [{
 										text: 'Details'
