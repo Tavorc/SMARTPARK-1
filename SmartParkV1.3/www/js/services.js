@@ -38,7 +38,7 @@ angular.module('app.services', ['ngStorage'])
 
 
 	.service('sendPush', function($http) {
-		this.pushToPublisher = function(publisherId, message) {
+		this.pushToPublisher = function(publisherId) {
 			// Define relevant info
 			var jwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2YWRjYTRlMy0wYWNjLTQ3NDAtYmRmZS1lZDdlOWZhZTk4NTMifQ.mXx2ulV4fl5k0TKs-0FOIbyxChpn0A2icQlhhjFR5a0';
 			var tokens = [publisherId] //['dKn5i2rnsMI:APA91bF5tvcAkudiU7OqypPO3nzLHciyGHp1sYkSLQLzn_vBRym5LoozcOO27Tu2ditc5lmBqLB285x65knWLICC1o1zGBAxGM4N5wA46KM6o6BmjT13cJYigDODZ-xx8vL-udLf3Qbd'];
@@ -56,15 +56,15 @@ angular.module('app.services', ['ngStorage'])
 					"tokens": tokens,
 					"profile": profile,
 					"notification": {
-						"title": "Hi :)",
-						"message": message,
+						"title": "Hi",
+						"message": "Hello world!",
 						"android": {
-							"title": "Hey Android",
-							"message": message
+							"title": "Hey",
+							"message": "Hello Android!"
 						},
 						"ios": {
-							"title": "Howdy iOS",
-							"message": message
+							"title": "Howdy",
+							"message": "Hello iOS!"
 						}
 					}
 				}
@@ -97,9 +97,6 @@ angular.module('app.services', ['ngStorage'])
 			console.log(`formated: ${formatedDate}`);
 			console.log(`${formatedDate.toString()}`)
 			callback(formatedDate);
-		};
-		this.toClean = (date) => {
-			return formatDate(new Date(`${date}`))
 		};
 	})
 	.service('BlankService', [function() {
