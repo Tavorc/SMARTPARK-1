@@ -78,18 +78,7 @@ angular
 		function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, UserService, $ionicPush, d3TimeFormat) {
 			var publisherEmail = UserService.getUser().email;
 
-			function getPublisherToken(callback) {
-				$ionicPush
-					.register()
-					.then(function(t) {
-						console.log(t);
-						return $ionicPush.saveToken(t);
-					})
-					.then(function(t) {
-						console.log('Token saved:', t.token);
-						return callback(t.token);
-					});
-			};
+
 
 			var reportParkCoords = {
 				lat: $stateParams.lat,
@@ -124,10 +113,23 @@ angular
 				img: null, //NOTE: it will change if $scope.openCamera will be called.
 				size: 3,
 				publisherId: publisherEmail,
-				publisherToken: publisherToken(t => {return t;}),
+				publisherToken: null,//getPublisherToken(token => {console.log(token); return token;}),
 				currentCar: $localStorage.userLoginData.carId
 			}
-
+			// function getPublisherToken(callback) {
+				$ionicPush
+					.register()
+					.then(function(t) {
+						console.log(t);
+						return $ionicPush.saveToken(t);
+					})
+					.then(function(t) {
+						console.log('Token saved:', t.token);
+						$scope.parking.publisherId = t.token;
+						// callback(t.token);
+						return t.token;
+					});
+			// };
 			$scope.openCamera = function() {
 				var options = {
 					destinationType: Camera.DestinationType.FILE_URI,

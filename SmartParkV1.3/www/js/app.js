@@ -61,7 +61,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 						if (res) {
 							// if yes: incPoints(publisherId);
 							$http
-							.get(`http:localhost:8000/incPoints/${selectedParking.publisherId}/1`)
+							.get(`https://smartparkil.herokuapp.com/incPoints/${selectedParking.publisherId}/1`)
 							//http://smartserver1.herokuapp.com/
 							//http://localhost:8000/
 							//https://smartparkil.herokuapp.com/
@@ -69,7 +69,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 								console.log(`success: ${response}`);
 								//DAVID tell to server that the parking is avialible and the publisher need to get 1 smartiz
 								$http
-								.get(`http:localhost:8000/setParking/${selectedParking.parkingId}/false`)
+								.get(`https://smartparkil.herokuapp.com/setParking/${selectedParking.parkingId}/false`)
 								.success(function(obj) {$state.go('home')})
 								.error(function(err) {throw err});
 							})
@@ -106,7 +106,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 								if (answer != selectedParking.carId)
 									points *= (-1);
 								$http
-								.get(`http:localhost:8000/incPoints/${selectedParking.publisherId}/${points}`)
+								.get(`https://smartparkil.herokuapp.com/incPoints/${selectedParking.publisherId}/${points}`)
 								//http://smartserver1.herokuapp.com/
 								//http://localhost:8000/
 								//https://smartparkil.herokuapp.com/

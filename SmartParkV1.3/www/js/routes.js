@@ -153,7 +153,7 @@ angular
 				url: '/searchHistory',
 				views: {
 					'searches-tab': {
-						templateUrl: 'templates/myHistory.html',///#searchesHistory
+						templateUrl: 'templates/myHistory.html',
 						controller: 'MyCtrlSearchesHistory'
 					}
 				}
@@ -162,7 +162,7 @@ angular
 				url: '/reportsHistory',
 				views: {
 					'reports-tab': {
-						templateUrl: 'templates/myHistory.html',///#reportsHistory
+						templateUrl: 'templates/myHistory.html',
 						controller: 'MyCtrlReportsHistory'
 					}
 				}
