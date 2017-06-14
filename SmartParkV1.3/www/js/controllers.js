@@ -45,7 +45,7 @@ angular
 							setTimeout(function() {
 								console.log($scope.booking);
 								$http
-									.post('https://smartparkil.herokuapp.com/searchparking/', $scope.booking)
+									.post('http://localhost:8000/searchparking/searchparking/', $scope.booking)
 									//http://smartserver1.herokuapp.com/searchparking/
 									//http://localhost:8000/searchparking/
 									//https://smartparkil.herokuapp.com/
@@ -153,7 +153,7 @@ angular
 					});
 					setTimeout(function() {
 						$http
-							.post('https://smartparkil.herokuapp.com/addnewparking/', $scope.parking)
+							.post('http://localhost:8000/searchparking/addnewparking/', $scope.parking)
 							//http://smartserver1.herokuapp.com/addnewparking/
 							//http://localhost:8000/addnewparking/
 							//https://smartparkil.herokuapp.com/
