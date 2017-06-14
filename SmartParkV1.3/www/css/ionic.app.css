@@ -28,17 +28,23 @@ margin-top: 6%;
   margin-left: 66%;
   font-size: 20px;
 }
-#imgIn{
-  z-index: 99;
-  position: absolute;
-  margin-left: 15%;
-  margin-top: 99%;
+
+#mapHOME {
+	position: absolute;
 }
-#imgOut{
-  z-index: 99;
-  position: absolute;
-  margin-left: 60%;
-  margin-top: 99%;
+
+#imgIn {
+	z-index    : 99;
+	position   : absolute;
+	margin-left: 15%;
+	margin-top : 99%;
+}
+
+#imgOut {
+	z-index    : 99;
+	position   : absolute;
+	margin-left: 60%;
+	margin-top : 99%;
 }
 #smartiesData{
   z-index: 105;
@@ -154,6 +160,122 @@ ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidt
   list-style-type: decimal;
   padding-left:40px;
 }
+a:hover {
+	text-decoration: none !important;
+	/*color: black;*/
+}
+
+#page4 {
+	background-color: #808080;
+	opacity         : 0.5;
+}
+
+.logoLogin {
+	width : 190px;
+	height: 150px;
+}
+
+.cardLogin {
+	border-style    : solid;
+	border-width    : 3px;
+	border-color    : #80d4ff;
+	padding         : 10px;
+	margin-top      : 40px;
+	box-shadow      : 0 1px 3px rgba(0, 0, 0, 0.4);
+	background-color: #f2f2f2;
+}
+
+#signup-button4 {
+	background-color: #2dace2;
+	color           : #ffffff;
+	margin-top      : 40px;
+}
+
+#page8 {
+	background-color: #808080;
+	opacity         : 0.5;
+}
+
+#login-button1 {
+	background-color: #2dace2;
+	color           : #ffffff;
+}
+
+.scroll {
+	height: 100%;
+}
+
+#pIn {
+	z-index    : 100;
+	position   : absolute;
+	margin-left: 20%;
+	margin-top : 125%;
+	font-size  : 30px;
+}
+
+#pOut {
+	z-index    : 100;
+	position   : absolute;
+	margin-left: 61%;
+	margin-top : 125%;
+	font-size  : 30px;
+}
+
+.map {
+	height : 100%;
+	width  : 100%;
+	margin : 0;
+	padding: 0;
+}
+
+.circle-button {
+	border-radius: 25px 25px 25px 25px !important;
+}
+
+#selectionBox {
+	position: absolute;
+	top     : 1px;
+	/*left: 10px; */
+	z-index : 9;
+	opacity : 0.7;
+	/*background: #FAF3CE;*/
+}
+
+.platform-ios .manual-ios-statusbar-padding {
+	padding-top: 20px;
+}
+
+.manual-remove-top-padding {
+	padding-top: 0;
+}
+
+.manual-remove-top-padding .scroll {
+	padding-top: 0 !important;
+}
+
+.list.card.manual-card-fullwidth,
+ion-list.manual-list-fullwidth div.list {
+	margin-left : -10px;
+	margin-right: -10px;
+}
+
+.list.card.manual-card-fullwidth > .item,
+ion-list.manual-list-fullwidth div.list > .item {
+	border-radius: 0;
+	border-left  : 0;
+	border-right : 0;
+}
+
+.show-list-numbers-and-dots ul {
+	list-style-type: disc;
+	padding-left   : 40px;
+}
+
+.show-list-numbers-and-dots ol {
+	list-style-type: decimal;
+	padding-left   : 40px;
+}
+
 @font-face {
   font-family: "Ionicons";
   src: url("../lib/ionic/fonts/ionicons.eot?v=2.0.1");
