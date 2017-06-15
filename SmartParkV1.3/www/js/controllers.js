@@ -182,8 +182,8 @@ angular
 	//
 	// }])
 
-	.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', '$cordovaSocialSharing',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush, $cordovaSocialSharing) {
+	.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', '$cordovaSocialSharing', '$ionicPopup',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush, $cordovaSocialSharing, $ionicPopup) {
 			var userN = UserService.getUser().givenName;
 
 			console.log("user: " + userN);
@@ -220,6 +220,10 @@ angular
 					$ionicPush.register().then(function(t) {
 						return $ionicPush.saveToken(t);
 					}).then(function(t) {});
+					var alertPopup = $ionicPopup.alert({
+					title: 'The notification is on',
+					template: ''
+					});
 				}
 				if ($scope.pushNotification.checked == false) {
 					$ionicPush.unregister(function() {
@@ -228,6 +232,10 @@ angular
 						console.log('error');
 					});
 					cordova.plugins.notification.local.cancel(10, function() {}, '');
+					var alertPopup = $ionicPopup.alert({
+					title: 'The notification is off',
+					template: ''
+					});
 				}
 				console.log('Push Notification Change', $scope.pushNotification.checked);
 			};
