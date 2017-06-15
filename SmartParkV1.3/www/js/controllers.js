@@ -29,6 +29,10 @@ angular
 				location: $scope.location,
 				searcherId: UserService.getUser().email
 			}
+			$localStorage.searchCoords={
+ 				lat:$scope.location.lat,
+ 				lng:$scope.location.lng
+ 		}
 			// console.log($location.url() );// NOTE: needed to go back to previus state
 			$scope.getInfoFromServer = function() {
 				var confirmPopup = $ionicPopup.confirm({
@@ -854,7 +858,7 @@ angular
 						disableDefaultUI: true,
 						showTraficLayer: true,
 						center: myLatlng,
-						zoom: 17,
+						zoom: 15,
 						mapTypeId: google.maps.MapTypeId.ROADMAP
 					};
 
@@ -867,7 +871,7 @@ angular
 					})
 					$scope.myLocation;
 					$scope.markers = [];
-					map.setCenter(new google.maps.LatLng(locationResult.lat, locationResult.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
+					map.setCenter(new google.maps.LatLng($localStorage.searchCoords.lat, $localStorage.searchCoords.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
 					var myLocation = new google.maps.Marker({
 						id: 0,
 						options: {
