@@ -1,14 +1,6 @@
 <ion-view title="OUT" id="page2">
 	<ion-content padding="true" class="has-header">
 		<form id="out-form12" class="list">
-			<label class="item item-input" id="out-select6" name="date">
-        		<span class="input-label"><span style="color: #2dace2">[</span> Date</span>
-        		<input type="date" id="out-select6" name="date" ng-model="time.d" placeholder="yyyy-MM-dd" min="2017-01-01" max="2019-12-31" required />
-      		</label>
-			<label class="item item-input" id="out-select7" name="time">
-	        	<span class="input-label"><span style="color: #2dace2">[</span> Time</span>
-	        	<input type="time" id="out-select7" name="time" ng-model="time.t" placeholder="HH:MM" required />
-      		</label>
 			<a ui-sref="menu.mapOUT" id="out-button15" class="button button-positive button-small button-block icon ion-android-locate"> Choose location...</a>
 			<!-- <a id="out-button15" class="button button-positive button-small button-block icon ion-android-locate" ng-click="openCamera()"> Take Photo </a> -->
 			<!-- <img ng-src="parking.img" id="myImage" height="0" width="0"> -->
@@ -28,6 +20,15 @@
 		        <span class="input-label"><span style="color: #2dace2">[</span> Country</span>
 		        <input type="text" placeholder="Auto" disabled="true" ng-model="location.country">
       		</label>
+			<label class="item item-input" id="out-select6" name="date">
+        		<span class="input-label"><span style="color: #2dace2">[</span> Date</span>
+        		<input type="date" id="out-select6" name="date" ng-model="time.d" placeholder="yyyy-MM-dd" min="2017-01-01" max="2019-12-31" required />
+      		</label>
+			<label class="item item-input" id="out-select7" name="time">
+	        	<span class="input-label"><span style="color: #2dace2">[</span> Time</span>
+	        	<input type="time" id="out-select7" name="time" ng-model="time.t" placeholder="HH:MM" required />
+      		</label>
+		
 			<i>Optional:</i>
 			<label class="item item-select" id="out-select8" name="size">
         		<span class="input-label"><span style="color: #2dace2">[</span> Size</span>
