@@ -525,14 +525,94 @@ angular
 								$scope.choseLocation;
 								$ionicLoading.hide();
 								if (parkChosen.lat != -86) {
-									google.maps.event.addListener(map, 'dragend', function() {
+									google.maps.event.addListener(map, 'bounds_changed', function() {
 										var choseLocation = new google.maps.Marker({
 											id: 1,
 											position: new google.maps.LatLng(parkChosen.lat, parkChosen.lng),
 											map: map,
 											icon: "./img/parkChoose.png"
 										});
+
+										if($localStorage.flagActionSheet == true){
+
+
+
 										$scope.choseLocation = choseLocation;
+													var hideSheet = $ionicActionSheet.show({
+												buttons: [{
+														text: 'Drive'
+													},
+													{
+														text: 'Show Details'
+													},
+													{
+														text: 'Delete'
+													}
+												],
+												titleText: '<b>Options</b>',
+												cancelText: 'Back',
+												cancel: function() {
+													return true; // add cancel code..
+												},
+												buttonClicked: function(index) {
+													if (index == 0) {
+														var latToNavigate = $localStorage.myChose.lat,
+															lngToNavigate = $localStorage.myChose.lng;
+														console.log(latToNavigate + " : " + lngToNavigate);
+														// WazeLink.open('waze://?ll=' + latToNavigate + ',' + lngToNavigate);
+														   var destination = [latToNavigate, lngToNavigate];
+															var start = [locationResult.lat,locationResult.lng];
+														    $cordovaLaunchNavigator.navigate(destination, start).then(function() {
+														      console.log("Navigator launched");
+														    }, function (err) {
+														      console.error(err);
+														    });
+													}
+													if (index == 1) {
+														var detailsChoose = $localStorage.myChoseDetails;
+														var alertPopup = $ionicPopup.alert({
+															title: 'Details',
+															template: 'Description: ' + detailsChoose.Description + '<br>address: ' + detailsChoose.address + '<br> time: ' + detailsChoose.time + '<br>occupied:' + detailsChoose.occupied
+														});
+													}
+													if (index == 2) {
+
+														var bookingId = $localStorage.answer.bookingId;
+														var parkingId = $localStorage.choosenIdParking;
+														var cancelDetails = {
+															parkingId: parkingId,
+															bookingId: bookingId
+														};
+														$http
+															.post('https://smartparkil.herokuapp.com/cancelParking/', cancelDetails)
+															.success(function(answer) {
+																cordova.plugins.notification.local.cancel(10, function() {
+																	// Notification was cancelled
+																	console.log('notification is cancelled : ' + 10);
+																}, '');
+																$localStorage.flagChose = false;
+																var locSelect = {
+																	lat: -86,
+																	lng: -86
+																};
+																$localStorage.myChose = locSelect;
+																$ionicLoading.show({
+																	template: 'Loading in..:)'
+																});
+																if ($localStorage.myChose.lat == -86) {
+																	setTimeout(function() {
+																		window.location.reload(true);
+																	}, 300);
+																}
+															})
+															.error(function(answer) {});
+													}
+													return true;
+												},
+											});
+										$localStorage.flagActionSheet =false;
+										}
+
 										google.maps.event.addListener(choseLocation, 'click', function(event) {
 											var hideSheet = $ionicActionSheet.show({
 												buttons: [{
@@ -617,7 +697,9 @@ angular
 						var parkReport = $localStorage.reportParkCoords;
 						$scope.parkReported;
 						if (parkReport.lat != -86) {
-							google.maps.event.addListener(map, 'dragend', function() {
+
+
+							google.maps.event.addListener(map, 'bounds_changed', function() {
 								var parkReportedMarker = new google.maps.Marker({
 									id: 2,
 									position: new google.maps.LatLng(parkReport.lat, parkReport.lng),
@@ -849,6 +931,7 @@ angular
 											.post('https://smartparkil.herokuapp.com/chooseParking/', chooseDetails)
 											.success(function(answer) {
 												$localStorage.flagChose = true;
+												$localStorage.flagActionSheet = true;
 												$ionicLoading.show({
 													template: 'Loading...:)'
 												});
