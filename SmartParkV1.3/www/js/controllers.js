@@ -178,8 +178,8 @@ angular
 	
 	}])
 
-	.controller('menuCtrl', ['$scope', '$ionicPopup', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', '$cordovaSocialSharing',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $ionicPopup, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush, $cordovaSocialSharing) {
+	.controller('menuCtrl', ['$scope', '$ionicPopup', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', '$cordovaSocialSharing', '$ionicSideMenuDelegate',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $ionicPopup, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush, $cordovaSocialSharing, $ionicSideMenuDelegate) {
 			var userN = UserService.getUser().givenName;
 
 			console.log("user: " + userN);
@@ -194,6 +194,15 @@ angular
 				$scope.timeOfDay = "Evening";
 			}
 
+			$scope.aboutFriend = function(){
+				 $ionicSideMenuDelegate.toggleRight();
+				$state.go('menu.home');
+				var alertPopup = $ionicPopup.alert({
+					title: "About SmartPark",
+					template: 'SmartPark is a social network for publish and find parking.<br>This project was developed as part of the final project at Shenkar by Inbar Takdim,David Avigad and Tavor Cohen. '
+				});
+			}
+			
 			$scope.userName = userN;
 			$scope.goHome = function() {
 				$state.go('menu.home');
@@ -202,6 +211,7 @@ angular
 				checked: true
 			};
 			$scope.inviteFriend = function(){
+				 $ionicSideMenuDelegate.toggleRight();
 				var message='Hello, click into the link and download the app  ', subject='SmartPark Social Networking for Parking', link='www.smartpark.com',image='./img/logo.jpg',file=['', ''];
 				 $cordovaSocialSharing
 				    .share(message, subject, file, link) // Share via native share sheet
@@ -212,6 +222,7 @@ angular
 				    });
 			};
 			$scope.pushNotificationChange = function() {
+				 $ionicSideMenuDelegate.toggleRight();
 				var notificationAlert = "";
 				if ($scope.pushNotification.checked == true) {
 					$ionicPush.register().then(function(t) {
