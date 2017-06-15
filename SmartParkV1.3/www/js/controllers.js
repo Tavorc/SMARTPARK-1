@@ -19,10 +19,6 @@ angular
 				lat: $stateParams.lat,
 				lng: $stateParams.lng
 			}
-			$localStorage.searchCoords={
-				lat:$scope.location.lat,
-				lng:$scope.location.lng
-			}
 			$scope.time = {
 				d: null,
 				t: null
@@ -178,12 +174,12 @@ angular
 		}
 	])
 
-	// .controller('helpCtrl', ['$scope', function($scope) {
-	//
-	// }])
+	.controller('helpCtrl', ['$scope', function($scope) {
+	
+	}])
 
-	.controller('menuCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', '$cordovaSocialSharing', '$ionicPopup',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush, $cordovaSocialSharing, $ionicPopup) {
+	.controller('menuCtrl', ['$scope', '$ionicPopup', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', '$cordovaSocialSharing',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $ionicPopup, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush, $cordovaSocialSharing) {
 			var userN = UserService.getUser().givenName;
 
 			console.log("user: " + userN);
@@ -216,14 +212,12 @@ angular
 				    });
 			};
 			$scope.pushNotificationChange = function() {
+				var notificationAlert = "";
 				if ($scope.pushNotification.checked == true) {
 					$ionicPush.register().then(function(t) {
 						return $ionicPush.saveToken(t);
 					}).then(function(t) {});
-					var alertPopup = $ionicPopup.alert({
-					title: 'The notification is on',
-					template: ''
-					});
+					notificationAlert = "";
 				}
 				if ($scope.pushNotification.checked == false) {
 					$ionicPush.unregister(function() {
@@ -231,12 +225,17 @@ angular
 					}, function() {
 						console.log('error');
 					});
+					notificationAlert = "";
 					cordova.plugins.notification.local.cancel(10, function() {}, '');
-					var alertPopup = $ionicPopup.alert({
-					title: 'The notification is off',
-					template: ''
-					});
 				}
+				var alertPopup = $ionicPopup.alert({
+					title: "Notifcations status changed",
+					template: notificationAlert
+				});
+
+				alertPopup.then(function(res) {
+					console.log('Thank you for not eating my delicious ice cream cone');
+				});
 				console.log('Push Notification Change', $scope.pushNotification.checked);
 			};
 			$scope.googleLogOut = function() {
@@ -851,7 +850,7 @@ angular
 						disableDefaultUI: true,
 						showTraficLayer: true,
 						center: myLatlng,
-						zoom: 15,
+						zoom: 17,
 						mapTypeId: google.maps.MapTypeId.ROADMAP
 					};
 
@@ -864,7 +863,7 @@ angular
 					})
 					$scope.myLocation;
 					$scope.markers = [];
-					map.setCenter(new google.maps.LatLng($localStorage.searchCoords.lat, $localStorage.searchCoords.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
+					map.setCenter(new google.maps.LatLng(locationResult.lat, locationResult.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
 					var myLocation = new google.maps.Marker({
 						id: 0,
 						options: {
