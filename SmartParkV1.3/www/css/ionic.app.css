@@ -13,6 +13,15 @@
 #mapHOME{
   position: absolute;
 }
+#imgHome {
+   width:190px ;
+  height:150px;
+  z-index    : 200;
+  position   : absolute;
+    margin-left: 27%;
+  margin-top : 1%;
+
+}
 #in-button-bar1{
 margin-top: 6%;
 }
@@ -50,18 +59,18 @@ margin-top: 6%;
   z-index: 105;
   position: absolute;
   margin-left: 75%;
-  margin-top: 8%;
+  margin-top: 10%;
   font-size: 15px;
   text-align: center;
   color:#ffffff;
 }
-#smartiesDiv{
+#smartiesImg{
    z-index: 105;
   border-radius: 50%;
   background-color: #F2F3F4;
   position: absolute;
   margin-left: 72%;
-  margin-top: 2%;
+  margin-top: 10%;
 }
 a:hover{
   text-decoration: none !important;
