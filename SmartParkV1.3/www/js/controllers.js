@@ -527,7 +527,6 @@ angular
 							title: "My Location"
 						});
 						$scope.myLocation = myLocation;
-
 						document.addEventListener('deviceready', function() {
 							if ($localStorage.flagChose == true) {
 								var parkChosen = $localStorage.myChose;
@@ -535,7 +534,7 @@ angular
 								map.setCenter(new google.maps.LatLng(parkChosen.lat, parkChosen.lng));
 								$scope.choseLocation;
 								$ionicLoading.hide();
-								if (parkChosen.lat != -86) {
+								if (parkChosen.lat != -86  ) {
 									google.maps.event.addListener(map, 'bounds_changed', function() {
 										var choseLocation = new google.maps.Marker({
 											id: 1,
@@ -543,12 +542,8 @@ angular
 											map: map,
 											icon: "./img/parkChoose.png"
 										});
-
+								$scope.choseLocation = choseLocation;
 										if($localStorage.flagActionSheet == true){
-
-
-
-										$scope.choseLocation = choseLocation;
 													var hideSheet = $ionicActionSheet.show({
 												buttons: [{
 														text: 'Drive'
@@ -708,8 +703,6 @@ angular
 						var parkReport = $localStorage.reportParkCoords;
 						$scope.parkReported;
 						if (parkReport.lat != -86) {
-
-
 							google.maps.event.addListener(map, 'bounds_changed', function() {
 								var parkReportedMarker = new google.maps.Marker({
 									id: 2,
