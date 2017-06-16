@@ -1,7 +1,7 @@
 <ion-pane>
 
 	<ion-content class="has-header bgColor">
-		<div class="row dark whiteText">
+		<div class="dark whiteText">
 			<div class="col text-center">
 				<h3 class="padding">Ran out of <span class="calm">[ </span>SMARTIES<span class="calm"> ]</span> ?</h3>
 				<h5><i class="icon ion-social-usd calm"></i>
@@ -10,83 +10,60 @@
 				</h5>
 			</div>
 		</div>
-		<div class="list card">
-			<a class="item item-icon-left" ng-click="choice1=!choice1">
+		<div class="card">
+			<a ng-class="push(choice1)" ng-click="choice1=!choice1">
 			    <i class="icon ion-card"></i>
 			    Enter card information
-			 </a>
-			<div ng-show="choice1">
-				<label class="item item-input">
-		            <span class="input-label">Card number</span>
-		            <input type="text" size="20" ng-model="FormData.number" placeholder="xxxx-xxxx-xxxx-xxxx"/>
-		          </label>
+			</a>
+		</div>
+		<div class="card" ng-show="choice1">
+			<label class="item item-input">
+				<span class="input-label">Card number</span>
+				<input type="text" size="20" ng-model="FormData.number" placeholder="xxxx-xxxx-xxxx-xxxx" required/>
+			</label>
 
-				<label class="item item-input">
-		            <span class="input-label">Exp. Mth (MM)</span>
-		            <input type="text" size="2" ng-model="FormData.exp_month"/ placeholder="MM">
-		          </label>
+			<label class="item item-input">
+				<span class="input-label">Exp. Mth (MM)</span>
+				<input type="text" size="2" ng-model="FormData.exp_month"/ placeholder="MM" required>
+			</label>
 
-				<label class="item item-input">
-		            <span class="input-label">Exp. Year (YYYY)</span>
-		            <input type="text" size="4" ng-model="FormData.exp_year"/ placeholder="YYYY">
-		          </label>
+			<label class="item item-input">
+				<span class="input-label">Exp. Year (YYYY)</span>
+				<input type="text" size="4" ng-model="FormData.exp_year"/ placeholder="YYYY" required>
+			  </label>
 
-				<label class="item item-input">
-		            <span class="input-label">Sec. Code (CVC)</span>
-		            <input type="text" size="4" ng-model="FormData.cvc"/ placeholder="123">
-		          </label>
-
-
-				<div class="padding center">
-					<button class="button button-block button-balanced" ng-click="createToken()">Submit</button>
-				</div>
-
-				<!-- <div class="padding center">
-					<p ng-show="ResponseData.loading">
-						Loading...
-					</p>
-					<p ng-show="ResponseData.token">
-						Token: <strong>{{ResponseData.token}}</strong>
-					</p>
-					<p ng-show="ResponseData.paymentId">
-						Payment Id: <strong>{{ResponseData.paymentId}}</strong>
-					</p>
-				</div> -->
-			</div>
+			<label class="item item-input">
+				<span class="input-label">Sec. Code (CVC)</span>
+				<input type="text" size="4" ng-model="FormData.cvc"/ placeholder="123" required>
+			</label>
 
 
-
-			<a class="item item-icon-left" ng-click="choice2=!choice2">
-			    <i class="icon ion-bag"></i>
-			    Enter card information
-			 </a>
-			<div ng-show="choice2">
-				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-					<input type="hidden" name="cmd" value="_s-xclick">
-					<table>
-						<tr>
-							<td><input type="hidden" name="on0" value="SMARTIES">SMARTIES</td>
-						</tr>
-						<tr>
-							<td>
-								<select name="os0">
-			 							<option value="1 SMARTIES">1 SMARTIES for $2.00 USD</option>
-			 							<option value="2 SMARTIES">2 SMARTIES for $3.00 USD</option>
-			 							<option value="5 SMARTIES">5 SMARTIES for $6.00 USD</option>
-			 							<option value="10 SMARTIES">10 SMARTIES for $12.00 USD</option>
-			 							<option value="15 SMARTIES">15 SMARTIES for $14.00 USD</option>
-			 							<option value="20 SMARTIES">1 SMARTIES for $17.00 USD</option>
-			 						</select>
-							</td>
-						</tr>
-					</table>
-					<input type="hidden" name="currency_code" value="USD">
-					<input type="hidden" name="bn" value="PP-BuyNowBF:btn_paynowCC_LG.gif:NonHosted">
-					<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-					<img alt="" border="0" src="https://www.paypalobjects.com/he_IL/i/scr/pixel.gif" width="1" height="1">
-				</form>
+			<div class="padding center" id="sendCC">
+				<button class="button button-block button-balanced" ng-click="createToken(); choice1=!choice1">Submit</button>
 			</div>
 		</div>
-
+		<div class="card">
+			<a ng-class="push(choice2)" ng-click="choice2=!choice2">
+			    <i class="icon ion-bag"></i>
+			    Add to PayPal cart
+			 </a>
+			<div ng-show="choice2">
+				<label class="item item-input item-select">
+						<div class="input-label">
+						  Quantity:
+					  	</div>
+						<select ng-model="paymentQuantity" required>
+			 							<option value="1 SMARTIES" value="2.00" selected>1 for $2.00 USD</option>
+			 							<option value="2 SMARTIES" value="3.00">2 for $3.00 USD</option>
+			 							<option value="5 SMARTIES" value="2.00">5 for $6.00 USD</option>
+			 							<option value="10 SMARTIES" value="2.00">10 for $12.00 USD</option>
+			 							<option value="15 SMARTIES" value="2.00">15 for $14.00 USD</option>
+			 							<option value="20 SMARTIES" value="2.00">1 for $17.00 USD</option>
+			 			</select>
+					</label>
+				<label class="item text-center">
+				<div id="paypal-button-container"></div>
+			</div>
+		</div>
 	</ion-content>
 </ion-pane>

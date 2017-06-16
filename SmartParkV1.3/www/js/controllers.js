@@ -1146,10 +1146,28 @@ angular
 		}
 	])
 
-	.controller('buySmartiesCtrl', ['$scope', '$http', '$stateParams', '$localStorage',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $http, $stateParams, $localStorage) {
+	.controller('buySmartiesCtrl', ['$scope', '$http', '$stateParams', '$localStorage','$ionicPopup',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $http, $stateParams, $localStorage, $ionicPopup) {
 			$scope.choice1 = false;
 			$scope.choice2 = false;
+			$scope.paymentQuantity = null;
+
+			$scope.push = element => {
+				if(element)
+				return 'item item-icon-left calm-bg';
+				return 'item item-icon-left';
+			}
+			var showAlert = message => {
+			   var alertPopup = $ionicPopup.alert({
+			     title: 'SMARTIES PAYMENT MESSAGE:',
+			     template: `${message}`
+			   });
+
+			   alertPopup.then(function(res) {
+			     console.log('PAYMENT sent to server');
+			   });
+			 };
+
 			$scope.currentSmarties = 5;//$localStorage.userLoginData.smarties;
 			// These are fixed values, do not change this
 			var NOODLIO_PAY_API_URL = "https://noodlio-pay.p.mashape.com";
@@ -1176,7 +1194,6 @@ angular
 			};
 
 			$scope.createToken = function() {
-
 				// init for the DOM
 				$scope.ResponseData = {
 					loading: true
@@ -1189,16 +1206,17 @@ angular
 
 							// --> success
 							console.log(response)
+							console.log(response.message);
+							showAlert(response.message);
 
 							if (response.hasOwnProperty('id')) {
 								var token = response.id;
 								$scope.ResponseData['token'] = token;
 								proceedCharge(token);
 							} else {
-								$scope.ResponseData['token'] = 'Error, see console';
+								$scope.ResponseData['token'] = 'Error, please contact admin.';
 								$scope.ResponseData['loading'] = false;
 							};
-
 						}
 					)
 					.error(
@@ -1247,7 +1265,41 @@ angular
 						}
 					);
 			};
+			paypal.Button.render({
 
+				env: 'sandbox', // sandbox | production
+				client: {
+					sandbox: 'AaV2tDFCFbiaSD5npltuu9GgW6EHIOr4Zy4opHLJA8ZiQxnLAjzjEGLJcu3xlQa95PtjLZCnuShjTwoQ',
+					production: 'EJjbaC7gkiWrUNgxbNx8n-95dKqMqfLN5BeVnQibi7CIzYVzMmOFNOgWWy7WyGHDkFeyVcOBGqKZTv-Y'
+				},
+
+				// Show the buyer a 'Pay Now' button in the checkout flow
+				commit: true,
+
+				// payment() is called when the button is clicked
+				payment: function(data, actions) {
+					console.log($scope.paymentQuantity);
+					// Make a call to the REST api to create the payment
+					return actions.payment.create({
+						transactions: [{
+							amount: {
+								total: '1.00',
+								currency: 'USD'
+							}
+						}]
+					});
+				},
+
+				// onAuthorize() is called when the buyer approves the payment
+				onAuthorize: function(data, actions) {
+
+					// Make a call to the REST api to execute the payment
+					return actions.payment.execute().then(function() {
+						showAlert('Payment Complete!');
+					});
+				}
+
+			}, '#paypal-button-container');
 		}
 	])
 

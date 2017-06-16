@@ -9824,6 +9824,9 @@ ui-gmap-google-map {
     ui-gmap-google-map .angular-google-map .angular-google-map-container {
       height: 100%; }
 
+#sendCC {
+  padding-bottom: 0px !important; }
+
 .calm {
   color: #11c1f3; }
 

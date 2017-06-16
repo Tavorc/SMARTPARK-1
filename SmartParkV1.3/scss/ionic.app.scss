@@ -15,6 +15,9 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 $dark: #3A3F51;
+// div{
+// 	border: 1px solid black !important;
+// }
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
@@ -32,7 +35,9 @@ ui-gmap-google-map {
 		}
 	}
 }
-
+#sendCC{
+	padding-bottom: 0px !important;
+}
 .calm{
 	color: $calm;
 }
