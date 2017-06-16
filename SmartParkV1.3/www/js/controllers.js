@@ -7,7 +7,7 @@ var userDetails = {
 };
 
 angular
-	.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage', ])
+	.module('app.controllers', ['ionic.cloud', 'ionic', 'ngCordova', 'ngStorage'])
 
 	.controller('inCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$localStorage', 'UserService', '$ionicLoading', 'd3TimeFormat', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $http, $state, $stateParams, $location, $localStorage, UserService, $ionicLoading, d3TimeFormat, $ionicPopup) {
@@ -114,22 +114,22 @@ angular
 				img: null, //NOTE: it will change if $scope.openCamera will be called.
 				size: 3,
 				publisherId: publisherEmail,
-				publisherToken: null,//getPublisherToken(token => {console.log(token); return token;}),
+				publisherToken: null, //getPublisherToken(token => {console.log(token); return token;}),
 				// currentCar: $localStorage.userLoginData.carId
 			}
 			// function getPublisherToken(callback) {
-				$ionicPush
-					.register()
-					.then(function(t) {
-						console.log(t);
-						return $ionicPush.saveToken(t);
-					})
-					.then(function(t) {
-						console.log('Token saved:', t.token);
-						$scope.parking.publisherToken = t.token;
-						// callback(t.token);
-						return t.token;
-					});
+			$ionicPush
+				.register()
+				.then(function(t) {
+					console.log(t);
+					return $ionicPush.saveToken(t);
+				})
+				.then(function(t) {
+					console.log('Token saved:', t.token);
+					$scope.parking.publisherToken = t.token;
+					// callback(t.token);
+					return t.token;
+				});
 			// };
 
 			// $scope.openCamera = function() {
@@ -179,11 +179,12 @@ angular
 	])
 
 	.controller('helpCtrl', ['$scope', function($scope) {
-	
+
 	}])
 
 	.controller('menuCtrl', ['$scope', '$ionicPopup', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', '$cordovaSocialSharing', '$ionicSideMenuDelegate',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $ionicPopup, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush, $cordovaSocialSharing, $ionicSideMenuDelegate) {
+
 			var userN = UserService.getUser().givenName;
 
 			console.log("user: " + userN);
@@ -206,7 +207,7 @@ angular
 					template: 'SmartPark is a social network for publish and find parking.<br>This project was developed as part of the final project at Shenkar by Inbar Takdim,David Avigad and Tavor Cohen. '
 				});
 			}
-			
+
 			$scope.userName = userN;
 			$scope.goHome = function() {
 				$state.go('menu.home');
@@ -214,16 +215,19 @@ angular
 			$scope.pushNotification = {
 				checked: true
 			};
-			$scope.inviteFriend = function(){
-				 $ionicSideMenuDelegate.toggleRight();
-				var message='Hello, click into the link and download the app  ', subject='SmartPark Social Networking for Parking', link='www.smartpark.com',image='./img/logo.jpg',file=['', ''];
-				 $cordovaSocialSharing
-				    .share(message, subject, file, link) // Share via native share sheet
-				    .then(function(result) {
-				      // Success!
-				    }, function(err) {
-				      // An error occured. Show a message to the user
-				    });
+			$scope.inviteFriend = function() {
+				var message = 'Hello, click into the link and download the app  ',
+					subject = 'SmartPark Social Networking for Parking',
+					link = 'www.smartpark.com',
+					image = './img/logo.jpg',
+					file = ['', ''];
+				$cordovaSocialSharing
+					.share(message, subject, file, link) // Share via native share sheet
+					.then(function(result) {
+						// Success!
+					}, function(err) {
+						// An error occured. Show a message to the user
+					});
 			};
 			$scope.pushNotificationChange = function() {
 				 $ionicSideMenuDelegate.toggleRight();
@@ -460,7 +464,7 @@ angular
 			console.log($localStorage);
 			console.log(`$localStorage.userLoginData: ${$localStorage.userLoginData}`);
 			// $scope.smarties = $localStorage.userLoginData.smarties;
-			$scope.smarties = 5;// FIXME: just for test: s/b $localStorage.userLoginData.smarties;
+			$scope.smarties = 5; // FIXME: just for test: s/b $localStorage.userLoginData.smarties;
 			$scope.init = function() {
 				$ionicLoading.hide();
 				var parkReportValue = $localStorage.reportParkCoords;
@@ -657,13 +661,13 @@ angular
 															lngToNavigate = $localStorage.myChose.lng;
 														console.log(latToNavigate + " : " + lngToNavigate);
 														// WazeLink.open('waze://?ll=' + latToNavigate + ',' + lngToNavigate);
-														   var destination = [latToNavigate, lngToNavigate];
-															var start = [locationResult.lat,locationResult.lng];
-														    $cordovaLaunchNavigator.navigate(destination, start).then(function() {
-														      console.log("Navigator launched");
-														    }, function (err) {
-														      console.error(err);
-														    });
+														var destination = [latToNavigate, lngToNavigate];
+														var start = [locationResult.lat, locationResult.lng];
+														$cordovaLaunchNavigator.navigate(destination, start).then(function() {
+															console.log("Navigator launched");
+														}, function(err) {
+															console.error(err);
+														});
 													}
 													if (index == 1) {
 														var detailsChoose = $localStorage.myChoseDetails;
@@ -1033,7 +1037,7 @@ angular
 		}
 	])
 
-	.controller('myHistoryCtrl', ['$scope', '$http', 'UserService', '$stateParams', 'd3TimeFormat',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+	.controller('myHistoryCtrl', ['$scope', '$http', 'UserService', '$stateParams', 'd3TimeFormat', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $http, UserService, $stateParams, d3TimeFormat) {
 			console.log($stateParams);
 			$scope.items = [];
@@ -1110,40 +1114,141 @@ angular
 				};
 				UserService.setUser(userData);
 				$http
-				.post('https://smartparkil.herokuapp.com/createUser/', userDetails)
-				.success(function(answer) {
-					console.log(answer);
-					if (answer) {
-						$ionicAuth
-							.signup(details)
-							.then(function() {
-								$localStorage.userLoginData = userDetails;
-								$state.go('menu.home');
-								return $ionicAuth.login('basic', details);
-							}, function(err) {
-								for (var e of err.details) {
-									if (e === 'conflict_email') {
-										alert('Email already exists.');
-									} else {
-										console.log(err.details);
+					.post('https://smartparkil.herokuapp.com/createUser/', userDetails)
+					.success(function(answer) {
+						console.log(answer);
+						if (answer) {
+							$ionicAuth
+								.signup(details)
+								.then(function() {
+									$localStorage.userLoginData = userDetails;
+									$state.go('menu.home');
+									return $ionicAuth.login('basic', details);
+								}, function(err) {
+									for (var e of err.details) {
+										if (e === 'conflict_email') {
+											alert('Email already exists.');
+										} else {
+											console.log(err.details);
+										}
 									}
-								}
-							});
-					} else {
-						alert('Email already exists. please try again!');
-					}
-				})
-				.error(function(answer) {
-					console.log('can not post');
-					console.log(answer);
-				});
+								});
+						} else {
+							alert('Email already exists. please try again!');
+						}
+					})
+					.error(function(answer) {
+						console.log('can not post');
+						console.log(answer);
+					});
 			};
 		}
 	])
 
-	// .controller('mySmartiesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-	// 	function($scope, $stateParams) {}
-	// ])
+	.controller('buySmartiesCtrl', ['$scope', '$http', '$stateParams', '$localStorage',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $http, $stateParams, $localStorage) {
+			$scope.choice1 = false;
+			$scope.choice2 = false;
+			$scope.currentSmarties = 5;//$localStorage.userLoginData.smarties;
+			// These are fixed values, do not change this
+			var NOODLIO_PAY_API_URL = "https://noodlio-pay.p.mashape.com";
+			var NOODLIO_PAY_API_KEY = "3fEagjJCGAmshMqVnwTR70bVqG3yp1lerJNjsnTzx5ODeOa99V";
+
+			// Obtain your unique Stripe Account Id from here:
+			// https://www.noodl.io/pay/connect
+			var STRIPE_ACCOUNT_ID = "<YOUR-UNIQUE-ID>";
+
+			// Define whether you are in development mode (TEST_MODE: true) or production mode (TEST_MODE: false)
+			var TEST_MODE = true;
+
+			// add the following headers for authentication
+			$http.defaults.headers.common['X-Mashape-Key'] = NOODLIO_PAY_API_KEY;
+			$http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+			$http.defaults.headers.common['Accept'] = 'application/json';
+
+			$scope.FormData = {
+				number: "",
+				cvc: "",
+				exp_month: "",
+				exp_year: "",
+				test: TEST_MODE,
+			};
+
+			$scope.createToken = function() {
+
+				// init for the DOM
+				$scope.ResponseData = {
+					loading: true
+				};
+
+				// create a token and validate the credit card details
+				$http.post(NOODLIO_PAY_API_URL + "/tokens/create", $scope.FormData)
+					.success(
+						function(response) {
+
+							// --> success
+							console.log(response)
+
+							if (response.hasOwnProperty('id')) {
+								var token = response.id;
+								$scope.ResponseData['token'] = token;
+								proceedCharge(token);
+							} else {
+								$scope.ResponseData['token'] = 'Error, see console';
+								$scope.ResponseData['loading'] = false;
+							};
+
+						}
+					)
+					.error(
+						function(response) {
+							console.log(response)
+							$scope.ResponseData['token'] = 'Error, see console';
+							$scope.ResponseData['loading'] = false;
+						}
+					);
+			};
+
+			// charge the customer with the token
+			function proceedCharge(token) {
+
+				var param = {
+					source: token,
+					amount: 100,
+					currency: "usd",
+					description: "Your custom description here",
+					stripe_account: STRIPE_ACCOUNT_ID,
+					test: TEST_MODE,
+				};
+
+				$http.post(NOODLIO_PAY_API_URL + "/charge/token", param)
+					.success(
+						function(response) {
+
+							// --> success
+							console.log(response);
+							$scope.ResponseData['loading'] = false;
+
+							if (response.hasOwnProperty('id')) {
+								var paymentId = response.id;
+								$scope.ResponseData['paymentId'] = paymentId;
+							} else {
+								$scope.ResponseData['paymentId'] = 'Error, see console';
+							};
+
+						}
+					)
+					.error(
+						function(response) {
+							console.log(response)
+							$scope.ResponseData['paymentId'] = 'Error, see console';
+							$scope.ResponseData['loading'] = false;
+						}
+					);
+			};
+
+		}
+	])
 
 	.controller('mapINCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading, $location) {
@@ -1184,19 +1289,19 @@ angular
 					map.setZoom(map.zoom);
 					map.setCenter(this.getPosition());
 					$http
-					.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA')
-					.success(function(jsn) {
-						$scope.chosenLocation = {
-							formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
-							number: jsn.results[0].address_components[0].short_name,
-							street: jsn.results[0].address_components[1].short_name,
-							city: jsn.results[0].address_components[2].short_name,
-							country: jsn.results[0].address_components[4].short_name,
-							lat: jsn.results[0].geometry.location.lat,
-							lng: jsn.results[0].geometry.location.lng
-						}
-						console.log('returnd info: ' + jsn.results[0].formatted_address);
-					});
+						.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA')
+						.success(function(jsn) {
+							$scope.chosenLocation = {
+								formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
+								number: jsn.results[0].address_components[0].short_name,
+								street: jsn.results[0].address_components[1].short_name,
+								city: jsn.results[0].address_components[2].short_name,
+								country: jsn.results[0].address_components[4].short_name,
+								lat: jsn.results[0].geometry.location.lat,
+								lng: jsn.results[0].geometry.location.lng
+							}
+							console.log('returnd info: ' + jsn.results[0].formatted_address);
+						});
 				});
 				$scope.continue = function() {
 					$state.go('menu.in', $scope.chosenLocation)
@@ -1250,19 +1355,19 @@ angular
 					map.setZoom(map.zoom);
 					map.setCenter(this.getPosition());
 					$http
-					.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA')
-					.success(function(jsn) {
-						$scope.chosenLocation = {
-							formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
-							number: jsn.results[0].address_components[0].short_name,
-							street: jsn.results[0].address_components[1].short_name,
-							city: jsn.results[0].address_components[2].short_name,
-							country: jsn.results[0].address_components[4].short_name,
-							lat: jsn.results[0].geometry.location.lat,
-							lng: jsn.results[0].geometry.location.lng
-						}
-						console.log('returnd info: ' + jsn.results[0].formatted_address);
-					});
+						.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA')
+						.success(function(jsn) {
+							$scope.chosenLocation = {
+								formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
+								number: jsn.results[0].address_components[0].short_name,
+								street: jsn.results[0].address_components[1].short_name,
+								city: jsn.results[0].address_components[2].short_name,
+								country: jsn.results[0].address_components[4].short_name,
+								lat: jsn.results[0].geometry.location.lat,
+								lng: jsn.results[0].geometry.location.lng
+							}
+							console.log('returnd info: ' + jsn.results[0].formatted_address);
+						});
 				});
 				$scope.continue = function() {
 					$state.go('menu.out', $scope.chosenLocation)

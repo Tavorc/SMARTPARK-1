@@ -20,6 +20,7 @@ angular.module('app.services', ['ngStorage'])
 			add: _add
 		};
 	})
+
 	.service('UserService', function() {
 
 		var setUser = function(user_data) {
@@ -79,15 +80,6 @@ angular.module('app.services', ['ngStorage'])
 				// Handle error
 				console.log("Ionic Push: Push error", error);
 			});
-
-			// $http(req).success(function(resp){
-			//   // Handle success
-			//   console.log(`Push to publisherID: ${publisherId}`);
-			// 	console.log("Ionic Push: Push success", resp);
-			// }).error(function(error){
-			//   // Handle error
-			//   console.log("Ionic Push: Push error", error);
-			// });
 		}
 	})
 

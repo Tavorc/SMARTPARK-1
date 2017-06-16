@@ -2,7 +2,6 @@ angular
 	.module('app.routes', [])
 
 	.config(function($stateProvider, $urlRouterProvider) {
-
 		$stateProvider
 			.state('menu.in', {
 				url: '/in',
@@ -97,13 +96,12 @@ angular
 				templateUrl: 'templates/signup.html',
 				controller: 'signupCtrl'
 			})
-
-			.state('menu.mySmarties', {
-				url: '/smarties',
+			.state('menu.buySmarties', {
+				url: '/buySmarties',
 				views: {
 					'side-menu21': {
-						templateUrl: 'templates/mySmarties.html',
-						controller: 'mySmartiesCtrl'
+						templateUrl: 'templates/buySmarties.html',
+						controller: 'buySmartiesCtrl'
 					}
 				}
 			})

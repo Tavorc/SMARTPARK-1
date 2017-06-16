@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives', 'app.services', 'uiGmapgoogle-maps', 'googlemaps.init', 'ionic.cloud', 'ngStorage', ])
+angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives', 'app.services', 'uiGmapgoogle-maps', 'googlemaps.init', 'ionic.cloud', 'ngStorage'])
 
 	.config(function($ionicConfigProvider, $sceDelegateProvider, $ionicCloudProvider, $stateProvider, $urlRouterProvider) {
 		$ionicCloudProvider.init({
@@ -44,14 +44,13 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 
 	})
 
-	.run(function($ionicPlatform, $ionicPopup, $localStorage, $http, $state) {
+	.run(function($ionicPlatform, $ionicPopup, $localStorage, $http, $state, sendPush) {
 		$ionicPlatform.ready(function() {
 			// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 			// for form inputs)
 			cordova.plugins.notification.local.on("click", function(notification) {
 				cordova.plugins.notification.local.cancel(notification.id, function() {
 					// Notification was cancelled
-
 					var confirmPopup = $ionicPopup.confirm({
 						title: 'Time to parking',
 						template: 'Is parking available?'
@@ -66,11 +65,14 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 							//http://localhost:8000/
 							//https://smartparkil.herokuapp.com/
 							.success(function(response) {
+							var message = 'You got a SMARTIES! :)' 
+
 								console.log(`success: ${response}`);
+								sendPush.pushToPublisher(selectedParking.publisherToken, massege); //NOTE here is the push service
 								//DAVID tell to server that the parking is avialible and the publisher need to get 1 smartiz
 								$http
 								.get(`https://smartparkil.herokuapp.com/setParking/${selectedParking.parkingId}/false`)
-								.success(function(obj) {$state.go('home')})
+								.success(obj => $state.go('home'))
 								.error(function(err) {throw err});
 							})
 							.error(function(answer) {
