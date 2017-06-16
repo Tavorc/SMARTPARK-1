@@ -216,6 +216,7 @@ angular
 				checked: true
 			};
 			$scope.inviteFriend = function() {
+				$ionicSideMenuDelegate.toggleRight();
 				var message = 'Hello, click into the link and download the app  ',
 					subject = 'SmartPark Social Networking for Parking',
 					link = 'www.smartpark.com',
