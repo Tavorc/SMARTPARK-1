@@ -368,3 +368,26 @@ ion-list.manual-list-fullwidth div.list > .item {
 	list-style-type: decimal;
 	padding-left   : 40px;
 }
+.xplatform-android .action-sheet-backdrop.active {
+background-color: rgba(0, 0, 0, 0.2); }
+.xplatform-android .action-sheet {
+margin: 0; }
+.xplatform-android .action-sheet .action-sheet-title, .platform-android .action-sheet .button {
+text-align: left;
+border-color: transparent;
+font-size: 16px;
+color: inherit; }
+.xplatform-android .action-sheet .action-sheet-title {
+font-size: 14px;
+padding: 16px;
+color: #666; }
+.xplatform-android .action-sheet .button.active, .platform-android .action-sheet .button.activated {
+background: #e8e8e8; }
+.xplatform-android .action-sheet-group {
+margin: 0;
+border-radius: 0;
+background-color: #fafafa; }
+.xplatform-android .action-sheet-cancel {
+display: none; }
+.xplatform-android .action-sheet-has-icons .button {
+padding-left: 56px; }
