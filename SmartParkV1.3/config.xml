@@ -74,6 +74,7 @@
     </platform>
     <allow-intent href="mailto:*" />
     <plugin name="com.paypal.cordova.mobilesdk" spec="^3.5.0" />
+    <plugin name="cordova-android-support-gradle-release" spec="~0.0.1" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
     <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
         <variable name="REVERSED_CLIENT_ID" value="1094228718719-n4f9png0g4lcuqpsnlsjrv9j1c6kca7s.apps.googleusercontent.com" />

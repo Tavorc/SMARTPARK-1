@@ -15,33 +15,34 @@
 			    <i class="icon ion-card"></i>
 			    Enter card information
 			</a>
-		</div>
-		<div class="card" ng-show="choice1">
-			<label class="item item-input">
-				<span class="input-label">Card number</span>
-				<input type="text" size="20" ng-model="FormData.number" placeholder="xxxx-xxxx-xxxx-xxxx" required/>
-			</label>
+			<div ng-show="choice1">
+				<label class="item item-input">
+					<span class="input-label">Card number</span>
+					<input type="text" size="20" ng-model="FormData.number" placeholder="xxxx-xxxx-xxxx-xxxx" required/>
+				</label>
 
-			<label class="item item-input">
-				<span class="input-label">Exp. Mth (MM)</span>
-				<input type="text" size="2" ng-model="FormData.exp_month"/ placeholder="MM" required>
-			</label>
+				<label class="item item-input">
+					<span class="input-label">Exp. Mth (MM)</span>
+					<input type="text" size="2" ng-model="FormData.exp_month"/ placeholder="MM" required>
+				</label>
 
-			<label class="item item-input">
-				<span class="input-label">Exp. Year (YYYY)</span>
-				<input type="text" size="4" ng-model="FormData.exp_year"/ placeholder="YYYY" required>
-			  </label>
+				<label class="item item-input">
+					<span class="input-label">Exp. Year (YYYY)</span>
+					<input type="text" size="4" ng-model="FormData.exp_year"/ placeholder="YYYY" required>
+				  </label>
 
-			<label class="item item-input">
-				<span class="input-label">Sec. Code (CVC)</span>
-				<input type="text" size="4" ng-model="FormData.cvc"/ placeholder="123" required>
-			</label>
+				<label class="item item-input">
+					<span class="input-label">Sec. Code (CVC)</span>
+					<input type="text" size="4" ng-model="FormData.cvc"/ placeholder="123" required>
+				</label>
 
 
-			<div class="padding center" id="sendCC">
-				<button class="button button-block button-balanced" ng-click="createToken(); choice1=!choice1">Submit</button>
+				<div class="padding center" id="pay">
+					<button class="button button-block button-balanced" ng-click="createToken(); choice1=!choice1">Submit</button>
+				</div>
 			</div>
 		</div>
+
 		<div class="card">
 			<a ng-class="push(choice2)" ng-click="choice2=!choice2">
 			    <i class="icon ion-bag"></i>
@@ -62,7 +63,7 @@
 			 			</select>
 					</label>
 				<label class="item text-center">
-				<div id="paypal-button-container"></div>
+				<div id="paypal-button-container" class="pay"></div>
 			</div>
 		</div>
 	</ion-content>

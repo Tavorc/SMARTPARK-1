@@ -1168,7 +1168,7 @@ angular
 			   });
 			 };
 
-			$scope.currentSmarties = 5;//$localStorage.userLoginData.smarties;
+			$scope.currentSmarties = $localStorage.userLoginData.smarties;//$localStorage.userLoginData.smarties;
 			// These are fixed values, do not change this
 			var NOODLIO_PAY_API_URL = "https://noodlio-pay.p.mashape.com";
 			var NOODLIO_PAY_API_KEY = "3fEagjJCGAmshMqVnwTR70bVqG3yp1lerJNjsnTzx5ODeOa99V";

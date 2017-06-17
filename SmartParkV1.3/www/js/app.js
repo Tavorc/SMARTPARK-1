@@ -65,7 +65,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 							//http://localhost:8000/
 							//https://smartparkil.herokuapp.com/
 							.success(function(response) {
-							var message = 'You got a SMARTIES! :)' 
+							var message = 'You got a SMARTIES! :)'
 
 								console.log(`success: ${response}`);
 								sendPush.pushToPublisher(selectedParking.publisherToken, massege); //NOTE here is the push service
