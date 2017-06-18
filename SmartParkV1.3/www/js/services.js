@@ -60,7 +60,7 @@ angular.module('app.services', ['ngStorage'])
 						"title": "Hi :)",
 						"message": message,
 						"android": {
-							"title": "Hey Android",
+							"title": "SMARTPARK message:",
 							"message": message
 						},
 						"ios": {
