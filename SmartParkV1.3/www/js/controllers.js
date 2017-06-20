@@ -402,12 +402,18 @@ angular
 										}
 									})
 									.error(function(answer) {
+											$ionicPopup.alert({
+												title: "Something wrong with this account",
+											});
 										console.log('error while read user!');
 									});
 								UserService.setUser(user_data);
 								$ionicLoading.hide();
 							},
 							function(msg) {
+								$ionicPopup.alert({
+								title: "Something wrong with this account",
+								});
 								$ionicLoading.hide();
 							}
 						);
@@ -427,7 +433,12 @@ angular
 					//https://smartparkil.herokuapp.com/
 					.success(function(response) {
 						console.log(response);
-						if (!response) console.log(`user ${details.email} not found`);
+						if (!response){
+								$ionicPopup.alert({
+								title: `user ${details.email} not found`,
+						});
+							console.log(`user ${details.email} not found`);
+						} 
 						else {
 							console.log('user found! do some code here...');
 							$localStorage.userLoginData = response;
@@ -439,11 +450,17 @@ angular
 							$ionicAuth.login('basic', details).then(function() {
 								$state.go('menu.home');
 							}, function(err) {
+									$ionicPopup.alert({
+									title: " Email or password is wrong",
+								});
 								console.log(err);
 							});
 						}
 					})
 					.error(function(answer) {
+						$ionicPopup.alert({
+						title: "Email or password is wrong",
+					});
 						console.log('error while read user!');
 					});
 			}
@@ -1091,8 +1108,8 @@ angular
 		}
 	])
 
-	.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush) {
+	.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush, $ionicPopup) {
 			$scope.formSignupParams = {
 				name: $stateParams.name,
 				email: $stateParams.email,
@@ -1128,14 +1145,22 @@ angular
 								}, function(err) {
 									for (var e of err.details) {
 										if (e === 'conflict_email') {
-											alert('Email already exists.');
+												$ionicPopup.alert({
+												title: "Email already exists.",
+												template: ''
+											});
 										} else {
+												$ionicPopup.alert({
+												title: err.details,
+											});
 											console.log(err.details);
 										}
 									}
 								});
 						} else {
-							alert('Email already exists. please try again!');
+								$ionicPopup.alert({
+												title: "Invalid email",
+											});
 						}
 					})
 					.error(function(answer) {
