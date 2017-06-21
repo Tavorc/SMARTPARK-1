@@ -481,6 +481,7 @@ angular
 			}
 			console.log($localStorage);
 			console.log(`$localStorage.userLoginData: ${$localStorage.userLoginData}`);
+
 			// $scope.smarties = $localStorage.userLoginData.smarties;
 			$scope.smarties = 5; // FIXME: just for test: s/b $localStorage.userLoginData.smarties;
 			$scope.init = function() {
@@ -550,6 +551,9 @@ angular
 							console.log(`My Location: ${results[0].geometry.location.lat()}, ${results[0].geometry.location.lng()}`);
 						})
 						$scope.myLocation;
+						$scope.centerMyLocation = function( ){
+				map.setCenter(new google.maps.LatLng(locationResult.lat, locationResult.lng));
+						}   
 						map.setCenter(new google.maps.LatLng(locationResult.lat, locationResult.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
 						var myLocation = new google.maps.Marker({
 							id: 0,
