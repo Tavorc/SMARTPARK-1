@@ -1,7 +1,12 @@
 <ion-view title="LOGIN" hide-nav-bar="true" hide-back-button="true" id="page4" >
+<div class="bar bar-header bar-dark">
+  <h1 class="title">LOGIN</h1>
+</div>
   <ion-content padding="true" class="manual-ios-statusbar-padding" >
 <div class="cardLogin" >
+<div id="logoLoginDiv" >
   <center> <img src="./img/logo.jpg" class="logoLogin" > </center>
+  </div>
     <form id="login-form1" class="list">
       <ion-list id="login-list2">
         <label class="item item-input" id="login-input1">
@@ -15,9 +20,9 @@
       </ion-list>
       <div class="spacer" style="height: 40px;"></div>
       <a  id="login-button1" class="button button-stable  button-block"  ng-click="signIn()" >Log in</a>
-      <a ui-sref="signup" id="login-button2" class="button button-positive  button-block button-clear">Or create an account</a>
+ <a  id="login-button3" class="button button-positive  button-block icon ion-social-googleplus" ng-click="googleSignIn()"> Login with google</a>
+      <a ui-sref="signup" id="login-button2" class="button button-stable  button-block" >Or create an account</a>
     </form>
-    <a  id="login-button3" class="button button-positive  button-block icon ion-social-googleplus" ng-click="googleSignIn()"></a>
     </div>
   </ion-content>
 </ion-view>
