@@ -332,7 +332,6 @@ angular
 						UserService.setUser(obj);
 						$state.go('menu.home');
 						console.log(UserService.getUser().email);
-						$ionicLoading.hide();
 					},
 					function(msg) {
 						window.plugins.googleplus.login({},
@@ -481,7 +480,7 @@ angular
 			}
 			console.log($localStorage);
 			console.log(`$localStorage.userLoginData: ${$localStorage.userLoginData}`);
-
+			$ionicLoading.hide();
 			// $scope.smarties = $localStorage.userLoginData.smarties;
 			$scope.smarties = 5; // FIXME: just for test: s/b $localStorage.userLoginData.smarties;
 			$scope.init = function() {
@@ -558,9 +557,8 @@ angular
 						var myLocation = new google.maps.Marker({
 							id: 0,
 							options: {
-								icon: imgs.imHereBlue,
-								draggable: false,
-								animation: google.maps.Animation.BOUNCE
+								icon: "./img/blueMyLoc.png",
+								draggable: false
 							},
 							position: new google.maps.LatLng(locationResult.lat, locationResult.lng), // NOTE: pos.coords.latitude, pos.coords.longitude
 							map: map,
