@@ -291,6 +291,13 @@ angular
 
 	.controller('loginCtrl', ['$scope', '$stateParams', '$http', '$ionicLoading', '$ionicSideMenuDelegate', '$state', '$ionicPush', 'UserService', '$ionicAuth', '$ionicPopup', '$localStorage', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $stateParams, $http, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
+				$scope.$on('cloud:push:notification', function(event, data) {
+				var msg = data.message;
+				//alert(msg.title + ': ' + msg.text);
+					var alertPopup = $ionicPopup.alert({
+						title: msg.text,
+						});
+			});
 			$scope.formSignInParams = {
 				email: $stateParams.email,
 				password: $stateParams.password,
@@ -468,7 +475,7 @@ angular
 
 	.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', '$ionicPush', '$cordovaLaunchNavigator', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage, $ionicPush, $cordovaLaunchNavigator) {
-			$scope.$on('cloud:push:notification', function(event, data) {
+				$scope.$on('cloud:push:notification', function(event, data) {
 				var msg = data.message;
 				//alert(msg.title + ': ' + msg.text);
 					var alertPopup = $ionicPopup.alert({
