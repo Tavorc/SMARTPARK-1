@@ -95,8 +95,6 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 											if (!$scope.data.carNum) {
 												e.preventDefault();
 											} else {
-												//you don't need to tell to server that the parking is not availible it's Obvious
-												//DAVID send number car to server and check if the number is compatible with the number of the publisher car
 												return $scope.data.carNum;
 											}
 										}

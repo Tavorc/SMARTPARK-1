@@ -9934,6 +9934,13 @@ a:hover {
   opacity: 0.7;
   /*background: #FAF3CE;*/ }
 
+#menu-list-item13 {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important; }
+
+#menu-list-item7 {
+  height: 88px; }
+
 .platform-ios .manual-ios-statusbar-padding {
   padding-top: 20px !important; }
 
