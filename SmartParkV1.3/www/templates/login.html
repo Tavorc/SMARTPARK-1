@@ -6,26 +6,29 @@
 <div class="cardLogin" >
 <div id="logoLoginDiv" >
   <center> <img src="./img/logo.jpg" class="logoLogin" > </center>
+
   </div>
+   <center> <b id="explainationLogIn">Log Into your Smart-Park account</b>  </center> 
     <form id="login-form1" class="list">
       <ion-list id="login-list2">
         <label class="item item-input" id="login-input1">
-          <span class="input-label">Email</span>
+          <span class="input-label"><img src="./img/iconPerson.png" width="16px" height="16px"> Email</span>
           <input type="text" placeholder="" ng-model="formSignInParams.email.text">
         </label>
         <label class="item item-input" id="login-input2">
-          <span class="input-label">Password</span>
+          <span class="input-label"><img src="./img/iconkey.png" > Password</span>
           <input type="password" placeholder="" ng-model="formSignInParams.password">
         </label>
       </ion-list>
-      <div class="spacer" style="height: 40px;"></div>
+     <div class="spacer" style="height: 6px;"></div>
       <a  id="login-button1" class="button button-stable  button-block"  ng-click="signIn()" >Log in</a>
+       <hr id="hrLog">
  <a  id="login-button3" class="button button-positive  button-block icon ion-social-googleplus" ng-click="googleSignIn()"> Login with google</a>
       <a ui-sref="signup" id="login-button2" class="button button-stable  button-block" >Or create an account</a>
     </form>
     </div>
-    <div class="bar bar-footer bar-dark">
-      <div class="title"></div>
+    <div class="bar bar-footer bar-dark" >
+      <div class="title" id="footeLogin">About &nbsp | &nbsp FeedBack &nbsp | &nbsp Help</div>
     </div>
   </ion-content>
 </ion-view>

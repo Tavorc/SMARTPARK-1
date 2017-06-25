@@ -1,6 +1,6 @@
 <ion-view title="SIGNUP" id="page8" >
   <ion-content padding="true" class="has-header">
-  <div class="cardLogin" >
+  <div class="cardSignup" >
   <div id="logoLoginDiv" >
   <img src="./img/logo.jpg" class="logoLogin" >
   </div>
@@ -18,13 +18,16 @@
           <span class="input-label">Password</span>
           <input type="password" placeholder="" ng-model="formSignupParams.password">
         </label>
-				<label class="item item-input">
+				<label class="item item-input" id="signup-carid">
           <span class="input-label">Car Number</span>
           <input type="text" placeholder="" ng-model="formSignupParams.carId">
         </label>
 			</ion-list>
 			<a id="signup-button4" class="button button-stable  button-block" ng-click="signUp()">Sign up</a>
 		</form>
+    </div>
+      <div class="bar bar-footer bar-dark" >
+      <div class="title" id="footeLogin">About &nbsp | &nbsp FeedBack &nbsp | &nbsp Help</div>
     </div>
 	</ion-content>
 </ion-view>

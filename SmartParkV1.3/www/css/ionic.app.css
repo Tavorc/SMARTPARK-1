@@ -9774,14 +9774,54 @@ a:hover {
   width: 190px;
   height: 150px; }
 
+#signup-input3 {
+  border-radius: 6px; }
+
+#emailLogin {
+  border-radius: 6px; }
+
+#login-input2 {
+  border-radius: 6px; }
+
+#signup-input5 {
+  border-radius: 6px; }
+
+#signup-carid {
+  border-radius: 6px; }
+
+#login-input1 {
+  border-radius: 6px; }
+
+#hrLog {
+  border-width: 3px;
+  color: #585858; }
+
 .cardLogin {
   border-style: solid;
-  border-width: 3px;
+  border-width: 6px;
   border-color: #80d4ff;
-  padding: 20%;
-  margin-top: 12%;
-  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.4);
-  background-color: #f2f2f2; }
+  padding: 28%;
+  margin-top: 10%;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f2f2f2;
+  border-radius: 6px; }
+
+.cardSignup {
+  border-style: solid;
+  border-width: 4px;
+  border-color: #80d4ff;
+  padding: 6%;
+  margin-top: 1%;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f2f2f2;
+  border-radius: 6px; }
+
+#explainationLogIn {
+  font-size: 15px; }
+
+#footeLogin {
+  color: #BDBDBD;
+  font-size: 15px; }
 
 #logoLoginDiv {
   width: 190px;
@@ -9792,12 +9832,13 @@ a:hover {
   border-width: 3px;
   border-color: #80d4ff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  background-color: #f2f2f2; }
+  background-color: #f2f2f2;
+  border-radius: 6px; }
 
 #signup-button4 {
   background-color: #2dace2;
   color: #ffffff;
-  margin-top: 40px; }
+  margin-top: 10px; }
 
 #login-button2 {
   background-color: #CCCCCC; }
