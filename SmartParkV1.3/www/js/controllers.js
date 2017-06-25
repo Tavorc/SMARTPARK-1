@@ -470,7 +470,10 @@ angular
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage, $ionicPush, $cordovaLaunchNavigator) {
 			$scope.$on('cloud:push:notification', function(event, data) {
 				var msg = data.message;
-				alert(msg.title + ': ' + msg.text);
+				//alert(msg.title + ': ' + msg.text);
+					var alertPopup = $ionicPopup.alert({
+						title: msg.text,
+						});
 			});
 			if ($localStorage.flagMap == true) {
 				setTimeout(function() {
