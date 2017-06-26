@@ -1,6 +1,8 @@
+
 {
   "name": "SmartParkV1.3",
   "app_id": "535bc8c5",
+  "type": "ionic1",
   "gulpStartupTasks": [
     "sass",
     "watch"

@@ -36,3 +36,9 @@ SmartParkV1.3/www/img/mike.png
 SmartParkV1.3/www/lib/*
 
 SmartParkV1.3/bower.json
+SmartParkV1.3/.editorconfig
+SmartParkV1.3/.editorconfig
+SmartParkV1.3/.bowerrc
+SmartParkV1.3/.editorconfig
+SmartParkV1.3/hooks/after_prepare/010_add_platform_class.js
+SmartParkV1.3/hooks/README.md
