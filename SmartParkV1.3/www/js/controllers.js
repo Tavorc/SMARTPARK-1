@@ -19,6 +19,9 @@ angular
 				lat: $stateParams.lat,
 				lng: $stateParams.lng
 			}
+			$scope.cancelInFunction =function(){
+					$state.go('menu.home');
+			};
 			$scope.time = {
 				d: null,
 				t: null
@@ -33,11 +36,15 @@ angular
  				lat:$scope.location.lat,
  				lng:$scope.location.lng
  		}
+
+			console.log($localStorage.userLoginData.smarties);
+			$scope.smartiesAlert = $localStorage.userLoginData.smarties;
 			// console.log($location.url() );// NOTE: needed to go back to previus state
 			$scope.getInfoFromServer = function() {
 				var confirmPopup = $ionicPopup.confirm({
-					title: 'You are going to lose 1 smarties',
-					template: 'DO YOU AGREE?'
+					template: '<img id="smartiesImgAlert" src="./img/alerIcons.png" height="16" width="16" > <b>YOU HAVE: </b> <b id="boldSmarties" ng-model="smartiesAlert" > 23<br>smarties</b><img id="smartiesImg" src="./img/circleSmarties.png" height="64" width="64" ><br> You are going to lose 1 smarties<br><br><b>DO YOU AGREE?</b>',
+					cancelType: 'button-dark',
+					okText: 'I AGREE'
 				});
 				confirmPopup.then(function(res) {
 					if (res) {
@@ -145,6 +152,7 @@ angular
 			// 		// error
 			// 	});
 			// }
+
 			$localStorage.answerReporterDetails = $scope.parking;
 			$scope.getInfoFromServer = function() {
 				d3TimeFormat.toLocalDate($scope.time, (formatedTime) => {
