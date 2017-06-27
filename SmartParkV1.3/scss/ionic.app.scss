@@ -641,3 +641,60 @@ outline: none;
 	font-size:14px;
 	text-align:center;
 }
+
+
+    ion-item.history,
+    ion-item.history a {
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    .history-list .list {
+        margin: 10px;
+    }
+
+    .history-list {
+        opacity: 0.8;
+    }
+
+    .maps-bg {
+        background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
+    }
+
+        button.inout-btn {
+        width: 100px;
+        height:100px;
+        border-radius:100%;
+        background: gray;
+        font-size: 3em;
+        display: block
+        margin:0 auto;
+        border: 0;
+    }
+    button.inout-btn.success {
+        color: #11c1f3;
+    }
+    .teal {
+        color: #11c1f3;
+    }
+    .inout-col {
+        font-size: 1.5em;
+    }
+
+    ion-item.history,
+    ion-item.history a {
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    .history-list .list {
+        margin: 10px;
+    }
+
+    .history-list {
+        opacity: 0.8;
+    }
+
+    .maps-bg {
+        background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
+    }
