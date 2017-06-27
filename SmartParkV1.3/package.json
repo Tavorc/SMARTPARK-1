@@ -1,10 +1,4 @@
 {
-<<<<<<< HEAD
-    "name": "smartparkV1.5",
-    "version": "0.0.1",
-    "description": "An Ionic project",
-    "dependencies": {
-=======
     "name": "smartparkv1.3",
     "version": "1.1.1",
     "description": "SmartParkV1.3: An Ionic project",
@@ -14,25 +8,14 @@
         "gulp-concat": "^2.2.0",
         "gulp-minify-css": "^0.3.0",
         "gulp-rename": "^1.2.0",
->>>>>>> origin/master
         "@ionic-native/paypal": "^3.12.1",
         "@ionic/cloud": "^0.16.0",
         "angular-stripe-checkout": "^5.1.0",
         "bluebird": "^3.5.0",
-<<<<<<< HEAD
-        "card.io.cordova.mobilesdk": "^2.1.0",
-        "com.paypal.cordova.mobilesdk": "^3.5.0",
-        "cordova": "^7.0.1",
-        "cordova-android": "^6.2.3",
-        "cordova-android-play-services-gradle-release": "0.0.1",
-        "cordova-android-support-gradle-release": "0.0.2",
-        "cordova-plugin-actionsheet": "^2.2.2",
-=======
         "cordova": "^7.0.1",
         "cordova-android": "^6.2.3",
         "cordova-android-play-services-gradle-release": "0.0.1",
         "cordova-android-support-gradle-release": "~0.0.1",
->>>>>>> origin/master
         "cordova-plugin-app-event": "file:node_modules\\cordova-plugin-app-event",
         "cordova-plugin-compat": "^1.0.0",
         "cordova-plugin-device": "file:node_modules\\cordova-plugin-device",
@@ -43,19 +26,9 @@
         "cordova-plugin-x-socialsharing": "git+https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
         "de.appplant.cordova.plugin.local-notification": "git+https://github.com/katzer/cordova-plugin-local-notifications.git",
         "es6-promise-plugin": "^4.1.0",
-<<<<<<< HEAD
-        "gulp": "^3.5.6",
-        "gulp-concat": "^2.2.0",
-        "gulp-minify-css": "^0.3.0",
-        "gulp-rename": "^1.2.0",
-        "gulp-sass": "^2.0.4",
-        "phonegap-plugin-push": "^1.10.5",
-        "uk.co.workingedge.phonegap.plugin.launchnavigator": "^3.2.2"
-=======
         "phonegap-plugin-push": "^1.10.5",
         "uk.co.workingedge.phonegap.plugin.launchnavigator": "^3.2.2",
         "com.paypal.cordova.mobilesdk": "^3.5.0"
->>>>>>> origin/master
     },
     "devDependencies": {
         "@ionic/cli-plugin-cordova": "1.4.0",
@@ -97,12 +70,8 @@
             "com.paypal.cordova.mobilesdk": {},
             "cordova-android-support-gradle-release": {}
         },
-<<<<<<< HEAD
         "platforms": [
             "android"
         ]
-=======
-        "platforms": []
->>>>>>> origin/master
     }
 }
