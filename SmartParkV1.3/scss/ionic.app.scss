@@ -698,3 +698,31 @@ outline: none;
     .maps-bg {
         background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
     }
+    .user-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border:3px solid lightgray;
+    }
+    .user-avatar + div {
+        width: 80px;
+        height: 80px;
+        background: #00add9;
+        color: #fff;
+        border-radius: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+    }
+    h3.smarties {
+        padding: 0;
+        margin: 0;
+        margin-top: 15px;
+    }
+    span.smarties {
+        display: inline-block;
+    }
+    .teal {
+        color: #11c1f3;
+    }
