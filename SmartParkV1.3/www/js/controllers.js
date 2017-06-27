@@ -190,6 +190,10 @@ angular
 
 	}])
 
+	.controller('aboutCtrl', ['$scope', function($scope) {
+
+	}])
+
 	.controller('menuCtrl', ['$scope', '$ionicPopup', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', '$cordovaSocialSharing', '$ionicSideMenuDelegate',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $ionicPopup, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush, $cordovaSocialSharing, $ionicSideMenuDelegate) {
 
@@ -1082,9 +1086,9 @@ angular
 			$scope.items2 = [];
 			// Should be searcher_id
 			userDetails = {
-				user_id: UserService.getUser().email
+				userId: UserService.getUser().email
 			};
-			$http.post('https://smartparkil.herokuapp.com/historyBooking').then((res) => {
+			$http.post('https://smartparkil.herokuapp.com/historyBooking' , userDetails).then((res) => {
 				res.data.forEach((v, k) => {
 					timeOfParking = new Date(v.time);
 					$scope.items.push({
@@ -1094,7 +1098,7 @@ angular
 				});
 			});
 
-			$http.post('https://smartparkil.herokuapp.com/historyParking').then((res) => {
+			$http.post('https://smartparkil.herokuapp.com/historyParking' , userDetails).then((res) => {
 				res.data.forEach((v, k) => {
 					timeOfParking = new Date(v.time);
 					$scope.items2.push({

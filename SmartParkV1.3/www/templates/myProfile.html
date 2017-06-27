@@ -1,38 +1,78 @@
+<style>
+    .maps-bg {
+        background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
+    }
+    .user-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border:3px solid lightgray;
+    }
+    .user-avatar + div {
+        width: 80px;
+        height: 80px;
+        background: #00add9;
+        color: #fff;
+        border-radius: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+    }
+    h3.smarties {
+        padding: 0;
+        margin: 0;
+        margin-top: 15px;
+    }
+    span.smarties {
+        display: inline-block;
+    }
+    .teal {
+        color: #11c1f3;
+    }
+</style>
 <!-- FIXME: all inline style needs to be removed to  css/ionic.app.css -->
 <ion-view title="My profile" id="page6">
-	<ion-content padding="true" class="has-header">
-		<div class="list card" id="myProfile-card21">
-			<ion-item class="item-avatar" id="myProfile-list-item15">
-				<div class="list">
-					<label class="item item-input">
-            <span class="input-label">User Name:</span>
+	<ion-content padding="true" class="has-header maps-bg">
+		<div class="list card" id="myProfile-card21" style="background: #f7f6f6">
+            <div class="row">
+                <div class="col text-center" style="position:relative;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg" class="user-avatar" alt="">
+                    <div>
+                        <h3 class="smarties">{{smarties}}</h3>
+                        <span class="smarties">Smarties</span>
+                    </div>
+                    <h1><span class="teal">[</span>{{userName}}<span class="teal">]</span></h1>
+                </div>
+            </div>
+			<ion-item class="item-avatar" id="myProfile-list-item15" style="background: #f7f6f6;">
+				<div class="list" style="background: #f7f6f6">
+					<label class="item item-input" style="background: #f7f6f6;">
+            <span class="input-label"><span style="color: #2dace2">[</span> User Name:</span>
               <input type="text"  ng-model="userName">
             </label>
-					<label class="item item-input">
-            <span class="input-label">Email:</span>
+					<label class="item item-input" style="background: #f7f6f6;">
+            <span class="input-label"><span style="color: #2dace2">[</span> Email:</span>
               <input type="text" ng-model="email">
             </label>
-					<label class="item item-input">
-            <span class="input-label">Password:</span>
+					<label class="item item-input" style="background: #f7f6f6;">
+            <span class="input-label"><span style="color: #2dace2">[</span> Password:</span>
               <input type="text" ng-model="password">
             </label>
-					<label class="item item-input">
-            <span class="input-label">CarId:</span>
+					<label class="item item-input" style="background: #f7f6f6;">
+            <span class="input-label"><span style="color: #2dace2">[</span> CarId:</span>
               <input type="text" ng-model="carId">
             </label>
 				</div>
 			</ion-item>
-			<div style="margin: 0px; line-height: 250px; background-color: rgb(232, 235, 239); text-align: center;">
-				<i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
-			</div>
 			<!--  <img src=""> -->
-			<div class="item item-body" id="myProfile-list-item-container2">
+			<!--div class="item item-body" id="myProfile-list-item-container2">
 				<div id="myProfile-markdown2" class="show-list-numbers-and-dots">
 					<p style="margin-top:0px;color:#000000;">Some friendly
 						<strong>markdown</strong>
 					</p>
 				</div>
-			</div>
+			</div-->
 		</div>
 	</ion-content>
 </ion-view>

@@ -25,8 +25,12 @@
 			<ion-tab title="searches" icon="ion-search" ng-controller="MyCtrlSearchesHistory">
 				<ion-view>
 					<ion-content class="maps-bg">
+					<br/><br/>
 						<div class="history-list">
 							<ion-list show-delete="data.showDelete">
+								<ion-item item="item" ng-if="items.length===0">
+									<h2>אין תוצאות</h2>
+								</ion-item>
 								<ion-item class="history" ng-repeat="item in items" item="item" href="#/item/{{item.id}}" class="item-remove-animate">
 									<h2>{{item.time}}</h2>
 									<p>{{item.location}}</p>
@@ -39,8 +43,12 @@
 			<ion-tab title="reports" icon="ion-document-text" ng-controller="MyCtrlReportsHistory">
 				<ion-view>
 					<ion-content class="maps-bg">
+					<br/><br/>
 						<div class="history-list">
 							<ion-list show-delete="data.showDelete">
+								<ion-item item="item" ng-if="items2.length===0">
+									<h2>אין תוצאות</h2>
+								</ion-item>
 								<ion-item ng-repeat="item in items2" item="item" href="#/item/{{item.id}}" class="item-remove-animate">
 									<h2>{{item.time}}</h2>
 									<p>{{item.location}}</p>

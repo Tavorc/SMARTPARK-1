@@ -39,6 +39,16 @@ angular
 				}
 			})
 
+			.state('menu.about', {
+				url: '/about',
+				views: {
+					'side-menu21': {
+						templateUrl: 'templates/about.html',
+						controller: 'aboutCtrl'
+					}
+				}
+			})
+
 			.state('menu', {
 				url: '/side-menu',
 				templateUrl: 'templates/menu.html',

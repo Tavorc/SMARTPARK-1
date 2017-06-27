@@ -1,5 +1,6 @@
-<ion-view title="OUT" id="page2">
+<ion-view title="OUT" id="page1">
 	<ion-content padding="true" class="has-header">
+    <div id="wrapperIn">
 		<form id="out-form12" class="list">
 			<label class="item item-input" id="out-select6" name="date">
         		<span class="input-label"><span style="color: #2dace2">[</span> Date</span>
@@ -57,10 +58,49 @@
         		<span class="input-label"><span style="color: #2dace2">[</span> Comments</span>
 				<textarea placeholder="Something importent?" ng-model="parking.description"></textarea>
     		</label>
-			<div id="out-button-bar2" class="button-bar">
-				<a ui-sref="menu.home" id="out-button16" class="button button-dark  button-block icon ion-android-cancel circle-button"></a>
-				<a ng-click="getInfoFromServer()" id="out-button17" class="button button-calm  button-block icon ion-paper-airplane circle-button"></a>
-			</div>
+
+            <label class="item item-input" id="out-textarea2" name="comments">
+            <div class="row">
+              <div class="col text-center inout-col"><button class="inout-btn">-</button><br/><span class="teal">[</span>Cancel<span class="teal">]</span></div>
+              <div class="col text-center inout-col"><button class="inout-btn success">+</button><br/><span class="teal">[</span>Done<span class="teal">]</span></div>
+            </div>
+            </label>
+
+
+
+
+<!--button class="button button-stable" id="in-button12" ui-sref="menu.home" >
+-
+</button-->
+<!--button class="button button-stable" id="in-button13" ng-click="getInfoFromServer()">
+  +
+</button-->
+
 		</form>
+    </div>
+                <div id="in-button-bar1" class="button-bar">
+      </div>
 	</ion-content>
 </ion-view>
+
+<style>
+    button.inout-btn {
+        width: 100px;
+        height:100px;
+        border-radius:100%;
+        background: gray;
+        font-size: 3em;
+        display: block
+        margin:0 auto;
+        border: 0;
+    }
+    button.inout-btn.success {
+        color: #11c1f3;
+    }
+    .teal {
+        color: #11c1f3;
+    }
+    .inout-col {
+        font-size: 1.5em;
+    }
+</style>
