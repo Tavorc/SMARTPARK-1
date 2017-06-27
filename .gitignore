@@ -42,3 +42,6 @@ SmartParkV1.3/.bowerrc
 SmartParkV1.3/.editorconfig
 SmartParkV1.3/hooks/after_prepare/010_add_platform_class.js
 SmartParkV1.3/hooks/README.md
+SmartParkV1.3/www/js/controllers.js
+*.DS_Store
+SmartParkV1.3/package.json
