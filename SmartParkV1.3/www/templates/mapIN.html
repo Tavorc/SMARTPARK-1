@@ -1,12 +1,12 @@
 <ion-view title="map IN" id="page10" ng-init="init()">
-  <ion-content padding="false" class=" manual-remove-top-padding has-header" scroll="false" >
-    <div id="selectionBox" class="input-group">
-        <input type="search" class="form-control text-center warning" placeholder="Select your location..." value= "{{chosenLocation.formatted_address}}">
-        <span class="input-group-btn">
+	<ion-content padding="false" class=" manual-remove-top-padding has-header" scroll="false">
+		<div id="selectionBox" class="input-group">
+			<input type="search" class="form-control text-center warning" placeholder="Select your location..." value="{{chosenLocation.formatted_address}}">
+			<span class="input-group-btn">
             <button class="btn btn-warning" type="button" ng-click="continue()">Choose!</button>
             <!-- <button class="btn btn-success" ng-click="goup()" >goUP!</button> -->
         </span>
-    </div>
-    <div id="mapIN" class="map" data-tap-disabled="false"></div>
-  </ion-content>
+		</div>
+		<div id="mapIN" class="map" data-tap-disabled="false"></div>
+	</ion-content>
 </ion-view>

@@ -134,13 +134,13 @@ background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps
 	border-radius:6px;
 }
 #signup-input5{
-border-radius:6px;	
+border-radius:6px;
 }
 #signup-carid{
-	border-radius:6px;	
+	border-radius:6px;
 }
 #login-input1{
-border-radius:6px;	
+border-radius:6px;
 }
 #hrLog{
 	border-width    : 3px;
@@ -376,6 +376,35 @@ a:hover {
 #menu-list-item7{
 	height: $bar-subheader-height + $bar-height;//$bar-height*2 + $bar-subheader-height ;
 }
+.maps-bg {
+  background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
+}
+// menu.html:
+#menu-list4 .item-icon-left {
+	background: #3b4051 !important;
+	color: #fff !important;
+	border-top: 1px solid #3b4051 !important;
+	border-bottom: 1px solid #3b4051 !important;
+}
+
+#menu-list4 a.item-content {
+	background: #3b4051 !important;
+	color: #fff !important;
+	border-top: 1px solid #3b4051 !important;
+	border-bottom: 1px solid #3b4051 !important;
+}
+
+#menu-list4 .item.item-toggle {
+	background: #3b4051 !important;
+	color: #fff !important;
+	border: 0;
+}
+
+#menu-list4 .welcome-user {
+	color: #fff !important;
+	font-size: 1.3em !important;
+}
+
 .platform-ios .manual-ios-statusbar-padding {
   padding-top: 20px !important; }
 
@@ -576,7 +605,7 @@ ion-list.manual-list-fullwidth div.list > .item {
 	border-radius: 6px;
 	border: none;
 	border-color: transparent;
-	outline: none;	
+	outline: none;
 }
 
 #in-select4{

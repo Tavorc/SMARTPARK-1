@@ -10001,6 +10001,30 @@ a:hover {
 #menu-list-item7 {
   height: 88px; }
 
+.maps-bg {
+  background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg); }
+
+#menu-list4 .item-icon-left {
+  background: #3b4051 !important;
+  color: #fff !important;
+  border-top: 1px solid #3b4051 !important;
+  border-bottom: 1px solid #3b4051 !important; }
+
+#menu-list4 a.item-content {
+  background: #3b4051 !important;
+  color: #fff !important;
+  border-top: 1px solid #3b4051 !important;
+  border-bottom: 1px solid #3b4051 !important; }
+
+#menu-list4 .item.item-toggle {
+  background: #3b4051 !important;
+  color: #fff !important;
+  border: 0; }
+
+#menu-list4 .welcome-user {
+  color: #fff !important;
+  font-size: 1.3em !important; }
+
 .platform-ios .manual-ios-statusbar-padding {
   padding-top: 20px !important; }
 
