@@ -13,8 +13,8 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 
 **Run on device:** `ionic cordova run DEVICE_PLATFORM`
 
-Development: @DavidAvigad , @TavorC , @InbarTakdim
+👾 Development: @DavidAvigad , @TavorC , @InbarTakdim
 
-Design: @DavidAvigad
+🎨 Design: @DavidAvigad
 
 Copyright (c) 2017 SMART[park] app. All Rights Reserved.
