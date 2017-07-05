@@ -436,7 +436,6 @@ angular
 										console.log('error while read user!');
 									});
 								UserService.setUser(user_data);
-								$ionicLoading.hide();
 							},
 							function(msg) {
 								$ionicPopup.alert({
