@@ -45,9 +45,11 @@ angular
 			$scope.getInfoFromServer = function() {
 				var confirmPopup = $ionicPopup.confirm({
 					template: '<img id="smartiesImgAlert" src="./img/alerIcons.png" height="16" width="16" > <b>YOU HAVE: </b> <b id="boldSmarties" ng-model="smartiesAlert.value" >{{smartiesAlert.value}}<br>smarties</b><img id="smartiesImg" src="./img/circleSmarties.png" height="64" width="64" ><br> You are going to lose 1 smarties<br><br><b>DO YOU AGREE?</b>',
+					cancelText: 'CANCEL',
 					cancelType: 'button-dark',
 					scope: $scope,
-					okText: 'I AGREE'
+					okText: 'I AGREE',
+					okType: 'button-calm'
 				});
 				confirmPopup.then(function(res) {
 					if (res) {
@@ -337,6 +339,7 @@ angular
 				window.plugins.googleplus.trySilentLogin({},
 					function(obj) {
 						UserService.setUser(obj);
+						console.log(UserService.getUser());
 						$localStorage.flagMap = false;
 						$state.go('menu.home');
 					},
@@ -358,6 +361,7 @@ angular
 					function(msg) {
 						window.plugins.googleplus.login({},
 							function(user_data) {
+								console.log(UserService.getUser());
 								var register = false,
 									emailToCheck = user_data.email,
 									userPass = 'gtoken';
@@ -417,6 +421,9 @@ angular
 												]
 											});
 										} else {
+											$ionicLoading.show({
+												template: 'Logging in..:)'
+											});
 											$localStorage.userLoginData = response;
 											console.log('user found! going home..');
 											$state.go('menu.home');
