@@ -1092,9 +1092,12 @@ angular
 		}
 	])
 
-	.controller('myHistoryCtrl', ['$scope', '$http', 'UserService', '$stateParams', 'd3TimeFormat', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $http, UserService, $stateParams, d3TimeFormat) {
+	.controller('myHistoryCtrl', ['$scope', '$http', 'UserService', '$stateParams', 'd3TimeFormat', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $http, UserService, $stateParams, d3TimeFormat, $ionicLoading) {
 			console.log($stateParams);
+			$ionicLoading.show({
+							template: 'Loading in..:)'
+							});
 			$scope.items = [];
 			$scope.items2 = [];
 			// Should be searcher_id
@@ -1102,6 +1105,7 @@ angular
 				userId: UserService.getUser().email
 			};
 			$http.post('https://smartparkil.herokuapp.com/historyBooking' , userDetails).then((res) => {
+				$ionicLoading.hide();
 				res.data.forEach((v, k) => {
 					timeOfParking = new Date(v.time);
 					$scope.items.push({
@@ -1112,6 +1116,7 @@ angular
 			});
 
 			$http.post('https://smartparkil.herokuapp.com/historyParking' , userDetails).then((res) => {
+$ionicLoading.hide();
 				res.data.forEach((v, k) => {
 					timeOfParking = new Date(v.time);
 					$scope.items2.push({
@@ -1123,14 +1128,16 @@ angular
 		}
 	])
 
-	.controller('MyCtrlSearchesHistory', ['$scope',
-		function($scope) {
+	.controller('MyCtrlSearchesHistory', ['$scope','$ionicLoading',
+		function($scope, $ionicLoading) {	
 			$scope.data = {
 				showDelete: false
 			};
 			$scope.onItemDelete = function(item) {
+				
 				$scope.items.splice($scope.items.indexOf(item), 1);
 			}
+
 		}
 	])
 
