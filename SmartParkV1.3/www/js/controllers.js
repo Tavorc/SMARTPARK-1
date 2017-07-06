@@ -588,7 +588,7 @@ angular
 						var myLocation = new google.maps.Marker({
 							id: 0,
 							options: {
-								icon: "./img/blueMyLoc.png",
+								icon: "./img/bullet-blue.png",
 								draggable: false
 							},
 							position: new google.maps.LatLng(locationResult.lat, locationResult.lng), // NOTE: pos.coords.latitude, pos.coords.longitude
