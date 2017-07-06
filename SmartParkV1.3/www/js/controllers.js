@@ -648,7 +648,8 @@ angular
 														var detailsChoose = $localStorage.myChoseDetails;
 														var alertPopup = $ionicPopup.alert({
 															title: 'Details',
-															template: 'Description: ' + detailsChoose.Description + '<br>address: ' + detailsChoose.address + '<br> time: ' + detailsChoose.time + '<br>occupied:' + detailsChoose.occupied
+															okType: 'button-calm',
+															template: '<b>Description: </b>' + detailsChoose.Description + '<br><b>address: </b>' + detailsChoose.address + '<br><b>time: </b>' + detailsChoose.time + '<br><b>occupied: </b>' + detailsChoose.occupied
 														});
 													}
 													if (index == 2) {
@@ -724,7 +725,8 @@ angular
 														var detailsChoose = $localStorage.myChoseDetails;
 														var alertPopup = $ionicPopup.alert({
 															title: 'Details',
-															template: 'Description: ' + detailsChoose.Description + '<br>address: ' + detailsChoose.address + '<br> time: ' + detailsChoose.time + '<br>occupied:' + detailsChoose.occupied
+															okType: 'button-calm',
+															template: '<b>Description: </b>' + detailsChoose.Description + '<br><b>Address: </b>' + detailsChoose.address + '<br><b>Time: </b>' + detailsChoose.time + '<br><b>Occupied: </b>' + detailsChoose.occupied
 														});
 													}
 													if (index == 2) {
@@ -803,7 +805,8 @@ angular
 												console.log(dateTime);
 												var alertPopup = $ionicPopup.alert({
 													title: 'Details',
-													template: 'address: ' + detailsReporter.location.city + "," + detailsReporter.location.street + ',' + detailsReporter.location.number + '<br> time: ' + dateTime
+													okType: 'button-calm',
+													template: '<b>Address: </b>' + detailsReporter.location.city + "," + detailsReporter.location.street + ',' + detailsReporter.location.number + '<br><b>Time: </b>' + dateTime
 												});
 											}
 											if (index == 1) {
@@ -959,7 +962,7 @@ angular
 						google.maps.event.addListener(tempMarker, 'click', function(event) {
 							var hideSheet = $ionicActionSheet.show({
 								buttons: [{
-										text: 'Details'
+										text: 'DETAILS'
 									},
 									{
 										text: 'Choose'
@@ -985,7 +988,8 @@ angular
 										sendPush.pushToPublisher(loc.publisherToken, massege); //NOTE here is the push service
 										var alertPopup = $ionicPopup.alert({
 											title: 'Details',
-											template: 'Description: ' + loc.description + '<br>address: ' + loc.location.city + "," + loc.location.street + ',' + loc.location.number + '<br> time: ' + loc.time + '<br>occupied:' + statusChose
+											okType: 'button-calm',
+											template: '<b>Description: </b>' + loc.description + '<br><b>Address: </b>' + loc.location.city + "," + loc.location.street + ',' + loc.location.number + '<br><b>Time: </b>' + loc.time + '<br><b>Occupied: </b>' + statusChose
 										});
 									}
 									if (index == 1) {
