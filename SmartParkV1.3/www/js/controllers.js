@@ -443,6 +443,7 @@ angular
 											$localStorage.userLoginData = response;
 											console.log('user found! going home..');
 											$state.go('menu.home');
+											$ionicLoading.hide();
 										}
 									})
 									.error(function(answer) {
@@ -512,6 +513,7 @@ angular
 
 	.controller('homeCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$ionicPopup', '$ionicPlatform', 'UserService', '$ionicActionSheet', '$timeout', '$localStorage', '$ionicPush', '$cordovaLaunchNavigator', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $http, $stateParams, $ionicLoading, $ionicPopup, $ionicPlatform, UserService, $ionicActionSheet, $timeout, $localStorage, $ionicPush, $cordovaLaunchNavigator) {
+				$ionicLoading.hide();
 				$scope.$on('cloud:push:notification', function(event, data) {
 				var msg = data.message;
 				//alert(msg.title + ': ' + msg.text);
@@ -527,7 +529,7 @@ angular
 			}
 			console.log($localStorage);
 			console.log(`$localStorage.userLoginData: ${$localStorage.userLoginData}`);
-			$ionicLoading.hide();
+			
 			// $scope.smarties = $localStorage.userLoginData.smarties;
 			$scope.smarties = 5; // FIXME: just for test: s/b $localStorage.userLoginData.smarties;
 			$scope.init = function() {
