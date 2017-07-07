@@ -1,14 +1,20 @@
-<ion-view title="LOGIN" hide-nav-bar="true" hide-back-button="true" id="page4">
+<ion-view hide-back-button="true" id="page4">
+	<ion-nav-title>
+		<span class="calm">[</span> LOGIN
+		<span class="calm">]</span>
+	</ion-nav-title>
 	<div class="bar bar-header bar-dark">
 		<h1 class="title">LOGIN</h1>
 	</div>
-	<ion-content padding="true" class="manual-ios-statusbar-padding">
+	<ion-content padding="true" class="has-header fade-bg">
 		<div class="cardLogin">
 			<div id="logoLoginDiv">
 				<img src="./img/logo.jpg" class="logoLogin text-center">
-
 			</div>
-			<center> <b id="explainationLogIn">Log Into your Smart-Park account</b> </center>
+
+			<div class="lightTitle text-center">
+				<span class="calm">[ </span>Log Into your Smart-Park account<span class="calm"> ]</span>
+			</div>
 			<form id="login-form1" class="list">
 				<ion-list id="login-list2">
 					<label class="item item-input" id="login-input1">
@@ -22,9 +28,12 @@
 				</ion-list>
 				<div class="spacer" style="height: 6px;"></div>
 				<a id="login-button1" class="button button-stable  button-block" ng-click="signIn()">Log in</a>
-				<hr id="hrLog">
-				<a id="login-button3" class="button button-positive  button-block icon ion-social-googleplus" ng-click="googleSignIn()"> Login with google</a>
-				<a ui-sref="signup" id="login-button2" class="button button-stable  button-block">Or create an account</a>
+
+				<div class="lightTitle text-center">
+					<span class="calm">[ </span>OR<span class="calm"> ]</span>
+				</div>
+				<a id="login-button3" class="button button-positive  button-block icon ion-social-googleplus" ng-click="googleSignIn()"> </a>
+				<span class="small-link"><a ui-sref="signup">Dont have an account yet?!..</a></span>
 			</form>
 		</div>
 		<!-- <div class="bar bar-footer bar-dark">

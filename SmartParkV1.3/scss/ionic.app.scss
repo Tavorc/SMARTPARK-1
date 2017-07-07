@@ -162,9 +162,6 @@ border-radius:6px;
 	background-color: #f2f2f2;
 	border-radius:6px;
 }
-#explainationLogIn{
-	font-size:15px;
-}
 #footeLogin{
 	color: #BDBDBD;
 	font-size: 15px;
@@ -651,8 +648,11 @@ ion-list.manual-list-fullwidth div.list > .item {
 	font-size:14px;
 	text-align:center;
 }
-
-
+.small-link{
+	font-size: smaller;
+	font-style: italic;
+	font-weight: bolder;
+}
     ion-item.history,
     ion-item.history a {
         background: #fff !important;

@@ -1,12 +1,17 @@
-<ion-view title="SMARTPARK" hide-back-button="true" id="page5">
-	<ion-content padding="false" class=" manual-remove-top-padding has-header" scroll="false" ng-init="init()">
+<ion-view hide-back-button="true" id="page5">
+	<ion-nav-title>
+		<span class="calm">[</span> SMARTPARK
+		<span class="calm">]</span>
+	</ion-nav-title>
+	<ion-content padding="true" class="has-header fade-bg">
+		<ion-content padding="false" class=" manual-remove-top-padding has-header" scroll="false" ng-init="init()">
 
-		<a ng-click="centerMyLocation()">
+			<a ng-click="centerMyLocation()">
 			<img id="myLocation" src="./img/toolbarmap.png" height="32" width="32" >
 		</a>
-		<div id="mapHOME" class="map" data-tap-disabled="false">
-		</div>
-		<a ui-sref="menu.in">
+			<div id="mapHOME" class="map" data-tap-disabled="false">
+			</div>
+			<a ui-sref="menu.in">
 			<img id="imgIn" src="./img/in.png" height="100" width="100" >
 			<p id="pIn">
 				<span style="color: #2dace2">[</span>
@@ -14,7 +19,7 @@
 				<span style="color: #2dace2"> ]</span>
 			</p>
 		</a>
-		<a ui-sref="menu.out">
+			<a ui-sref="menu.out">
 			<img src="./img/out.png" id="imgOut" height="100" width="100" >
 			<p id="pOut">
 				<span style="color: #2dace2">[</span>
@@ -22,5 +27,5 @@
 				<span style="color: #2dace2">]</span>
 			</p>
 		</a>
-	</ion-content>
+		</ion-content>
 </ion-view>
