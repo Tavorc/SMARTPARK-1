@@ -388,6 +388,7 @@ angular
 									.success(function(response) {
 										console.log(response);
 										if (!response) {
+											$ionicLoading.hide();
 											console.log('user not found');
 											//then create new user:
 											$scope.data = {};
