@@ -38,38 +38,31 @@
 				</div>
 				<!-- <div class="item item-input-inset top-border-rounded" id="test"> -->
 				<div class="item item-input-inset top-border-rounded bold stable-bg" id="out-select8" name="size">
-					<span class="input-label">
+					<span class="title">
 							<span class="calm">[</span> Size
 					</span>
-					<label class="item item-input">
+					<label>
 							<img src="img/cars/small_car.png" />
 					</label>
 					<input type="radio" ng-model="parking.size" value="0">
 
-					<label class="item item-input">
+					<label>
 						<img src="img/cars/medium_car.png" />
 					</label>
 					<input type="radio" ng-model="parking.size" value="1">
 
-					<label class="item item-input">
+					<label>
 							<img src="img/cars/large_car.png" />
 					</label>
 					<input type="radio" ng-model="parking.size" value="2">
-
-					<!-- <input type="radio" ng-model="parking.size" value="3"><img style="width:80px;" src="img/cars/xl_car.png" /> -->
 				</div>
-				<!-- </div> -->
-
-				<!--select ng-model="parking.size">
-		          			<option ng-repeat="s in size">{{s}}</option>
-		        		</select-->
 				<div class="item item-input bold stable-bg" id="out-textarea2" name="comments">
 					<span class="calm">[ </span>&nbsp;Handicapped
 					<ion-checkbox id="out-checkbox2" name="handicapped" ng-model="parking.handicapped" style="border:0px;"></ion-checkbox>
 				</div>
 				<div class="item item-input btm-border-rounded bold stable-bg" id="out-textarea2" name="comments">
 					<span class="input-label"><span class="calm">[</span> Comments</span>
-					<textarea placeholder="Something importent?" ng-model="parking.description"></textarea>
+					<input type="text" placeholder="Say Somthing..." class="stable-bg" ng-model="parking.description"></textarea>
 				</div>
 				<div class="button-bar extra-space-top">
 					<div class="button-with-title">

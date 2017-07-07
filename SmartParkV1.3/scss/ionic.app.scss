@@ -602,8 +602,9 @@ ion-list.manual-list-fullwidth div.list > .item {
 	padding: 2px;
 }
 #out-select8{
-	.input-label{
-		margin-left: 5px;
+	.title{
+		margin-left: 7px;
+		padding-right: 10px;
 	}
 	label{
 		border: 0px;
@@ -611,15 +612,15 @@ ion-list.manual-list-fullwidth div.list > .item {
 			width: 20vw;
 		}
 	}
+	input[type="radio"]{
+		position: relative;
+		top: 20px;
+		right: 10%;
+		// display: inline-table;
 
-	// input[type="radio"]{
-	// 	position: relative;
-	// 	top: 10px;
-	// 	right:25px;
-	// 	// display: inline-table;
-	//
-	// }
+	}
 }
+
 .bold{
 	font-weight: bolder;
 }
