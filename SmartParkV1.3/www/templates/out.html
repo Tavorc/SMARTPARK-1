@@ -1,78 +1,99 @@
-<ion-view title="OUT" id="page1">
-	<ion-content padding="true" class="has-header">
-		<div id="wrapperOut">
-			<form id="out-form12" class="list">
-				<label class="item item-input" id="out-select6" name="date">
-        		<span class="input-label"><span style="color: #2dace2">[</span> Date</span>
-        		<input type="date" id="out-select6" name="date" ng-model="time.d" placeholder="yyyy-MM-dd" min="2017-01-01" max="2019-12-31" required />
-      		</label>
-				<label class="item item-input" id="out-select7" name="time">
-	        	<span class="input-label"><span style="color: #2dace2">[</span> Time</span>
-	        	<input type="time" id="out-select7" name="time" ng-model="time.t" placeholder="HH:MM" required />
-      		</label>
-				<a ui-sref="menu.mapOUT" id="out-button15" class="button button-positive button-small button-block icon ion-android-locate"> Choose location...</a>
+<ion-view id="page1">
+	<ion-nav-title>
+		<span class="calm">[</span> OUT
+		<span class="calm">]</span>
+	</ion-nav-title>
+	<ion-content padding="true" class="has-header fade-bg">
+		<div id="wraper">
+			<form id="out-form12" class="list form-tamplate">
+				<label class="item item-input top-border-rounded" id="out-select6" name="date">
+        			<span class="input-label"><span class="calm">[</span> Date</span>
+        			<input type="date" id="out-select6" name="date" ng-model="time.d" placeholder="yyyy-MM-dd" min="2017-01-01" max="2019-12-31" required />
+      			</label>
+				<label class="item item-input btm-border-rounded" id="out-select7" name="time">
+	        		<span class="input-label"><span class="calm">[</span> Time</span>
+	        		<input type="time" id="out-select7" name="time" ng-model="time.t" placeholder="HH:MM" required />
+      			</label>
+				<a ui-sref="menu.mapOUT" id="locationButton" class="button button-positive button-small button-block icon ion-android-locate"> Choose location...</a>
 				<!-- <a id="out-button15" class="button button-positive button-small button-block icon ion-android-locate" ng-click="openCamera()"> Take Photo </a> -->
 				<!-- <img ng-src="parking.img" id="myImage" height="0" width="0"> -->
-				<label class="item item-input" id="out-input14" name="street">
-		        <span class="input-label"><span style="color: #2dace2">[</span> Street</span>
-		        <input type="text" placeholder="Auto" disabled="true" ng-model="location.street">
-	      	</label>
+				<label class="item item-input top-border-rounded" id="out-input14" name="street">
+			        <span class="input-label"><span class="calm">[</span> Street</span>
+			        <input type="text" placeholder="Auto" disabled="true" ng-model="location.street">
+	      		</label>
 				<label class="item item-input" id="out-input15" name="number">
-		        <span class="input-label"><span style="color: #2dace2">[</span> Number</span>
-		        <input type="text" placeholder="Auto" disabled="true" ng-model="location.number">
-      		</label>
+			        <span class="input-label"><span class="calm">[</span> Number</span>
+			        <input type="text" placeholder="Auto" disabled="true" ng-model="location.number">
+      			</label>
 				<label class="item item-input" id="out-input16" name="city">
-		        <span class="input-label"><span style="color: #2dace2">[</span> City</span>
-		        <input type="text" placeholder="Auto" disabled="true" ng-model="location.city">
-		    </label>
-				<label class="item item-input" id="out-input17" name="country">
-		        <span class="input-label"><span style="color: #2dace2">[</span> Country</span>
-		        <input type="text" placeholder="Auto" disabled="true" ng-model="location.country">
-      		</label>
-				<i>Optional:</i>
-				<label class="item" id="out-select8" name="size">
-        		<span class="input-label"><span style="color: #2dace2">[</span> Size</span>
-				<div style="text-align:center">
-					<label>
-						<input type="radio" ng-model="parking.size" value="0"><img style="width:80px;" src="img/cars/small_car.png" />
+			        <span class="input-label"><span class="calm">[</span> City</span>
+			        <input type="text" placeholder="Auto" disabled="true" ng-model="location.city">
+		    	</label>
+				<label class="item item-input  btm-border-rounded" id="out-input17" name="country">
+			        <span class="input-label"><span class="calm">[</span> Country</span>
+			        <input type="text" placeholder="Auto" disabled="true" ng-model="location.country">
+      			</label>
+				<div class="lightTitle text-center">
+					<span class="calm">[ </span>Optional:<span class="calm"> ]</span>
+				</div>
+				<!-- <div class="item item-input-inset top-border-rounded" id="test"> -->
+				<div class="item item-input-inset top-border-rounded bold stable-bg" id="out-select8" name="size">
+					<span class="input-label">
+							<span class="calm">[</span> Size
+					</span>
+					<label class="item item-input">
+							<img src="img/cars/small_car.png" />
 					</label>
-				<label>
-						<input type="radio" ng-model="parking.size" value="1"><img style="width:80px;" src="img/cars/medium_car.png" />
-					</label>
-				<br />
-				<label>
-						<input type="radio" ng-model="parking.size" value="2"><img style="width:80px;" src="img/cars/large_car.png" />
-					</label>
-				<label>
-						<input type="radio" ng-model="parking.size" value="3"><img style="width:80px;" src="img/cars/xl_car.png" />
-					</label>
-		</div>
-		<!--select ng-model="parking.size">
-          			<option ng-repeat="s in size">{{s}}</option>
-        		</select-->
-		</label>
-		<label class="item item-input" id="out-textarea2" name="comments">
-				<span style="color: #2dace2">[ </span>&nbsp;Handicapped<ion-checkbox id="out-checkbox2" name="handicapped" ng-model="parking.handicapped" style="border:0px;"></ion-checkbox>
-			</label>
-		<label class="item item-input" id="out-textarea2" name="comments">
-        		<span class="input-label"><span style="color: #2dace2">[</span> Comments</span>
-				<textarea placeholder="Something importent?" ng-model="parking.description"></textarea>
-    		</label>
-            <div class="row">
-              <div class="col text-center inout-col" id="cancelOut"><button class="inout-btn" ng-click="cancelInFunction()">-</button><span class="teal">[</span><b>CANCEL</b><span class="teal">]</span></div>
-              <div class="col text-center inout-col" id="doneOut"><button class="inout-btn success"  ng-click="getInfoFromServer()">+</button><span class="teal">[</span><b>DONE</b><span class="teal">]</span></div>
-            </div>
-		</div>
-		<!--button class="button button-stable" id="in-button12" ui-sref="menu.home" >
-			-
-			</button-->
-		<!--button class="button button-stable" id="in-button13" ng-click="getInfoFromServer()">
-			  +
-			</button-->
+					<input type="radio" ng-model="parking.size" value="0">
 
-		</form>
-	
-	<!-- 	<div id="in-button-bar1" class="button-bar">
-		</div> -->
+					<label class="item item-input">
+						<img src="img/cars/medium_car.png" />
+					</label>
+					<input type="radio" ng-model="parking.size" value="1">
+
+					<label class="item item-input">
+							<img src="img/cars/large_car.png" />
+					</label>
+					<input type="radio" ng-model="parking.size" value="2">
+
+					<!-- <input type="radio" ng-model="parking.size" value="3"><img style="width:80px;" src="img/cars/xl_car.png" /> -->
+				</div>
+				<!-- </div> -->
+
+				<!--select ng-model="parking.size">
+		          			<option ng-repeat="s in size">{{s}}</option>
+		        		</select-->
+				<div class="item item-input bold stable-bg" id="out-textarea2" name="comments">
+					<span class="calm">[ </span>&nbsp;Handicapped
+					<ion-checkbox id="out-checkbox2" name="handicapped" ng-model="parking.handicapped" style="border:0px;"></ion-checkbox>
+				</div>
+				<div class="item item-input btm-border-rounded bold stable-bg" id="out-textarea2" name="comments">
+					<span class="input-label"><span class="calm">[</span> Comments</span>
+					<textarea placeholder="Something importent?" ng-model="parking.description"></textarea>
+				</div>
+				<div class="button-bar extra-space-top">
+					<div class="button-with-title">
+						<a ui-sref="menu.home" class="button button-dark  button-block icon ion-android-cancel circle-button"></a>
+						<div class="lowerTitle">
+							<span class="calm">[</span>
+							<span class="black">
+								<b>CANCEL</b>
+							</span>
+							<span class="calm"> ]</span>
+						</div>
+					</div>
+					<div class="button-with-title">
+						<a ng-click="getInfoFromServer()" ng-disabled="!(time.d && time.t)" class="button button-calm  button-block icon ion-paper-airplane circle-button"></a>
+						<div class="lowerTitle">
+							<span class="calm">[</span>
+							<span class="black">
+								<b>DONE</b>
+							</span>
+							<span class="calm"> ]</span>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
 	</ion-content>
 </ion-view>

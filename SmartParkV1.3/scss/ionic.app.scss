@@ -15,6 +15,7 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 $dark: #3A3F51;
+$black: #000;
 // div{
 // 	border: 1px solid black !important;
 // }
@@ -35,12 +36,14 @@ ui-gmap-google-map {
 		}
 	}
 }
+.black{
+	color: $black;
+}
 #pay, #paypal-button-container{
 	padding-bottom: 0px !important;
 }
 
 .bgColor{
-
 	background-color: $stable;
 }
 .whiteText{
@@ -56,24 +59,17 @@ ui-gmap-google-map {
 	position: absolute;
 }
 
-#in-button-bar1 {
-	margin-top: 6%;
+.lowerTitle{
+	margin-top: -5px;
+	font-size: smaller;
+	text-align: center;
 }
-
-#cancelIn {
-	position   : absolute;
-	margin-top : 20%;
-	margin-left: 13%;
-	font-size  : 20px;
+.button-with-title{
+	width: 50%;
 }
-
-#doneIn {
-	position   : absolute;
-	margin-top : 20%;
-	margin-left: 66%;
-	font-size  : 20px;
+.extra-space-top{
+	margin-top: 20px !important;
 }
-
 #mapHOME {
 	position: absolute;
 }
@@ -577,80 +573,55 @@ ion-list.manual-list-fullwidth div.list > .item {
 #page1{
 	background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
 }
-#in-button12{
-	marging-top:20%;
-	margin-left:15%;
-	width:85px;
-	height:85px;
-	font-size:90px;
-	float:left;
-	border-radius: 50%;
-	z-index:100;
-	background-color: #A9A9A9;
-}
-#in-button13{
-	marging-top: 20%;
-	margin-right: 11%;
-	width: 85px;
-	height: 85px;
-	font-size: 90px;
-	float: right;
-	border-radius: 50%;
-	color: #2dace2;
-	z-index:100;
-	background-color: #A9A9A9;
-}
 
-#in-select6{
-	border-radius: 6px;
-	border: none;
-	border-color: transparent;
-	outline: none;
+#locationButton{
+	border-radius: 10px;
 }
+.top-border-rounded{
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+.btm-border-rounded{
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
 
-#in-select4{
-	border: none;
-	border-color: transparent;
-	outline: none;
-	border-radius: 6px;
 }
+.distance-select{
+	background: $stable !important;
+}
+.form-tamplate label{
+	background: $stable;
+}
+.fade-bg{
+	background-color:rgba(0, 0, 0, 0.2);
+}
+.lightTitle{
+	color: $dark;
+	font-weight: bolder;
+	font-style: italic;
+	padding: 2px;
+}
+#out-select8{
+	.input-label{
+		margin-left: 5px;
+	}
+	label{
+		border: 0px;
+		img{
+			width: 20vw;
+		}
+	}
 
-#in-select7{
-	border: none;
-	border-color: transparent;
-	outline: none;
-	border-radius: 6px;
+	// input[type="radio"]{
+	// 	position: relative;
+	// 	top: 10px;
+	// 	right:25px;
+	// 	// display: inline-table;
+	//
+	// }
 }
-#in-button8{
-		border: none;
-	border-color: transparent;
-	outline: none;
-	border-radius: 6px;
-}
-#in-input10{
-	border: none;
-	border-color: transparent;
-	outline: none;
-	border-radius: 6px;
-}
-#in-input11{
-	border: none;
-	border-color: transparent;
-	outline: none;
-	border-radius: 6px;
-}
-#in-input12{
-	border: none;
-	border-color: transparent;
-	outline: none;
-	border-radius: 6px;
-}
-
-#in-input13{
-border: none;
-border-color: transparent;
-outline: none;
-	border-radius: 6px;
+.bold{
+	font-weight: bolder;
 }
 #doneOut{
 	margin-left:15%;

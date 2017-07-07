@@ -19,9 +19,9 @@ angular
 				lat: $stateParams.lat,
 				lng: $stateParams.lng
 			}
-			$scope.cancelInFunction =function(){
-					$state.go('menu.home');
-			};
+			// $scope.cancelInFunction =function(){
+			// 		$state.go('menu.home');
+			// };
 			$scope.time = {
 				d: null,
 				t: null
@@ -35,12 +35,24 @@ angular
 			$localStorage.searchCoords={
  				lat:$scope.location.lat,
  				lng:$scope.location.lng
- 		}
+ 			}
+			$scope.smartiesAlert;
+			// NOTE: error hendler is important!
+			if($localStorage.userLoginData === undefined){
+				console.error('Error: Can\'t load user login data!');
+				$scope.smartiesAlert = {
+					value : 5
+				}
+			}
 
-			console.log($localStorage.userLoginData.smarties);
-			$scope.smartiesAlert ={
-				value:$localStorage.userLoginData.smarties
-			} 
+			else{
+				console.log($localStorage.userLoginData.smarties);
+				$scope.smartiesAlert = {
+					value:$localStorage.userLoginData.smarties
+				}
+			};
+
+
 			// console.log($location.url() );// NOTE: needed to go back to previus state
 			$scope.getInfoFromServer = function() {
 				var confirmPopup = $ionicPopup.confirm({
@@ -468,7 +480,7 @@ angular
 								title: `user ${details.email} not found`,
 						});
 							console.log(`user ${details.email} not found`);
-						} 
+						}
 						else {
 							console.log('user found! do some code here...');
 							$localStorage.userLoginData = response;
@@ -586,7 +598,7 @@ angular
 						$scope.myLocation;
 						$scope.centerMyLocation = function( ){
 				map.setCenter(new google.maps.LatLng(locationResult.lat, locationResult.lng));
-						}   
+						}
 						map.setCenter(new google.maps.LatLng(locationResult.lat, locationResult.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
 						var myLocation = new google.maps.Marker({
 							id: 0,
@@ -1132,12 +1144,12 @@ $ionicLoading.hide();
 	])
 
 	.controller('MyCtrlSearchesHistory', ['$scope','$ionicLoading',
-		function($scope, $ionicLoading) {	
+		function($scope, $ionicLoading) {
 			$scope.data = {
 				showDelete: false
 			};
 			$scope.onItemDelete = function(item) {
-				
+
 				$scope.items.splice($scope.items.indexOf(item), 1);
 			}
 
@@ -1240,7 +1252,13 @@ $ionicLoading.hide();
 			   });
 			 };
 
-			$scope.currentSmarties = $localStorage.userLoginData.smarties;//$localStorage.userLoginData.smarties;
+			if($localStorage.userLoginData === undefined){
+				$scope.currentSmarties = 5;
+				console.error('Error: Can\'t load user login data!');
+			}
+			else
+				$scope.currentSmarties = $localStorage.userLoginData.smarties;
+
 			// These are fixed values, do not change this
 			var NOODLIO_PAY_API_URL = "https://noodlio-pay.p.mashape.com";
 			var NOODLIO_PAY_API_KEY = "3fEagjJCGAmshMqVnwTR70bVqG3yp1lerJNjsnTzx5ODeOa99V";
