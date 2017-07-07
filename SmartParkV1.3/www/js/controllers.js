@@ -97,6 +97,9 @@ angular
 				lat: $stateParams.lat,
 				lng: $stateParams.lng
 			};
+			$scope.cancelInFunction =function(){
+					$state.go('menu.home');
+			};
 			console.log(reportParkCoords);
 			$localStorage.reportParkCoords = reportParkCoords;
 			console.log($stateParams);

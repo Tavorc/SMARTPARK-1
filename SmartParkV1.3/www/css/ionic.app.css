@@ -10288,6 +10288,11 @@ ion-list.manual-list-fullwidth div.list > .item {
   width: 100%;
   background-color: #ffffff; }
 
+#wrapperOut {
+  height: 136%;
+  width: 100%;
+  background-color: #ffffff; }
+
 #boldSmarties {
   display: inline-block;
   z-index: 99;
