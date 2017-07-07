@@ -650,7 +650,7 @@ angular
 													if (index == 1) {
 														var detailsChoose = $localStorage.myChoseDetails;
 														var alertPopup = $ionicPopup.alert({
-															title: 'Details',
+															title: 'DETAILS',
 															okType: 'button-calm',
 															template: '<b>Description: </b>' + detailsChoose.Description + '<br><b>address: </b>' + detailsChoose.address + '<br><b>time: </b>' + detailsChoose.time + '<br><b>occupied: </b>' + detailsChoose.occupied
 														});
@@ -727,7 +727,7 @@ angular
 													if (index == 1) {
 														var detailsChoose = $localStorage.myChoseDetails;
 														var alertPopup = $ionicPopup.alert({
-															title: 'Details',
+															title: 'DETAILS',
 															okType: 'button-calm',
 															template: '<b>Description: </b>' + detailsChoose.Description + '<br><b>Address: </b>' + detailsChoose.address + '<br><b>Time: </b>' + detailsChoose.time + '<br><b>Occupied: </b>' + detailsChoose.occupied
 														});
@@ -807,7 +807,7 @@ angular
 												var dateTime = new Date(detailsReporter.time);
 												console.log(dateTime);
 												var alertPopup = $ionicPopup.alert({
-													title: 'Details',
+													title: 'DETAILS',
 													okType: 'button-calm',
 													template: '<b>Address: </b>' + detailsReporter.location.city + "," + detailsReporter.location.street + ',' + detailsReporter.location.number + '<br><b>Time: </b>' + dateTime
 												});
@@ -965,7 +965,7 @@ angular
 						google.maps.event.addListener(tempMarker, 'click', function(event) {
 							var hideSheet = $ionicActionSheet.show({
 								buttons: [{
-										text: 'DETAILS'
+										text: 'Details'
 									},
 									{
 										text: 'Choose'
@@ -990,7 +990,7 @@ angular
 										massege = 'Someone intrested in your parking!'
 										sendPush.pushToPublisher(loc.publisherToken, massege); //NOTE here is the push service
 										var alertPopup = $ionicPopup.alert({
-											title: 'Details',
+											title: 'DETAILS',
 											okType: 'button-calm',
 											template: '<b>Description: </b>' + loc.description + '<br><b>Address: </b>' + loc.location.city + "," + loc.location.street + ',' + loc.location.number + '<br><b>Time: </b>' + loc.time + '<br><b>Occupied: </b>' + statusChose
 										});
