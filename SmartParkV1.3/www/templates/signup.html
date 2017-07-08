@@ -1,12 +1,16 @@
-<ion-view title="SIGNUP" id="page8">
-	<ion-content padding="true" class="has-header">
+<ion-view id="page8">
+	<ion-nav-title>
+		<span class="calm">[</span> SIGNUP
+		<span class="calm">]</span>
+	</ion-nav-title>
+	<ion-content padding="true" class="has-header fade-bg">
 		<div class="cardSignup">
 			<div id="logoLoginDiv">
 				<img src="./img/logo.jpg" class="logoLogin">
 			</div>
 			<form id="signup-form2" class="list">
 				<ion-list id="signup-list5">
-					<label class="item item-input" id="signup-input3">
+					<label class="item item-input top-border-rounded" id="signup-input3">
           <span class="input-label">Name</span>
           <input type="text" placeholder="" ng-model="formSignupParams.name">
         </label>
@@ -18,16 +22,13 @@
           <span class="input-label">Password</span>
           <input type="password" placeholder="" ng-model="formSignupParams.password">
         </label>
-					<label class="item item-input" id="signup-carid">
+					<label class="item item-input btm-border-rounded" id="signup-carid">
           <span class="input-label">Car Number</span>
           <input type="text" placeholder="" ng-model="formSignupParams.carId">
         </label>
 				</ion-list>
 				<a id="signup-button4" class="button button-stable  button-block" ng-click="signUp()">Sign up</a>
 			</form>
-		</div>
-		<div class="bar bar-footer bar-dark">
-			<div class="title" id="footeLogin">About &nbsp | &nbsp FeedBack &nbsp | &nbsp Help</div>
 		</div>
 	</ion-content>
 </ion-view>

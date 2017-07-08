@@ -54,7 +54,6 @@ ui-gmap-google-map {
 	color: $royal;
 }
 
-
 #mapHOME {
 	position: absolute;
 }
@@ -74,19 +73,19 @@ ui-gmap-google-map {
 	position: absolute;
 }
 
-#imgIn {
-	z-index    : 99;
-	position   : absolute;
-	margin-left: 15%;
-	margin-top : 103%;
-}
-
-#imgOut {
-	z-index    : 99;
-	position   : absolute;
-	margin-left: 60%;
-	margin-top : 103%;
-}
+// #imgIn {
+// 	z-index    : 99;
+// 	position   : absolute;
+// 	margin-left: 15%;
+// 	margin-top : 103%;
+// }
+//
+// #imgOut {
+// 	z-index    : 99;
+// 	position   : absolute;
+// 	margin-left: 60%;
+// 	margin-top : 103%;
+// }
 
 #smartiesData {
 	z-index    : 105;
@@ -117,41 +116,14 @@ background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps
 }
 
 .logoLogin {
-	width : 190px;
-	height: 150px;
+	position:absolute;
 }
-#signup-input3{
-	border-radius:6px;
+
+.rounded{
+	border-radius: 10px;
 }
-#emailLogin{
-	border-radius:6px;
-}
-#login-input2{
-	border-radius:6px;
-}
-#signup-input5{
-border-radius:6px;
-}
-#signup-carid{
-	border-radius:6px;
-}
-#login-input1{
-border-radius:6px;
-}
-#hrLog{
-	border-width    : 3px;
-	color: #585858;
-}
-.cardLogin {
-	border-style    : solid;
-	border-width    : 15px;
-	border-color    : #80d4ff;
-	padding         : 25%;
-	margin-top      : 10%;
-	box-shadow      : 0 3px 4px rgba(0, 0, 0, 0.1);
-	background-color: #f2f2f2;
-	border-radius:6px;
-}
+
+
 .cardSignup {
 	border-style    : solid;
 	border-width    : 5px;
@@ -162,23 +134,48 @@ border-radius:6px;
 	background-color: #f2f2f2;
 	border-radius:6px;
 }
-#footeLogin{
-	color: #BDBDBD;
-	font-size: 15px;
-}
-#logoLoginDiv{
-  	width : 190px;
-	height: 150px;
-	margin: auto;
-	margin-bottom     : 12%;
-	border-style    : solid;
-	border-width    : 3px;
-	border-color    : #80d4ff;
-	box-shadow      : 0 1px 3px rgba(0, 0, 0, 0.4);
-	background-color: #f2f2f2;
-	border-radius: 6px;
-}
 
+.cardLogin {
+	border: 3px solid $calm;
+	padding         : 10px;
+	margin-top      : 40px;
+	border-radius: 10px;
+	box-shadow      : 0 5px 5px rgba(0, 0, 0, 0.4);
+	background-color: $stable;
+	#logo-img{
+	  	width : 30%;
+		background-repeat: no-repeat;
+		position: relative;
+		background-size: contain;
+		background-position: center;
+		padding-top: 100px;
+		background-image: url('../img/LOGODAVID1-1.png') !important;
+		border: 3px solid $calm;
+		box-shadow      : 0 5px 5px rgba(0, 0, 0, 0.4);
+		background-color: $stable;
+		border-radius: 10px;
+		bottom: 50px;
+		margin: 0px auto;
+	}
+	h5{
+		position: relative;
+		bottom: 20px;
+	}
+	.small-link{
+		font-size: smaller;
+		font-style: italic;
+		// font-weight: bolder;
+	}
+}
+#homeBtns{
+	position:fixed;
+	padding: 10px;
+	bottom: 0px;
+	img{
+		width: 30%;
+		height: 30%;
+	}
+}
 #signup-button4 {
 	background-color: #2dace2;
 	color           : #ffffff;
@@ -209,30 +206,26 @@ button.inout-btn.success {
 #page8 {
 	background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
 }
-#login-button1 {
-	background-color: #2dace2;
-	color           : #ffffff;
-}
 
 .scroll {
 	height: 100%;
 }
 
-#pIn {
-	z-index    : 100;
-	position   : absolute;
-	margin-left: 20%;
-	margin-top: 165%;
-	font-size  : 30px;
-}
-
-#pOut {
-	z-index    : 100;
-	position   : absolute;
-	margin-left: 61%;
-	margin-top : 165%;
-	font-size  : 30px;
-}
+// #pIn {
+// 	z-index    : 100;
+// 	position   : absolute;
+// 	margin-left: 20%;
+// 	margin-top: 165%;
+// 	font-size  : 30px;
+// }
+//
+// #pOut {
+// 	z-index    : 100;
+// 	position   : absolute;
+// 	margin-left: 61%;
+// 	margin-top : 165%;
+// 	font-size  : 30px;
+// }
 
 
 .map {
@@ -292,16 +285,6 @@ a:hover {
 	height: 150px;
 }
 
-.cardLogin {
-	border-style    : solid;
-	border-width    : 3px;
-	border-color    : #80d4ff;
-	padding         : 10px;
-	margin-top      : 20%px;
-	box-shadow      : 0 1px 3px rgba(0, 0, 0, 0.4);
-	background-color: #f2f2f2;
-}
-
 #signup-button4 {
 	background-color: #2dace2;
 	color           : #ffffff;
@@ -313,30 +296,25 @@ a:hover {
 	opacity         : 0.5;
 }
 
-#login-button1 {
-	background-color: #2dace2;
-	color           : #ffffff;
-}
-
 .scroll {
 	height: 100%;
 }
 
-#pIn {
-	z-index    : 100;
-	position   : absolute;
-	margin-left: 20%;
-	margin-top : 125%;
-	font-size  : 30px;
-}
-
-#pOut {
-	z-index    : 100;
-	position   : absolute;
-	margin-left: 61%;
-	margin-top : 125%;
-	font-size  : 30px;
-}
+// #pIn {
+// 	z-index    : 100;
+// 	position   : absolute;
+// 	margin-left: 20%;
+// 	margin-top : 125%;
+// 	font-size  : 30px;
+// }
+//
+// #pOut {
+// 	z-index    : 100;
+// 	position   : absolute;
+// 	margin-left: 61%;
+// 	margin-top : 125%;
+// 	font-size  : 30px;
+// }
 #myLocation{
 	z-index    : 99;
 	position   : absolute;
@@ -398,33 +376,33 @@ a:hover {
 	font-size: 1.3em !important;
 }
 
-.platform-ios .manual-ios-statusbar-padding {
-  padding-top: 20px !important; }
-
-.manual-remove-top-padding {
-  padding-top: 0 !important; }
-
-.manual-remove-top-padding .scroll {
-  padding-top: 0 !important; }
-
-.list.card.manual-card-fullwidth,
-ion-list.manual-list-fullwidth div.list {
-  margin-left: -10px !important;
-  margin-right: -10px !important; }
-
-.list.card.manual-card-fullwidth > .item,
-ion-list.manual-list-fullwidth div.list > .item {
-  border-radius: 0 !important;
-  border-left: 0 !important;
-  border-right: 0 !important; }
-
-.show-list-numbers-and-dots ul {
-  list-style-type: disc !important;
-  padding-left: 40px !important; }
-
-.show-list-numbers-and-dots ol {
-  list-style-type: decimal !important;
-  padding-left: 40px !important; }
+// .platform-ios .manual-ios-statusbar-padding {
+//   padding-top: 20px !important; }
+//
+// .manual-remove-top-padding {
+//   padding-top: 0 !important; }
+//
+// .manual-remove-top-padding .scroll {
+//   padding-top: 0 !important; }
+//
+// .list.card.manual-card-fullwidth,
+// ion-list.manual-list-fullwidth div.list {
+//   margin-left: -10px !important;
+//   margin-right: -10px !important; }
+//
+// .list.card.manual-card-fullwidth > .item,
+// ion-list.manual-list-fullwidth div.list > .item {
+//   border-radius: 0 !important;
+//   border-left: 0 !important;
+//   border-right: 0 !important; }
+//
+// .show-list-numbers-and-dots ul {
+//   list-style-type: disc !important;
+//   padding-left: 40px !important; }
+//
+// .show-list-numbers-and-dots ol {
+//   list-style-type: decimal !important;
+//   padding-left: 40px !important; }
 
   /**
    * Action Sheets
@@ -567,9 +545,7 @@ ion-list.manual-list-fullwidth div.list > .item {
     .backdrop.active {
       opacity: 1; }
 
-#page1{
-	background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
-}
+
 
 #locationButton{
 	border-radius: 10px;
@@ -618,6 +594,10 @@ ion-list.manual-list-fullwidth div.list > .item {
 	}
 }
 
+.dark-border{
+	border: 3px solid $dark;
+	border-radius: 10px;
+}
 .bold{
 	font-weight: bolder;
 }
@@ -648,11 +628,7 @@ ion-list.manual-list-fullwidth div.list > .item {
 	font-size:14px;
 	text-align:center;
 }
-.small-link{
-	font-size: smaller;
-	font-style: italic;
-	font-weight: bolder;
-}
+
     ion-item.history,
     ion-item.history a {
         background: #fff !important;
@@ -708,7 +684,6 @@ ion-list.manual-list-fullwidth div.list > .item {
     .maps-bg {
         background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
     }
-
     .user-avatar {
         width: 100px;
         height: 100px;

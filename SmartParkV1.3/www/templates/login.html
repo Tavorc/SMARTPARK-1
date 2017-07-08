@@ -3,41 +3,35 @@
 		<span class="calm">[</span> LOGIN
 		<span class="calm">]</span>
 	</ion-nav-title>
-	<div class="bar bar-header bar-dark">
-		<h1 class="title">LOGIN</h1>
-	</div>
 	<ion-content padding="true" class="has-header fade-bg">
 		<div class="cardLogin">
-			<div id="logoLoginDiv">
-				<img src="./img/logo.jpg" class="logoLogin text-center">
+			<div id="logo-img">
+				<!--logo-img-->
 			</div>
-
-			<div class="lightTitle text-center">
-				<span class="calm">[ </span>Log Into your Smart-Park account<span class="calm"> ]</span>
-			</div>
+			<h5 class="lightTitle text-center">
+				<span class="calm">[ </span>Log Into your SMARTPARK account<span class="calm"> ]</span>
+			</h5>
 			<form id="login-form1" class="list">
-				<ion-list id="login-list2">
-					<label class="item item-input" id="login-input1">
-          <span class="input-label"><img src="./img/iconPerson.png" width="16px" height="16px"></span>
-          <input type="text" placeholder="Email" ng-model="formSignInParams.email.text">
-        </label>
-					<label class="item item-input" id="login-input2">
-          <span class="input-label"><img src="./img/iconkey.png" ></span>
-          <input type="password" placeholder="Password" ng-model="formSignInParams.password">
-        </label>
-				</ion-list>
-				<div class="spacer" style="height: 6px;"></div>
-				<a id="login-button1" class="button button-stable  button-block" ng-click="signIn()">Log in</a>
-
+				<label class="item item-input rounded" id="login-input1">
+  					<span class="input-label">
+						<img src="./img/iconPerson.png" width="16px" height="16px">
+					</span>
+  					<input type="text" placeholder="Email" ng-model="details.email" required="">
+        		</label>
+				<label class="item item-input rounded" id="login-input2">
+      				<span class="input-label">
+						<img src="./img/iconkey.png" >
+					</span>
+      				<input type="password" placeholder="Password" ng-model="details.password" required="">
+        		</label>
+				<hr />
+				<a id="login-button1" class="button button-block stable calm-bg" ng-click="signIn()">Log in</a>
 				<div class="lightTitle text-center">
 					<span class="calm">[ </span>OR<span class="calm"> ]</span>
 				</div>
 				<a id="login-button3" class="button button-positive  button-block icon ion-social-googleplus" ng-click="googleSignIn()"> </a>
-				<span class="small-link"><a ui-sref="signup">Dont have an account yet?!..</a></span>
+				<span class="small-link"><a ui-sref="signup">Don't have an account yet?!..</a></span>
 			</form>
 		</div>
-		<!-- <div class="bar bar-footer bar-dark">
-			<div class="title" id="footeLogin">About &nbsp | &nbsp FeedBack &nbsp | &nbsp Help</div>
-		</div> -->
 	</ion-content>
 </ion-view>

@@ -3,15 +3,42 @@
 		<span class="calm">[</span> SMARTPARK
 		<span class="calm">]</span>
 	</ion-nav-title>
-	<ion-content padding="true" class="has-header fade-bg">
-		<ion-content padding="false" class=" manual-remove-top-padding has-header" scroll="false" ng-init="init()">
-
-			<a ng-click="centerMyLocation()">
+	<ion-content padding="false" class="has-header" scroll="false" ng-init="init()">
+		<a ng-click="centerMyLocation()">
 			<img id="myLocation" src="./img/toolbarmap.png" height="32" width="32" >
 		</a>
-			<div id="mapHOME" class="map" data-tap-disabled="false">
+		<div id="mapHOME" class="map" data-tap-disabled="false">
+			<!-- google-maps -->
+		</div>
+		<div id="homeBtns" class="button-bar extra-space-top">
+			<div class="button-with-title">
+				<a ui-sref="menu.out" class="button button-dark  button-block circle-button">
+					<img  src="./img/out.png">
+				</a>
+				<div class="lowerTitle">
+					<span class="calm">[</span>
+					<span class="black stable-bg">
+						<b>OUT</b>
+					</span>
+					<span class="calm"> ]</span>
+				</div>
 			</div>
-			<a ui-sref="menu.in">
+			<div class="button-with-title">
+				<a ui-sref="menu.in" class="button button-calm  button-block circle-button">
+					<img src="./img/in.png" >
+				</a>
+
+				<div class="lowerTitle">
+					<span class="calm">[</span>
+					<span class="black stable-bg">
+						<b>IN</b>
+					</span>
+					<span class="calm"> ]</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- <a ui-sref="menu.in">
 			<img id="imgIn" src="./img/in.png" height="100" width="100" >
 			<p id="pIn">
 				<span style="color: #2dace2">[</span>
@@ -19,13 +46,13 @@
 				<span style="color: #2dace2"> ]</span>
 			</p>
 		</a>
-			<a ui-sref="menu.out">
+		<a ui-sref="menu.out">
 			<img src="./img/out.png" id="imgOut" height="100" width="100" >
 			<p id="pOut">
 				<span style="color: #2dace2">[</span>
 				<span style="color: #000000">OUT</span>
 				<span style="color: #2dace2">]</span>
 			</p>
-		</a>
-		</ion-content>
+		</a> -->
+	</ion-content>
 </ion-view>

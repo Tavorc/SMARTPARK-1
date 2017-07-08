@@ -141,10 +141,8 @@ angular
 				img: null, //NOTE: it will change if $scope.openCamera will be called.
 				size: 3,
 				publisherId: publisherEmail,
-				publisherToken: null, //getPublisherToken(token => {console.log(token); return token;}),
-				// currentCar: $localStorage.userLoginData.carId
+				publisherToken: null
 			}
-			// function getPublisherToken(callback) {
 			$ionicPush
 				.register()
 				.then(function(t) {
@@ -154,10 +152,8 @@ angular
 				.then(function(t) {
 					console.log('Token saved:', t.token);
 					$scope.parking.publisherToken = t.token;
-					// callback(t.token);
 					return t.token;
 				});
-			// };
 
 			// $scope.openCamera = function() {
 			// 	var options = {
@@ -205,14 +201,6 @@ angular
 			};
 		}
 	])
-
-	.controller('helpCtrl', ['$scope', function($scope) {
-
-	}])
-
-	.controller('aboutCtrl', ['$scope', function($scope) {
-
-	}])
 
 	.controller('menuCtrl', ['$scope', '$ionicPopup', '$stateParams', '$ionicLoading', '$ionicActionSheet', '$state', 'UserService', '$ionicAuth', '$localStorage', '$ionicPush', '$cordovaSocialSharing', '$ionicSideMenuDelegate',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $ionicPopup, $stateParams, $ionicLoading, $ionicActionSheet, $state, UserService, $ionicAuth, $localStorage, $ionicPush, $cordovaSocialSharing, $ionicSideMenuDelegate) {
@@ -464,14 +452,25 @@ angular
 					}
 				);
 			};
+			$scope.details ={
+				email: null,
+				password: null
+			}
 			$scope.signIn = function() {
-				var emailU = $scope.formSignInParams.email.text;
-				var details = {
-					'email': $scope.formSignInParams.email.text,
-					'password': $scope.formSignInParams.password
-				};
-				$http
-					.get('https://smartparkil.herokuapp.com/readUser/' + details.email + '/' + details.password)
+				if (($scope.details.email || $scope.details.password) === null || undefined){
+					$ionicPopup.alert({
+						title: 'Please insert correct email and password!',
+					});
+					throw 'Please insert correct email and password!';
+				}
+
+				var emailU = $scope.details.email.text;
+				// var details = {
+				// 	'email': $scope.formSignInParams.email.text,
+				// 	'password': $scope.formSignInParams.password
+				// };
+							$http
+					.get('https://smartparkil.herokuapp.com/readUser/' + $scope.details.email + '/' + $scope.details.password)
 					//http://smartserver1.herokuapp.com/
 					//http://localhost:8000/
 					//https://smartparkil.herokuapp.com/
@@ -479,9 +478,9 @@ angular
 						console.log(response);
 						if (!response){
 								$ionicPopup.alert({
-								title: `user ${details.email} not found`,
+								title: `user ${$scope.details.email} not found`,
 						});
-							console.log(`user ${details.email} not found`);
+							console.log(`user ${$scope.details.email} not found`);
 						}
 						else {
 							console.log('user found! do some code here...');
@@ -1134,7 +1133,7 @@ angular
 			});
 
 			$http.post('https://smartparkil.herokuapp.com/historyParking' , userDetails).then((res) => {
-$ionicLoading.hide();
+				$ionicLoading.hide();
 				res.data.forEach((v, k) => {
 					timeOfParking = new Date(v.time);
 					$scope.items2.push({
@@ -1169,7 +1168,16 @@ $ionicLoading.hide();
 			}
 		}
 	])
+	.controller('helpCtrl', ['$scope',
+		function($scope) {
 
+		}
+	])
+	.controller('aboutCtrl', ['$scope',
+		function($scope) {
+
+		}
+	])
 	.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush, $ionicPopup) {
 			$scope.formSignupParams = {

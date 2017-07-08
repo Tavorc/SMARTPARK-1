@@ -1,21 +1,25 @@
-<ion-pane>
-
-	<ion-content class="has-header bgColor">
-		<div class="dark-bg whiteText">
-			<div class="col text-center">
-				<h3 class="padding">Ran out of <span class="calm">[ </span>SMARTIES<span class="calm"> ]</span> ?</h3>
-				<h5><i class="icon ion-social-usd calm"></i>
-					SMARTIES:
-					<span class="calm">{{currentSmarties}}</span>
+<ion-view class="maps-bg">
+	<ion-nav-title>
+		<span class="calm">[</span> SMARTIES
+		<span class="calm">]</span>
+	</ion-nav-title>
+	<ion-content class="padding has-header fade-bg">
+		<div class="calm-bg stable dark-border">
+			<div class="col text-center cyan">
+				<h4 class="padding"><small>Need</small>
+				<span class="dark">[ </span>SMARTIES<span class="dark"> ]</span> ?</h4>
+				<h5><i class="icon dark">#</i>
+					Current:
+					<span class="dark">{{currentSmarties}}</span>
 				</h5>
 			</div>
 		</div>
-		<div class="card">
+		<div id="buySmarties" class="card rounded">
 			<a ng-class="push(choice1)" ng-click="choice1=!choice1">
 			    <i class="icon ion-card"></i>
 			    Enter card information
 			</a>
-			<div ng-show="choice1">
+			<div ng-show="choice1" class="top-border-rounded">
 				<label class="item item-input">
 					<span class="input-label">Card number</span>
 					<input type="text" size="20" ng-model="FormData.number" placeholder="xxxx-xxxx-xxxx-xxxx" required/>
@@ -35,16 +39,14 @@
 					<span class="input-label">Sec. Code (CVC)</span>
 					<input type="text" size="4" ng-model="FormData.cvc"/ placeholder="123" required>
 				</label>
-
-
 				<div class="padding center" id="pay">
 					<button class="button button-block button-balanced" ng-click="createToken(); choice1=!choice1">Submit</button>
 				</div>
 			</div>
 		</div>
 
-		<div class="card">
-			<a ng-class="push(choice2)" ng-click="choice2=!choice2">
+		<div class="card rounded">
+			<a ng-class="push(choice2)" class="top-border-rounded" ng-click="choice2=!choice2">
 			    <i class="icon ion-bag"></i>
 			    Add to PayPal cart
 			 </a>
@@ -67,4 +69,4 @@
 			</div>
 		</div>
 	</ion-content>
-</ion-pane>
+</ion-view>
