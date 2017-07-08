@@ -464,6 +464,9 @@ angular
 					});
 					throw 'Please insert correct email and password!';
 				}
+				$ionicLoading.show({
+					template: 'Logging in..:)'
+				});
 				//formSignInParams
 				var emailU = $scope.details.email;
 				console.log($scope.details.email);
@@ -609,8 +612,9 @@ angular
 						var myLocation = new google.maps.Marker({
 							id: 0,
 							options: {
-								icon: "./img/bullet-blue.png",
-								draggable: false
+								icon: imgs.imHereBlue,
+								draggable: false,
+								animation: google.maps.Animation.BOUNCE
 							},
 							position: new google.maps.LatLng(locationResult.lat, locationResult.lng), // NOTE: pos.coords.latitude, pos.coords.longitude
 							map: map,
