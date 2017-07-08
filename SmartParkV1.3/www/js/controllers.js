@@ -313,7 +313,7 @@ angular
 		function($scope, $stateParams, $http, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
 				$scope.$on('cloud:push:notification', function(event, data) {
 				var msg = data.message;
-				//alert(msg.title + ': ' + msg.text);
+				alert(msg.title + ': ' + msg.text);
 					var alertPopup = $ionicPopup.alert({
 						title: msg.text,
 						});
