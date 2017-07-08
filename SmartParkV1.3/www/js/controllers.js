@@ -413,6 +413,7 @@ angular
 																		console.log(response);
 																		console.log('user created');
 																		$localStorage.userLoginData = userDetails;
+																		$localStorage.flagMap = true;
 																		$state.go('menu.home');
 																		return $scope.data.numCar; //if TRUE continue code needs to get here..
 																	})
