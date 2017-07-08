@@ -666,7 +666,7 @@ angular
 														var alertPopup = $ionicPopup.alert({
 															title: 'DETAILS',
 															okType: 'button-calm',
-															template: '<b>Description: </b>' + detailsChoose.Description + '<br><b>address: </b>' + detailsChoose.address + '<br><b>time: </b>' + detailsChoose.time + '<br><b>occupied: </b>' + detailsChoose.occupied
+															template: '<b>Description: </b>' + detailsChoose.Description + '<br><b>address: </b>' + detailsChoose.address + '<br><b>time: </b>' + detailsChoose.time + '<br><b>occupied: </b>' + detailsChoose.occupied + '<br><b>Handicapped: </b>' +detailsChoose.handicapp
 														});
 													}
 													if (index == 2) {
@@ -743,7 +743,7 @@ angular
 														var alertPopup = $ionicPopup.alert({
 															title: 'DETAILS',
 															okType: 'button-calm',
-															template: '<b>Description: </b>' + detailsChoose.Description + '<br><b>Address: </b>' + detailsChoose.address + '<br><b>Time: </b>' + detailsChoose.time + '<br><b>Occupied: </b>' + detailsChoose.occupied
+															template: '<b>Description: </b>' + detailsChoose.Description + '<br><b>Address: </b>' + detailsChoose.address + '<br><b>Time: </b>' + detailsChoose.time + '<br><b>Occupied: </b>' + detailsChoose.occupied + '<br><b>Handicapped: </b>' +detailsChoose.handicapp
 														});
 													}
 													if (index == 2) {
@@ -993,12 +993,20 @@ angular
 								buttonClicked: function(index) {
 									console.log(index);
 									var choseOccupied = loc.occupied;
-									var statusChose;
+									var statusChose, handicapped;
 									if (choseOccupied == false) {
 										statusChose = "Availabe";
 									}
 									if (choseOccupied == true) {
 										statusChose = "Occupied";
+									}
+									if(loc.handicapped==false)
+									{
+									handicapped	="no";
+									}
+									if(loc.handicapped==true)
+									{
+									handicapped	="Only for handicapped";
 									}
 									if (index == 0) {
 										massege = 'Someone intrested in your parking!'
@@ -1006,7 +1014,7 @@ angular
 										var alertPopup = $ionicPopup.alert({
 											title: 'DETAILS',
 											okType: 'button-calm',
-											template: '<b>Description: </b>' + loc.description + '<br><b>Address: </b>' + loc.location.city + "," + loc.location.street + ',' + loc.location.number + '<br><b>Time: </b>' + loc.time + '<br><b>Occupied: </b>' + statusChose
+											template: '<b>Description: </b>' + loc.description + '<br><b>Address: </b>' + loc.location.city + "," + loc.location.street + ',' + loc.location.number + '<br><b>Time: </b>' + loc.time + '<br><b>Occupied: </b>' + statusChose + '<br><b> Handicapped: </b>' + handicapped
 										});
 									}
 									if (index == 1) {
@@ -1057,7 +1065,8 @@ angular
 													Description: loc.description,
 													address: loc.location.city + "," + loc.location.street + ',' + loc.location.number,
 													time: loc.time,
-													occupied: statusChose
+													occupied: statusChose,
+													handicapp: handicapped
 												};
 												console.log($localStorage.myChoseDetails);
 												$localStorage.myChose = locSelect;
