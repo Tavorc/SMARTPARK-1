@@ -110,7 +110,7 @@ angular
 				lng: $stateParams.lng
 			};
 			$scope.cancelInFunction =function(){
-				$localStorage.flagMap = true;
+				//$localStorage.flagMap = true;
 					$state.go('menu.home');
 			};
 			console.log(reportParkCoords);
@@ -222,7 +222,7 @@ angular
 
 			$scope.aboutFriend = function(){
 				 $ionicSideMenuDelegate.toggleRight();
-				 $localStorage.flagMap = true;
+				 //$localStorage.flagMap = true;
 				$state.go('menu.home');
 				var alertPopup = $ionicPopup.alert({
 					title: "About SmartPark",
@@ -232,7 +232,7 @@ angular
 
 			$scope.userName = userN;
 			$scope.goHome = function() {
-				$localStorage.flagMap = true;
+				//$localStorage.flagMap = true;
 				$state.go('menu.home');
 			}
 			$scope.pushNotification = {
@@ -361,7 +361,7 @@ angular
 				window.plugins.googleplus.trySilentLogin({},
 					function(obj) {
 						UserService.setUser(obj);
-						$localStorage.flagMap = true;
+						//$localStorage.flagMap = true;
 						$state.go('menu.home');
 						console.log(UserService.getUser().email);
 					},
@@ -417,7 +417,7 @@ angular
 																		console.log(response);
 																		console.log('user created');
 																		$localStorage.userLoginData = userDetails;
-																		$localStorage.flagMap = true;
+																	//	$localStorage.flagMap = true;
 																		$state.go('menu.home');
 																		return $scope.data.numCar; //if TRUE continue code needs to get here..
 																	})
@@ -435,7 +435,7 @@ angular
 											});
 											$localStorage.userLoginData = response;
 											console.log('user found! going home..');
-											$localStorage.flagMap = true;
+											//$localStorage.flagMap = true;
 											$state.go('menu.home');
 											$ionicLoading.hide();
 										}
@@ -502,7 +502,7 @@ angular
 							};
 							UserService.setUser(userData);
 							$ionicAuth.login('basic', details).then(function() {
-								$localStorage.flagMap = true;
+								//$localStorage.flagMap = true;
 								$state.go('menu.home');
 							}, function(err) {
 									$ionicPopup.alert({
@@ -1227,7 +1227,7 @@ angular
 								.signup(details)
 								.then(function() {
 									$localStorage.userLoginData = userDetails;
-									$localStorage.flagMap = true;
+									//$localStorage.flagMap = true;
 									$state.go('menu.home');
 									return $ionicAuth.login('basic', details);
 								}, function(err) {
