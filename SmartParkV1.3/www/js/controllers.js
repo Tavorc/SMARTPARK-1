@@ -1204,58 +1204,62 @@ angular
 	.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush, $ionicPopup) {
 			$scope.signUp = (name, mail, password, carid) => {
-					var userDetails = {
-						name: name,
-						email: mail,
-						password: password,
-						carId: carid,
-						smarties: 5
-					};
+				var userDetails = {
+					name: name,
+					email: mail,
+					password: password,
+					carId: carid,
+					smarties: 5
+				};
 
-					console.log(userDetails)
-					var details = {
-						'email': userDetails.email,
-						'password': userDetails.password
-					};
-					UserService.setUser(userDetails);
-					$http
-					.post('https://smartparkil.herokuapp.com/createUser/', userDetails)
-					.success(function(answer) {
-						console.log(answer);
-						if (answer) {
-							$ionicAuth
-								.signup(details)
-								.then(function() {
-									$localStorage.userLoginData = userDetails;
-									$localStorage.flagMap = true;
-									$state.go('menu.home');
-									return $ionicAuth.login('basic', details);
-								}, function(err) {
-									for (var e of err.details) {
-										if (e === 'conflict_email') {
-												$ionicPopup.alert({
-												title: "Email already exists.",
-												template: ''
-											});
-										} else {
-												$ionicPopup.alert({
-												title: err.details,
-											});
-											console.log(err.details);
-										}
+				console.log(userDetails)
+				var details = {
+					'email': userDetails.email,
+					'password': userDetails.password
+				};
+				var userData = {
+					givenName: name,
+					email: mail
+				};
+				UserService.setUser(userData);
+				// UserService.setUser(userDetails);
+				$http
+				.post('https://smartparkil.herokuapp.com/createUser/', userDetails)
+				.success(function(answer) {
+					console.log(answer);
+					if (answer) {
+						$ionicAuth
+							.signup(details)
+							.then(function() {
+								$localStorage.userLoginData = userDetails;
+								$localStorage.flagMap = true;
+								$state.go('menu.home');
+								return $ionicAuth.login('basic', details);
+							}, function(err) {
+								for (var e of err.details) {
+									if (e === 'conflict_email') {
+											$ionicPopup.alert({
+											title: "Email already exists.",
+											template: ''
+										});
+									} else {
+											$ionicPopup.alert({
+											title: err.details,
+										});
+										console.log(err.details);
 									}
-								});
-						} else {
-								$ionicPopup.alert({
-												title: "Invalid email",
-											});
-						}
-					})
-					.error(function(answer) {
-						console.log('can not post');
-						console.log(answer);
-					});
-				// }
+								}
+							});
+					} else {
+							$ionicPopup.alert({
+											title: "Invalid email",
+										});
+					}
+				})
+				.error(function(answer) {
+					console.log('can not post');
+					console.log(answer);
+				});
 			}
 		}
 	])
