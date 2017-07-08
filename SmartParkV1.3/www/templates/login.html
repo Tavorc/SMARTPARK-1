@@ -3,7 +3,7 @@
 		<span class="calm">[</span> LOGIN
 		<span class="calm">]</span>
 	</ion-nav-title>
-	<ion-content padding="true" class="has-header fade-bg">
+	<ion-content class="padding fade-bg">
 		<div class="cardLogin">
 			<div id="logo-img">
 				<!--logo-img-->
@@ -13,24 +13,20 @@
 			</h5>
 			<form id="login-form1" class="list">
 				<label class="item item-input rounded" id="login-input1">
-  					<span class="input-label">
-						<img src="./img/iconPerson.png" width="16px" height="16px">
-					</span>
+  					<span class="input-label icon ion-person"></span>
   					<input type="text" placeholder="Email" ng-model="details.email" required="">
         		</label>
 				<label class="item item-input rounded" id="login-input2">
-      				<span class="input-label">
-						<img src="./img/iconkey.png" >
-					</span>
+      				<span class="input-label icon ion-locked"></span>
       				<input type="password" placeholder="Password" ng-model="details.password" required="">
         		</label>
 				<hr />
-				<a id="login-button1" class="button button-block stable calm-bg" ng-click="signIn()">Log in</a>
+				<a id="login-button1" class="button button-block rounded stable calm-bg" ng-click="signIn()">Log in</a>
 				<div class="lightTitle text-center">
 					<span class="calm">[ </span>OR<span class="calm"> ]</span>
 				</div>
-				<a id="login-button3" class="button button-positive  button-block icon ion-social-googleplus" ng-click="googleSignIn()"> </a>
-				<span class="small-link"><a ui-sref="signup">Don't have an account yet?!..</a></span>
+				<a id="login-button3" class="button button-dark rounded button-block icon ion-social-googleplus" ng-click="googleSignIn()"> </a>
+				<a ui-sref="signup" class="small-link calm">Don't have an account yet?!..</a>
 			</form>
 		</div>
 	</ion-content>

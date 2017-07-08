@@ -540,7 +540,7 @@ angular
 			}
 			console.log($localStorage);
 			console.log(`$localStorage.userLoginData: ${$localStorage.userLoginData}`);
-			
+
 			// $scope.smarties = $localStorage.userLoginData.smarties;
 			$scope.smarties = 5; // FIXME: just for test: s/b $localStorage.userLoginData.smarties;
 			$scope.init = function() {
@@ -1203,13 +1203,27 @@ angular
 	.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush, $ionicPopup) {
 			$scope.formSignupParams = {
-				name: $stateParams.name,
-				email: $stateParams.email,
-				password: $stateParams.password,
-				carId: $stateParams.carId,
+				name: null,
+				email: null,
+				password: null,
+				carId: null,
 				smarties: 5
 			}
 			$scope.signUp = function() {
+				if(
+					(
+						$scope.formSignupParams.name ||
+						$scope.formSignupParams.email ||
+						$scope.formSignupParams.password ||
+						$scope.formSignupParams.carId
+					) 	== undefined || null
+				){
+					$ionicPopup.alert({
+						title: 'Error: empty fields!',
+					});
+					throw 'Error: empty fields!';
+				}
+				// NOTE: else...
 				userDetails = $scope.formSignupParams;
 				email = userDetails.email.text;
 				userDetails.email = email;

@@ -25,6 +25,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+ion-nav-title{
+	text-align: center;
+	margin: 0 auto;
+	font-weight: bolder;
+}
 ui-gmap-google-map {
 	height: 100%;
 	width: 100%;
@@ -124,21 +129,11 @@ background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps
 }
 
 
-.cardSignup {
-	border-style    : solid;
-	border-width    : 5px;
-	border-color    : #80d4ff;
-	padding         : 6%;
-	margin-top      : 1%;
-	box-shadow      : 0 3px 4px rgba(0, 0, 0, 0.1);
-	background-color: #f2f2f2;
-	border-radius:6px;
-}
-
 .cardLogin {
 	border: 3px solid $calm;
 	padding         : 10px;
 	margin-top      : 40px;
+	margin-bottom: 20px;
 	border-radius: 10px;
 	box-shadow      : 0 5px 5px rgba(0, 0, 0, 0.4);
 	background-color: $stable;
@@ -162,7 +157,7 @@ background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps
 		bottom: 20px;
 	}
 	.small-link{
-		font-size: smaller;
+		text-align: center;
 		font-style: italic;
 		// font-weight: bolder;
 	}
@@ -203,31 +198,11 @@ button.inout-btn.success {
 .inout-col {
     font-size: 1.5em;
 }
-#page8 {
-	background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
-}
+
 
 .scroll {
 	height: 100%;
 }
-
-// #pIn {
-// 	z-index    : 100;
-// 	position   : absolute;
-// 	margin-left: 20%;
-// 	margin-top: 165%;
-// 	font-size  : 30px;
-// }
-//
-// #pOut {
-// 	z-index    : 100;
-// 	position   : absolute;
-// 	margin-left: 61%;
-// 	margin-top : 165%;
-// 	font-size  : 30px;
-// }
-
-
 .map {
 	height : 100%;
 	width  : 100%;
@@ -280,14 +255,7 @@ a:hover {
 	opacity         : 0.5;
 }
 
-.logoLogin {
-	width : 190px;
-	height: 150px;
-}
-
 #signup-button4 {
-	background-color: #2dace2;
-	color           : #ffffff;
 	margin-top      : 40px;
 }
 
@@ -300,26 +268,13 @@ a:hover {
 	height: 100%;
 }
 
-// #pIn {
-// 	z-index    : 100;
-// 	position   : absolute;
-// 	margin-left: 20%;
-// 	margin-top : 125%;
-// 	font-size  : 30px;
-// }
-//
-// #pOut {
-// 	z-index    : 100;
-// 	position   : absolute;
-// 	margin-left: 61%;
-// 	margin-top : 125%;
-// 	font-size  : 30px;
-// }
-#myLocation{
-	z-index    : 99;
+.myLocation{
+	z-index    : 10;
 	position   : absolute;
 	margin-left: 3%;
 	margin-top : 3%;
+	width: 30px;
+	height: 30px;
 }
 .map {
 	height : 100%;
