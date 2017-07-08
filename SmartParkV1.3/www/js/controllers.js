@@ -463,13 +463,15 @@ angular
 					});
 					throw 'Please insert correct email and password!';
 				}
-
-				var emailU = $scope.details.email.text;
-				// var details = {
-				// 	'email': $scope.formSignInParams.email.text,
-				// 	'password': $scope.formSignInParams.password
-				// };
-							$http
+				//formSignInParams
+				var emailU = $scope.details.email;
+				console.log($scope.details.email);
+				var details = {
+					'email': $scope.details.email,
+					'password': $scope.details.password
+				};
+				console.log(details);
+					$http
 					.get('https://smartparkil.herokuapp.com/readUser/' + $scope.details.email + '/' + $scope.details.password)
 					//http://smartserver1.herokuapp.com/
 					//http://localhost:8000/
@@ -491,6 +493,7 @@ angular
 							};
 							UserService.setUser(userData);
 							$ionicAuth.login('basic', details).then(function() {
+								$localStorage.flagMap = true;
 								$state.go('menu.home');
 							}, function(err) {
 									$ionicPopup.alert({
@@ -1219,6 +1222,7 @@ angular
 								.signup(details)
 								.then(function() {
 									$localStorage.userLoginData = userDetails;
+									$localStorage.flagMap = true;
 									$state.go('menu.home');
 									return $ionicAuth.login('basic', details);
 								}, function(err) {
