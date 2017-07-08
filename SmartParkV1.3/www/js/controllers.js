@@ -1204,7 +1204,6 @@ angular
 	.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush, $ionicPopup) {
 			$scope.signUp = (name, mail, password, carid) => {
-				// FIXME: data verification requierd!
 					var userDetails = {
 						name: name,
 						email: mail,
