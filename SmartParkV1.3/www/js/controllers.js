@@ -417,11 +417,16 @@ angular
 																		console.log(response);
 																		console.log('user created');
 																		$localStorage.userLoginData = userDetails;
-																	//	$localStorage.flagMap = true;
+																		var userData = {
+																				givenName: user_data.givenName,
+																				email: user_data.email
+																			};
+																		$localStorage.flagMap = true;
 																		$state.go('menu.home');
 																		return $scope.data.numCar; //if TRUE continue code needs to get here..
 																	})
 																	.error(function(answer) {
+																		$ionicLoading.hide();
 																		console.log('error while create user!')
 																	});
 															}
@@ -435,17 +440,19 @@ angular
 											});
 											$localStorage.userLoginData = response;
 											console.log('user found! going home..');
-											//$localStorage.flagMap = true;
+											$localStorage.flagMap = true;
 											$state.go('menu.home');
 											$ionicLoading.hide();
 										}
 									})
 									.error(function(answer) {
+										$ionicLoading.hide();
 											$ionicPopup.alert({
 												title: "Something wrong with this account",
 											});
 										console.log('error while read user!');
 									});
+									$ionicLoading.hide();
 								UserService.setUser(user_data);
 							},
 							function(msg) {
@@ -463,15 +470,16 @@ angular
 				password: null
 			}
 			$scope.signIn = function() {
+				$ionicLoading.show({
+					template: 'Logging in..:)'
+				});
 				if (($scope.details.email || $scope.details.password) === null || undefined){
 					$ionicPopup.alert({
 						title: 'Please insert correct email and password!',
 					});
+					$ionicLoading.hide();
 					throw 'Please insert correct email and password!';
 				}
-				$ionicLoading.show({
-					template: 'Logging in..:)'
-				});
 				//formSignInParams
 				var emailU = $scope.details.email;
 				console.log($scope.details.email);
@@ -488,6 +496,7 @@ angular
 					.success(function(response) {
 						console.log(response);
 						if (!response){
+							$ionicLoading.hide();
 								$ionicPopup.alert({
 								title: `user ${$scope.details.email} not found`,
 						});
@@ -502,9 +511,10 @@ angular
 							};
 							UserService.setUser(userData);
 							$ionicAuth.login('basic', details).then(function() {
-								//$localStorage.flagMap = true;
+								$localStorage.flagMap = true;
 								$state.go('menu.home');
 							}, function(err) {
+								$ionicLoading.hide();
 									$ionicPopup.alert({
 									title: " Email or password is wrong",
 								});
@@ -513,6 +523,7 @@ angular
 						}
 					})
 					.error(function(answer) {
+						$ionicLoading.hide();
 						$ionicPopup.alert({
 						title: "Email or password is wrong",
 					});
