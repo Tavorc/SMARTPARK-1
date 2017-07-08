@@ -316,7 +316,7 @@ angular
 		function($scope, $stateParams, $http, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
 				$scope.$on('cloud:push:notification', function(event, data) {
 				var msg = data.message;
-				alert(msg.title + ': ' + msg.text);
+				//alert(msg.title + ': ' + msg.text);
 					var alertPopup = $ionicPopup.alert({
 						title: msg.text,
 						});
@@ -327,7 +327,7 @@ angular
 				gToken: null //NOTE @tavor is this variable necc?
 			}
 			if ($ionicAuth.isAuthenticated()) {
-				$localStorage.flagMap = true;
+				$localStorage.flagMap = false;
 				$state.go('menu.home');
 			}
 			$ionicPush
@@ -346,7 +346,7 @@ angular
 					function(obj) {
 						UserService.setUser(obj);
 						console.log(UserService.getUser());
-						$localStorage.flagMap = true;
+						$localStorage.flagMap = false;
 						$state.go('menu.home');
 					},
 					function(msg) {
@@ -1056,7 +1056,7 @@ angular
 												cordova.plugins.notification.local.schedule({
 													id: 10,
 													title: "Time to Parking",
-													text: "Is occupied",
+													text: "Tap on notification and answer the question",
 													at: timeOfParking,
 													color: 'FF0000',
 													data: {
