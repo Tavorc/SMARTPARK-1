@@ -519,6 +519,7 @@ angular
 						console.log('error while read user!');
 					});
 			}
+			$ionicLoading.hide();
 		}
 	])
 
@@ -1202,42 +1203,23 @@ angular
 	])
 	.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 		function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush, $ionicPopup) {
-			$scope.formSignupParams = {
-				name: null,
-				email: null,
-				password: null,
-				carId: null,
-				smarties: 5
-			}
-			$scope.signUp = function() {
-				if(
-					(
-						$scope.formSignupParams.name ||
-						$scope.formSignupParams.email ||
-						$scope.formSignupParams.password ||
-						$scope.formSignupParams.carId
-					) 	== undefined || null
-				){
-					$ionicPopup.alert({
-						title: 'Error: empty fields!',
-					});
-					throw 'Error: empty fields!';
-				}
-				// NOTE: else...
-				userDetails = $scope.formSignupParams;
-				email = userDetails.email.text;
-				userDetails.email = email;
-				console.log(userDetails)
-				var details = {
-					'email': email,
-					'password': userDetails.password
-				}
-				var userData = {
-					givenName: email.substring(0, email.lastIndexOf("@")),
-					email: email,
-				};
-				UserService.setUser(userData);
-				$http
+			$scope.signUp = (name, mail, password, carid) => {
+				// FIXME: data verification requierd!
+					var userDetails = {
+						name: name,
+						email: mail,
+						password: password,
+						carId: carid,
+						smarties: 5
+					};
+
+					console.log(userDetails)
+					var details = {
+						'email': userDetails.email,
+						'password': userDetails.password
+					};
+					UserService.setUser(userDetails);
+					$http
 					.post('https://smartparkil.herokuapp.com/createUser/', userDetails)
 					.success(function(answer) {
 						console.log(answer);
@@ -1274,7 +1256,8 @@ angular
 						console.log('can not post');
 						console.log(answer);
 					});
-			};
+				// }
+			}
 		}
 	])
 
