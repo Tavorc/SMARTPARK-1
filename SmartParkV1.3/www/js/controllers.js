@@ -1231,7 +1231,7 @@ angular
 							.signup(details)
 							.then(function() {
 								$localStorage.userLoginData = userDetails;
-								$localStorage.flagMap = true;
+							//	$localStorage.flagMap = true;
 								$state.go('menu.home');
 								return $ionicAuth.login('basic', details);
 							}, function(err) {
