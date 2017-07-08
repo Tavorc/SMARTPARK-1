@@ -441,6 +441,7 @@ angular
 										}
 									})
 									.error(function(answer) {
+										$ionicLoading.hide();
 											$ionicPopup.alert({
 												title: "Something wrong with this account",
 											});
@@ -449,10 +450,11 @@ angular
 								UserService.setUser(user_data);
 							},
 							function(msg) {
+								$ionicLoading.hide();
 								$ionicPopup.alert({
 								title: "Something wrong with this account",
 								});
-								$ionicLoading.hide();
+								
 							}
 						);
 					}
@@ -488,6 +490,7 @@ angular
 					.success(function(response) {
 						console.log(response);
 						if (!response){
+							$ionicLoading.hide();
 								$ionicPopup.alert({
 								title: `user ${$scope.details.email} not found`,
 						});
@@ -505,6 +508,7 @@ angular
 								$localStorage.flagMap = true;
 								$state.go('menu.home');
 							}, function(err) {
+								$ionicLoading.hide();
 									$ionicPopup.alert({
 									title: " Email or password is wrong",
 								});
@@ -513,6 +517,7 @@ angular
 						}
 					})
 					.error(function(answer) {
+						$ionicLoading.hide();
 						$ionicPopup.alert({
 						title: "Email or password is wrong",
 					});
@@ -1225,7 +1230,6 @@ angular
 				}
 				// NOTE: else...
 				userDetails = $scope.formSignupParams;
-				email = userDetails.email.text;
 				userDetails.email = email;
 				console.log(userDetails)
 				var details = {
