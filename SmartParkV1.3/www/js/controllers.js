@@ -110,6 +110,7 @@ angular
 				lng: $stateParams.lng
 			};
 			$scope.cancelInFunction =function(){
+				$localStorage.flagMap = true;
 					$state.go('menu.home');
 			};
 			console.log(reportParkCoords);
@@ -221,6 +222,7 @@ angular
 
 			$scope.aboutFriend = function(){
 				 $ionicSideMenuDelegate.toggleRight();
+				 $localStorage.flagMap = true;
 				$state.go('menu.home');
 				var alertPopup = $ionicPopup.alert({
 					title: "About SmartPark",
@@ -230,6 +232,7 @@ angular
 
 			$scope.userName = userN;
 			$scope.goHome = function() {
+				$localStorage.flagMap = true;
 				$state.go('menu.home');
 			}
 			$scope.pushNotification = {
@@ -324,7 +327,7 @@ angular
 				gToken: null //NOTE @tavor is this variable necc?
 			}
 			if ($ionicAuth.isAuthenticated()) {
-				$localStorage.flagMap = false;
+				$localStorage.flagMap = true;
 				$state.go('menu.home');
 			}
 			$ionicPush
@@ -343,7 +346,7 @@ angular
 					function(obj) {
 						UserService.setUser(obj);
 						console.log(UserService.getUser());
-						$localStorage.flagMap = false;
+						$localStorage.flagMap = true;
 						$state.go('menu.home');
 					},
 					function(msg) {
@@ -358,6 +361,7 @@ angular
 				window.plugins.googleplus.trySilentLogin({},
 					function(obj) {
 						UserService.setUser(obj);
+						$localStorage.flagMap = true;
 						$state.go('menu.home');
 						console.log(UserService.getUser().email);
 					},
@@ -431,6 +435,7 @@ angular
 											});
 											$localStorage.userLoginData = response;
 											console.log('user found! going home..');
+											$localStorage.flagMap = true;
 											$state.go('menu.home');
 											$ionicLoading.hide();
 										}
