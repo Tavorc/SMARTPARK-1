@@ -443,7 +443,7 @@ angular
 											console.log('user found! going home..');
 											$localStorage.flagMap = true;
 											$state.go('menu.home');
-											$ionicLoading.hide();
+											//$ionicLoading.hide();
 										}
 									})
 									.error(function(answer) {
@@ -607,6 +607,10 @@ angular
 						}
 					}
 					getLocation(function(locationResult) {
+						$localStorage.myLocationStore={
+							lat: locationResult.lat,
+							lng: locationResult.lng
+						}
 						var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
 						var mapOptions = {
 							mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -1505,8 +1509,8 @@ angular
 		}
 	])
 
-	.controller('mapOUTCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		function($scope, $state, $http, $stateParams, $ionicLoading) {
+	.controller('mapOUTCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+		function($scope, $state, $http, $stateParams, $ionicLoading, $localStorage) {
 			$scope.init = function() {
 				$scope.chosenLocation;
 				var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
@@ -1526,7 +1530,7 @@ angular
 					console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 				})
 				$scope.myLocation;
-				map.setCenter(new google.maps.LatLng(32.0852999, 34.78176759999997)); // NOTE: pos.coords.latitude, pos.coords.longitude
+				map.setCenter(new google.maps.LatLng($localStorage.myLocationStore.lat, $localStorage.myLocationStore.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
 				var myLocation = new google.maps.Marker({
 					id: 0,
 					options: {
@@ -1535,7 +1539,7 @@ angular
 						animation: google.maps.Animation.BOUNCE
 
 					},
-					position: new google.maps.LatLng(32.0852999, 34.78176759999997), // NOTE: pos.coords.latitude, pos.coords.longitude
+					position: new google.maps.LatLng($localStorage.myLocationStore.lat, $localStorage.myLocationStore.lng), // NOTE: pos.coords.latitude, pos.coords.longitude
 					map: map,
 					title: "My Location"
 				});
