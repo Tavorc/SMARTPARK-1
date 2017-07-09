@@ -30,6 +30,7 @@ angular
 				time: $scope.time,
 				distance: null,
 				location: $scope.location,
+				size: 3,
 				searcherId: UserService.getUser().email
 			}
 			$localStorage.searchCoords={
@@ -140,7 +141,7 @@ angular
 				handicapped: false,
 				description: null,
 				img: null, //NOTE: it will change if $scope.openCamera will be called.
-				size: 3,
+				size: 0,
 				publisherId: publisherEmail,
 				publisherToken: null
 			}

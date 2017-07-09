@@ -9701,6 +9701,9 @@ ui-gmap-google-map {
     ui-gmap-google-map .angular-google-map .angular-google-map-container {
       height: 100%; }
 
+#locationButton {
+  border: 2px solid #11c1f3 !important; }
+
 .black {
   color: #000; }
 
@@ -9939,10 +9942,158 @@ a:hover {
   color: #fff !important;
   font-size: 1.3em !important; }
 
+#locationButton {
+  border-radius: 10px; }
+
+.top-border-rounded {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px; }
+
+.btm-border-rounded {
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px; }
+
+.distance-select {
+  background: #f8f8f8 !important; }
+
+.form-tamplate label {
+  background: #f8f8f8; }
+
+.fade-bg {
+  background-color: rgba(0, 0, 0, 0.2); }
+
+.lightTitle {
+  color: #3A3F51;
+  font-weight: bolder;
+  font-style: italic;
+  padding: 2px; }
+
+#out-select8 .title {
+  margin-left: 7px;
+  padding-right: 10px; }
+
+#out-select8 label {
+  border: 0px; }
+  #out-select8 label img {
+    width: 20vw; }
+
+#out-select8 input[type="radio"], #out-select8 .push-down {
+  position: relative;
+  top: 20px;
+  right: 15%;
+  font-stretch: condensed; }
+
+.dark-border {
+  border: 3px solid #3A3F51;
+  border-radius: 10px; }
+
+.bold {
+  font-weight: bolder; }
+
+#doneOut {
+  margin-left: 15%; }
+
+#cancelOut {
+  margin-left: 10%; }
+
+#wrapperIn {
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff; }
+
+#wrapperOut {
+  height: 136%;
+  width: 100%;
+  background-color: #ffffff; }
+
+#boldSmarties {
+  display: inline-block;
+  z-index: 99;
+  position: absolute;
+  margin-top: 4%;
+  margin-left: 2%;
+  color: #000000;
+  font-size: 14px;
+  text-align: center; }
+
+ion-item.history,
+ion-item.history a {
+  background: #fff !important;
+  color: #000 !important; }
+
+.history-list .list {
+  margin: 10px; }
+
+.history-list {
+  opacity: 0.8; }
+
+.maps-bg {
+  background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg); }
+
+button.inout-btn {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  background: gray;
+  font-size: 3em;
+  display: block;
+  margin: 0 auto;
+  border: 0; }
+
+button.inout-btn.success {
+  color: #11c1f3; }
+
+.teal {
+  color: #11c1f3; }
+
+.inout-col {
+  font-size: 1.5em; }
+
+ion-item.history,
+ion-item.history a {
+  background: #fff !important;
+  color: #000 !important; }
+
+.history-list .list {
+  margin: 10px; }
+
+.history-list {
+  opacity: 0.8; }
+
+.maps-bg {
+  background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg); }
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid lightgray; }
+
+.user-avatar + div {
+  width: 80px;
+  height: 80px;
+  background: #00add9;
+  color: #fff;
+  border-radius: 100%;
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+h3.smarties {
+  padding: 0;
+  margin: 0;
+  margin-top: 15px; }
+
+span.smarties {
+  display: inline-block; }
+
+.teal {
+  color: #11c1f3; }
+
 /**
-   * Action Sheets
-   * --------------------------------------------------
-   */
+	 * Action Sheets
+	 * --------------------------------------------------
+	 */
 .action-sheet-backdrop {
   -webkit-transition: background-color 150ms ease-in-out;
   transition: background-color 150ms ease-in-out;
@@ -10094,150 +10245,3 @@ a:hover {
 
 .backdrop.active {
   opacity: 1; }
-
-#locationButton {
-  border-radius: 10px; }
-
-.top-border-rounded {
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px; }
-
-.btm-border-rounded {
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px; }
-
-.distance-select {
-  background: #f8f8f8 !important; }
-
-.form-tamplate label {
-  background: #f8f8f8; }
-
-.fade-bg {
-  background-color: rgba(0, 0, 0, 0.2); }
-
-.lightTitle {
-  color: #3A3F51;
-  font-weight: bolder;
-  font-style: italic;
-  padding: 2px; }
-
-#out-select8 .title {
-  margin-left: 7px;
-  padding-right: 10px; }
-
-#out-select8 label {
-  border: 0px; }
-  #out-select8 label img {
-    width: 20vw; }
-
-#out-select8 input[type="radio"] {
-  position: relative;
-  top: 20px;
-  right: 10%; }
-
-.dark-border {
-  border: 3px solid #3A3F51;
-  border-radius: 10px; }
-
-.bold {
-  font-weight: bolder; }
-
-#doneOut {
-  margin-left: 15%; }
-
-#cancelOut {
-  margin-left: 10%; }
-
-#wrapperIn {
-  height: 100%;
-  width: 100%;
-  background-color: #ffffff; }
-
-#wrapperOut {
-  height: 136%;
-  width: 100%;
-  background-color: #ffffff; }
-
-#boldSmarties {
-  display: inline-block;
-  z-index: 99;
-  position: absolute;
-  margin-top: 4%;
-  margin-left: 2%;
-  color: #000000;
-  font-size: 14px;
-  text-align: center; }
-
-ion-item.history,
-ion-item.history a {
-  background: #fff !important;
-  color: #000 !important; }
-
-.history-list .list {
-  margin: 10px; }
-
-.history-list {
-  opacity: 0.8; }
-
-.maps-bg {
-  background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg); }
-
-button.inout-btn {
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  background: gray;
-  font-size: 3em;
-  display: block;
-  margin: 0 auto;
-  border: 0; }
-
-button.inout-btn.success {
-  color: #11c1f3; }
-
-.teal {
-  color: #11c1f3; }
-
-.inout-col {
-  font-size: 1.5em; }
-
-ion-item.history,
-ion-item.history a {
-  background: #fff !important;
-  color: #000 !important; }
-
-.history-list .list {
-  margin: 10px; }
-
-.history-list {
-  opacity: 0.8; }
-
-.maps-bg {
-  background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg); }
-
-.user-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid lightgray; }
-
-.user-avatar + div {
-  width: 80px;
-  height: 80px;
-  background: #00add9;
-  color: #fff;
-  border-radius: 100%;
-  position: absolute;
-  right: 0;
-  top: 0; }
-
-h3.smarties {
-  padding: 0;
-  margin: 0;
-  margin-top: 15px; }
-
-span.smarties {
-  display: inline-block; }
-
-.teal {
-  color: #11c1f3; }
