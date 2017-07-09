@@ -545,6 +545,7 @@ angular
 			// $scope.smarties = $localStorage.userLoginData.smarties;
 			$scope.smarties = 5; // FIXME: just for test: s/b $localStorage.userLoginData.smarties;
 			$scope.init = function() {
+
 				$ionicLoading.hide();
 				var parkReportValue = $localStorage.reportParkCoords;
 				if (parkReportValue == null) {
