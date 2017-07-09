@@ -9692,10 +9692,6 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
-ion-nav-title {
-  text-align: center;
-  font-weight: bolder; }
-
 ui-gmap-google-map {
   height: 100%;
   width: 100%;
