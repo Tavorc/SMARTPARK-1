@@ -30,7 +30,7 @@ angular
 				time: $scope.time,
 				distance: null,
 				location: $scope.location,
-				size: 3,
+				size: 0,
 				searcherId: UserService.getUser().email
 			}
 			$localStorage.searchCoords={

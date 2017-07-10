@@ -9977,11 +9977,10 @@ a:hover {
   #out-select8 label img {
     width: 20vw; }
 
-#out-select8 input[type="radio"], #out-select8 .push-down {
+#out-select8 input[type="radio"] {
   position: relative;
   top: 20px;
-  right: 15%;
-  font-stretch: condensed; }
+  right: 15%; }
 
 .dark-border {
   border: 3px solid #3A3F51;
@@ -10069,26 +10068,23 @@ ion-item.history a {
   border-radius: 50%;
   border: 3px solid lightgray; }
 
-.user-avatar + div {
-  width: 80px;
-  height: 80px;
-  background: #00add9;
-  color: #fff;
-  border-radius: 100%;
+.mySmarties-box {
   position: absolute;
-  right: 0;
-  top: 0; }
-
-h3.smarties {
-  padding: 0;
-  margin: 0;
-  margin-top: 15px; }
-
-span.smarties {
-  display: inline-block; }
-
-.teal {
-  color: #11c1f3; }
+  z-index: 99;
+  right: 10%;
+  margin-top: 15px;
+  border: 3px solid #3A3F51;
+  border-radius: 50px;
+  width: 75px;
+  height: 75px; }
+  .mySmarties-box .mySmarties {
+    right: 10%;
+    margin-top: 5px; }
+    .mySmarties-box .mySmarties span {
+      position: relative;
+      bottom: 100px; }
+  .mySmarties-box .big {
+    font-size: 25px; }
 
 /**
 	 * Action Sheets
