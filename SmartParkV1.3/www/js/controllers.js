@@ -356,9 +356,6 @@ angular
 				);
 			}
 			$scope.googleSignIn = function() {
-				$ionicLoading.show({
-					template: 'Logging in..:)'
-				});
 				window.plugins.googleplus.trySilentLogin({},
 					function(obj) {
 						UserService.setUser(obj);
@@ -415,6 +412,9 @@ angular
 																	//http://localhost:8000/
 																	//https://smartparkil.herokuapp.com/
 																	.success(function(response) {
+																		$ionicLoading.show({
+																			template: 'Logging in..:)'
+																		});
 																		console.log(response);
 																		console.log('user created');
 																		$localStorage.userLoginData = userDetails;
