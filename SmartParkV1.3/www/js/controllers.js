@@ -356,14 +356,9 @@ angular
 				);
 			}
 			$scope.googleSignIn = function() {
-				window.plugins.googleplus.trySilentLogin({},
-					function(obj) {
-						UserService.setUser(obj);
-						//$localStorage.flagMap = true;
-						$state.go('menu.home');
-						console.log(UserService.getUser().email);
-					},
-					function(msg) {
+				$ionicLoading.show({
+				template: 'Logging in..:)'
+				});
 						window.plugins.googleplus.login({},
 							function(user_data) {
 								console.log(UserService.getUser());
@@ -406,15 +401,15 @@ angular
 																	carId: $scope.data.numCar,
 																	smarties: 5
 																};
+																$ionicLoading.show({
+																	template: 'Logging in..:)'
+																});
 																$http
 																	.post('https://smartparkil.herokuapp.com/createUser/', userDetails)
 																	//http://smartserver1.herokuapp.com/
 																	//http://localhost:8000/
 																	//https://smartparkil.herokuapp.com/
 																	.success(function(response) {
-																		$ionicLoading.show({
-																			template: 'Logging in..:)'
-																		});
 																		console.log(response);
 																		console.log('user created');
 																		$localStorage.userLoginData = userDetails;
@@ -436,14 +431,10 @@ angular
 												]
 											});
 										} else {
-											$ionicLoading.show({
-												template: 'Logging in..:)'
-											});
 											$localStorage.userLoginData = response;
 											console.log('user found! going home..');
 											$localStorage.flagMap = true;
 											$state.go('menu.home');
-											//$ionicLoading.hide();
 										}
 									})
 									.error(function(answer) {
@@ -453,7 +444,7 @@ angular
 											});
 										console.log('error while read user!');
 									});
-									$ionicLoading.hide();
+								$ionicLoading.hide();
 								UserService.setUser(user_data);
 							},
 							function(msg) {
@@ -463,8 +454,6 @@ angular
 								$ionicLoading.hide();
 							}
 						);
-					}
-				);
 			};
 			$scope.details ={
 				email: null,
