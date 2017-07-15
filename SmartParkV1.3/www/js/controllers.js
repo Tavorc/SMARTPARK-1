@@ -1436,7 +1436,7 @@
 						console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 					})
 					$scope.myLocation;
-					map.setCenter(new google.maps.LatLng(32.0852999, 34.78176759999997)); // NOTE: pos.coords.latitude, pos.coords.longitude
+					map.setCenter(new google.maps.LatLng($localStorage.myLocationStore.lat, $localStorage.myLocationStore.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
 					var myLocation = new google.maps.Marker({
 						id: 0,
 						options: {
@@ -1445,7 +1445,7 @@
 							animation: google.maps.Animation.BOUNCE
 
 						},
-						position: new google.maps.LatLng(32.0852999, 34.78176759999997), // NOTE: pos.coords.latitude, pos.coords.longitude
+						position: new google.maps.LatLng($localStorage.myLocationStore.lat, $localStorage.myLocationStore.lng), // NOTE: pos.coords.latitude, pos.coords.longitude
 						map: map,
 						title: "My Location"
 					});
