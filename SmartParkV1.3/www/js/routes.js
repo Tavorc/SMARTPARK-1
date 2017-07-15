@@ -5,14 +5,7 @@ angular
 		$stateProvider
 			.state('menu.in', {
 				url: '/in',
-				params: {
-					street: null,
-					number: null,
-					city: null,
-					country: null,
-					lat: null,
-					lng: null
-				},
+				params: null,
 				views: {
 					'side-menu21': {
 						templateUrl: 'templates/in.html',
@@ -23,14 +16,7 @@ angular
 
 			.state('menu.out', {
 				url: '/out',
-				params: {
-					street: null,
-					number: null,
-					city: null,
-					country: null,
-					lat: null,
-					lng: null
-				},
+				params: null,
 				views: {
 					'side-menu21': {
 						templateUrl: 'templates/out.html',
@@ -43,8 +29,8 @@ angular
 				url: '/about',
 				views: {
 					'side-menu21': {
-						templateUrl: 'templates/about.html',
-						controller: 'aboutCtrl'
+						templateUrl: 'templates/about.html'
+						// ,controller: 'aboutCtrl'
 					}
 				}
 			})
@@ -119,62 +105,62 @@ angular
 				url: '/help',
 				views: {
 					'side-menu21': {
-						templateUrl: 'templates/help.html',
-						controller: 'helpCtrl'
+						templateUrl: 'templates/help.html'
+						// ,controller: 'helpCtrl'
 					}
 				}
 			})
-			.state('menu.mapIN', {
-				url: '/mapIN',
+			.state('menu.selectionMap', {
+				url: '/selectionMap',
 				params: {},
 				views: {
 					'side-menu21': {
-						templateUrl: 'templates/mapIN.html',
-						controller: 'mapINCtrl'
+						templateUrl: 'templates/selectionMap.html',
+						controller: 'selectionMapCtrl'
 					}
 				}
 			})
 
-			.state('menu.mapOUT', {
-				url: '/mapout',
-				params: { // FIXME: need to remove it
-					date: null,
-					time: null,
-					street: null,
-					number: null,
-					city: null,
-					country: null,
-					repeat: null,
-					size: null,
-					handicap: null,
-					comments: null
-				},
-				views: {
-					'side-menu21': {
-						templateUrl: 'templates/mapOUT.html',
-						controller: 'mapOUTCtrl'
-					}
-				}
-			})
+			// .state('menu.mapOUT', {
+			// 	url: '/mapout',
+			// 	params: { // FIXME: need to remove it
+			// 		date: null,
+			// 		time: null,
+			// 		street: null,
+			// 		number: null,
+			// 		city: null,
+			// 		country: null,
+			// 		repeat: null,
+			// 		size: null,
+			// 		handicap: null,
+			// 		comments: null
+			// 	},
+			// 	views: {
+			// 		'side-menu21': {
+			// 			templateUrl: 'templates/mapOUT.html',
+			// 			controller: 'mapOUTCtrl'
+			// 		}
+			// 	}
+			// })
 
-			.state('menu.myHistory.searchHistory', {
-				url: '/searchHistory',
-				views: {
-					'searches-tab': {
-						templateUrl: 'templates/myHistory.html',
-						controller: 'MyCtrlSearchesHistory'
-					}
-				}
-			})
-			.state('menu.myHistory.reportsHistory', {
-				url: '/reportsHistory',
-				views: {
-					'reports-tab': {
-						templateUrl: 'templates/myHistory.html',
-						controller: 'MyCtrlReportsHistory'
-					}
-				}
-			})
+			// .state('menu.myHistory.searchHistory', {
+			// 	url: '/searchHistory',
+			// 	views: {
+			// 		'searches-tab': {
+			// 			templateUrl: 'templates/myHistory.html',
+			// 			controller: 'MyCtrlSearchesHistory'
+			// 		}
+			// 	}
+			// })
+			// .state('menu.myHistory.reportsHistory', {
+			// 	url: '/reportsHistory',
+			// 	views: {
+			// 		'reports-tab': {
+			// 			templateUrl: 'templates/myHistory.html',
+			// 			controller: 'MyCtrlReportsHistory'
+			// 		}
+			// 	}
+			// })
 
 
 		$urlRouterProvider.otherwise('/login')

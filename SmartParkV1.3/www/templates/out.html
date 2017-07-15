@@ -14,24 +14,24 @@
 	        		<span class="input-label"><span class="calm">[</span> Time</span>
 	        		<input type="time" id="out-select7" name="time" ng-model="time.t" placeholder="HH:MM" required />
       			</label>
-				<a ui-sref="menu.mapOUT" id="locationButton" class="button button-dark button-small button-block icon ion-android-locate"> Choose location...</a>
+				<a ui-sref="menu.selectionMap" id="locationButton" class="button button-dark button-small button-block icon ion-android-locate"> Choose location...</a>
 				<!-- <a id="out-button15" class="button button-positive button-small button-block icon ion-android-locate" ng-click="openCamera()"> Take Photo </a> -->
 				<!-- <img ng-src="parking.img" id="myImage" height="0" width="0"> -->
 				<label class="item item-input top-border-rounded" id="out-input14" name="street">
 			        <span class="input-label"><span class="calm">[</span> Street</span>
-			        <input type="text" placeholder="Auto" disabled="true" ng-model="location.street">
+			        <input type="text" placeholder="Auto" disabled="true" ng-model="parking.location.street">
 	      		</label>
 				<label class="item item-input" id="out-input15" name="number">
 			        <span class="input-label"><span class="calm">[</span> Number</span>
-			        <input type="text" placeholder="Auto" disabled="true" ng-model="location.number">
+			        <input type="text" placeholder="Auto" disabled="true" ng-model="parking.location.number">
       			</label>
 				<label class="item item-input" id="out-input16" name="city">
 			        <span class="input-label"><span class="calm">[</span> City</span>
-			        <input type="text" placeholder="Auto" disabled="true" ng-model="location.city">
+			        <input type="text" placeholder="Auto" disabled="true" ng-model="parking.location.city">
 		    	</label>
 				<label class="item item-input  btm-border-rounded" id="out-input17" name="country">
 			        <span class="input-label"><span class="calm">[</span> Country</span>
-			        <input type="text" placeholder="Auto" disabled="true" ng-model="location.country">
+			        <input type="text" placeholder="Auto" disabled="true" ng-model="parking.location.country">
       			</label>
 				<div class="lightTitle text-center">
 					<span class="calm">[ </span>Optional:<span class="calm"> ]</span>
