@@ -30,6 +30,7 @@ angular
 				time: $scope.time,
 				distance: null,
 				location: $scope.location,
+				handicapped: false,
 				size: 0,
 				searcherId: UserService.getUser().email
 			}
