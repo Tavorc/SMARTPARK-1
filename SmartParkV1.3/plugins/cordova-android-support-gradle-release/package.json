@@ -1,0 +1,73 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-android-support-gradle-release@~0.0.1",
+        "scope": null,
+        "escapedName": "cordova-android-support-gradle-release",
+        "name": "cordova-android-support-gradle-release",
+        "rawSpec": "~0.0.1",
+        "spec": ">=0.0.1 <0.1.0",
+        "type": "range"
+      },
+      "C:\\Users\\user\\SMARTPARK\\SmartParkV1.3\\node_modules"
+    ]
+  ],
+  "_from": "cordova-android-support-gradle-release@>=0.0.1 <0.1.0",
+  "_id": "cordova-android-support-gradle-release@0.0.2",
+  "_inCache": true,
+  "_location": "/cordova-android-support-gradle-release",
+  "_nodeVersion": "7.10.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-android-support-gradle-release-0.0.2.tgz_1497619877312_0.3724828877020627"
+  },
+  "_npmUser": {
+    "name": "davealden",
+    "email": "dave@workingedge.co.uk"
+  },
+  "_npmVersion": "4.2.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-android-support-gradle-release@~0.0.1",
+    "scope": null,
+    "escapedName": "cordova-android-support-gradle-release",
+    "name": "cordova-android-support-gradle-release",
+    "rawSpec": "~0.0.1",
+    "spec": ">=0.0.1 <0.1.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-android-support-gradle-release/-/cordova-android-support-gradle-release-0.0.2.tgz",
+  "_shasum": "e858cf7b0d39401ceada63a0ec3630082b9482f6",
+  "_shrinkwrap": null,
+  "_spec": "cordova-android-support-gradle-release@~0.0.1",
+  "_where": "C:\\Users\\user\\SMARTPARK\\SmartParkV1.3\\node_modules",
+  "author": {
+    "name": "Dave Alden"
+  },
+  "dependencies": {},
+  "description": "Cordova/Phonegap plugin to align various versions of the Android Support libraries specified by other plugins to the latest release version",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "e858cf7b0d39401ceada63a0ec3630082b9482f6",
+    "tarball": "https://registry.npmjs.org/cordova-android-support-gradle-release/-/cordova-android-support-gradle-release-0.0.2.tgz"
+  },
+  "gitHead": "650997416d182588a0308074764ef139bf91b059",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "davealden",
+      "email": "dave@workingedge.co.uk"
+    }
+  ],
+  "name": "cordova-android-support-gradle-release",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "scripts": {},
+  "version": "0.0.2"
+}

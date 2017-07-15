@@ -1,0 +1,59 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-googleplus": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "phonegap-plugin-push": {
+            "SENDER_ID": "1094228718719",
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "cordova-plugin-actionsheet": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "com.paypal.cordova.mobilesdk": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "cordova-android-support-gradle-release": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "cordova-plugin-app-event": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "es6-promise-plugin": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        },
+        "card.io.cordova.mobilesdk": {
+            "PACKAGE_NAME": "com.ionicframework.smartparkv13179221"
+        }
+    }
+}
