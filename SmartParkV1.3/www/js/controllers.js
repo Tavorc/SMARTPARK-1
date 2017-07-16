@@ -61,11 +61,15 @@
 						value:$localStorage.userLoginData.smarties
 					}
 				};
-
+				var template = `<img id="smartiesImgAlert" src="./img/alerIcons.png" height="16" width="16" >
+									<b>YOU HAVE: </b>
+									<b id="boldSmarties" ng-model="smartiesAlert.value" >{{smartiesAlert.value}}
+									<br>smarties</b>
+									<img id="smartiesImg" src="./img/circleSmarties.png" height="64" width="64" >
+									<br> You are going to lose 1 smarties<br><br><b>DO YOU AGREE?</b>`;
 				$scope.getInfoFromServer = function() {
 					var confirmPopup = $ionicPopup.confirm({
-						template: '<img id="smartiesImgAlert" src="./img/alerIcons.png" height="16" width="16" > <b>YOU HAVE: </b> <b id="boldSmarties" ng-model="smartiesAlert.value" >{{smartiesAlert.value}}<br>smarties</b><img id="smartiesImg" src="./img/circleSmarties.png" height="64" width="64" ><br> You are going to lose 1 smarties<br><br><b>DO YOU AGREE?</b>',
-						cancelText: 'CANCEL',
+						template: template,
 						cancelType: 'button-dark',
 						scope: $scope,
 						okText: 'I AGREE',
@@ -545,8 +549,7 @@
 					}, 200);
 					$localStorage.flagMap = false;
 				}
-				console.log($localStorage);
-				console.log(`$localStorage.userLoginData: ${$localStorage.userLoginData}`);
+				console.log($localStorage.userLoginData);
 
 				// $scope.smarties = $localStorage.userLoginData.smarties;
 				$scope.smarties = 5; // FIXME: just for test: s/b $localStorage.userLoginData.smarties;
@@ -1146,12 +1149,14 @@
 
 		.controller('myHistoryCtrl', ['$scope', '$http', 'UserService', '$stateParams', 'd3TimeFormat', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 			function($scope, $http, UserService, $stateParams, d3TimeFormat, $ionicLoading) {
+				$scope.choice1 = true;
+				$scope.choice2 = false;
 				console.log($stateParams);
 				$ionicLoading.show({
 								template: 'Loading in..:)'
 								});
-				$scope.items = [];
-				$scope.items2 = [];
+				$scope.bookings = [];
+				$scope.parkings = [];
 				// Should be searcher_id
 				userDetails = {
 					userId: UserService.getUser().email
@@ -1160,7 +1165,7 @@
 					$ionicLoading.hide();
 					res.data.forEach((v, k) => {
 						timeOfParking = new Date(v.time);
-						$scope.items.push({
+						$scope.bookings.push({
 							location: `${v.location.city} ${v.location.street} ${v.location.number}`,
 							time: d3TimeFormat.toClean(v.time)
 						})
@@ -1171,7 +1176,7 @@
 					$ionicLoading.hide();
 					res.data.forEach((v, k) => {
 						timeOfParking = new Date(v.time);
-						$scope.items2.push({
+						$scope.parkings.push({
 							location: `${v.location.city} ${v.location.street} ${v.location.number}`,
 							time: d3TimeFormat.toClean(v.time)
 						})
@@ -1180,16 +1185,6 @@
 			}
 		])
 
-		// .controller('helpCtrl', ['$scope',
-		// 	function($scope) {
-		// 		// FIXME: need to cancel this controller if not in use..
-		// 	}
-		// ])
-		// .controller('aboutCtrl', ['$scope',
-		// 	function($scope) {
-		// 		// FIXME: need to cancel this controller if not in use..
-		// 	}
-		// ])
 		.controller('signupCtrl', ['$scope', '$state', '$stateParams', '$ionicAuth', '$ionicUser', 'UserService', '$localStorage', '$http', '$ionicPush', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 			function($scope, $state, $stateParams, $ionicAuth, $ionicUser, UserService, $localStorage, $http, $ionicPush, $ionicPopup) {
 				$scope.signUp = (name, mail, password, carid) => {
@@ -1480,63 +1475,3 @@
 				};
 			}
 		])
-
-		// .controller('mapOUTCtrl', ['$scope', '$state', '$http', '$stateParams', '$ionicLoading', '$localStorage', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// 	function($scope, $state, $http, $stateParams, $ionicLoading, $localStorage) {
-		// 		$scope.init = function() {
-		// 			$scope.chosenLocation;
-		// 			var myLatlng = new google.maps.LatLng(32.3000, 12.4833);
-		// 			var mapOptions = {
-		// 				mapTypeId: google.maps.MapTypeId.ROADMAP,
-		// 				disableDefaultUI: true,
-		// 				showTraficLayer: true,
-		// 				center: myLatlng,
-		// 				zoom: 16,
-		// 				mapTypeId: google.maps.MapTypeId.ROADMAP
-		// 			};
-		// 			var map = new google.maps.Map(document.getElementById("mapOUT"), mapOptions);
-		// 			var geocoder = new google.maps.Geocoder();
-		// 			geocoder.geocode({
-		// 				'address': 'telAviv,ISRAEL'
-		// 			}, function(results, status) {
-		// 				console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
-		// 			})
-		// 			$scope.myLocation;
-		// 			map.setCenter(new google.maps.LatLng($localStorage.myLocationStore.lat, $localStorage.myLocationStore.lng)); // NOTE: pos.coords.latitude, pos.coords.longitude
-		// 			var myLocation = new google.maps.Marker({
-		// 				id: 0,
-		// 				options: {
-		// 					icon: imgs.imHereBlue,
-		// 					draggable: true,
-		// 					animation: google.maps.Animation.BOUNCE
-		//
-		// 				},
-		// 				position: new google.maps.LatLng($localStorage.myLocationStore.lat, $localStorage.myLocationStore.lng), // NOTE: pos.coords.latitude, pos.coords.longitude
-		// 				map: map,
-		// 				title: "My Location"
-		// 			});
-		// 			$scope.myLocation = myLocation;
-		// 			$scope.myLocation.addListener('dragend', function(marker, eventName, args) {
-		// 				map.setZoom(map.zoom);
-		// 				map.setCenter(this.getPosition());
-		// 				$http
-		// 					.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.getPosition().lat() + ',' + this.getPosition().lng() + '&key=AIzaSyCHQ31H0pHcnqIc0U-WBXx1I5nJAoQM4kA')
-		// 					.success(function(jsn) {
-		// 						$scope.chosenLocation = {
-		// 							formatted_address: jsn.results[0].formatted_address, //+ event.latLng.lat() + 'Longitude: ' + event.latLng.lng()+
-		// 							number: jsn.results[0].address_components[0].short_name,
-		// 							street: jsn.results[0].address_components[1].short_name,
-		// 							city: jsn.results[0].address_components[2].short_name,
-		// 							country: jsn.results[0].address_components[4].short_name,
-		// 							lat: jsn.results[0].geometry.location.lat,
-		// 							lng: jsn.results[0].geometry.location.lng
-		// 						}
-		// 						console.log('returnd info: ' + jsn.results[0].formatted_address);
-		// 					});
-		// 			});
-		// 			$scope.continue = function() {
-		// 				$state.go('menu.out', $scope.chosenLocation)
-		// 			}
-		// 		};
-		// 	}
-		// ])

@@ -1,9 +1,4 @@
 /*
-To customize the look and feel of Ionic, you can override the variables
-in ionic's _variables.scss file.
-
-For example, you might change some of the default colors:
-
 $light:                           #fff !default;
 $stable:                          #f8f8f8 !default;
 $positive:                        #387ef5 !default;
@@ -14,202 +9,72 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
+
+/**---Generals---**/
 $dark: #3A3F51;
 $black: #000;
-// div{
-// 	border: 1px solid black !important;
-// }
-// The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "../lib/ionic/fonts" !default;
+$ionicons-font-path: "../lib/ionic/fonts" !default; // The path for our ionicons font files, relative to the built CSS in www/css
+@import "www/lib/ionic/scss/ionic"; // Include all of Ionic
 
-// Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
-
-// ion-nav-title{
-// 	text-align: center;
-// 	// margin: 0 auto;
-// 	font-weight: bolder;
-// }
-ui-gmap-google-map {
-	height: 100%;
-	width: 100%;
-	display: block;
-	.angular-google-map {
-		height: 100%;
-		.angular-google-map-container {
-			height: 100%;
-		}
-	}
+/**---Utilities---**/
+.calm-bg-light{
+	background-color: rgba(211, 237, 254, 0.4);//#D3EDFE;
 }
-#locationButton{
-	border: 2px solid $calm !important;
+.dark-bg-light{
+	background-color: rgba(0, 0, 0, 0.2);
 }
-.black{
-	color: $black;
-}
-#pay, #paypal-button-container{
-	padding-bottom: 0px !important;
+.padding-bottom {
+	padding-bottom: 20px;
 }
 
-.bgColor{
-	background-color: $stable;
-}
-.whiteText{
+.whiteText {
 	color: #F7F6F6;
 }
-.icon.ion-social-usd-outline.calm{
+
+.icon.ion-social-usd-outline.calm {
 	font-weight: bolder;
 	color: $royal;
 }
 
-#mapHOME {
-	position: absolute;
-}
-
-.lowerTitle{
+.lowerTitle {
 	margin-top: -5px;
 	font-size: smaller;
 	text-align: center;
 }
-.button-with-title{
+
+.button-with-title {
 	width: 50%;
 }
-.extra-space-top{
+
+.extra-space-top {
 	margin-top: 20px !important;
 }
-#mapHOME {
-	position: absolute;
-}
 
-// #imgIn {
-// 	z-index    : 99;
-// 	position   : absolute;
-// 	margin-left: 15%;
-// 	margin-top : 103%;
-// }
-//
-// #imgOut {
-// 	z-index    : 99;
-// 	position   : absolute;
-// 	margin-left: 60%;
-// 	margin-top : 103%;
-// }
-
-#smartiesData {
-	z-index    : 105;
-	position   : absolute;
-	margin-left: 75%;
-	margin-top : 8%;
-	font-size  : 15px;
-	text-align : center;
-	color      : #ffffff;
-}
-
-#smartiesDiv {
-	z-index         : 105;
-	border-radius   : 50%;
-	background-color: #F2F3F4;
-	position        : absolute;
-	margin-left     : 72%;
-	margin-top      : 2%;
+.rounded {
+	border-radius: 10px;
 }
 
 a:hover {
 	text-decoration: none !important;
-	/*color: black;*/
 }
 
-#page4 {
-background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
+.maps-bg {
+	background: url("http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg");
 }
 
-.logoLogin {
-	position:absolute;
-}
-
-.rounded{
+.dark-border {
+	border: 3px solid $dark;
 	border-radius: 10px;
 }
 
-
-.cardLogin {
-	border: 3px solid $calm;
-	padding         : 10px;
-	margin-top      : 40px;
-	margin-bottom: 20px;
-	border-radius: 10px;
-	box-shadow      : 0 5px 5px rgba(0, 0, 0, 0.4);
-	background-color: $stable;
-	#logo-img{
-	  	width : 30%;
-		background-repeat: no-repeat;
-		position: relative;
-		background-size: contain;
-		background-position: center;
-		padding-top: 100px;
-		background-image: url('../img/LOGODAVID1-1.png') !important;
-		border: 3px solid $calm;
-		box-shadow      : 0 5px 5px rgba(0, 0, 0, 0.4);
-		background-color: $stable;
-		border-radius: 10px;
-		bottom: 50px;
-		margin: 0px auto;
-	}
-	h5{
-		position: relative;
-		bottom: 20px;
-	}
-	.small-link{
-		text-align: center;
-		font-style: italic;
-		// font-weight: bolder;
-	}
-}
-#homeBtns{
-	position:fixed;
-	padding: 10px;
-	bottom: 0px;
-	img{
-		width: 30%;
-		height: 30%;
-	}
-}
-#signup-button4 {
-	background-color: #2dace2;
-	color           : #ffffff;
-	margin-top      : 10px;
-}
-#login-button2{
-	background-color: #CCCCCC;
-}
-button.inout-btn {
-    width: 100px;
-    height:100px;
-    border-radius:100%;
-    background: gray;
-    font-size: 3em;
-    display: block;
-    margin:0 auto;
-    border: 0;
-}
-button.inout-btn.success {
-    color: #11c1f3;
-}
-.teal {
-    color: #11c1f3;
-}
-.inout-col {
-    font-size: 1.5em;
+.bold {
+	font-weight: bolder;
 }
 
-
-.scroll {
-	height: 100%;
-}
 .map {
-	height : 100%;
-	width  : 100%;
-	margin : 0;
+	height: 100%;
+	width: 100%;
+	margin: 0;
 	padding: 0;
 }
 
@@ -217,19 +82,8 @@ button.inout-btn.success {
 	border-radius: 25px 25px 25px 25px !important;
 }
 
-#selectionBox {
-	position: absolute;
-	top     : 1px;
-	/*left: 10px; */
-	z-index : 9;
-	opacity : 0.7;
-	/*background: #FAF3CE;*/
-}
-
-.circle {
-	border-radius: 50%;
-	width        : 150px;
-	height       : 150px;
+.scroll {
+	height: 100%;
 }
 
 .center {
@@ -242,170 +96,289 @@ button.inout-btn.success {
 
 .input-custom {
 	font-weight: bold !important;
-	color      : #387ef5 !important;
-	text-align : right !important;
-	margin     : auto !important;
-}
-
-
-a:hover {
-	text-decoration: none !important;
-	/*color: black;*/
+	color: #387ef5 !important;
+	text-align: right !important;
+	margin: auto !important;
 }
 
 #page4 {
 	background-color: #808080;
-	opacity         : 0.5;
-}
-
-#signup-button4 {
-	margin-top      : 40px;
+	opacity: 0.5;
 }
 
 #page8 {
 	background-color: #808080;
-	opacity         : 0.5;
+	opacity: 0.5;
 }
 
-.scroll {
-	height: 100%;
-}
-
-.myLocation{
-	z-index    : 10;
-	position   : absolute;
+.myLocation {
+	z-index: 10;
+	position: absolute;
 	margin-left: 3%;
-	margin-top : 3%;
+	margin-top: 3%;
 	width: 30px;
 	height: 30px;
 }
-.map {
-	height : 100%;
-	width  : 100%;
-	margin : 0;
-	padding: 0;
+
+ui-gmap-google-map {
+	height: 100%;
+	width: 100%;
+	display: block;
+
+	.angular-google-map {
+		height: 100%;
+
+		.angular-google-map-container {
+			height: 100%;
+		}
+	}
 }
 
-.circle-button {
-	border-radius: 25px 25px 25px 25px !important;
+.black {
+	color: $black;
 }
 
+.fade-bg {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.push-up {
+	position: relative;
+	bottom: 15px;
+}
+/**---Home---**/
+#mapHOME {
+	position: absolute;
+}
+
+#homeBtns {
+	position: fixed;
+	padding: 10px;
+	bottom: 0;
+
+	img {
+		width: 30%;
+		height: 30%;
+	}
+}
+
+/**---BuySmarties---**/
+#pay,
+#paypal-button-container {
+	padding-bottom: 0 !important;
+}
+
+/**---Login/Signup---**/
+.logoLogin {
+	position: absolute;
+}
+
+.cardLogin {
+	border: 3px solid $calm;
+	padding: 10px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	border-radius: 10px;
+	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+	background-color: $stable;
+
+	#logo-img {
+		width: 30%;
+		background-repeat: no-repeat;
+		position: relative;
+		background-size: contain;
+		background-position: center;
+		padding-top: 100px;
+		background-image: url('../img/LOGODAVID1-1.png') !important;
+		border: 3px solid $calm;
+		box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+		background-color: $stable;
+		border-radius: 10px;
+		bottom: 50px;
+		margin: 0 auto;
+	}
+
+	h5 {
+		position: relative;
+		bottom: 20px;
+	}
+
+	.small-link {
+		text-align: center;
+		font-style: italic;
+		// font-weight: bolder;
+	}
+}
+
+/**---SelectionMap---**/
 #selectionBox {
 	position: absolute;
-	top     : 1px;
-	/*left: 10px; */
-	z-index : 9;
-	opacity : 0.7;
-	/*background: #FAF3CE;*/
-}
-#menu-list-item13{
-	padding-top: 0px!important;
-	padding-bottom: 0px!important;
-}
-#menu-list-item7{
-	height: $bar-subheader-height + $bar-height;//$bar-height*2 + $bar-subheader-height ;
-}
-.maps-bg {
-  background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
-}
-// menu.html:
-#menu-list4 .item-icon-left {
-	background: #3b4051 !important;
-	color: #fff !important;
-	border-top: 1px solid #3b4051 !important;
-	border-bottom: 1px solid #3b4051 !important;
+	top: 1px;
+	z-index: 9;
+	opacity: 0.7;
 }
 
-#menu-list4 a.item-content {
-	background: #3b4051 !important;
-	color: #fff !important;
-	border-top: 1px solid #3b4051 !important;
-	border-bottom: 1px solid #3b4051 !important;
+/**---Menu---**/
+#menu-list-item13 {
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
 }
 
-#menu-list4 .item.item-toggle {
-	background: #3b4051 !important;
-	color: #fff !important;
-	border: 0;
+#menu-list-item7 {
+	height: $bar-subheader-height + $bar-height; //$bar-height*2 + $bar-subheader-height ;
 }
 
-#menu-list4 .welcome-user {
-	color: #fff !important;
-	font-size: 1.3em !important;
+#menu-list4 {
+	.item-icon-left {
+		background: #3b4051 !important;
+		color: #fff !important;
+		border-top: 1px solid #3b4051 !important;
+		border-bottom: 1px solid #3b4051 !important;
+	}
+
+	a.item-content {
+		background: #3b4051 !important;
+		color: #fff !important;
+		border-top: 1px solid #3b4051 !important;
+		border-bottom: 1px solid #3b4051 !important;
+	}
+
+	.item.item-toggle {
+		background: #3b4051 !important;
+		color: #fff !important;
+		border: 0;
+	}
+
+	.welcome-user {
+		color: #fff !important;
+		font-size: 1.3em !important;
+	}
 }
 
-// .btn-warning{
-// 	background-color: $calm;
-// }
-
-#locationButton{
+/**---In/Out---**/
+#locationButton {
+	border: 2px solid $calm !important;
 	border-radius: 10px;
 }
-.top-border-rounded{
+
+.top-border-rounded {
 	border-top-right-radius: 10px;
 	border-top-left-radius: 10px;
 }
-.btm-border-rounded{
+
+.btm-border-rounded {
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
-
 }
-.distance-select{
+
+.distance-select {
 	background: $stable !important;
 }
-.form-tamplate label{
+
+.form-tamplate label {
 	background: $stable;
 }
-.fade-bg{
-	background-color:rgba(0, 0, 0, 0.2);
-}
-.lightTitle{
+
+.lightTitle {
 	color: $dark;
 	font-weight: bolder;
 	font-style: italic;
 	padding: 2px;
 }
-#out-select8{
-	.title{
+
+#out-select8 {
+	.title {
 		margin-left: 7px;
 		padding-right: 10px;
 	}
-	label{
-		border: 0px;
-		img{
+
+	label {
+		border: 0;
+
+		img {
 			width: 20vw;
 		}
 	}
-	input[type="radio"]{
+
+	input[type="radio"] {
 		position: relative;
 		top: 20px;
 		right: 15%;
 	}
 }
 
-.dark-border{
+/**---MyProfile---**/
+#myProfile {
+	.cardLogin {
+		margin-top: 10px;
+	}
+
+	.user-avatar {
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		border: 3px solid lightgray;
+	}
+
+	hr {
+		border-color: $calm;
+		margin-bottom: 5px;
+	}
+}
+
+.mySmarties-box {
+	position: absolute;
+	padding: 0;
+	right: 10%;
+	top: 0;
 	border: 3px solid $dark;
-	border-radius: 10px;
+	border-radius: 50px;
+	width: 55px;
+	height: 55px;
+	box-shadow: 2px 2px 5px $dark;
+
+	.title {
+		margin: 5px;
+		position: relative;
+		bottom: 10px;
+		font-size: 0.5em;
+		font-weight: bold;
+		color: $stable;
+	}
+
+	.big {
+		font-size: 1.5em;
+	}
 }
-.bold{
-	font-weight: bolder;
+
+/**---MyHistory---**/
+#myHistory{
+	.button-bar{
+		position: fixed;
+		bottom: 0px;
+		z-index: 10;
+		padding: 10px;
+		img {
+			width: 30%;
+			height: 30%;
+		}
+	}
+	ion-scroll{
+		overflow-y: hidden;
+		height: 90%;
+	}
+	small{
+		font-size: 0.8em;
+		text-overflow: ellipsis;
+	}
+	.rounded{
+		border: 3px solid $calm;
+	}
+	ion-content{
+		padding-bottom: 40px;
+	}
 }
-#doneOut{
-	margin-left:15%;
-}
-#cancelOut{
-	margin-left:10%;
-}
-#wrapperIn{
-	height: 100%;
-	width: 100%;
-	background-color: #ffffff;
-}
-#wrapperOut{
-	height: 136%;
-	width: 100%;
-	background-color: #ffffff;
-}
+/**---AlertBox---**/
 
 #boldSmarties{
 	display:inline-block;
@@ -418,251 +391,212 @@ a:hover {
 	text-align:center;
 }
 
-    ion-item.history,
-    ion-item.history a {
-        background: #fff !important;
-        color: #000 !important;
-    }
+#smartiesData {
+	z-index    : 105;
+	position   : absolute;
+	margin-left: 75%;
+	margin-top : 8%;
+	font-size  : 15px;
+	text-align : center;
+	color      : #ffffff;
+}
+#smartiesDiv {
+	z-index         : 105;
+	border-radius   : 50%;
+	background-color: #F2F3F4;
+	position        : absolute;
+	margin-left     : 72%;
+	margin-top      : 2%;
+}
 
-    .history-list .list {
-        margin: 10px;
-    }
-
-    .history-list {
-        opacity: 0.8;
-    }
-
-    .maps-bg {
-        background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
-    }
-
-        button.inout-btn {
-        width: 100px;
-        height:100px;
-        border-radius:100%;
-        background: gray;
-        font-size: 3em;
-        display: block;
-        margin:0 auto;
-        border: 0;
-    }
-    button.inout-btn.success {
-        color: #11c1f3;
-    }
-    .teal {
-        color: #11c1f3;
-    }
-    .inout-col {
-        font-size: 1.5em;
-    }
-
-    ion-item.history,
-    ion-item.history a {
-        background: #fff !important;
-        color: #000 !important;
-    }
-
-    .history-list .list {
-        margin: 10px;
-    }
-
-    .history-list {
-        opacity: 0.8;
-    }
-
-    .maps-bg {
-        background: url(http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg);
-    }
-    .user-avatar {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        border:3px solid lightgray;
-    }
-
-	.mySmarties-box{
-		position: absolute;
-		z-index: 99;
-        right: 10%;
-        margin-top: 15px;
-		border: 3px solid $dark;
-		border-radius: 50px;
-		width: 75px;
-		height: 75px;
-
-
-		.mySmarties {
-			right: 10%;
-			margin-top: 5px;
-			span{
-				position: relative;
-		       bottom: 100px;
-		    }
-	    }
-		.big{
-			font-size: 25px;
-		}
-
+/**---About/Help---**/
+.no-wrap {
+	.item {
+		white-space: normal;
 	}
+}
 
+/**---Action Sheets---**/
+.action-sheet-backdrop {
+	-webkit-transition: background-color 150ms ease-in-out;
+	transition: background-color 150ms ease-in-out;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 11;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+}
 
+.action-sheet-backdrop.active {
+	background-color: rgba(0, 0, 0, 0.4);
+}
 
-	/**
-	 * Action Sheets
-	 * --------------------------------------------------
-	 */
-	.action-sheet-backdrop {
-	  -webkit-transition: background-color 150ms ease-in-out;
-	  transition: background-color 150ms ease-in-out;
-	  position: fixed;
-	  top: 0;
-	  left: 0;
-	  z-index: 11;
-	  width: 100%;
-	  height: 100%;
-	  background-color: transparent; }
-	  .action-sheet-backdrop.active {
-		background-color: rgba(0, 0, 0, 0.4); }
+.action-sheet-wrapper {
+	-webkit-transform: translate3d(0, 100%, 0);
+	transform: translate3d(0, 100%, 0);
+	-webkit-transition: all cubic-bezier(0.36, 0.66, 0.04, 1) 500ms;
+	transition: all cubic-bezier(0.36, 0.66, 0.04, 1) 500ms;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	max-width: 500px;
+	margin: auto;
+}
 
-	.action-sheet-wrapper {
-	  -webkit-transform: translate3d(0, 100%, 0);
-	  transform: translate3d(0, 100%, 0);
-	  -webkit-transition: all cubic-bezier(0.36, 0.66, 0.04, 1) 500ms;
-	  transition: all cubic-bezier(0.36, 0.66, 0.04, 1) 500ms;
-	  position: absolute;
-	  bottom: 0;
-	  left: 0;
-	  right: 0;
-	  width: 100%;
-	  max-width: 500px;
-	  margin: auto; }
+.action-sheet-up {
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
 
-	.action-sheet-up {
-	  -webkit-transform: translate3d(0, 0, 0);
-	  transform: translate3d(0, 0, 0); }
+.action-sheet {
+	margin-left: 8px;
+	margin-right: 8px;
+	width: auto;
+	z-index: 11;
+	overflow: hidden;
+}
 
-	.action-sheet {
-	  margin-left: 8px;
-	  margin-right: 8px;
-	  width: auto;
-	  z-index: 11;
-	  overflow: hidden; }
-	  .action-sheet .button {
-		display: block;
-		padding: 1px;
-		width: 100%;
-		border-radius: 0;
-		border-color: #d1d3d6;
-		background-color: transparent;
-		color: #007aff;
-		font-size: 21px; }
-		.action-sheet .button:hover {
-		  color: #007aff; }
-		.action-sheet .button.destructive {
-		  color: #ff3b30; }
-		  .action-sheet .button.destructive:hover {
-			color: #ff3b30; }
-	  .action-sheet .button.active, .action-sheet .button.activated {
-		box-shadow: none;
-		border-color: #d1d3d6;
-		color: #007aff;
-		background: #e4e5e7; }
+.action-sheet .button {
+	display: block;
+	padding: 1px;
+	width: 100%;
+	border-radius: 0;
+	border-color: #d1d3d6;
+	background-color: transparent;
+	color: #007aff;
+	font-size: 21px;
+}
 
-	.action-sheet-has-icons .icon {
-	  position: absolute;
-	  left: 16px; }
+.action-sheet .button:hover {
+	color: #007aff;
+}
 
-	.action-sheet-title {
-	  padding: 16px;
-	  color: #8f8f8f;
-	  text-align: center;
-	  font-size: 13px; }
+.action-sheet .button.destructive {
+	color: #ff3b30;
+}
 
-	.action-sheet-group {
-	  margin-bottom: 8px;
-	  border-radius: 4px;
-	  background-color: #fff;
-	  overflow: hidden; }
-	  .action-sheet-group .button {
-		border-width: 1px 0px 0px 0px; }
-	  .action-sheet-group .button:first-child:last-child {
-		border-width: 0; }
+.action-sheet .button.destructive:hover {
+	color: #ff3b30;
+}
 
-	.action-sheet-options {
-	  background: #f1f2f3; }
+.action-sheet .button.activated,
+.action-sheet .button.active {
+	box-shadow: none;
+	border-color: #d1d3d6;
+	color: #007aff;
+	background: #e4e5e7;
+}
 
-	.action-sheet-cancel .button {
-	  font-weight: 500; }
+.action-sheet-has-icons .icon {
+	position: absolute;
+	left: 16px;
+}
 
-	.action-sheet-open {
-	  pointer-events: none; }
-	  .action-sheet-open.modal-open .modal {
-		pointer-events: none; }
-	  .action-sheet-open .action-sheet-backdrop {
-		pointer-events: auto; }
+.action-sheet-title {
+	padding: 16px;
+	color: #8f8f8f;
+	text-align: center;
+	font-size: 13px;
+}
 
-	.xplatform-android .action-sheet-backdrop.active {
-	  background-color: rgba(0, 0, 0, 0.2); }
+.action-sheet-group {
+	margin-bottom: 8px;
+	border-radius: 4px;
+	background-color: #fff;
+	overflow: hidden;
+}
 
-	.xplatform-android .action-sheet {
-	  margin: 0; }
-	  .xplatform-android .action-sheet .action-sheet-title,
-	  .xplatform-android .action-sheet .button {
-		text-align: left;
-		border-color: transparent;
-		font-size: 16px;
-		color: inherit; }
-	  .xplatform-android .action-sheet .action-sheet-title {
-		font-size: 14px;
-		padding: 16px;
-		color: #666; }
-	  .xplatform-android .action-sheet .button.active,
-	  .xplatform-android .action-sheet .button.activated {
-		background: #e8e8e8; }
+.action-sheet-group .button {
+	border-width: 1px 0 0 0;
+}
 
-	.xplatform-android .action-sheet-group {
-	  margin: 0;
-	  border-radius: 0;
-	  background-color: #fafafa; }
+.action-sheet-group .button:first-child:last-child {
+	border-width: 0;
+}
 
-	.xplatform-android .action-sheet-cancel {
-	  display: none; }
+.action-sheet-options {
+	background: #f1f2f3;
+}
 
-	.xplatform-android .action-sheet-has-icons .button {
-	  padding-left: 56px; }
+.action-sheet-cancel .button {
+	font-weight: 500;
+}
 
-	  .backdrop {
-	    position: fixed;
-	    top: 0;
-	    left: 0;
-	    z-index: 11;
-	    width: 100%;
-	    height: 100%;
-	    background-color: rgba(0, 0, 0, 0.4);
-	    visibility: hidden;
-	    opacity: 0;
-	    -webkit-transition: 0.1s opacity linear;
-	    transition: 0.1s opacity linear; }
-	    .backdrop.visible {
-	      visibility: visible; }
-	    .backdrop.active {
-	      opacity: 1; }
-.item,
-.item h1,
-.item h2,
-.item h3,
-.item h4,
-.item h5,
-.item h6,
-.item p,
-.item-content,
-.item-content h1,
-.item-content h2,
-.item-content h3,
-.item-content h4,
-.item-content h5,
-.item-content h6,
-.item-content p {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal; }
+.action-sheet-open {
+	pointer-events: none;
+}
+
+.action-sheet-open.modal-open .modal {
+	pointer-events: none;
+}
+
+.action-sheet-open .action-sheet-backdrop {
+	pointer-events: auto;
+}
+
+.xplatform-android .action-sheet-backdrop.active {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.xplatform-android .action-sheet {
+	margin: 0;
+}
+
+.xplatform-android .action-sheet .action-sheet-title,
+.xplatform-android .action-sheet .button {
+	text-align: left;
+	border-color: transparent;
+	font-size: 16px;
+	color: inherit;
+}
+
+.xplatform-android .action-sheet .action-sheet-title {
+	font-size: 14px;
+	padding: 16px;
+	color: #666;
+}
+
+.xplatform-android .action-sheet .button.activated,
+.xplatform-android .action-sheet .button.active {
+	background: #e8e8e8;
+}
+
+.xplatform-android .action-sheet-group {
+	margin: 0;
+	border-radius: 0;
+	background-color: #fafafa;
+}
+
+.xplatform-android .action-sheet-cancel {
+	display: none;
+}
+
+.xplatform-android .action-sheet-has-icons .button {
+	padding-left: 56px;
+}
+
+.backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 11;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: 0.1s opacity linear;
+	transition: 0.1s opacity linear;
+}
+
+.backdrop.visible {
+	visibility: visible;
+}
+
+.backdrop.active {
+	opacity: 1;
+}

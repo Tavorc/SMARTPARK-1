@@ -1,43 +1,63 @@
-<!-- FIXME: all inline style needs to be removed to  css/ionic.app.css -->
 <ion-view id="page6" class="maps-bg">
 	<ion-nav-title align-title="center">
 		<span class="calm">[</span> PROFILE
 		<span class="calm">]</span>
 	</ion-nav-title>
-	<ion-content padding="true" class="has-header fade-bg">
-		<div class="mySmarties-box dark calm-bg text-center">
-			<div class="mySmarties bold big">{{smarties}}</div>
-			<span class="mySmarties push-up">SMARTIES</span>
+	<ion-content padding="true" class="padding has-header fade-bg" id="myProfile">
+		<div class="mySmarties-box dark calm-bg ">
+			<div class="mySmarties bold big text-center">{{smarties}}</div>
+			<span class="mySmarties title text-center">SMARTIES</span>
 		</div>
-		<div class="list card cardLogin rounded" id="myProfile-card21" style="background: #f7f6f6">
+		<div class="card cardLogin rounded">
+			<div class="text-center">
+				<img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg" class="user-avatar" alt="">
 
-			<div class="item stable-bg">
-				<div class="col text-center" style="position:relative;">
-					<img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg" class="user-avatar" alt="">
-
-					<h1><span class="teal">[</span>{{userName}}<span class="teal">]</span></h1>
+				<h1><span class="calm">[</span>{{userName}}<span class="calm">]</span></h1>
+			</div>
+			<hr />
+			<div class="list form-tamplate">
+				<label class="item item-input">
+            			<span class="input-label"><span class="calm">[</span> User Name:</span>
+              			<input type="text" disabled ng-model="userName">
+            		</label>
+				<label class="item item-input">
+            			<span class="input-label"><span class="calm">[</span> Email:</span>
+              			<input type="text" disabled ng-model="email">
+            		</label>
+				<label class="item item-input">
+            			<span class="input-label"><span class="calm">[</span> Password:</span>
+              			<input type="text" disabled ng-model="password">
+            		</label>
+				<label class="item item-input">
+            			<span class="input-label"><span class="calm">[</span> CarId:</span>
+              			<input type="text" disabled ng-model="carId">
+            		</label>
+			</div>
+			<div class="text-center push-up">
+				<span class="calm">[ </span>Profile options:<span class="calm"> ]</span>
+			</div>
+			<div class="button-bar">
+				<div class="button-with-title">
+					<a ui-sref="menu.home" class="button button-dark  button-block icon ion-android-delete circle-button"></a>
+					<div class="lowerTitle">
+						<span class="calm">[</span>
+						<span style="color: #000000">
+								<b>DELETE</b>
+							</span>
+						<span class="calm"> ]</span>
+					</div>
+				</div>
+				<div class="button-with-title">
+					<a ng-click="getInfoFromServer()" disabled class="button button-calm  button-block icon ion-edit circle-button"></a>
+					<div class="lowerTitle">
+						<span class="calm">[</span>
+						<span style="color: #000000">
+								<b>EDIT</b>
+							</span>
+						<span class="calm"> ]</span>
+					</div>
 				</div>
 			</div>
-			<ion-item class="item" id="myProfile-list-item15" style="background: #f7f6f6;">
-				<div class="list" style="background: #f7f6f6">
-					<label class="item item-input" style="background: #f7f6f6;">
-            			<span class="input-label"><span style="color: #2dace2">[</span> User Name:</span>
-              			<input type="text"  ng-model="userName">
-            		</label>
-					<label class="item item-input" style="background: #f7f6f6;">
-            			<span class="input-label"><span style="color: #2dace2">[</span> Email:</span>
-              			<input type="text" ng-model="email">
-            		</label>
-					<label class="item item-input" style="background: #f7f6f6;">
-            			<span class="input-label"><span style="color: #2dace2">[</span> Password:</span>
-              			<input type="text" ng-model="password">
-            		</label>
-					<label class="item item-input" style="background: #f7f6f6;">
-            			<span class="input-label"><span style="color: #2dace2">[</span> CarId:</span>
-              			<input type="text" ng-model="carId">
-            		</label>
-				</div>
-			</ion-item>
 		</div>
 	</ion-content>
 </ion-view>

@@ -1,4 +1,4 @@
-angular.module('app.services', ['ngStorage'])
+angular.module('app.services', [])
 
 	.factory('BlankFactory', [function() {
 

@@ -1,48 +1,51 @@
-<ion-view id="page7">
+<ion-view id="myHistory" class="maps-bg">
 	<ion-nav-title align-title="center">
 		<span class="calm">[</span> HISTORY
 		<span class="calm">]</span>
 	</ion-nav-title>
-	<ion-content class="maps-bg">
-		<!-- <ion-tabs class="tabs-icon-top"> -->
-		<!-- <ion-tab title="searches" icon="ion-search" ng-controller="MyCtrlSearchesHistory"> -->
-		<!-- <ion-view> -->
-		<!-- <ion-content class="maps-bg"> -->
-		<!-- <br/><br/> -->
-		<div class="history-list">
-			<ion-list show-delete="data.showDelete">
-				<ion-item item="item" ng-if="items.length===0">
-					<h2>אין תוצאות</h2>
-				</ion-item>
-				<ion-item class="history" ng-repeat="item in items" item="item" href="#/item/{{item.id}}" class="item-remove-animate">
-					<h2>{{item.time}}</h2>
-					<p>{{item.location}}</p>
-				</ion-item>
-			</ion-list>
-		</div>
-		<!-- </ion-content> -->
-		<!-- </ion-view> -->
-		<!-- </ion-tab> -->
-		<!-- <ion-tab title="reports" icon="ion-document-text" ng-controller="MyCtrlReportsHistory"> -->
-		<!-- <ion-view> -->
-		<!-- <ion-content class="maps-bg"> -->
-		<!-- <br/><br/> -->
-		<div class="history-list">
-			<ion-list show-delete="data.showDelete">
-				<ion-item item="item" ng-if="items2.length===0">
-					<h2>אין תוצאות</h2>
-				</ion-item>
-				<ion-item ng-repeat="item in items2" item="item" href="#/item/{{item.id}}" class="item-remove-animate">
-					<h2>{{item.time}}</h2>
-					<p>{{item.location}}</p>
-					<ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">
-					</ion-delete-button>
-				</ion-item>
-			</ion-list>
-		</div>
-		<!-- </ion-content> -->
-		<!-- </ion-view> -->
-		<!-- </ion-tab> -->
-		<!-- </ion-tabs> -->
+	<ion-content class="padding fade-bg ">
+		<ion-scroll direction="y">
+			<div class="list no-wrap">
+				<div ng-show="choice1" class="item rounded stable-bg">
+					<div class="item item-divider text-center" ng-if="bookings.length===0">
+						<h2>No result!</h2>
+					</div>
+					<div class="item calm-bg-light" ng-repeat="item in bookings">
+						<h3><span class="calm">[</span> TIME: <small>{{item.time}}</small></h3>
+						<h3><span class="calm">[</span> LOCATION: <small>{{item.location}}</small></h3>
+					</div>
+				</div>
+				<div ng-show="choice2" class="item rounded stable-bg">
+					<div class="item item-divider text-center" ng-if="parkings.length===0">
+						<h2>No result!</h2>
+					</div>
+					<div class="item dark-bg-light" ng-repeat="item in parkings">
+						<h3><span class="calm">[</span> TIME: <small>{{item.time}}</small></h3>
+						<h3><span class="calm">[</span> LOCATION: <small>{{item.location}}</small></h3>
+					</div>
+				</div>
+			</div>
 	</ion-content>
+	<div class="button-bar">
+		<div class="button-with-title ">
+			<a ng-click="choice2=1 ; choice1=0" class="button button-dark button-block circle-button"><img  src="./img/out.png" ></a>
+			<div class="lowerTitle ">
+				<span class="calm">[</span>
+				<span class="dark">
+					<b>MY-OUT's</b>
+				</span>
+				<span class="calm "> ]</span>
+			</div>
+		</div>
+		<div class="button-with-title ">
+			<a ng-click="choice1=1 ; choice2=0" class="button button-calm button-block circle-button"><img  src="./img/in.png" ></a>
+			<div class="lowerTitle ">
+				<span class="calm">[</span>
+				<span class="dark">
+					<b>MY-IN's</b>
+				</span>
+				<span class="calm "> ]</span>
+			</div>
+		</div>
+	</div>
 </ion-view>

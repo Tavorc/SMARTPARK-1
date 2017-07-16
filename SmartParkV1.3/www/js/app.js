@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives', 'app.services', 'uiGmapgoogle-maps', 'googlemaps.init', 'ionic.cloud', 'ngStorage'])
+angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives', 'app.services', 'uiGmapgoogle-maps', 'googlemaps.init', 'ionic.cloud'])
 
 	.config(function($ionicConfigProvider, $sceDelegateProvider, $ionicCloudProvider, $stateProvider, $urlRouterProvider) {
 		$ionicCloudProvider.init({
@@ -48,87 +48,86 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 		$ionicPlatform.ready(function() {
 			// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 			// for form inputs)
-			cordova.plugins.notification.local.on("click", function(notification) {
-				cordova.plugins.notification.local.cancel(notification.id, function() {
-					// Notification was cancelled
-					var confirmPopup = $ionicPopup.confirm({
-						title: 'Time to parking',
-						template: 'Is parking available?'
-					});
-					var selectedParking = $localStorage.chosenParking;
-					confirmPopup.then(function(res) {
-						if (res) {
-							// if yes: incPoints(publisherId);
-							$http
-							.get(`http://smartparkil.herokuapp.com/incPoints/${selectedParking.publisherId}/1`)
-							//http://smartserver1.herokuapp.com/
-							//http://localhost:8000/
-							//https://smartparkil.herokuapp.com/
-							.success(function(response) {
-							var message = 'You got a SMARTIES! :)'
-
-								console.log(`success: ${response}`);
-								sendPush.pushToPublisher(selectedParking.publisherToken, massege); //NOTE here is the push service
-								//DAVID tell to server that the parking is avialible and the publisher need to get 1 smartiz
+			if(window.cordova)
+				cordova.plugins.notification.local.on("click", function(notification) {
+					ordova.plugins.notification.local.cancel(notification.id, function() {
+						// Notification was cancelled
+						var confirmPopup = $ionicPopup.confirm({
+							title: 'Time to parking',
+							template: 'Is parking available?'
+						});
+						var selectedParking = $localStorage.chosenParking;
+						confirmPopup.then(function(res) {
+							if (res) {
+								// if yes: incPoints(publisherId);
 								$http
-								.get(`https://smartparkil.herokuapp.com/setParking/${selectedParking.parkingId}/false`)
-								.success(obj => $state.go('home'))
-								.error(function(err) {throw err});
-							})
-							.error(function(answer) {
-								console.log(`error while trying to update points!`);
-							});
-
-						} else {
-							var myPopup = $ionicPopup.show({
-								template: '<input type="text"  ng-model="data.carNum">',
-								title: 'Enter Number of car',
-								subTitle: 'Car that parking',
-								scope: $scope,
-								buttons: [{
-										text: 'Cancel'
-									},
-									{
-										text: '<b>Save</b>',
-										type: 'button-positive',
-										onTap: function(e) {
-											if (!$scope.data.carNum) {
-												e.preventDefault();
-											} else {
-												return $scope.data.carNum;
-											}
-										}
-									}
-								]
-							});
-							myPopup.then(answer => {
-								var points = 1;
-								if (answer != selectedParking.carId)
-									points *= (-1);
-								$http
-								.get(`https://smartparkil.herokuapp.com/incPoints/${selectedParking.publisherId}/${points}`)
+								.get(`http://smartparkil.herokuapp.com/incPoints/${selectedParking.publisherId}/1`)
 								//http://smartserver1.herokuapp.com/
 								//http://localhost:8000/
 								//https://smartparkil.herokuapp.com/
 								.success(function(response) {
+								var message = 'You got a SMARTIES! :)'
+
 									console.log(`success: ${response}`);
-									$state.go('home')
+									sendPush.pushToPublisher(selectedParking.publisherToken, massege);
+									$http
+									.get(`https://smartparkil.herokuapp.com/setParking/${selectedParking.parkingId}/false`)
+									.success(obj => $state.go('home'))
+									.error(function(err) {throw err});
 								})
 								.error(function(answer) {
 									console.log(`error while trying to update points!`);
 								});
-							})
-						}
-					});
-					console.log('notification is cancelled : ' + notification.id);
-				}, '');
-			});
+
+							} else {
+								var myPopup = $ionicPopup.show({
+									template: '<input type="text"  ng-model="data.carNum">',
+									title: 'Enter Number of car',
+									subTitle: 'Car that parking',
+									scope: $scope,
+									buttons: [{
+											text: 'Cancel'
+										},
+										{
+											text: '<b>Save</b>',
+											type: 'button-positive',
+											onTap: function(e) {
+												if (!$scope.data.carNum) {
+													e.preventDefault();
+												} else {
+													return $scope.data.carNum;
+												}
+											}
+										}
+									]
+								});
+								myPopup.then(answer => {
+									var points = 1;
+									if (answer != selectedParking.carId)
+										points *= (-1);
+									$http
+									.get(`https://smartparkil.herokuapp.com/incPoints/${selectedParking.publisherId}/${points}`)
+									//http://smartserver1.herokuapp.com/
+									//http://localhost:8000/
+									//https://smartparkil.herokuapp.com/
+									.success(function(response) {
+										console.log(`success: ${response}`);
+										$state.go('home')
+									})
+									.error(function(answer) {
+										console.log(`error while trying to update points!`);
+									});
+								})
+							}
+						});
+						console.log('notification is cancelled : ' + notification.id);
+					}, '');
+				});
 			if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
 				cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 				cordova.plugins.Keyboard.disableScroll(true);
 			}
 			if (window.StatusBar) {
-				// org.apache.cordova.statusbar required
 				StatusBar.styleDefault();
 			}
 		});
