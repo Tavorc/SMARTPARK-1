@@ -118,7 +118,6 @@
 		.controller('outCtrl', ['$scope', '$http', '$state', '$stateParams', '$cordovaCamera', '$localStorage', '$ionicLoading', 'UserService', '$ionicPush', 'd3TimeFormat', '$rootScope',
 			function($scope, $http, $state, $stateParams, $cordovaCamera, $localStorage, $ionicLoading, UserService, $ionicPush, d3TimeFormat, $rootScope) {
 				var publisherEmail = UserService.getUser().email;
-
 				$scope.location = {};
 				var registerLocation = $scope.$watch('$root.location', function() {
 					if($rootScope.location){
@@ -139,7 +138,6 @@
 						registerLocation();
 					}
 				});
-
 				$scope.time = {
 					d: null,
 					t: null
@@ -285,11 +283,6 @@
 						title: "Notifcations status changed",
 						template: notificationAlert
 					});
-
-					alertPopup.then(function(res) {
-						console.log('Thank you for not eating my delicious ice cream cone');
-					});
-					console.log('Push Notification Change', $scope.pushNotification.checked);
 				};
 				$scope.googleLogOut = function() {
 					var hideSheet = $ionicActionSheet.show({
@@ -304,8 +297,6 @@
 							window.plugins.googleplus.logout(
 								function(msg) {
 									console.log(msg);
-									var user = UserService.getUser();
-									$ionicAuth.logout();
 									$localStorage.flagMap = true;
 									$state.go('login');
 								},
@@ -326,7 +317,6 @@
 			function($scope, $stateParams, $http, $ionicLoading, $ionicSideMenuDelegate, $state, $ionicPush, UserService, $ionicAuth, $ionicPopup, $localStorage, $ionicUser) {
 					$scope.$on('cloud:push:notification', function(event, data) {
 					var msg = data.message;
-					//alert(msg.title + ': ' + msg.text);
 						var alertPopup = $ionicPopup.alert({
 							title: msg.text,
 							});
@@ -351,11 +341,9 @@
 				document.addEventListener('deviceready', deviceReady, false);
 
 				function deviceReady() {
-					console.log('Device is ready!');
 					window.plugins.googleplus.trySilentLogin({},
 						function(obj) {
 							UserService.setUser(obj);
-							console.log(UserService.getUser());
 							$localStorage.flagMap = false;
 							$state.go('menu.home');
 						},
@@ -370,9 +358,7 @@
 					});
 							window.plugins.googleplus.login({},
 								function(user_data) {
-									console.log(UserService.getUser());
-									var register = false,
-										emailToCheck = user_data.email,
+										var emailToCheck = user_data.email,
 										userPass = 'gtoken';
 									$http
 										.get('https://smartparkil.herokuapp.com/readUser/' + emailToCheck + '/' + userPass)
@@ -426,6 +412,7 @@
 																					givenName: user_data.givenName,
 																					email: user_data.email
 																				};
+																			UserService.setUser(userData);
 																			$localStorage.flagMap = true;
 																			$state.go('menu.home');
 																			return $scope.data.numCar; //if TRUE continue code needs to get here..
@@ -480,7 +467,7 @@
 						throw 'Please insert correct email and password!';
 					}
 					//formSignInParams
-					var emailU = $scope.details.email;
+					var email = $scope.details.email;
 					console.log($scope.details.email);
 					var details = {
 						'email': $scope.details.email,
@@ -505,8 +492,8 @@
 								console.log('user found! do some code here...');
 								$localStorage.userLoginData = response;
 								var userData = {
-									givenName: emailU.substring(0, emailU.lastIndexOf("@")),
-									email: emailU
+									givenName: email.substring(0, emailU.lastIndexOf("@")),
+									email: email
 								};
 								UserService.setUser(userData);
 								$ionicAuth.login('basic', details).then(function() {
@@ -558,14 +545,14 @@
 					$ionicLoading.hide();
 					var parkReportValue = $localStorage.reportParkCoords;
 					if (parkReportValue == null) {
-						$localStorage.reportParkCoords = { // FIXME: what is it for?
+						$localStorage.reportParkCoords = { // FIXME: what is it for? This is for remember the status after kill the app
 							lat: -86,
 							lng: -86
 						};
 						console.log($localStorage.reportParkCoords);
 					}
 					if ($localStorage.flagChose == false) {
-						var locSelect = { // FIXME: what is it for?
+						var locSelect = { // FIXME: what is it for?This is for remember the status after kill the app
 							lat: -86,
 							lng: -86
 						};
@@ -583,10 +570,8 @@
 								maximumAge: 30000
 							};
 							navigator.geolocation.getCurrentPosition(function(position) {
-								var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 								var geocoder = new google.maps.Geocoder();
-								var latitude = position.coords.latitude;
-								var longitude = position.coords.longitude;
+								var latitude = position.coords.latitude,longitude = position.coords.longitude;
 								var location = {
 									lat: latitude,
 									lng: longitude
@@ -638,7 +623,6 @@
 								},
 								position: new google.maps.LatLng(locationResult.lat, locationResult.lng), // NOTE: pos.coords.latitude, pos.coords.longitude
 								map: map,
-
 								title: "My Location"
 							});
 							$scope.myLocation = myLocation;
@@ -924,36 +908,7 @@
 					console.log($localStorage.answer);
 					var massege = " ";
 					var locations = $localStorage.answer.results;
-
-					function getLocation(callback) { //NOTE: can be as a service component
-						var options = {
-							enableHighAccuracy: true,
-							timeout: 10000,
-							maximumAge: 30000
-						};
-						navigator.geolocation.getCurrentPosition(function(position) {
-							var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-							var geocoder = new google.maps.Geocoder();
-							var latitude = position.coords.latitude;
-							var longitude = position.coords.longitude;
-							var location = {
-								lat: latitude,
-								lng: longitude
-							}
-							callback(location);
-						}, geolocationError, options);
-
-						function geolocationError(error) {
-							console.log('error');
-							$ionicPopup.alert({
-								title: "You need to Enable Location Services!!",
-								subTitle: error.message,
-								template: JSON.stringify(error)
-							});
-						}
-					}
-
-					getLocation(function(locationResult) {
+					var locationResult=$localStorage.myLocationStore;
 						var myLatlng = new google.maps.LatLng(locationResult.lat, locationResult.lng);
 
 						var mapOptions = {
@@ -967,11 +922,6 @@
 
 						var map = new google.maps.Map(document.getElementById("mapAvblParking"), mapOptions);
 						var geocoder = new google.maps.Geocoder();
-						// geocoder.geocode({
-						// 	address: 'telAviv ,ISRAEL'
-						// }, function(results, status) {
-						// 	console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
-						// })
 						$scope.myLocation;
 						$scope.markers = [];
 						console.log($localStorage.searchCoords.lat, $localStorage.searchCoords.lng);
@@ -1126,7 +1076,6 @@
 						$scope.continue = function() {
 							$state.go('menu.out', $scope.chosenLocation)
 						}
-					});
 				};
 			}
 		])
@@ -1135,7 +1084,6 @@
 			function($scope, $stateParams, UserService, $localStorage, $http) {
 				$scope.userData = $localStorage.userLoginData; //NOTE: here is all the user info from login!
 				console.log($scope.userData);
-				var userN = UserService.getUser().givenName;
 				if ($scope.userData.password == "gtoken") {
 					$scope.userData.password = "No Password";
 				}
@@ -1205,7 +1153,6 @@
 						email: mail
 					};
 					UserService.setUser(userData);
-					// UserService.setUser(userDetails);
 					$http
 					.post('https://smartparkil.herokuapp.com/createUser/', userDetails)
 					.success(function(answer) {

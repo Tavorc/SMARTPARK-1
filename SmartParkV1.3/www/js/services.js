@@ -4,23 +4,6 @@ angular.module('app.services', [])
 
 	}])
 
-	.factory('StorageService', function($localStorage) {
-		$localStorage = $localStorage.$default({
-			locationSelect: {}
-		});
-		var _getAll = function() {
-			return $localStorage.locationSelect;
-		};
-		var _add = function(locationSelect) {
-			$localStorage.locationSelect = locationSelect;
-		}
-
-		return {
-			getAll: _getAll,
-			add: _add
-		};
-	})
-
 	.service('UserService', function() {
 
 		var setUser = function(user_data) {
@@ -36,7 +19,6 @@ angular.module('app.services', [])
 			setUser: setUser
 		};
 	})
-
 
 	.service('sendPush', function($http) {
 		this.pushToPublisher = function(publisherId, message) {
