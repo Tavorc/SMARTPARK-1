@@ -536,12 +536,44 @@
 					}, 200);
 					$localStorage.flagMap = false;
 				}
-				console.log($localStorage.userLoginData);
-
+				    var now=new Date();
+				    console.log("now : "+now);
+				    if($localStorage.myChoseDetails !=null ){
+				    	var dateTimeChoos = new Date($localStorage.myChoseDetails.time);
+				    	  if(dateTimeChoos.getTime() + 900000 < now.getTime() && $localStorage.myChose.lat != -86){
+							cordova.plugins.notification.local.cancel(10, function() {}, '');
+				    		$localStorage.flagChose = false;
+							var locSelect = {
+							lat: -86,
+							lng: -86
+							};
+							$localStorage.myChose = locSelect;
+							if ($localStorage.myChose.lat == -86) {
+						setTimeout(function() {
+						window.location.reload(true);
+						}, 300);
+						}
+				   	 }
+				    }
+				  if($localStorage.answerReporterDetails !=null){
+				    var dateTimeRepo = new Date($localStorage.answerReporterDetails.time);
+				  	   if( dateTimeRepo.getTime() + 900000 < now.getTime() && $localStorage.reportParkCoords.lat !=-86){
+					    var reportCoords = { // FIXME: what is it for?
+						lat: -86,
+						lng: -86
+						};
+						$localStorage.reportParkCoords = reportCoords;
+						if ($localStorage.reportParkCoords.lat == -86) {
+						setTimeout(function() {
+						window.location.reload(true);
+						}, 300);
+						}
+				    }
+				  }
 				// $scope.smarties = $localStorage.userLoginData.smarties;
 				$scope.smarties = 5; // FIXME: just for test: s/b $localStorage.userLoginData.smarties;
 				$scope.init = function() {
-
+				
 					$ionicLoading.hide();
 					var parkReportValue = $localStorage.reportParkCoords;
 					if (parkReportValue == null) {

@@ -50,7 +50,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 			// for form inputs)
 			if(window.cordova)
 				cordova.plugins.notification.local.on("click", function(notification) {
-					ordova.plugins.notification.local.cancel(notification.id, function() {
+					cordova.plugins.notification.local.cancel(notification.id, function() {
 						// Notification was cancelled
 						var confirmPopup = $ionicPopup.confirm({
 							title: 'Time to parking',
